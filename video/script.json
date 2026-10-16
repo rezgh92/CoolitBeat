@@ -1,0 +1,30 @@
+{
+  "voice": "en-us-ryan-medium",
+  "fps": 30,
+  "scenes": [
+    {"id": "title", "min_s": 9, "pad_s": 1.5,
+     "narration": "This is PRISM fifteen, revision A: a single-phase, all-copper cold plate, designed to beat Cool I T's fifteen-kilowatt plate at Cool I T's own operating point, built with conventional processes, and nothing printed."},
+    {"id": "benchmark", "min_s": 16, "pad_s": 1.2,
+     "narration": "Cool I T's brief reports one operating point: fifteen kilowatts over four ceramic heaters, eighteen litres per minute of water glycol at forty-five degrees inlet, an average case-to-inlet rise of thirty-four point four kelvin, and a hottest reading of forty-four point two. PRISM is predicted at thirty-one point one and thirty-eight point eight on the same paste, with one third of the pressure drop. Every PRISM number in this video is a model prediction until the first plates are tested."},
+    {"id": "exploded", "min_s": 26, "pad_s": 1.2,
+     "narration": "Fourteen copper parts, joined in one vacuum braze cycle. From the bottom: a skived core with three hundred and sixty fins; a land plate and a meter web that together form the grate; a plenum folded from a single sheet and held by two end frames; a separator; a drawn cap with six arches and two cross domes; two port bosses, and a guard. Every joint inside the plate can only bypass a little flow. The only seam to the outside is the skirt lap at the bottom edge."},
+    {"id": "core", "min_s": 22, "pad_s": 1.2,
+     "narration": "The core is skived from one copper blank. The fins are fifteen hundredths of a millimetre thick, at fifteen hundredths gaps, two millimetres tall, on a base that is fly-cut to zero point eight five millimetres after brazing. Fifteen saw kerfs cross the field at seven point seven millimetre pitch: seven feed lines and eight drain lines. Each kerf lets the coolant enter its fin segment over the full height of the fins, not just over the tips."},
+    {"id": "grate", "min_s": 24, "pad_s": 1.2,
+     "narration": "Above the fins sits the grate. A land plate, one point three millimetres thick, carries a window over every kerf and a recess on each feed line. On top of it, a meter web of zero point four millimetres holds seven hundred and fifty-six laser-pierced orifices. The orifices are graded in five sizes to cancel the pressure profile along the plenum, so every line receives the same flow within two percent, at any flow rate. The jets land on a lip of the land plate, never on the fins, and the orifices sit above the braze plane, where filler cannot reach them."},
+    {"id": "flow", "min_s": 40, "pad_s": 1.5,
+     "narration": "Follow one parcel of coolant. It enters the inlet boss, spreads through the cross dome into the two inlet arches, drops through the separator windows into seven plenum channels, and meters through an orifice at one and a half metres per second. It lands on the lip, turns down through the window into the kerf, and enters the fins over their full two-millimetre height. It runs just seven point seven millimetres along the fins, at zero point two metres per second, picking up heat; then it leaves through the next kerf, up through the outlet window and the outlet orifice row, into an outlet channel, into the four outlet arches, and out through the outlet boss. Every fin segment starts at inlet temperature. In a split-flow plate, the far edge runs on coolant that is already twelve kelvin warmer."},
+    {"id": "tie", "min_s": 20, "pad_s": 1.2,
+     "narration": "Now the detail that makes the thin base possible. Every fin tip is brazed to the lands of the grate. The base therefore sees pressure only between ties that are a third of a millimetre apart, so it can be zero point eight five millimetres thick and still carry ten bar with no bow at all. That is what lets a phase-change pad, or liquid metal, hold its rated resistance across a hundred-and-eight-millimetre face."},
+    {"id": "zoning", "min_s": 18, "pad_s": 1.2,
+     "narration": "The flow length follows the heat flux: five to six millimetres over compute dies, and up to twelve over the margins. A new package means a new laser-pierced meter web, in two to three weeks, not a new die. This example zones a four-die G P U with sixteen memory stacks, and sends eighty-eight percent of the flow to the dies."},
+    {"id": "manufacturing", "min_s": 24, "pad_s": 1.2,
+     "narration": "The stack goes into one fixture on two alumina pins, with photo-etched silver foils between the layers, and is brazed at seven hundred and ninety-five degrees in vacuum, sixty plates per load. After the braze, every plate is helium leak tested, screened by infrared, fly-cut to the final base thickness, flushed, proof tested at fifteen bar with a bulge scan that can see a single unbonded strip, and checked for pressure drop at three flows."},
+    {"id": "datasheet", "min_s": 22, "pad_s": 1.2,
+     "narration": "On the test vehicle, eight spring screws and a load frame apply two kilonewtons through the cap lands, never through the fin ties. The predicted datasheet, at fifteen kilowatts and eighteen litres per minute: twenty-nine point two kelvin average on a phase-change pad, thirty-four point nine maximum, seven point six kilopascals across the plate, and eighteen point four kilowatts of capacity at an eighty-five degree case."},
+    {"id": "honest", "min_s": 22, "pad_s": 1.2,
+     "narration": "What it does not win: price per plate, about thirty percent more; fouling life at equal filtration, so it ships with a tray filter; and it has no field record yet. The programme's first two point three million dollars buy the one answer that matters: whether the fin tips can be brazed reliably, and whether a missed strip can be seen at proof. Gate one at month three; a public O C P format result at month twelve."},
+    {"id": "closing", "min_s": 9, "pad_s": 2.0,
+     "narration": "PRISM fifteen, revision A. The architecture, the design definition, the parametric CAD, the predicted datasheet and the programme are in the design package."}
+  ]
+}

@@ -1,0 +1,20 @@
+{
+ "part": "guard",
+ "valid": true,
+ "solids": 1,
+ "volume_mm3": 416.6,
+ "mass_g": 3.3,
+ "bbox": [
+  -15.0,
+  -35.0,
+  14.8,
+  15.0,
+  -5.0,
+  22.8
+ ],
+ "stl": "/home/user/Rez/docs/cooling/cad/out/guard.stl",
+ "step": "/home/user/Rez/docs/cooling/cad/out/guard.step",
+ "step_MB": 0.0,
+ "step_xz_MB": 0.0,
+ "seconds": 0.0
+}

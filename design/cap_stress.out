@@ -1,0 +1,34 @@
+1. Stack: lid 12.1-13.1, arch internal 10.0 x 7.7 r3.5, crown external z 20.80 (architecture 20.8 recovered with the 1.8 separator by h_i 7.7 instead of 8.0)
+   arch area 71.7 mm2 (architecture 80.5); header per half: inlet 143 (161) -> 1.05 m/s, outlet 287 (322) -> 0.52 m/s; at 22.5 LPM inlet 1.31 m/s (cap 1.5)
+   header dP change vs architecture (K 1.0 on the inlet velocity head): +0.11 kPa
+   valley: external land 2.0, fluid-side flat 1.0, effective braze land 2.10 mm
+   window margin 1.00 each side vs position stack 0.25: min clear 0.75 (>= 0.5 wanted)
+2. Stresses at design burst 3.1 MPa (allowable 40 = SF 2 on yield at proof 1.55)
+   arch top flat 3.0 span                                         14.0 MPa at 3.1  |  SF at proof 5.73  ok
+   arch side wall 4.2 straight                                    27.3 MPa at 3.1  |  SF at proof 2.93  ok
+   arch crown corner hoop r_i 3.5 (pr/t)                          10.8 MPa at 3.1  |  SF at proof 7.37  ok
+   arch end dome r_i 5 at 0.70 wall (30 % draw thinning)          22.1 MPa at 3.1  |  SF at proof 3.61  ok
+   dome side wall (same section)                                  27.3 MPa at 3.1  |  SF at proof 2.93  ok
+   dome plan-corner cylinder r_i 6 hoop                           18.6 MPa at 3.1  |  SF at proof 4.30  ok
+   dome top ligament 2.5 carrying the boss ring (line load 20.1 N/mm)   37.8 MPa at 3.1  |  SF at proof 2.12  ok
+   dome top shear at the boss ring                                20.1 MPa at 3.1  |  SF at proof 3.97  ok
+   dome in wall membrane, dome foot only (100 mm, no arch-wall share)   38.0 MPa at 3.1  |  SF at proof 2.11  ok
+   dome in wall membrane with the arch walls as T-stiffeners (140 mm)   27.1 MPa at 3.1  |  SF at proof 2.95  ok
+   dome out wall membrane, dome foot only (86 mm, no arch-wall share)   47.9 MPa at 3.1  |  SF at proof 1.67  FLAG
+   dome out wall membrane with the arch walls as T-stiffeners (146 mm)   28.2 MPa at 3.1  |  SF at proof 2.83  ok
+   skirt wall 9.3 free span if cavity wetted, at MAWP (secondary)   44.5 MPa at 3.1  |  SF at proof 1.80  FLAG
+   arch walls as beams over the 12 mm spine crossing              37.6 MPa at 3.1  |  SF at proof 2.13  ok
+   dome walls: bound by the two cases above; E1 FEA decides (O-C1)
+   tie ribs: none needed; every flat panel is <= 3.0 mm span or carried by the brazed boss ring (E1 FEA on the domes)
+3. External seams
+   lap: radial gap 0.050 nominal (-0.000-0.100 with +-0.05 on both faces); lap 1.3 tall, 627 mm2; shear 0.94 MPa at 3.1 (BAg-8 shear >= 150: SF 159)
+   BAg-8 ring 0.5 wire x 499 mm = 98 mm3 (0.98 g) vs need 92 mm3
+   boss joint: face 217 mm2 + pocket wall 82 mm2; load 1174 N -> 5.4 MPa; ring 0.6 wire d26.5 = 24 mm3 vs need 23 mm3
+4. Draw feasibility (annealed OFE 1.0, n ~0.45, elongation >= 45 %, LDR ~2.1)
+   arch section developed 25.5 mm per 14.0 pitch: 82 % if stretched in place -> NOT formable without feed; station 1 forms the arches centre-outward with free blank feed from the y edges (69 mm total draw-in)
+   arch end (half cup d 12 x 8.7 deep): equivalent cup ratio 1.97 (limit ~2.1); feed from the x blank margin; thinning <= 30 % accepted (hoop at 0.70 wall 22 MPa)
+   skirt box draw: equivalent ratio 1.15; corners drawn at r_i 3 then re-struck to r_i 1.0 (mech IR-M2)
+   blank 188 x 233 x 1.0 = 393 g buy; springback at r/t 3.5-4.5 about 1 deg -> die over-bend 1.5 deg
+5. Guard: 316L 50 um abs square weave cup under the inlet dome (installed before braze)
+   area 17.4 cm2 (25 wanted): face 0.17 m/s, mesh dP 0.17 kPa, under-cup exit 0.95 m/s 0.23 kPa -> guard 0.40 kPa (0.30 booked)
+6. Mass: cap 279 g (CAD provisional 259.5), bosses 38 g (2), guard ~6 g; mech allocation 250

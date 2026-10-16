@@ -1,0 +1,52 @@
+## 1. Benchmark point 15 kW, 18 LPM PG25, 45 C, 117 cm2 -- PRISM-15 (R6 = 12 mm slot pitch)
+| case | cal | TIM | base | conv | corr | avg | max | max-avg | R'' | Tcase,max | Qcap (1.2 LPM/kW) | T_in max (85 C case / 65 C return) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| R6 paste 0.07 like-for-like | 7.6 | 9.0 | 3.3 | 10.5 | -0.0 | **30.4** | **37.2** | 6.9 | 0.237 | 82.2 | 16.6 | 47.8 (47.8 / 52.3) |
+| R6 PCM 25 psi (TTV headline) | 7.6 | 7.1 | 3.3 | 10.5 | -0.0 | **28.4** | **33.3** | 4.9 | 0.222 | 78.3 | 19.4 | 51.7 (51.7 / 52.3) |
+| R6 PCM real-package retention 0.07 | 7.6 | 9.0 | 3.3 | 10.5 | -0.0 | **30.4** | **35.2** | 4.9 | 0.237 | 80.2 | 17.9 | 49.8 (49.8 / 52.3) |
+| R6 LM Tier 2 | 7.6 | 1.9 | 3.3 | 10.5 | -0.0 | **23.3** | **27.3** | 4.0 | 0.182 | 72.3 | 26.4 | 52.3 (57.7 / 52.3) |
+| R6 PCM base 0.8 (stretch) | 7.6 | 7.1 | 2.6 | 10.5 | -0.0 | **27.8** | **32.6** | 4.9 | 0.217 | 77.6 | 20.0 | 52.3 (52.4 / 52.3) |
+| R4 paste (PSM-like pitch, kerfed) | 7.6 | 9.0 | 3.3 | 10.5 | +1.1 | **31.5** | **37.3** | 5.9 | 0.246 | 82.3 | 16.5 | 47.7 (47.7 / 52.3) |
+| P4 paste (filtration-gated) | 8.2 | 9.0 | 3.3 | 6.8 | +0.1 | **27.4** | **33.6** | 6.2 | 0.213 | 78.6 | 19.3 | 51.4 (51.4 / 52.3) |
+| P4 PCM | 8.2 | 7.1 | 3.3 | 6.8 | +0.1 | **25.4** | **29.7** | 4.2 | 0.198 | 74.7 | 23.3 | 52.3 (55.3 / 52.3) |
+| P4 LM | 8.2 | 1.9 | 3.3 | 6.8 | +0.1 | **20.3** | **23.6** | 3.3 | 0.158 | 68.6 | 34.1 | 52.3 (61.4 / 52.3) |
+| R6 D2D LM base 0.8 | 7.6 | 1.9 | 2.6 | 10.5 | -0.0 | **22.6** | **26.6** | 4.0 | 0.177 | 71.6 | 27.4 | 52.3 (58.4 / 52.3) |
+CoolIT measured: 34.4 / 44.2, max-avg 9.8, R'' 0.269 (117 cm2 basis), Tcase,max 89.2, Qcap ~12.9 kW, T_in max 40.8 C
+CoolIT re-tested on PCM (estimate): 32.5 / 40.3
+
+## 2. Footprint sensitivity (same 15 kW): our plate tested at CoolIT's possible footprint
+A 100 cm2 (150 W/cm2): R6 paste 34.0/41.7; R6 PCM 31.7/37.1; R6 LM 25.7/30.1; P4 paste 30.3/37.4 | CoolIT 34.4/44.2, CoolIT-PCM 32.1/39.6
+A 117 cm2 (128 W/cm2): R6 paste 30.4/37.2; R6 PCM 28.4/33.3; R6 LM 23.3/27.3; P4 paste 27.4/33.6 | CoolIT 34.4/44.2, CoolIT-PCM 32.5/40.3
+A 120 cm2 (125 W/cm2): R6 paste 29.8/36.5; R6 PCM 27.9/32.7; R6 LM 22.9/26.8; P4 paste 26.9/33.0 | CoolIT 34.4/44.2, CoolIT-PCM 32.5/40.4
+A 145 cm2 (103 W/cm2): R6 paste 26.3/32.1; R6 PCM 24.7/28.9; R6 LM 20.6/24.1; P4 paste 24.1/29.4 | CoolIT 34.4/44.2, CoolIT-PCM 32.8/41.0
+
+## 3. Monte Carlo (20k): as-published comparison at our 117 cm2 TTV, and footprint-fair at CoolIT's A ~ tri(100,120,145)
+| case | avg P10/P50/P90 | max P10/P50/P90 | P(avg<34.4) pub / fair | P(max<44.2) pub / fair | P(beat same-TIM CoolIT: avg / max), fair |
+|---|---|---|---|---|---|
+| R6 paste | 27.4/30.6/34.7 | 34.2/37.7/42.0 | 0.88 / 0.90 | 0.97 / 0.96 | 0.90 / 0.96 |
+| R6 PCM 25 psi | 26.2/28.7/31.7 | 31.0/33.7/36.9 | 0.99 / 0.98 | 1.00 / 1.00 | 0.97 / 0.99 |
+| R6 PCM pkg 0.07 | 28.1/30.6/33.6 | 32.9/35.6/38.8 | 0.94 / 0.94 | 1.00 / 1.00 | 0.97 / 0.99 |
+| R6 LM | 21.8/23.6/25.8 | 25.6/27.7/30.1 | 1.00 / 1.00 | 1.00 / 1.00 | 0.99 / 1.00 |
+| P4 paste | 24.7/27.5/31.6 | 30.8/34.0/38.1 | 0.98 / 0.98 | 1.00 / 1.00 | 0.98 / 1.00 |
+| P4 PCM | 23.5/25.6/28.3 | 27.7/30.0/32.8 | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
+
+## 4. CoolIT 4 kW point (25 cm2, 4 kW, 6 LPM = 1.5 LPM/kW); CoolIT spec < 0.009 C/W max-case incl TIM
+R4 PCM: avg 32.6 max 37.1 -> 0.0093 C/W
+R4 paste: avg 35.0 max 42.0 -> 0.0105 C/W
+R4 LM: avg 26.2 max 29.5 -> 0.0074 C/W
+R4 PCM base 0.8: avg 31.8 max 36.2 -> 0.0091 C/W
+R6 PCM: avg 31.5 max 37.1 -> 0.0093 C/W
+P4 PCM: avg 27.4 max 32.4 -> 0.0081 C/W
+P4 paste: avg 29.8 max 37.3 -> 0.0093 C/W
+(CoolIT-like reconstruction at 25 cm2: 0.0127 C/W -- overpredicts the real <0.009)
+
+## 5. 25-30 kW and wafer-scale (PCM / LM), 1.2 LPM/kW
+25 kW on 117 cm2 (R6): PCM25: 41.4/48.5 (Tcase,max 94 C); LM: 32.9/38.5 (Tcase,max 83 C)
+30 kW on 150 cm2 (R6): PCM25: 39.3/46.1 (Tcase,max 91 C); LM: 31.3/36.7 (Tcase,max 82 C)
+20 kW on 460 cm2 (R8): PCM25: 16.2/19.1 (Tcase,max 64 C); LM: 14.4/17.1 (Tcase,max 62 C)
+
+## 6. Real 2027-28 package, 4 dies 26x33 mm at 350 W/cm2 + 16 HBM, zoned, hottest die cell (fit 33 + 3500/h_eff + 350(R-0.05)) + 2-D diff
+R die-zone L5, H2.0 (h_eff 129): paste 0.05: 61.7 K (107 C); PCM 0.055: 63.4 K (108 C); LM 0.015: 49.4 K (94 C)
+R die-zone L5, H2.5 (h_eff 136): paste 0.05: 60.4 K (105 C); PCM 0.055: 62.1 K (107 C); LM 0.015: 48.1 K (93 C)
+P die-zone L4 (h_eff 195): paste 0.05: 51.1 K (96 C); PCM 0.055: 52.9 K (98 C); LM 0.015: 38.9 K (84 C)
+CoolIT-like split-flow: 88.6 K paste (134 C), ~76 K LM (121 C). Direct-to-die removes lid + TIM1 ~28 K at the junction.

@@ -1,0 +1,67 @@
+{
+ "_meta": {
+  "doc": "DDD-mfg.md",
+  "date": "2026-10-15",
+  "source": "mfg_cost.py"
+ },
+ "fixture": {
+  "p_target_MPa": 0.08,
+  "F_hot_N": 1250,
+  "n_tzm_springs": 8,
+  "spring_LxBxT_mm": [
+   80.0,
+   20.0,
+   2.5
+  ],
+  "k_total_N_per_mm": 5468.8,
+  "thermal_interference_mm": 0.137,
+  "cold_preload_mm": 0.092,
+  "pads": "graphite ISO-63 class, top pad profiled to the cap arches, bottom pad stepped 1.30 under the ears"
+ },
+ "furnace": {
+  "cycle_h": 5.5,
+  "plates_per_load": 60,
+  "range": [
+   30,
+   80
+  ],
+  "plates_per_furnace_year": 77168,
+  "furnaces_100k": 1.39,
+  "braze_T_C": 795,
+  "vacuum_mbar": 1e-05
+ },
+ "cost_usd": {
+  "100k": 165.2,
+  "10k": 388,
+  "direct_sum_100k": 137.9,
+  "overhead": 0.12,
+  "architecture_100k": 165,
+  "verifier_C1_P50": 162,
+  "lines_100k": {
+   "CORE copper blank 0.76 kg OFE": 11.1,
+   "GRT-L + GRT-W strip 0.28 kg": 4.1,
+   "PLN-C + PLN-F strip/bar 0.22 kg": 3.2,
+   "SEP + CAP + BOSS blanks 0.26 kg": 3.7,
+   "Skive (incl. blank mill, pocket, plane)": 20.5,
+   "Kerf gang-saw, wax, de-wax, deburr": 2.8,
+   "GRT-L mill/punch/groove/skim": 3.3,
+   "GRT-W laser pierce + EP + vision": 3.0,
+   "PLN-C pierce + fold + PLN-F + tack": 4.4,
+   "SEP stamp/laser + flatten": 1.5,
+   "CAP draw (3 stations) + trim + 2 BOSS machine + braze bosses": 6.3,
+   "Filler BAg-8 preforms PF-1..PF-4 (~5.1 g) or Ag plate": 14.7,
+   "Vacuum braze (fixture amortised, 1.6 furnaces/100k)": 17.6,
+   "Dies and tooling amortisation": 2.0,
+   "Fly-cut face, pedestal, in-line ultrasonic gauge": 5.6,
+   "TAP x2, GUARD, stubs/adapters, Ni plate (T2 only, excluded)": 8.3,
+   "Hardware: 8 CSS-15P/SPR-60/SLV/WSH/clips, LF-15P frame, pins, pack": 14.0,
+   "Test: clean, He leak, proof+scan, dP, IR, bake, pack": 11.8
+  }
+ },
+ "yield": {
+  "100k": 0.935,
+  "10k": 0.8
+ },
+ "bom_csv": "bom.csv",
+ "plate_mass_g": 1250
+}

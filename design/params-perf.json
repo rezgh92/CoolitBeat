@@ -1,0 +1,369 @@
+{
+ "key": "perf",
+ "date": "2026-10-16",
+ "doc": "docs/cooling/design/DDD-perf.md",
+ "basis": "final_thermal.py method, base 0.85, meter 2.31, row 0.50, seg max/min 1.092, 20 mm ports, PG25 k 0.49, 117 cm2, 15 kW, 45 C",
+ "benchmark_18lpm": {
+  "paste": {
+   "avg_K": 31.11,
+   "max_K": 38.81,
+   "R_avg_mK_W": 2.074,
+   "R_max_mK_W": 2.587,
+   "Rpp_avg_cm2K_W": 0.2426,
+   "Rpp_max_cm2K_W": 0.3027
+  },
+  "PCM": {
+   "avg_K": 29.19,
+   "max_K": 34.88,
+   "R_avg_mK_W": 1.946,
+   "R_max_mK_W": 2.326,
+   "Rpp_avg_cm2K_W": 0.2276,
+   "Rpp_max_cm2K_W": 0.2721
+  },
+  "LM": {
+   "avg_K": 24.06,
+   "max_K": 28.85,
+   "R_avg_mK_W": 1.604,
+   "R_max_mK_W": 1.924,
+   "Rpp_avg_cm2K_W": 0.1876,
+   "Rpp_max_cm2K_W": 0.2251
+  }
+ },
+ "shift_vs_architecture_K": {
+  "paste": [
+   0.14,
+   0.09
+  ],
+  "PCM": [
+   0.14,
+   0.08
+  ],
+  "LM": [
+   0.14,
+   0.08
+  ]
+ },
+ "rated_15lpm": {
+  "paste": [
+   32.9,
+   41.0
+  ],
+  "PCM": [
+   30.9,
+   37.1
+  ]
+ },
+ "dp_kPa": {
+  "3.75": {
+   "plate": 0.57,
+   "inertial": 0.27,
+   "viscous": 0.31,
+   "with_barbs": 0.7,
+   "with_barbs_uqd08_cv4p75": 1.3,
+   "with_barbs_uqd08_cv3p65": 1.7
+  },
+  "7.5": {
+   "plate": 1.68,
+   "inertial": 1.06,
+   "viscous": 0.61,
+   "with_barbs": 2.2,
+   "with_barbs_uqd08_cv4p75": 4.6,
+   "with_barbs_uqd08_cv3p65": 6.3
+  },
+  "11.25": {
+   "plate": 3.31,
+   "inertial": 2.39,
+   "viscous": 0.92,
+   "with_barbs": 4.5,
+   "with_barbs_uqd08_cv4p75": 9.9,
+   "with_barbs_uqd08_cv3p65": 13.7
+  },
+  "15": {
+   "plate": 5.48,
+   "inertial": 4.26,
+   "viscous": 1.22,
+   "with_barbs": 7.6,
+   "with_barbs_uqd08_cv4p75": 17.2,
+   "with_barbs_uqd08_cv3p65": 23.9
+  },
+  "18": {
+   "plate": 7.6,
+   "inertial": 6.13,
+   "viscous": 1.47,
+   "with_barbs": 10.6,
+   "with_barbs_uqd08_cv4p75": 24.5,
+   "with_barbs_uqd08_cv3p65": 34.2
+  },
+  "22.5": {
+   "plate": 11.41,
+   "inertial": 9.58,
+   "viscous": 1.83,
+   "with_barbs": 16.1,
+   "with_barbs_uqd08_cv4p75": 37.8,
+   "with_barbs_uqd08_cv3p65": 52.9
+  },
+  "27": {
+   "plate": 15.99,
+   "inertial": 13.79,
+   "viscous": 2.2,
+   "with_barbs": 22.7,
+   "with_barbs_uqd08_cv4p75": 54.1,
+   "with_barbs_uqd08_cv3p65": 75.8
+  },
+  "36": {
+   "plate": 27.46,
+   "inertial": 24.52,
+   "viscous": 2.94,
+   "with_barbs": 39.5,
+   "with_barbs_uqd08_cv4p75": 95.1,
+   "with_barbs_uqd08_cv3p65": 133.7
+  }
+ },
+ "q_cap_kW": {
+  "paste": {
+   "thermal": 15.7,
+   "rated": 15.7
+  },
+  "PCM": {
+   "thermal": 18.4,
+   "rated": 18.4
+  },
+  "LM": {
+   "thermal": 25.4,
+   "rated": 19.5
+  }
+ },
+ "sweep": {
+  "3.75": {
+   "paste": [
+    68.8,
+    83.0
+   ],
+   "PCM": [
+    66.9,
+    79.0
+   ],
+   "LM": [
+    61.7,
+    73.0
+   ],
+   "coolit_like_paste": [
+    58.8,
+    92.6
+   ],
+   "coolit_like_PCM": [
+    56.9,
+    88.8
+   ],
+   "coolit_like_dp": 3.5,
+   "Tout_C": 105.8
+  },
+  "7.5": {
+   "paste": [
+    43.8,
+    54.4
+   ],
+   "PCM": [
+    41.9,
+    50.5
+   ],
+   "LM": [
+    36.8,
+    44.5
+   ],
+   "coolit_like_paste": [
+    43.5,
+    62.1
+   ],
+   "coolit_like_PCM": [
+    41.6,
+    58.3
+   ],
+   "coolit_like_dp": 7.8,
+   "Tout_C": 75.4
+  },
+  "11.25": {
+   "paste": [
+    36.4,
+    45.4
+   ],
+   "PCM": [
+    34.5,
+    41.5
+   ],
+   "LM": [
+    29.4,
+    35.5
+   ],
+   "coolit_like_paste": [
+    38.4,
+    51.9
+   ],
+   "coolit_like_PCM": [
+    36.5,
+    48.1
+   ],
+   "coolit_like_dp": 13.0,
+   "Tout_C": 65.3
+  },
+  "15": {
+   "paste": [
+    32.9,
+    41.0
+   ],
+   "PCM": [
+    30.9,
+    37.1
+   ],
+   "LM": [
+    25.8,
+    31.1
+   ],
+   "coolit_like_paste": [
+    35.7,
+    46.8
+   ],
+   "coolit_like_PCM": [
+    33.8,
+    42.9
+   ],
+   "coolit_like_dp": 19.1,
+   "Tout_C": 60.2
+  },
+  "18": {
+   "paste": [
+    31.1,
+    38.8
+   ],
+   "PCM": [
+    29.2,
+    34.9
+   ],
+   "LM": [
+    24.1,
+    28.9
+   ],
+   "coolit_like_paste": [
+    34.4,
+    44.2
+   ],
+   "coolit_like_PCM": [
+    32.5,
+    40.3
+   ],
+   "coolit_like_dp": 24.6,
+   "Tout_C": 57.7
+  },
+  "22.5": {
+   "paste": [
+    29.4,
+    36.6
+   ],
+   "PCM": [
+    27.4,
+    32.7
+   ],
+   "LM": [
+    22.3,
+    26.6
+   ],
+   "coolit_like_paste": [
+    33.0,
+    41.5
+   ],
+   "coolit_like_PCM": [
+    31.1,
+    37.7
+   ],
+   "coolit_like_dp": 33.9,
+   "Tout_C": 55.1
+  }
+ },
+ "channel": {
+  "u_m_s": 0.198,
+  "Re": 44.4,
+  "h_eff_kW_m2K": 117.1,
+  "fin_dp_kPa": 1.07
+ },
+ "velocity_caps": {
+  "meter_m_s_18": 1.538,
+  "meter_cap": 2.0,
+  "meter_cap_lpm": 23.4,
+  "port_m_s_18": 0.955,
+  "port_cap": 1.5,
+  "rated_kW_velocity": 19.5
+ },
+ "inlet_allowed_C_15kW_18lpm": {
+  "paste": 46.2,
+  "PCM": 50.1,
+  "LM": 52.3,
+  "basis": "85 - max, return <= 65 C"
+ },
+ "segment_balance": {
+  "max_min_18": 1.092,
+  "weakest_segment_core_K": 0.41,
+  "allowance_K": 1.5,
+  "max_min_27": 1.122,
+  "core_K_27": 0.35
+ },
+ "water_45C_18lpm": {
+  "paste": [
+   29.1,
+   36.9
+  ],
+  "PCM": [
+   27.1,
+   33.0
+  ],
+  "dp_kPa": 6.67
+ },
+ "inlet_35C_18lpm": {
+  "PCM": [
+   29.3,
+   35.0
+  ],
+  "paste": [
+   31.2,
+   38.9
+  ],
+  "dp_kPa": 8.05
+ },
+ "inlet_50C_18lpm": {
+  "PCM": [
+   29.1,
+   34.8
+  ],
+  "paste": [
+   31.0,
+   38.8
+  ],
+  "dp_kPa": 7.43
+ },
+ "claims": {
+  "dp_18_le_10": true,
+  "dp_36_le_30": true,
+  "dp_36": 27.46
+ },
+ "structure": {
+  "MAWP_MPa": 1.03,
+  "proof_MPa": 1.55,
+  "design_burst_MPa": 3.1,
+  "sample_burst_MPa": 4.5,
+  "plenum_wall_MPa_at_burst": 29.8,
+  "separator_1p8_MPa_at_burst": 22.8,
+  "allowable_MPa": 40,
+  "defect_strip_collapse_MPa_base0p85": [
+   1.8,
+   2.6
+  ],
+  "proof_bulge_um_base0p85": 1.8,
+  "clamp_bow_um_2kN": 22.6,
+  "thermal_bow_um_15kW": 18.7
+ },
+ "deviations": [
+  "D-P1 base 0.85: +0.14/+0.09 K",
+  "D-P2 seg 1.092: +0.41 K core in the 1.5 K allowance",
+  "D-P3 meter 2.31 -> plate 7.60 kPa",
+  "D-P4 UQD08 pair as two couplings from vendor Cv"
+ ]
+}

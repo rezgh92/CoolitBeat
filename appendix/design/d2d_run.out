@@ -1,0 +1,150 @@
+# d2d_run: direct-to-die / chip-co-design tier numbers
+
+Operating point: 15 kW, 18 LPM PG25, 45 C inlet, 117 cm2 (128 W/cm2), dT_out 12.66 K
+Ni 5 um electrolytic barrier R'' = 0.00063 cm2K/W; CuMo 1.0 mm face = 2.29 mm Cu-equivalent
+
+## 1. 15 kW TTV, project scoping model (coldplate_model.py v2)
+
+| design | caloric | TIM | base | conv | avg dT | max dT | R'' cm2K/W | dP plate kPa | dP +screen | pump W | Q cap kW | Tcase,max C |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like skived split-flow, paste (calibrated) | 6.3 | 9.0 | 6.6 | 12.6 | **34.5** | **44.3** | 0.269 | 24.6 | 24.6 | 7.38 | 12.7 | 89.3 |
+| Engine R, flat Cu face, PCM  [Tier 1] | 7.6 | 7.1 | 3.3 | 10.1 | **28.0** | **31.1** | 0.219 | 5.3 | 5.7 | 1.72 | 21.6 | 76.1 |
+| Engine R, flat Ni face, LM on lid  [Tier 2] | 7.6 | 1.9 | 3.3 | 10.1 | **22.9** | **25.0** | 0.179 | 5.3 | 5.7 | 1.72 | 29.7 | 70.0 |
+| Engine R, pedestal 0.8 mm, LM + Ni5 on die  [Tier 3A] | 7.6 | 2.0 | 2.6 | 10.1 | **22.3** | **24.4** | 0.174 | 5.3 | 5.7 | 1.72 | 30.8 | 69.4 |
+| Engine R, pedestal 0.8 mm, PCM on die  [3A fallback] | 7.6 | 7.1 | 2.6 | 10.1 | **27.4** | **30.4** | 0.214 | 5.3 | 5.7 | 1.72 | 22.3 | 75.4 |
+| Engine R, pedestal 0.8 mm, LM EOL 0.030  [3A end-of-life] | 7.6 | 3.8 | 2.6 | 10.1 | **24.2** | **26.3** | 0.189 | 5.3 | 5.7 | 1.72 | 27.4 | 71.3 |
+| Engine P (0.10 mm), pedestal 0.8, LM + Ni5  [3A-P, <=33 um loops] | 8.2 | 2.0 | 2.6 | 6.8 | **19.7** | **21.8** | 0.153 | 5.4 | 5.8 | 1.75 | 38.9 | 66.8 |
+| Lid-core R, Cu face 0.8 mm, In TIM1 0.025  [Tier 3B] | 7.6 | 3.2 | 2.6 | 10.1 | **23.5** | **25.6** | 0.184 | 5.3 | 5.7 | 1.72 | 28.5 | 70.6 |
+| Lid-core P, Cu face 0.8 mm, In TIM1 0.025  [3B-P] | 8.2 | 3.2 | 2.6 | 6.8 | **20.9** | **23.0** | 0.163 | 5.4 | 5.8 | 1.75 | 35.2 | 68.0 |
+| (illustrative) lid-core R, CuMo 1.0 mm face, In 0.015 | 7.6 | 1.9 | 7.5 | 10.1 | **27.2** | **29.3** | 0.212 | 5.3 | 5.7 | 1.72 | 23.2 | 74.3 |
+
+3A detail: NTU 1.25, cal frac 0.602, h 13.2 kW/m2K, eta 0.56, h_eff 127 kW/m2K, u_ch 0.083 m/s, Re 19, u_slot 0.06, u_port 1.49 m/s
+dP split (model): channel 0.23 + turns 0.01 + slot 0.00 + header 0.50 + orifice 2.00 + ports 2.57 = 5.32 kPa (+ screen 0.4)
+
+### 1b. 2x flow (36 LPM, 2.4 LPM/kW) and 20 mm ports
+
+| design | caloric | TIM | base | conv | avg dT | max dT | R'' cm2K/W | dP plate kPa | dP +screen | pump W | Q cap kW | Tcase,max C |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 3A at 36 LPM, 16 mm ports | 3.5 | 2.0 | 2.6 | 9.8 | **17.9** | **20.0** | 0.140 | 20.8 | 22.4 | 13.45 | 35.7 | 65.0 |
+| 3A at 18 LPM, 20 mm ports | 7.6 | 2.0 | 2.6 | 10.1 | **22.3** | **24.4** | 0.174 | 3.8 | 4.2 | 1.26 | 30.8 | 69.4 |
+| 3A at 36 LPM, 20 mm ports | 3.5 | 2.0 | 2.6 | 9.8 | **17.9** | **20.0** | 0.140 | 14.7 | 16.3 | 9.80 | 35.7 | 65.0 |
+| CoolIT-like at 36 LPM | 3.2 | 9.0 | 6.6 | 12.3 | **31.0** | **40.8** | 0.242 | 69.3 | 69.3 | 41.58 | 14.6 | 85.8 |
+
+### 1c. Flow at which 3A reproduces CoolIT's measured 34.4 K avg / 44.2 K max
+
+- 3A LM: avg 34.4 K at 0.55 LPM/kW (8.2 LPM, 1.16 kPa, 0.16 W); max 44.2 K at 0.42 LPM/kW (6.3 LPM, 0.70 kPa)
+- 3A PCM fallback: avg 34.4 K at 0.70 LPM/kW (10.5 LPM, 1.85 kPa, 0.32 W); max 44.2 K at 0.51 LPM/kW (7.7 LPM, 1.02 kPa)
+
+### 1d. Flow sweep, 3A LM (avg / max dT K, plate dP kPa incl. screen)
+
+| LPM/kW | LPM | CoolIT-like avg / max / dP | 3A LM avg / max / dP | 3A-P LM avg / max / dP |
+|---:|---:|---|---|---|
+| 0.60 | 9.0 | 41.0 / 50.8 / 9.8 | 32.3 / 34.4 / 1.5 | 30.6 / 32.7 / 1.7 |
+| 0.75 | 11.2 | 38.5 / 48.3 / 13.0 | 28.1 / 30.2 / 2.3 | 26.0 / 28.1 / 2.5 |
+| 1.00 | 15.0 | 35.8 / 45.6 / 19.1 | 24.2 / 26.3 / 4.0 | 21.7 / 23.8 / 4.2 |
+| 1.20 | 18.0 | 34.5 / 44.3 / 24.6 | 22.3 / 24.4 / 5.7 | 19.7 / 21.8 / 5.8 |
+| 1.50 | 22.5 | 33.2 / 43.0 / 33.9 | 20.6 / 22.7 / 8.9 | 17.7 / 19.8 / 8.9 |
+| 2.00 | 30.0 | 31.7 / 41.5 / 52.2 | 18.8 / 20.9 / 15.6 | 15.9 / 18.0 / 15.3 |
+| 2.40 | 36.0 | 31.0 / 40.8 / 69.3 | 17.9 / 20.0 / 22.4 | 15.0 / 17.1 / 21.7 |
+
+## 2. Monte Carlo bands (synthesis evaluator, 20k samples; P10 / P50 / P90)
+
+| design | avg dT | max dT | dP plate kPa | pump W | Q cap kW (Tcase,max<=85 C) |
+|---|---|---|---|---|---|
+| CoolIT-like skived split-flow 0.2/0.2x4, 2 mm base, paste 0.07 | 30.5 / 34.6 / 41.6 | 40.1 / 44.7 / 51.8 | 19.0 / 22.0 / 25.4 | 5.70 / 6.59 / 7.62 | 10.4 / 12.7 / 14.9 |
+| Tier 1 PCM, engine R | 25.7 / 28.1 / 31.4 | 28.7 / 31.2 / 34.5 | 3.9 / 5.1 / 6.6 | 1.16 / 1.52 / 1.99 | 18.5 / 21.2 / 24.2 |
+| Tier 2 LM on lid, engine R | 21.7 / 23.1 / 24.8 | 23.8 / 25.2 / 27.0 | 3.9 / 5.1 / 6.6 | 1.16 / 1.52 / 1.99 | 26.9 / 29.9 / 32.9 |
+| Tier 3A D2D LM+Ni, engine R, base 0.8 | 21.1 / 22.5 / 24.2 | 23.2 / 24.6 / 26.4 | 3.9 / 5.1 / 6.6 | 1.16 / 1.52 / 1.99 | 27.8 / 31.1 / 34.5 |
+| Tier 3A D2D PCM fallback, base 0.8 | 25.0 / 27.5 / 30.7 | 28.1 / 30.6 / 33.9 | 3.9 / 5.1 / 6.6 | 1.16 / 1.52 / 1.99 | 19.0 / 21.9 / 25.1 |
+| Tier 3A-P D2D LM+Ni, engine P, base 0.8 | 18.6 / 19.7 / 21.3 | 20.7 / 21.9 / 23.6 | 4.0 / 5.1 / 6.4 | 1.20 / 1.52 / 1.93 | 34.6 / 39.3 / 43.9 |
+| Tier 3B Cu lid-core, In TIM1 0.025, face 0.8 | 22.3 / 23.6 / 25.2 | 24.4 / 25.8 / 27.4 | 3.9 / 5.1 / 6.6 | 1.16 / 1.52 / 1.99 | 26.2 / 28.8 / 31.6 |
+
+(dP excludes the integrated screen: add 0.4 kPa clean / 1.2 kPa at the 3x alarm.)
+
+Deterministic synthesis values:
+- CoolIT-like skived split-flow 0.2/0.2x4, 2 mm base, paste 0.07: avg 34.51, max 44.32, dP 21.80 kPa, pump 6.54 W, Qcap 12.9 kW, h_eff 101 kW/m2K
+- Tier 1 PCM, engine R: avg 28.05, max 31.05, dP 5.05 kPa, pump 1.51 W, Qcap 21.5 kW, h_eff 127 kW/m2K
+- Tier 2 LM on lid, engine R: avg 22.92, max 25.02, dP 5.05 kPa, pump 1.51 W, Qcap 30.3 kW, h_eff 127 kW/m2K
+- Tier 3A D2D LM+Ni, engine R, base 0.8: avg 22.34, max 24.44, dP 5.05 kPa, pump 1.51 W, Qcap 31.5 kW, h_eff 127 kW/m2K
+- Tier 3A D2D PCM fallback, base 0.8: avg 27.39, max 30.39, dP 5.05 kPa, pump 1.51 W, Qcap 22.2 kW, h_eff 127 kW/m2K
+- Tier 3A-P D2D LM+Ni, engine P, base 0.8: avg 19.65, max 21.75, dP 5.05 kPa, pump 1.52 W, Qcap 39.8 kW, h_eff 187 kW/m2K
+- Tier 3B Cu lid-core, In TIM1 0.025, face 0.8: avg 23.55, max 25.65, dP 5.05 kPa, pump 1.51 W, Qcap 29.0 kW, h_eff 127 kW/m2K
+
+## 3. Reticle die at 350 W/cm2 (4 x 26 x 33 mm + 16 HBM, 12.85 kW, 15.4 LPM, heat-proportional zoning)
+
+| path | lid-top case dT K | die-top dT K | **Tj-to-inlet K** | Tj at 45 C inlet | inlet for Tj = 105 C | R''j-in cm2K/W (excl. caloric) | max die flux at Tj<=105 C, 45 C in (W/cm2) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like split-flow on lid, paste 0.07 (case from 3-D heat-map) | 95.6 | None | **139.0** | 184 | -34 | 0.357 | 129 |
+| Engine R, lidded, TIM2 PCM 0.055, base 1.0  [Tier 1] | 54.1 | None | **97.5** | 143 | 7 | 0.259 | 205 |
+| Engine R, lidded, TIM2 LM 0.015, base 1.0  [Tier 2] | 42.2 | None | **85.6** | 131 | 19 | 0.225 | 236 |
+| Engine R, direct-to-die pedestal, LM + Ni5, base 0.8  [Tier 3A] | None | 46.9 | **64.4** | 109 | 41 | 0.165 | 323 |
+| Engine R, direct-to-die pedestal, PCM 0.055  [3A fallback] | None | 60.7 | **78.2** | 123 | 27 | 0.204 | 261 |
+| Engine R Cu lid-core, In TIM1 0.025 (170 um), face 0.8  [Tier 3B] | None | 50.2 | **67.7** | 113 | 37 | 0.174 | 306 |
+| Engine R lid-core, CuMo 1.0 mm face, In 0.015 (illustrative low-CTE) | None | 60.1 | **77.6** | 123 | 27 | 0.203 | 263 |
+| Engine P, lidded, TIM2 PCM 0.055, base 1.0  [Tier 1] | 46.6 | None | **90.0** | 135 | 15 | 0.238 | 224 |
+| Engine P, lidded, TIM2 LM 0.015, base 1.0  [Tier 2] | 34.7 | None | **78.1** | 123 | 27 | 0.204 | 261 |
+| Engine P, direct-to-die pedestal, LM + Ni5, base 0.8  [Tier 3A] | None | 38.1 | **55.6** | 101 | 49 | 0.140 | 382 |
+| Engine P, direct-to-die pedestal, PCM 0.055  [3A fallback] | None | 51.8 | **69.3** | 114 | 36 | 0.179 | 298 |
+| Engine P Cu lid-core, In TIM1 0.025 (170 um), face 0.8  [Tier 3B] | None | 41.3 | **58.8** | 104 | 46 | 0.149 | 358 |
+| Engine P lid-core, CuMo 1.0 mm face, In 0.015 (illustrative low-CTE) | None | 51.3 | **68.8** | 114 | 36 | 0.177 | 301 |
+| In-die microfluidics, j-to-fluid 0.02 nominal | None | None | **13.7** | 59 | 91 | 0.020 | 2665 |
+| In-die microfluidics, j-to-fluid 0.05 pessimistic | None | None | **24.2** | 69 | 81 | 0.050 | 1066 |
+
+Notes: lidded stacks get a lateral-spreading credit (lid-top flux 0.85x die flux, lid mean 0.92x); the die-top and junction values are 1-D at the die centre; Si 0.6 mm = 0.050 cm2K/W (775 um: +5 K); on-die 2-3x hot spots add 5-15 K for every path except in-die (nonuniform-heatmap caveat).
+
+### 3b. HBM (40 W/cm2) by interface over the pedestal (base-top dT under HBM max 18.7 K for H-Z2)
+
+- paste 0.45 mm gap fill (1.16): HBM case dT 65.1 K, Tj HBM ~126 C (53 W/stack x 0.3 K/W)
+- Cu pedestal + 0.1 mm PCM putty (0.28): HBM case dT 29.9 K, Tj HBM ~91 C (53 W/stack x 0.3 K/W)
+- pedestal + LM 50-100 um single-field (0.04): HBM case dT 20.3 K, Tj HBM ~81 C (53 W/stack x 0.3 K/W)
+- pedestal + indium (0.06): HBM case dT 21.1 K, Tj HBM ~82 C (53 W/stack x 0.3 K/W)
+
+### 3c. Bond-line penalty at 350 W/cm2 (die-top dT added by the interface)
+
+| BLT um | LM (k 22, Rc 0.004) K | PCM (k 8.5, Rc 0.02) K | paste (k 3.5, Rc 0.012) K |
+|---:|---:|---:|---:|
+| 15 | 3.8 | 13.2 | 19.2 |
+| 30 | 6.2 | 19.4 | 34.2 |
+| 50 | 9.4 | 27.6 | 54.2 |
+| 80 | 14.1 | 39.9 | 84.2 |
+
+## 4. GPU-class plates (2-4 kW), plate-level model and die-level junction
+
+### 4a. Plate-level, project model on the plate footprint (lidded framing as in sibling proposals)
+
+| design | caloric | TIM | base | conv | avg dT | max dT | R'' cm2K/W | dP plate kPa | dP +screen | pump W | Q cap kW | Tcase,max C |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Rubin 2.3 kW, 60 cm2, 1.0 LPM/kW: CoolIT-like | 7.6 | 2.7 | 2.0 | 3.9 | **16.1** | **23.5** | 0.420 | 2.0 | 2.0 | 0.08 | 6.8 | 68.5 |
+| Rubin 2.3 kW, 60 cm2, 1.0 LPM/kW: T1 PCM | 12.2 | 2.1 | 1.0 | 3.1 | **18.4** | **20.3** | 0.480 | 0.1 | 0.1 | 0.01 | 9.6 | 65.3 |
+| Rubin 2.3 kW, 60 cm2, 1.0 LPM/kW: T3A LM pedestal | 12.2 | 0.6 | 0.8 | 3.1 | **16.7** | **18.4** | 0.435 | 0.1 | 0.1 | 0.01 | 13.4 | 63.4 |
+| Rubin Ultra 3.6 kW, 80 cm2, 1.0 LPM/kW: CoolIT-like | 7.6 | 3.2 | 2.3 | 4.5 | **17.6** | **25.1** | 0.391 | 3.3 | 3.3 | 0.20 | 9.0 | 70.1 |
+| Rubin Ultra 3.6 kW, 80 cm2, 1.0 LPM/kW: T1 PCM | 11.8 | 2.5 | 1.2 | 3.6 | **19.1** | **21.1** | 0.423 | 0.3 | 0.3 | 0.02 | 13.0 | 66.1 |
+| Rubin Ultra 3.6 kW, 80 cm2, 1.0 LPM/kW: T3A LM pedestal | 11.8 | 0.7 | 0.9 | 3.6 | **17.0** | **18.8** | 0.379 | 0.3 | 0.3 | 0.02 | 18.2 | 63.8 |
+| CoolIT 4 kW TTV point, 25 cm2, 1.5 LPM/kW: CoolIT-like | 5.1 | 11.2 | 8.2 | 15.5 | **40.0** | **50.7** | 0.250 | 6.2 | 6.2 | 0.62 | 2.8 | 95.7 |
+| CoolIT 4 kW TTV point, 25 cm2, 1.5 LPM/kW: T1 PCM | 5.7 | 8.8 | 4.1 | 12.3 | **31.0** | **34.4** | 0.194 | 1.0 | 1.0 | 0.10 | 4.9 | 79.4 |
+| CoolIT 4 kW TTV point, 25 cm2, 1.5 LPM/kW: T3A LM pedestal | 5.7 | 2.5 | 3.3 | 12.3 | **23.9** | **26.1** | 0.149 | 1.0 | 1.0 | 0.10 | 7.1 | 71.1 |
+
+### 4b. Die-level junction-to-inlet (die-zone sub-plate, heat-proportional zoning)
+
+Die-zone sub-plate: footprint = logic area, Q = package - HBM, flow = 88 % of package flow; CoolIT-like: unzoned split-flow, hottest-die caloric 1.1 x dT_out (heat-map ratio 13.9/12.66).
+
+| device / flux | path | caloric | Tj-to-inlet at die avg K | Tj-to-inlet at 300 W/cm2 patch K | Tj avg / patch at 45 C |
+|---|---|---:|---:|---:|---|
+| Rubin 2.3 kW, 117 W/cm2 die avg | CoolIT-like lidded paste | 16.7 | 53.1 | 110.1 | 98 / 155 C |
+| Rubin 2.3 kW, 117 W/cm2 die avg | T1 lidded PCM (engine R) | 9.1 | 39.4 | 87.0 | 84 / 132 C |
+| Rubin 2.3 kW, 117 W/cm2 die avg | T2 lidded LM (engine R) | 9.1 | 35.5 | 76.8 | 80 / 122 C |
+| Rubin 2.3 kW, 117 W/cm2 die avg | T3A D2D LM (engine R) | 9.1 | 28.4 | 58.6 | 73 / 104 C |
+| Rubin 2.3 kW, 117 W/cm2 die avg | T3B Cu lid-core In 0.025 (engine R) | 9.1 | 29.5 | 61.4 | 74 / 106 C |
+| Rubin Ultra 3.6 kW, 87 W/cm2 die avg | CoolIT-like lidded paste | 16.7 | 43.9 | 110.1 | 89 / 155 C |
+| Rubin Ultra 3.6 kW, 87 W/cm2 die avg | T1 lidded PCM (engine R) | 9.1 | 31.7 | 86.9 | 77 / 132 C |
+| Rubin Ultra 3.6 kW, 87 W/cm2 die avg | T2 lidded LM (engine R) | 9.1 | 28.7 | 76.7 | 74 / 122 C |
+| Rubin Ultra 3.6 kW, 87 W/cm2 die avg | T3A D2D LM (engine R) | 9.1 | 23.4 | 58.5 | 68 / 104 C |
+| Rubin Ultra 3.6 kW, 87 W/cm2 die avg | T3B Cu lid-core In 0.025 (engine R) | 9.1 | 24.3 | 61.3 | 69 / 106 C |
+
+## 5. Rubin-Ultra-class D2D plate (fin field ~80 x 95 mm = 76 cm2, 3.6 kW)
+
+- 1.0 LPM/kW (3.6 LPM): dP plate 1.89 kPa (+screen 0.11) (10 mm bores, comb 1.5 kPa at 4.3 LPM), u_port 0.76 m/s, case-to-inlet avg on 76 cm2 uniform 17.2 K
+- 1.2 LPM/kW (4.3 LPM): dP plate 2.70 kPa (+screen 0.15) (10 mm bores, comb 1.5 kPa at 4.3 LPM), u_port 0.92 m/s, case-to-inlet avg on 76 cm2 uniform 14.8 K
+- 2.4 LPM/kW (8.6 LPM): dP plate 10.63 kPa (+screen 0.61) (10 mm bores, comb 1.5 kPa at 4.3 LPM), u_port 1.83 m/s, case-to-inlet avg on 76 cm2 uniform 9.5 K
+  (at 3-4 LPM the comb must be re-sized to keep branch dP >= 6x header head: hole count scaled to flow, target 1.5-2 kPa branch -> ~3 kPa plate)
+

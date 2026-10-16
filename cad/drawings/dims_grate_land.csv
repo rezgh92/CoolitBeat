@@ -1,0 +1,23 @@
+parameter,value (mm unless stated)
+material,OFE C10100
+z0,2.8
+t,1.3
+outline,121.0
+corner_r,2.0
+window_interior.w,1.2
+window_interior.length,108.0
+window_interior.end_r,0.6
+window_edge.w,0.6
+window_edge.length,108.0
+window_edge.x_centre_abs,53.7
+window_edge.end_r,0.2
+recess_inlet.w,2.7
+recess_inlet.depth,0.8
+recess_inlet.length,109.0
+recess_inlet.end_r,1.35
+recess_inlet.from,top
+lip_w,0.75
+pin_holes.d,2.0
+pin_holes.positions,"[2 values, see params.json]"
+pin_holes.slot_long_axis_at_pos2,0.4
+mass_g_lane,149

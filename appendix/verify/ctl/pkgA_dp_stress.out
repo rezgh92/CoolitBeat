@@ -1,0 +1,13 @@
+PKG-A 15 LPM: 5.1 kPa (inertial 3.91, viscous 1.22); meter velocity 1.28 m/s
+PKG-A 18 LPM: 7.1 kPa (inertial 5.62, viscous 1.47); meter velocity 1.54 m/s
+PKG-A 22.5 LPM: 10.6 kPa (inertial 8.79, viscous 1.83); meter velocity 1.92 m/s
+PKG-A 27 LPM: 14.9 kPa (inertial 12.65, viscous 2.20); meter velocity 2.31 m/s
+PKG-A 36 LPM: 25.4 kPa (inertial 22.50, viscous 2.94); meter velocity 3.08 m/s
+fin channels at L7.7: 1.07 kPa (draft L6: 0.65)
+
+Load paths at design burst 3.1 MPa (allowable 40 MPa, draft convention):
+- folded plenum wall 0.8 mm at 7.7 mm pitch, tension: 29.8 MPa (draft 1.5 mm walls at 6 mm: 12.4)
+- separator 1.5 mm over 6.9 mm outlet channels: 32.8 MPa (draft over 4.5 mm: 14.0)
+- grate cantilever to outlet-window edge, scaled from verify-manufacturing 23 MPa (draft, 1.4 mm bonded, 2.4 mm arm): PKG-A 1.7 mm, 3.25 mm arm -> 28.6 MPa
+- arched cap 1.0 mm, r 6 mm, hoop: 18.6 MPa; port pocket r 12 mm at 1.5 mm: 24.8 MPa
+- defect case, one unbonded land strip (verify-manufacturing: 31-46 MPa at 1.55 MPa proof, collapse 3.5-5.0 MPa, 1.0 mm base, 6.3 mm span): PKG-A 0.8 mm base, 7.4 mm span -> 67-99 MPa at proof, collapse 1.6-2.3 MPa; bulge at proof x3.7 (0.58 -> 2.2 um)

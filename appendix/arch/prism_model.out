@@ -1,0 +1,56 @@
+## A. Benchmark point, 15 kW / 18 LPM PG25 / 45 C / 117 cm2
+CoolIT-like calibration: avg 34.5 max 44.3 (measured 34.4 / 44.2); q 128 W/cm2; dTout 12.66
+CoolIT re-tested with PCM (same TIM as ours, estimate): avg 32.5 max 40.3
+| design | cal | TIM | base | conv | 2-D corr | avg | max | R'' | Tcase,max | Qcap@1.2 LPM/kW | Qcap@18 LPM | inlet headroom |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| R paste 0.07 (like-for-like) | 7.6 | 9.0 | 3.3 | 10.5 | +1.1 | **31.5** | **37.3** | 0.246 | 82.3 | 16.4 | 16.1 | 47.7 C (thermal 47.7) |
+| R named paste 0.05 | 7.6 | 6.4 | 3.3 | 10.5 | +1.1 | **28.9** | **34.8** | 0.226 | 79.8 | 18.1 | 17.4 | 50.2 C (thermal 50.2) |
+| R PCM 25 psi (TTV headline) | 7.6 | 7.1 | 3.3 | 10.5 | +1.1 | **29.6** | **33.4** | 0.231 | 78.4 | 19.1 | 18.1 | 51.6 C (thermal 51.6) |
+| R PCM at module retention 0.07 | 7.6 | 9.0 | 3.3 | 10.5 | +1.1 | **31.5** | **35.3** | 0.246 | 80.3 | 17.7 | 17.1 | 49.7 C (thermal 49.7) |
+| R LM (Tier 2) | 7.6 | 1.9 | 3.3 | 10.5 | +1.1 | **24.4** | **27.4** | 0.191 | 72.4 | 25.6 | 22.3 | 52.3 C (thermal 57.6) |
+| R PCM, base 0.8 | 7.6 | 7.1 | 2.6 | 10.5 | +1.1 | **28.9** | **32.7** | 0.225 | 77.7 | 19.7 | 18.5 | 52.3 C (thermal 52.3) |
+| R paste, base 0.8 | 7.6 | 9.0 | 2.6 | 10.5 | +1.1 | **30.8** | **36.6** | 0.240 | 81.6 | 16.9 | 16.4 | 48.4 C (thermal 48.4) |
+| P paste | 8.2 | 9.0 | 3.3 | 6.8 | +0.1 | **27.4** | **33.6** | 0.213 | 78.6 | 19.0 | 18.0 | 51.4 C (thermal 51.4) |
+| P PCM | 8.2 | 7.1 | 3.3 | 6.8 | +0.1 | **25.4** | **29.7** | 0.198 | 74.7 | 22.8 | 20.5 | 52.3 C (thermal 55.3) |
+| P LM | 8.2 | 1.9 | 3.3 | 6.8 | +0.1 | **20.3** | **23.6** | 0.158 | 68.6 | 32.6 | 26.1 | 52.3 C (thermal 61.4) |
+| R D2D LM base 0.8 (case=die top) | 7.6 | 1.9 | 2.6 | 10.5 | +1.1 | **23.7** | **26.7** | 0.185 | 71.7 | 26.6 | 22.9 | 52.3 C (thermal 58.3) |
+CoolIT Tcase,max 85 C inlet: 40.8 C; Qcap ~12.9 kW (synthesis)
+
+## B. Hard mode: everything at 100 cm2 (150 W/cm2) vs CoolIT measured; and footprint 145 cm2
+A 100 cm2 R paste: avg 35.2 max 41.8 | CoolIT measured 34.4/44.2, CoolIT-with-PCM est 32.1/39.6
+A 100 cm2 R PCM: avg 32.9 max 37.2 | CoolIT measured 34.4/44.2, CoolIT-with-PCM est 32.1/39.6
+A 100 cm2 R LM: avg 26.9 max 30.1 | CoolIT measured 34.4/44.2, CoolIT-with-PCM est 32.1/39.6
+A 100 cm2 P paste: avg 30.3 max 37.4 | CoolIT measured 34.4/44.2, CoolIT-with-PCM est 32.1/39.6
+A 145 cm2 R paste: avg 27.3 max 32.3 | CoolIT measured 34.4/44.2, CoolIT-with-PCM est 32.8/41.0
+A 145 cm2 R PCM: avg 25.7 max 29.1 | CoolIT measured 34.4/44.2, CoolIT-with-PCM est 32.8/41.0
+A 145 cm2 R LM: avg 21.6 max 24.3 | CoolIT measured 34.4/44.2, CoolIT-with-PCM est 32.8/41.0
+A 145 cm2 P paste: avg 24.1 max 29.4 | CoolIT measured 34.4/44.2, CoolIT-with-PCM est 32.8/41.0
+
+## C. Hydraulics (PRISM-15 Rev A), element budget
+  - ports 2 x 16 mm, K 3.0 (u 1.49 m/s): 3.36 kPa
+  - guard screen 50 um abs (clean): 0.30 kPa
+  - headers (inlet 2x12x8 mm 0.78 m/s, outlet 2x14x8 mm 0.67 m/s), mid-fed tees K 1.5: 0.80 kPa
+  - separator windows 3 x 10 mm, in + out, K 2: 0.26 kPa
+  - plenums 3 x 9 mm (friction + combining momentum): 0.15 kPa
+  - meter orifices 0.40 x 0.73 mm @ 2 mm (1.35 m/s, Cd 0.72): 1.77 kPa
+  - window cavity + kerf turn + outlet window: 0.08 kPa
+  - fin channels 0.15 x 2.0 x ~3.7 mm: 0.28 kPa
+ports 16 mm: 15 LPM 4.9 | 18 LPM 7.0 kPa (2.10 W) | 27 LPM 15.2 | 36 LPM 26.6 kPa (16.0 W)
+ports 20 mm: 15 LPM 3.6 | 18 LPM 5.0 kPa (1.50 W) | 27 LPM 10.8 | 36 LPM 18.7 kPa (11.2 W)
+inertial fraction of plate dP 0.91; branch (meter+channel+window) ~1.82 kPa, inertial frac 0.84
+plenum long-half head (3x9, 0.50 m/s) 126 Pa -> along-slot ratio 14.5; header head 306 Pa -> slot-to-slot ratio 6.8
+equal pumping power (6.5 W): 26.6 LPM (1.77 LPM/kW), dP 14.8 kPa
+   R PCM at equal pump power: 26.5 / 30.4
+   R paste at equal pump power: 28.4 / 34.3
+   R LM at equal pump power: 21.4 / 24.3
+
+## D. Flow sweep and flow-to-match (R grade)
+PCM: 0.6: 39.9/43.8 (out 70 C, dP 1.9); 0.75: 35.6/39.4 (out 65 C, dP 2.9); 1.0: 31.5/35.4 (out 60 C, dP 4.9); 1.2: 29.6/33.4 (out 58 C, dP 7.0); 1.5: 27.7/31.5 (out 55 C, dP 10.7); 2.0: 25.8/29.7 (out 53 C, dP 18.7); 2.4: 24.9/28.7 (out 51 C, dP 26.6)
+   flow to match CoolIT avg 34.4: 0.81 LPM/kW (12.1 LPM), outlet 63.8 C, dP 3.3 kPa
+   flow to match CoolIT max 44.2: 0.59 LPM/kW (8.8 LPM), outlet 70.8 C, dP 1.8 kPa
+paste: 0.6: 41.9/47.7 (out 70 C, dP 1.9); 0.75: 37.5/43.4 (out 65 C, dP 2.9); 1.0: 33.4/39.3 (out 60 C, dP 4.9); 1.2: 31.5/37.3 (out 58 C, dP 7.0); 1.5: 29.6/35.4 (out 55 C, dP 10.7); 2.0: 27.7/33.6 (out 53 C, dP 18.7); 2.4: 26.8/32.7 (out 51 C, dP 26.6)
+   flow to match CoolIT avg 34.4: 0.92 LPM/kW (13.9 LPM), outlet 61.4 C, dP 4.3 kPa
+   flow to match CoolIT max 44.2: 0.72 LPM/kW (10.7 LPM), outlet 66.2 C, dP 2.6 kPa
+LM: 0.6: 34.8/37.8 (out 70 C, dP 1.9); 0.75: 30.5/33.4 (out 65 C, dP 2.9); 1.0: 26.4/29.3 (out 60 C, dP 4.9); 1.2: 24.4/27.4 (out 58 C, dP 7.0); 1.5: 22.5/25.5 (out 55 C, dP 10.7); 2.0: 20.7/23.6 (out 53 C, dP 18.7); 2.4: 19.7/22.7 (out 51 C, dP 26.6)
+   flow to match CoolIT avg 34.4: 0.61 LPM/kW (9.2 LPM), outlet 69.9 C, dP 2.0 kPa
+   flow to match CoolIT max 44.2: 0.47 LPM/kW (7.0 LPM), outlet 77.4 C, dP 1.2 kPa

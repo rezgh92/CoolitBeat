@@ -1,0 +1,13 @@
+## D1. Straight single-pass skived-fin cooler (no manifold), 84 cm2, 10 L/min WEG 65 C
+| core | flow length mm | u m/s | Re | h_eff kW/m2K | channel+K dP kPa (65 C) | at -40 C | hottest-switch caloric (series) K |
+|---|---|---|---|---|---|---|---|
+| 0.4/0.3x5.0 straight | 92 | 0.64 | 352 | 41 | 6.9 (total 8.4) | 369 | 8.1 |
+| 0.15/0.1x2.0 straight | 92 | 1.52 | 316 | 108 | 111.3 (total 112.8) | 6225 | 8.1 |
+
+## D2. Aluminium baselines (same stack, Al base 3 mm k 200; Al pin-fin h = 0.9 x Cu calibrated)
+- Al pin-fin baseplate on DBA (sinter): h_eff 20 kW/m2K, Rth 0.1199 K/W
+- PE-Al cartridge 0.50/0.50x5 on DBA (sinter): h_eff 25 kW/m2K, Rth 0.1092 K/W
+- PE-Al cartridge 0.40/0.40x5 (Al, filtered): h_eff 32 kW/m2K, Rth 0.0991 K/W
+
+## D3. Thermal mass per 14 cm2 switch cell (mm-equivalent Cu below the substrate)
+pin-fin 3 mm base + 2 mm pins (3.0x2.6 pitch, 8 mm): 6.2 mm-eq (30 J/K); PE-A cartridge 2.0 mm + 0.30/0.40x5 fins: 4.1 mm-eq (20 J/K); PE-DS-R 1.0 + 0.10/0.25x2: 1.8 mm-eq

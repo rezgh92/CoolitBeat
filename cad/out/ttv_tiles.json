@@ -1,0 +1,20 @@
+{
+ "part": "ttv_tiles",
+ "valid": true,
+ "solids": 4,
+ "volume_mm3": 11577.8,
+ "mass_g": 37.7,
+ "bbox": [
+  -53.9,
+  -53.9,
+  -1.0,
+  53.9,
+  53.9,
+  0.0
+ ],
+ "stl": "/home/user/Rez/docs/cooling/cad/out/ttv_tiles.stl",
+ "step": "/home/user/Rez/docs/cooling/cad/out/ttv_tiles.step",
+ "step_MB": 0.1,
+ "step_xz_MB": 0.01,
+ "seconds": 0.1
+}

@@ -1,0 +1,19 @@
+parameter,value (mm unless stated)
+source,"design/DDD-cap.md section 3 / params-cap.json (cap lane design of record, 2026-10-16), section 6 (GUARD-C)"
+part,GUARD-C
+material,"316L square weave 50 um absolute (270 mesh, 0.041 wire), 0.5 mm 316L frame ring and collar"
+shape,"inverted cup d30 x 5.0 under the inlet dome crown, centred on the inlet boss; corrugated bottom not modelled"
+od,30.0
+height,5.0
+z_bottom,14.8
+z_top,19.8
+shell_t,0.1
+frame_t,0.5
+frame_ring_od,28.0
+collar.d,19.6
+collar.h,3.0
+collar.wall_t,0.5
+collar.note,rises through the d20 opening into the inlet boss bore (hook tabs not modelled)
+at,"bosses.inlet centre (0, -20)"
+note,"modelled as a 0.1 mm shell hanging from the inlet dome crown (z 14.8..19.8): mesh wall d30 to z 19.3, mesh top annulus, 0.5 frame ring d28 against the crown underside (d28, not d30, so that it clears the r 3.5 crown fillet whose ceiling is z 19.65 at r 15). params-cap.json places the cup on four 2.0 feet at z 14.1..19.1; the CAD follows the task note (hanging, 14.8..19.8). Alternative GUARD-A (25 cm2 pleated element in a d34 x 40 housing on the inlet stub) is open item O-C3"
+mass_g_lane,6

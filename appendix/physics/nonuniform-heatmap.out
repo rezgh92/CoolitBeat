@@ -1,0 +1,114 @@
+grid 216x216 @ 0.50 mm; zone area fractions die 0.304 HBM 0.201 unheated 0.494
+die area 34.3 cm2, HBM area 21.1 cm2
+  flow-share check C-x-U  C: sum f*area/A = 1.000
+  flow-share check C-y-U  C: sum f*area/A = 1.000
+  flow-share check C-y-Z  C: sum f*area/A = 1.002
+  flow-share check H-U    H: sum f*area/A = 1.000
+  flow-share check H-Z1   H: sum f*area/A = 0.999
+  flow-share check H-Z2   H: sum f*area/A = 0.997
+  flow-share check H-Z3   H: sum f*area/A = 1.003
+  flow-share check H-Z2f  H: sum f*area/A = 0.997
+  flow-share check H-Z2-LM : sum f*area/A = 0.997
+  flow-share check H-Z2f-LM: sum f*area/A = 0.997
+
+## V1: uniform TTV 15 kW / 128 W/cm2 (should match 1-D model: CoolIT-like 34.5 K, HMMC 24.1 K)
+  CoolIT-like split: avg dT 34.7 K, max 40.3 K, fluid avg 6.4 / max 12.6 K  (h_eff 101 kW/m2K, gmres 0)
+  HMMC uniform: avg dT 24.3 K, max 24.3 K, fluid avg 6.3 / max 6.3 K  (h_eff 157 kW/m2K, gmres 0)
+
+## V2: single die 26x33 mm @ 350 W/cm2, isothermal fluid, spreading check vs Lee/Yovanovich
+  t=1 mm h=100: DCT max 43.9 avg 38.4 | Lee max 47.3 avg 36.6 | 1-D no-spreading 44.0 K
+  t=1 mm h=200: DCT max 26.5 avg 24.1 | Lee max 28.9 avg 22.3 | 1-D no-spreading 26.5 K
+  t=2 mm h=100: DCT max 52.1 avg 43.6 | Lee max 55.4 avg 42.9 | 1-D no-spreading 52.9 K
+  t=2 mm h=200: DCT max 35.3 avg 30.8 | Lee max 38.0 avg 29.4 | 1-D no-spreading 35.4 K
+  t=3 mm h=100: DCT max 59.5 avg 48.5 | Lee max 63.0 avg 48.7 | 1-D no-spreading 61.9 K
+  t=3 mm h=200: DCT max 43.8 avg 37.0 | Lee max 46.7 avg 36.1 | 1-D no-spreading 44.4 K
+
+## Primary package: 4 dies @350 W/cm2 + 16 HBM @40 W/cm2, 1.2 LPM/kW, HBM on Cu pedestal (0.1 mm paste)
+| config | Q kW | LPM | h_eff die kW/m2K | Tf die avg/max | die case dT avg / max / min | Tj GPU max (C) | Tf HBM avg/max | HBM case dT avg/max | Tj HBM max (C) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| C-x-U  CoolIT-like, flow x (across die then HBM), uniform | 12.86 | 15.4 | 101 | 9.1/18.1 | 80.0 / 88.6 / 50.7 | 151 | 19.6/20.8 | 36.7/43.8 | 105 |
+| C-y-U  CoolIT-like, flow y (along HBM columns), uniform | 12.86 | 15.4 | 101 | 11.3/23.1 | 82.1 / 93.2 / 52.3 | 156 | 1.2/6.0 | 18.9/31.5 | 92 |
+| C-y-Z  CoolIT-like, flow y, zoned channels 1.75/0.3/0.1 | 12.86 | 15.4 | 103 | 6.5/13.2 | 77.4 / 85.0 / 52.5 | 147 | 4.2/16.0 | 21.8/36.4 | 97 |
+| H-U    HMMC 0.1 mm, base 1 mm, uniform flow | 12.86 | 15.4 | 157 | 18.1/20.1 | 64.0 / 68.8 / 34.6 | 131 | 2.2/5.0 | 16.9/23.3 | 84 |
+| H-Z1   HMMC, 2x flow/area over die block | 12.86 | 15.4 | 160 | 12.0/13.2 | 57.9 / 61.5 / 33.8 | 124 | 2.8/5.8 | 17.4/23.3 | 84 |
+| H-Z2   HMMC, heat-proportional 3-zone 3.0/0.32/0.04 | 12.86 | 15.4 | 167 | 6.4/6.7 | 52.3 / 54.1 / 40.5 | 117 | 7.2/12.9 | 21.9/29.9 | 91 |
+| H-Z3   HMMC, 3-zone 2.9/0.5/0.04 (more HBM flow) | 12.86 | 15.4 | 167 | 6.6/6.9 | 52.5 / 54.4 / 40.5 | 117 | 4.8/10.3 | 19.7/28.5 | 89 |
+| H-Z2f  HMMC-fine 0.075 mm, 3-zone | 12.86 | 15.4 | 225 | 6.4/6.7 | 47.3 / 48.7 / 37.7 | 111 | 7.0/12.0 | 21.0/27.4 | 88 |
+| H-Z2-LM HMMC 3-zone, liquid-metal die TIM 0.015 | 12.86 | 15.4 | 167 | 6.4/6.7 | 40.0 / 41.9 / 28.2 | 104 | 7.2/12.9 | 21.9/29.9 | 91 |
+| H-Z2f-LM HMMC-fine 3-zone, liquid-metal die TIM | 12.86 | 15.4 | 225 | 6.4/6.7 | 35.1 / 36.5 / 25.4 | 99 | 7.0/12.0 | 21.0/27.4 | 88 |
+
+## Budget at the hottest die cell (K): caloric (Tf-Tin) | base+conv (Ttop-Tf) | TIM
+  C-x-U  C: at x=-19.2 y=-14.8 mm: caloric 13.9 | base+conv 50.2 | TIM 24.5 | total 88.6
+  H-U    H: at x=-12.2 y=-15.8 mm: caloric 20.1 | base+conv 31.2 | TIM 17.5 | total 68.8
+  H-Z2   H: at x=-13.7 y=-16.8 mm: caloric 6.7 | base+conv 29.9 | TIM 17.5 | total 54.1
+  H-Z2f-LM: at x=-13.7 y=-16.8 mm: caloric 6.7 | base+conv 24.5 | TIM 5.2 | total 36.5
+
+## HBM case dT (K) and Tj (C) vs interface option (0.4 mm step), HBM 40 W/cm2 (53 W/stack), R_jc,HBM 0.3 K/W
+| config | base-top dT under HBM avg/max | paste 0.45 mm | pad 5 W/mK | Cu pedestal+paste | pedestal+indium |
+|---|---:|---:|---:|---:|---:|
+| C-x-U  C | 25.5/32.6 | 78.8 K / Tj 140 C | 74.6 K / Tj 135 C | 43.8 K / Tj 105 C | 35.1 K / Tj 96 C |
+| C-y-Z  C | 10.6/25.2 | 71.4 K / Tj 132 C | 67.2 K / Tj 128 C | 36.4 K / Tj 97 C | 27.7 K / Tj 88 C |
+| H-U    H | 5.7/12.1 | 58.3 K / Tj 119 C | 54.1 K / Tj 115 C | 23.3 K / Tj 84 C | 14.6 K / Tj 75 C |
+| H-Z2   H | 10.7/18.7 | 64.9 K / Tj 126 C | 60.7 K / Tj 122 C | 29.9 K / Tj 91 C | 21.2 K / Tj 82 C |
+| H-Z3   H | 8.5/17.3 | 63.5 K / Tj 124 C | 59.3 K / Tj 120 C | 28.5 K / Tj 89 C | 19.8 K / Tj 81 C |
+R''_HBM options (cm2K/W): paste 0.45 mm: 1.16, pad 5 W/mK: 1.05, Cu pedestal+paste: 0.28, pedestal+indium: 0.06
+
+## HBM flux sensitivity (pedestal + 0.1 mm paste): HBM case dT max / Tj max
+| HBM W/cm2 | W/stack | C-x-U | H-Z2 | H-Z2 with pad 5 W/mK |
+|---:|---:|---:|---:|---:|
+| 20 | 26 | 37.1 K / 90 C | 22.4 K / 75 C | 37.8 K / 91 C |
+| 40 | 53 | 43.8 K / 105 C | 29.9 K / 91 C | 60.7 K / 122 C |
+| 60 | 79 | 50.5 K / 119 C | 38.1 K / 107 C | 84.3 K / 153 C |
+| 80 | 106 | 57.2 K / 134 C | 46.2 K / 123 C | 107.8 K / 184 C |
+
+## Die-to-HBM coupling: HBM base-top dT with dies ON vs OFF (K)
+  C-x-U  C: dies ON 25.5/32.6, OFF 5.4/6.6 -> die-induced 20.1 avg / 26.0 max; fluid under HBM avg 19.6 K
+  C-y-Z  C: dies ON 10.6/25.2, OFF 7.5/9.9 -> die-induced 3.1 avg / 15.3 max; fluid under HBM avg 4.2 K
+  H-Z2   H: dies ON 10.7/18.7, OFF 8.7/9.9 -> die-induced 2.1 avg / 8.8 max; fluid under HBM avg 7.2 K
+
+## HMMC zoning sweep: die-zone flow factor f_d (HBM zone 0.32; unheated takes the remainder)
+| f_d | die share of flow | unheated f_u | Tf die avg | die dT avg | die dT max | HBM dT max | dP est kPa |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1.0 | 0.30 | 1.28 | 18.1 | 64.0 | 68.8 | 26.0 | 6.2 |
+| 1.5 | 0.46 | 0.97 | 12.2 | 58.1 | 61.8 | 25.4 | 6.3 |
+| 2.0 | 0.61 | 0.66 | 9.2 | 55.0 | 58.1 | 25.6 | 6.5 |
+| 2.5 | 0.76 | 0.35 | 7.5 | 53.2 | 55.7 | 26.6 | 6.7 |
+| 3.0 | 0.91 | 0.05 | 6.4 | 52.3 | 54.1 | 29.8 | 6.9 |
+(CoolIT-like dP at same flow, 1-D model estimate: 7.9 kPa; HMMC uniform 6.2 kPa)
+
+## Die case dT (avg / max, K) vs base thickness and h_eff; H-Z2 zoning, paste 0.05 cm2K/W, 350 W/cm2
+| base mm | h=100 | h=150 | h=200 | h=250 | h=350 |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 65.1 / 68.1 | 54.5 / 56.5 | 49.1 / 50.7 | 45.9 / 47.2 | 42.2 / 43.2 |
+| 2 | 72.3 / 76.7 | 62.1 / 65.3 | 57.0 / 59.5 | 53.8 / 56.1 | 50.2 / 52.1 |
+| 3 | 79.4 / 84.9 | 69.6 / 73.8 | 64.6 / 68.2 | 61.5 / 64.8 | 58.0 / 60.9 |
+
+## Die flux sweep (HBM 40 W/cm2, 1.2 LPM/kW of actual power): die case dT max (K) and GPU Tj max (C)
+| die W/cm2 | kW/die | total kW | C-x-U | H-U | H-Z2 | H-Z2f | H-Z2f-LM |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 150 | 1.29 | 6.0 | 45.3 / 98 | 39.3 / 92 | 26.5 / 79 | 24.2 / 77 | 18.9 / 71 |
+| 200 | 1.72 | 7.7 | 56.2 / 111 | 46.9 / 102 | 33.5 / 88 | 30.4 / 85 | 23.4 / 78 |
+| 250 | 2.15 | 9.4 | 67.0 / 124 | 54.4 / 112 | 40.4 / 98 | 36.6 / 94 | 27.8 / 85 |
+| 300 | 2.57 | 11.1 | 77.8 / 138 | 61.6 / 122 | 47.3 / 107 | 42.7 / 103 | 32.2 / 92 |
+| 350 | 3.00 | 12.9 | 88.6 / 151 | 68.8 / 131 | 54.1 / 117 | 48.7 / 111 | 36.5 / 99 |
+| 400 | 3.43 | 14.6 | 99.4 / 164 | 76.0 / 141 | 60.9 / 126 | 54.8 / 120 | 40.8 / 106 |
+
+## Stretch 15.0 kW: dies 400 W/cm2 (13.7 kW) + HBM 60 W/cm2 (1.27 kW), 18 LPM
+  C-x-U  C: Q 15.00 kW, die dT avg 90.0 / max 99.1 K (Tj 164 C); HBM dT max 52.2 K (Tj 121 C)
+  H-U    H: Q 15.00 kW, die dT avg 70.4 / max 75.4 K (Tj 140 C); HBM dT max 30.7 K (Tj 99 C)
+  H-Z2   H: Q 15.00 kW, die dT avg 58.7 / max 60.7 K (Tj 126 C); HBM dT max 38.7 K (Tj 107 C)
+  H-Z2f  H: Q 15.00 kW, die dT avg 53.1 / max 54.6 K (Tj 120 C); HBM dT max 35.8 K (Tj 105 C)
+  H-Z2f-LM: Q 15.00 kW, die dT avg 39.1 / max 40.6 K (Tj 106 C); HBM dT max 35.8 K (Tj 105 C)
+  C-y-Z  C: Q 15.00 kW, die dT avg 87.5 / max 95.5 K (Tj 160 C); HBM dT max 45.6 K (Tj 114 C)
+
+## Across-die case-temperature spread (max-min over the hottest die), K
+  C-x-U  C: max-min 37.9 K, p99-p2 28.5 K
+  C-y-U  C: max-min 40.8 K, p99-p2 30.7 K
+  C-y-Z  C: max-min 32.5 K, p99-p2 22.5 K
+  H-U    H: max-min 34.2 K, p99-p2 22.1 K
+  H-Z1   H: max-min 27.7 K, p99-p2 17.3 K
+  H-Z2   H: max-min 13.6 K, p99-p2 7.6 K
+  H-Z3   H: max-min 13.9 K, p99-p2 8.1 K
+  H-Z2f  H: max-min 11.1 K, p99-p2 6.2 K
+  H-Z2-LM : max-min 13.6 K, p99-p2 7.6 K
+  H-Z2f-LM: max-min 11.1 K, p99-p2 6.2 K

@@ -1,0 +1,12 @@
+TTV X segmented: h_eff 172 cal 8.0 tim 1.9 base 2.3 conv 7.5 avg 19.8 max 21.9 R'' 0.154 dP 6.1 pump 1.8 Qcap 38.2 Tmax 66.9
+MC X segmented: avg 18.7 / 19.8 / 21.4 max 20.8 / 22.0 / 23.6 dP 4.8 / 6.1 / 7.7 Qcap 33.8 / 38.6 / 43.1
+350 W/cm2 X segmented PCM: 52.5 K -> 97.5 C
+350 W/cm2 X segmented LM: 38.5 K -> 83.5 C
+350 W/cm2 X segmented In lid 0.011: 37.1 K -> 82.1 C
+Rubin 2.3 kW 60 cm2 1.0: X seg avg 16.5 max 18.2 dP 0.4 Qcap 16.6
+Rubin 2.3 kW 60 cm2 1.2: X seg avg 14.0 max 15.7 dP 0.4 Qcap 18.3
+Rubin Ultra 3.6 kW 80 cm2 1.0: X seg avg 16.7 max 18.4 dP 0.5 Qcap 22.4
+4 kW 25 cm2 1.5: X seg avg 20.0 max 22.3 dP 2.4 Qcap 9.0
+25 kW 117 cm2: X seg avg 26.7 max 29.2 dP 15.7 Qcap 38.9
+30 kW 150 cm2: X seg avg 25.6 max 28.0 dP 21.8 Qcap 49.8
+wafer 20 kW 460 cm2: X seg avg 14.2 max 15.9 dP 9.2 Qcap 139.0

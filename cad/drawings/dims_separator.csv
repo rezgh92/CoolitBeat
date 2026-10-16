@@ -1,0 +1,20 @@
+parameter,value (mm unless stated)
+material,OFE C10100 (316L 0.6 option rejected by the plenum lane)
+z0,10.3
+t,1.8
+outline,121.0
+corner_r,2.0
+inlet_windows.w_x,5.0
+inlet_windows.h_y,8.0
+inlet_windows.r,1.0
+inlet_windows.y_centres,-21.0 -7.0
+inlet_windows.at_lines,in
+outlet_windows.w_x,5.0
+outlet_windows.h_y,8.0
+outlet_windows.r,1.0
+outlet_windows.y_centres,7.0 21.0 35.0 49.0
+outlet_windows.at_lines,out and edge_out (edge: w_x 2.5 at x +/-53.7)
+pin_holes.d,2.0
+pin_holes.positions,"[2 values, see params.json]"
+mass_g_lane,173.7
+source,"windows 5.0 x 8.0 per IR-C1 in design/DDD-cap.md section 3 / params-cap.json (cap lane design of record, 2026-10-16); outline 121.0 per IR-C2; outlet window y positions follow the 4 outlet arches"

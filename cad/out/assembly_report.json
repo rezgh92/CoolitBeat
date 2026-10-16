@@ -1,0 +1,209 @@
+{
+ "parts": {
+  "core": {
+   "mass_g": 285.1,
+   "zmin": 0.0,
+   "zmax": 2.8,
+   "solids": 1,
+   "valid": true
+  },
+  "grate_land": {
+   "mass_g": 140.8,
+   "zmin": 2.8,
+   "zmax": 4.1,
+   "solids": 1,
+   "valid": true
+  },
+  "grate_web": {
+   "mass_g": 50.1,
+   "zmin": 4.1,
+   "zmax": 4.5,
+   "solids": 1,
+   "valid": true
+  },
+  "plenum": {
+   "mass_g": 136.2,
+   "zmin": 4.5,
+   "zmax": 10.3,
+   "solids": 1,
+   "valid": true
+  },
+  "plenum_frames": {
+   "mass_g": 31.2,
+   "zmin": 4.5,
+   "zmax": 10.28,
+   "solids": 2,
+   "valid": true
+  },
+  "separator": {
+   "mass_g": 208.4,
+   "zmin": 10.3,
+   "zmax": 12.1,
+   "solids": 1,
+   "valid": true
+  },
+  "cap": {
+   "mass_g": 233.6,
+   "zmin": 1.5,
+   "zmax": 20.8,
+   "solids": 1,
+   "valid": true
+  },
+  "boss_in": {
+   "mass_g": 18.7,
+   "zmin": 19.8,
+   "zmax": 29.5,
+   "solids": 1,
+   "valid": true
+  },
+  "boss_out": {
+   "mass_g": 18.7,
+   "zmin": 19.8,
+   "zmax": 29.5,
+   "solids": 1,
+   "valid": true
+  },
+  "guard": {
+   "mass_g": 3.3,
+   "zmin": 14.8,
+   "zmax": 22.8,
+   "solids": 1,
+   "valid": true
+  },
+  "screws": {
+   "mass_g": 24.7,
+   "zmin": -18.5,
+   "zmax": 14.5,
+   "solids": 8,
+   "valid": true
+  },
+  "frame": {
+   "mass_g": 612.1,
+   "zmin": -24.0,
+   "zmax": -20.0,
+   "solids": 1,
+   "valid": true
+  },
+  "ttv_block": {
+   "mass_g": 2793.7,
+   "zmin": -21.0,
+   "zmax": -1.0,
+   "solids": 1,
+   "valid": true
+  },
+  "ttv_tiles": {
+   "mass_g": 37.7,
+   "zmin": -1.0,
+   "zmax": 0.0,
+   "solids": 4,
+   "valid": true
+  }
+ },
+ "lite": false,
+ "plate_mass_g": 1150.8,
+ "height_at_bar_mm": 20.8,
+ "height_with_bosses_mm": 29.5,
+ "interference": [
+  {
+   "pair": "core/grate_land",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "grate_land/grate_web",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "grate_web/plenum",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "plenum/plenum_frames",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "plenum/separator",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "plenum_frames/separator",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "separator/cap",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "cap/boss_in",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "cap/boss_out",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "core/cap",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "boss_in/guard",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "core/screws",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "grate_land/cap",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "grate_web/cap",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "plenum/cap",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "plenum_frames/cap",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "cap/guard",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "separator/guard",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "boss_out/guard",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  },
+  {
+   "pair": "boss_in/boss_out",
+   "volume_mm3": 0.0,
+   "verdict": "ok"
+  }
+ ],
+ "assembly_step": "/home/user/Rez/docs/cooling/cad/out/prism15_revA_assembly.step"
+}

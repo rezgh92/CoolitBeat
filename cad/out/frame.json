@@ -1,0 +1,20 @@
+{
+ "part": "frame",
+ "valid": true,
+ "solids": 1,
+ "volume_mm3": 76995.7,
+ "mass_g": 612.1,
+ "bbox": [
+  -69.5,
+  -69.5,
+  -24.0,
+  69.5,
+  69.5,
+  -20.0
+ ],
+ "stl": "/home/user/Rez/docs/cooling/cad/out/frame.stl",
+ "step": "/home/user/Rez/docs/cooling/cad/out/frame.step",
+ "step_MB": 0.1,
+ "step_xz_MB": 0.01,
+ "seconds": 0.1
+}

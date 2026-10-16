@@ -1,0 +1,33 @@
+<section id="cost" data-transition="fade" style="background:#f4f1ec;color:#15191c;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#b4643a;font-weight:600">Cost</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:72px;font-weight:600;line-height:1.1">A third more per plate, parity per kilowatt, and a silver-free route to close the gap</h2>
+</div>
+<div style="display:flex;gap:40px;align-items:start">
+<table style="font-size:24px;color:#15191c;width:900px">
+<tr style="background:#e9e4da"><th style="width:60%;text-align:left">Factory cost line, US$ per plate</th><th style="width:20%;text-align:right">100k / yr</th><th style="width:20%;text-align:right">10k / yr</th></tr>
+<tr><td>Copper, 1.52 kg of blanks and strip</td><td style="text-align:right">22.1</td><td style="text-align:right">25.5</td></tr>
+<tr><td>Skiving, kerfing, planing, fly-cut</td><td style="text-align:right">28.9</td><td style="text-align:right">70.4</td></tr>
+<tr><td>Grate, plenum, separator, cap, bosses</td><td style="text-align:right">18.5</td><td style="text-align:right">51.5</td></tr>
+<tr><td>Silver filler, 5.7 g BAg-8 preforms</td><td style="text-align:right">14.7</td><td style="text-align:right">20.6</td></tr>
+<tr><td>Vacuum braze and fixtures</td><td style="text-align:right">17.6</td><td style="text-align:right">38.7</td></tr>
+<tr><td>Taps, guard, stubs, hardware, frame, tooling</td><td style="text-align:right">24.3</td><td style="text-align:right">42.3</td></tr>
+<tr><td>Test: flush, helium, proof and scan, dP, IR, bake</td><td style="text-align:right">11.8</td><td style="text-align:right">28.3</td></tr>
+<tr style="background:#e9e4da"><td><b>Factory cost, P50 (direct ÷ yield × 1.12)</b></td><td style="text-align:right"><b>165</b></td><td style="text-align:right"><b>388</b></td></tr>
+<tr><td>P10 / P90</td><td style="text-align:right">156 / 175</td><td style="text-align:right">361 / 427</td></tr>
+</table>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;gap:20px">
+<div style="flex:1;background:#15191c;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:4px"><p style="font-size:56px;font-weight:600;color:#f4f1ec;line-height:1">US$165</p><p style="font-size:22px;color:#c9c4bb">PRISM-15 Rev A at 100k per year</p></div>
+<div style="flex:1;background:#ffffff;border:1px solid #ddd8cf;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:4px"><p style="font-size:56px;font-weight:600;color:#15191c;line-height:1">US$126</p><p style="font-size:22px;color:#4a5058">like-sized split-flow plate, estimate</p></div>
+</div>
+<div style="display:flex;gap:20px">
+<div style="flex:1;background:#ffffff;border:1px solid #ddd8cf;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:4px"><p style="font-size:56px;font-weight:600;color:#2f6f8f;line-height:1">US$142</p><p style="font-size:22px;color:#4a5058">route C2, Cu-Sn belt braze, decided at G1</p></div>
+<div style="flex:1;background:#ffffff;border:1px solid #ddd8cf;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:4px"><p style="font-size:56px;font-weight:600;color:#15191c;line-height:1">US$8.9</p><p style="font-size:22px;color:#4a5058">per kW of pad capacity, against US$8.5 for the incumbent</p></div>
+</div>
+<p style="font-size:24px;line-height:1.4;color:#4a5058">Capital per 100k-per-year line at the contract manufacturer: US$5.6 to 8.0 M, of which 1.4 to 1.6 vacuum furnaces are US$2.4 to 3.2 M and the test cell US$1.0 to 1.6 M. Copper at US$14.6/kg and silver at US$65/oz, hedged 6 to 12 months.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8f8a82">Cost roll-up: design/mfg_cost.py, DDD-mfg section 6. Yield 93.5 % mature; per-SKU tooling is limited to the laser-pierced meter web.</p>
+<aside>Cost is the one metric the plate loses outright. The silver filler and the 100 % test regime are most of the premium; the Cu-Sn transient-liquid-phase route removes most of the silver and is decided on E1 coupons. Per kilowatt of capacity at 85 °C the plate is at parity, which is the number a rack owner actually buys.</aside>
+</section>

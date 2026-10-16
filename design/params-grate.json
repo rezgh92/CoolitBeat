@@ -1,0 +1,78 @@
+{
+ "key": "grate",
+ "doc": "docs/cooling/design/DDD-grate.md",
+ "date": "2026-10-15",
+ "units": "mm, kPa, m/s, LPM; axes per cad/prism_cad.py: X along fins (across lines), Y along lines, Z up from the die face, origin at the fin-field centre",
+ "grate": {
+  "thickness_total": 1.70,
+  "z_bottom": 2.80,
+  "z_top": 4.50,
+  "construction": "two OFE C10100 laminations brazed in the single vacuum cycle: land plate GRT-L 1.30 (bottom, z 2.80-4.10) + meter web GRT-W 0.40 (top, z 4.10-4.50)",
+  "outline": {"x": 122.6, "y": 122.6, "corner_r": 2.0, "tol": 0.10, "basis": "body 125 - 2 x skirt 1.0 - 2 x 0.2 clearance (cap lane to confirm)"},
+  "datums": {"D1_hole": {"x": -57.0, "y": -57.0, "d": 3.00, "fit": "H7", "pos_tol": 0.02}, "D2_slot": {"x": 57.0, "y": 57.0, "w": 3.00, "l": 3.40, "axis": "diagonal", "pos_tol": 0.02}},
+  "mass_g": {"land_plate": 149, "meter_web": 52, "total": 201, "basis": "grate_cq_check.json (land plate CadQuery), grate_cell.out (web analytic); architecture 210"}
+ },
+ "lines": {
+  "field": 108.0, "n_lines": 15, "pitch": 7.7143, "x": [-54.0, -46.2857, -38.5714, -30.8571, -23.1429, -15.4286, -7.7143, 0.0, 7.7143, 15.4286, 23.1429, 30.8571, 38.5714, 46.2857, 54.0],
+  "kind": ["edge_out", "in", "out", "in", "out", "in", "out", "in", "out", "in", "out", "in", "out", "in", "edge_out"],
+  "pos_tol": 0.03
+ },
+ "land_plate_GRT_L": {
+  "material": "OFE C10100, H02 strip, stress-relieved 300 C/1 h, skimmed both faces",
+  "thickness": {"nom": 1.30, "tol": 0.02},
+  "window_interior": {"count": 13, "w": 1.20, "w_tol": "+0.05/-0", "length": 108.0, "y_center": 0.0, "end_r": 0.6, "through": true, "centred_on_line": true},
+  "window_edge": {"count": 2, "w": 0.60, "w_tol": "+0.05/-0", "length": 108.0, "x_center": [-53.70, 53.70], "x_span": "53.40-54.00", "end_r": 0.2, "through": true},
+  "recess_inlet": {"count": 7, "w": 2.70, "w_tol": "+0.05/-0", "depth": 0.80, "depth_tol": 0.03, "depth_range_E2": [0.70, 0.90], "length": 109.0, "end_r": 1.35, "from_face": "top (z 4.10)", "floor": 0.50, "floor_tol": 0.04, "centred_on_line": true},
+  "lip": {"w": 0.75, "x_from_line": [0.60, 1.35], "range_E2": [0.70, 0.80], "Ra_max": 1.6},
+  "grooves_capillary_break": {"w": 0.15, "depth": 0.08, "tol": 0.02, "process": "laser scribe", "underside_x_from_window_center": 0.775, "edge_window_x": [-53.225, 53.225], "topface_inlet_x_from_line": 1.525, "topface_outlet_x_from_line": 0.775, "length": 108.6},
+  "flatness": {"field": 0.020, "overall": 0.030}, "land_face_Ra_max": 0.8, "burr_max": 0.015,
+  "lands": {"interior_width": 6.514, "bonded_width_per_pitch": 5.914, "mask_from_window_edge": 0.30, "bond_fraction_pitch": 0.767, "bond_fraction_fin_tip": 0.798, "continuous": true}
+ },
+ "meter_web_GRT_W": {
+  "material": "OFE C10100 O60/H01 precision strip",
+  "thickness": {"nom": 0.40, "tol": 0.010},
+  "hole_shape": "rounded rectangle, w across the line (x), h along the line (y)",
+  "inlet_orifice": {"count": 378, "per_line": 54, "pitch_y": 2.0, "y_first": -53.0, "w": 0.50, "r": 0.10, "x_offset_from_line": 1.00, "sides": "alternate +x/-x (odd/even index)", "w_tol": 0.010, "h_tol": 0.010, "pos_tol": 0.020,
+   "size_steps": [{"step": 1, "h": 1.12, "area": 0.5514, "count": 84}, {"step": 2, "h": 1.09, "area": 0.5364, "count": 56}, {"step": 3, "h": 1.06, "area": 0.5214, "count": 56}, {"step": 4, "h": 1.01, "area": 0.4964, "count": 98}, {"step": 5, "h": 0.99, "area": 0.4864, "count": 84}],
+   "step_sequence_y_minus53_to_plus53": [1,1,1,1,1,1,1,1,1,1,2,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,4,4,4,5,5,5,5,5,5,5,5,5,4,5,4,5,4,5,4,4,4,4,4,4,4,4],
+   "area_span": 1.134, "total_area_mm2": 195.1, "mean_area_mm2": 0.5162},
+  "outlet_hole_interior": {"count": 324, "per_line": 54, "pitch_y": 2.0, "w": 1.00, "h": 1.12, "r": 0.15, "x_offset_from_line": 0.0, "area": 1.1007, "tol": 0.015, "pos_tol": 0.02},
+  "outlet_slot_edge": {"count": 54, "per_line": 27, "pitch_y": 4.0, "y_first": -52.0, "w": 0.40, "h": 2.78, "r": 0.10, "x_center": [-53.70, 53.70], "area": 1.1034, "tol": 0.015, "pos_tol": 0.02},
+  "edge_condition": "laser entry on the plenum (top) face, entry rounding <= 0.03, exit dross <= 0.015 then electropolish 3-5 um, taper <= 1 deg",
+  "keep_out": "no hole within 0.30 of plenum-leg footprints (|x - x_line| 3.06-3.86) or datums",
+  "fiducials": [{"x": -57.0, "y": 57.0, "d": 1.0}, {"x": 57.0, "y": -57.0, "d": 1.0}],
+  "holes_total": 756,
+  "artwork_files": {"csv": "artwork_prism15_ttv.csv", "dxf": "artwork_prism15_ttv.dxf", "id": "ART-TTV-15-A"}
+ },
+ "hydraulics_18lpm": {
+  "meter_dp_kpa": 2.31, "meter_u_mean": 1.54, "meter_u_max_orifice": 1.64, "meter_u_mean_22p5lpm": 1.93, "meter_u_max_22p5lpm": 2.05, "cd": 0.72, "cd_band": [0.65, 0.80], "Re": 823, "t_over_Dh": 0.60,
+  "per_orifice_maxmin": {"9": 1.044, "18": 1.044, "22.5": 1.044, "27": 1.046, "36": 1.047}, "per_orifice_spread_pct": 2.2,
+  "outlet_row_dp_kpa": {"interior": 0.504, "edge": 0.501, "at_36lpm": 2.02},
+  "segment_maxmin_row_lumped_per_line": {"9": 1.057, "18": 1.092, "27": 1.122, "36": 1.148}, "line_maxmin_18": 1.035,
+  "window_face_u": 0.331, "entry_sheet_u": 0.50, "fin_top_u_est": 0.40, "fin_top_u_est_22p5": 0.50, "fin_top_cap": 0.5,
+  "jet": {"standoff_H": 0.80, "spread_per_side": 0.08, "footprint_x": [0.670, 1.330], "inner_margin": {"nom": 0.070, "rss": 0.023, "worst": -0.010}, "outer_margin": {"nom": 0.100, "rss": 0.053, "worst": 0.020}, "lip_shear_pa": [93, 154]}
+ },
+ "structure_3p1MPa": {"web_under_meter_dp_36lpm_MPa": 0.21, "land_outlet_side_MPa": 25.8, "land_inlet_side_MPa": 13.8, "floor_cantilever_MPa": 7.5, "tie_mean_MPa": 11.6, "plenum_leg_MPa": 29.9, "allowable_MPa": 40},
+ "filler": {
+  "routes": {"A": "BAg-8 12-15 um preform ladders (tip joint: 15 cut-outs 1.80 x 108.6; web joint: 7 cut-outs 3.30 x 109.6 + 8 cut-outs 1.80 x 108.6)", "B": "Ag 8-10 um on GRT-L both faces, masked as A", "C": "Sn ~3 um on GRT-L both faces, masked as A (C2 belt)"},
+  "mask_from_window_edge": 0.30, "mask_from_recess_edge": 0.30, "min_filler_to_orifice": 0.40, "bag8_g_per_plate_grate_interfaces": 2.0,
+  "capillary_kpa": {"joint_10um": 180, "joint_25um": 72, "joint_40um": 45, "gap_150um": 12, "kerf_300um": 6}
+ },
+ "process": {
+  "recess": "slot mill 2.7 mm carbide, 2 x 0.4 passes (prototype CNC; volume 7-spindle head or photochemical half-etch +/-0.05); coining excluded (62 % depth > 30-40 % limit)",
+  "windows": "laser (prototype); closed-slot punch from the fin face (volume), brush, skim",
+  "web_holes": "fibre laser pierce, ~0.1 s/hole, ~1.3 min/plate, US$2-4; perforating die after artwork freeze (5 inlet + 2 outlet punch sizes), Cd re-qualified",
+  "limits": {"laser_min_feature": 0.10, "laser_kerf": [0.03, 0.05], "laser_taper_deg_max": 1.0, "laser_pos_tol": 0.02, "die_d_over_t_min": 1.0, "fineblank_d_over_t_min": 0.6, "die_web_over_t_min": 1.5, "punch_clearance_pct_t_per_side": [4, 6], "burr_max": 0.015, "coining_depth_pct_t_max": [30, 40]},
+  "inspection": "100 % backlit vision of hole areas (+/-1 %) and positions; pocket depth/floor probe 7 x 3; flatness map 0.020; lot CT for filler per land strip and absence in grooves/orifices; 3-flow dp CpK >= 1.33"
+ },
+ "cost_usd_100k": {"grate_total": [9, 13], "architecture_line": 6.8, "delta_two_laminations": [0.5, 1.0]},
+ "prism_g_example": {
+  "field": [110.0, 120.0], "outline_assumed": [124.6, 134.6], "lines_x": [-55, -44, -33, -27.5, -22, -16.5, -11, -5.5, 0, 5.5, 11, 16.5, 22, 27.5, 33, 44, 55],
+  "lines_kind": ["edge_out", "in", "out", "in", "out", "in", "out", "in", "out", "in", "out", "in", "out", "in", "out", "in", "edge_out"],
+  "L_die": 5.5, "L_hbm": 11.0, "flow_share_die_pct": 94.3, "flow_share_hbm_pct": 5.7, "inlet_open_area_mm2": 190.1, "inlet_orifices": 360, "holes_total": 840,
+  "meter_dp_die_kpa": 2.30, "meter_dp_hbm_kpa": 2.90, "branch_dp_kpa": 4.06, "max_orifice_u_18lpm": 1.73, "max_orifice_u_23lpm": 2.21, "die_plenum_half_channel_u": 1.07,
+  "files": {"csv": "artwork_prism_g_example.csv", "dxf": "artwork_prism_g_example.dxf", "id": "ART-G-EX-A"}
+ },
+ "deviations": ["D1 recess 2.70 / lip 0.75 / orifice offset 1.00 (arch 2.5 / 0.65 / centred)", "D2 two laminations 1.30 + 0.40 (arch one 1.7 plate)", "D3 area span 1.134x (arch 1.16x)", "D4 edge outlet rows 27 x 0.40 x 2.78 at 4 mm", "D5 segment max/min 1.092 at 18 LPM with the row lumped per line (arch 1.061)", "D6 mean orifice length 1.05", "D7 PRISM-G example on 17 flux-graded lines"],
+ "open_items": ["O1 H 0.80 (0.70-0.90) and lip 0.75 (0.70-0.80) by E2 CFD/PIV", "O2 Cd 0.72 (0.65-0.80) by E2 coupons", "O3 separator window y +/-14 (+/-2) freeze", "O4 edge window 0.60-0.90 per base end gap", "O5 registration +/-0.03", "O6 capillary-break proof by E1 sections", "O7 web/land bypass <= 0.2 %", "O8 lip erosion E4", "O9 die transition", "O10 PRISM-G product artwork"]
+}

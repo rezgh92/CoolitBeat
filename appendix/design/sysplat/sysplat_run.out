@@ -1,0 +1,142 @@
+# LoopCore system-platform scoping run (project model v2, PG25, 45 C inlet)
+
+## 1. 15 kW / 18 LPM / 45 C / 117 cm2
+
+| design | caloric | TIM | base | conv | avg dT K | max dT K | R'' cm2K/W | plate dP kPa | pump W | Qcap kW | Tcase,max C |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like reconstruction (calibration, paste) | 6.3 | 9.0 | 6.6 | 12.6 | **34.5** | **44.3** | 0.269 | 24.6 | 7.4 | 12.7 | 89.3 |
+| LoopCore-15/R same paste 0.07 (like-for-like) | 7.6 | 9.0 | 3.3 | 10.1 | **30.0** | **35.0** | 0.234 | 3.7 | 1.1 | 18.4 | 80.0 |
+| LoopCore-15/R PCM pad (Tier 1 drop-in) | 7.6 | 7.1 | 3.3 | 10.1 | **28.0** | **31.1** | 0.219 | 3.7 | 1.1 | 21.6 | 76.1 |
+| LoopCore-15/R liquid metal (Tier 2 OEM) | 7.6 | 1.9 | 3.3 | 10.1 | **22.9** | **25.0** | 0.179 | 3.7 | 1.1 | 29.7 | 70.0 |
+| LoopCore-15/P PCM (<=33 um loops) | 8.2 | 7.1 | 3.3 | 6.8 | **25.4** | **28.4** | 0.198 | 3.8 | 1.1 | 25.2 | 73.4 |
+| LoopCore-15/P liquid metal (<=33 um loops) | 8.2 | 1.9 | 3.3 | 6.8 | **20.2** | **22.3** | 0.158 | 3.8 | 1.1 | 37.0 | 67.3 |
+| LoopCore-15/R direct-to-die, 0.8 mm base (Tier 3) | 7.6 | 0.0 | 2.6 | 10.1 | **20.3** | **22.4** | 0.159 | 3.7 | 1.1 | 35.7 | 67.4 |
+
+Tier 1 dP split (kPa): channel 0.23 + turns 0.01 + header 0.50 + orifice comb 2.00 + dual 16 mm ports 0.64 + screens 0.30 = 3.69 kPa; port velocity 0.75 m/s; channel u 0.083 m/s Re 19; h_eff 127 kW/m2K; NTU 1.25
+
+## 2. Flow sweep (avg / max dT K, plate dP kPa, hydraulic W)
+
+| LPM/kW | LPM | CoolIT-like | LoopCore T1 PCM | LoopCore T2 LM | T1 outlet C |
+|---:|---:|---|---|---|---:|
+| 0.60 | 9.0 | 41.0 / 50.8 / 9.8 / 1.5 | 38.0 / 41.0 / 1.0 / 0.2 | 32.9 / 35.0 / 1.0 | 70.3 |
+| 0.75 | 11.2 | 38.5 / 48.3 / 13.0 / 2.4 | 33.8 / 36.8 / 1.5 / 0.3 | 28.7 / 30.8 / 1.5 | 65.3 |
+| 0.80 | 12.0 | 37.8 / 47.6 / 14.2 / 2.8 | 32.8 / 35.8 / 1.7 / 0.3 | 27.7 / 29.8 / 1.7 | 64.0 |
+| 1.00 | 15.0 | 35.8 / 45.6 / 19.1 / 4.8 | 29.9 / 32.9 / 2.6 / 0.7 | 24.8 / 26.9 / 2.6 | 60.2 |
+| 1.20 | 18.0 | 34.5 / 44.3 / 24.6 / 7.4 | 28.0 / 31.1 / 3.7 / 1.1 | 22.9 / 25.0 / 3.7 | 57.7 |
+| 1.50 | 22.5 | 33.2 / 43.0 / 33.9 / 12.7 | 26.3 / 29.3 / 5.6 / 2.1 | 21.1 / 23.2 / 5.6 | 55.1 |
+| 2.00 | 30.0 | 31.7 / 41.5 / 52.2 / 26.1 | 24.5 / 27.5 / 9.8 / 4.9 | 19.4 / 21.5 / 9.8 | 52.6 |
+| 2.40 | 36.0 | 31.0 / 40.8 / 69.3 / 41.6 | 23.6 / 26.7 / 13.9 / 8.4 | 18.5 / 20.6 / 13.9 | 51.3 |
+
+2x flow (36 LPM) with dual 16 mm ports: T1 23.6 / 26.7 K, plate dP 13.9 kPa, hydraulic 8.4 W
+2x flow (36 LPM) with dual 12 mm ports: plate dP 19.5 kPa
+
+Flow equivalence (LPM/kW at which LoopCore matches CoolIT 34.4 K avg / 44.2 K max): T1 PCM 0.72 / 0.52; T2 LM 0.56 / 0.43; same paste avg 0.82
+  T1 at avg-equivalence: 10.9 LPM, plate dP 1.43 kPa, 0.26 W, outlet rise 21.0 K
+Equal hydraulic power to CoolIT-like (7.4 W): 34.5 LPM (2.30 LPM/kW), dP 12.8 kPa, T1 23.8 / 26.8 K, T2 18.7 / 20.8 K
+
+## 3. Warm-water headroom at 15 kW, 1.2 LPM/kW
+
+| design | max dT K | inlet for Tcase,max = 85 C | avg dT K | inlet for Tcase,avg = 80 C (CoolIT convention) |
+|---|---:|---:|---:|---:|
+| CoolIT-like reconstruction (calibration, paste) | 44.3 | 40.7 C | 34.5 | 45.5 C |
+| LoopCore-15/R same paste 0.07 (like-for-like) | 35.0 | 50.0 C | 30.0 | 50.0 C |
+| LoopCore-15/R PCM pad (Tier 1 drop-in) | 31.1 | 53.9 C | 28.0 | 52.0 C |
+| LoopCore-15/R liquid metal (Tier 2 OEM) | 25.0 | 60.0 C | 22.9 | 57.1 C |
+Measured CoolIT: max 44.2 K -> 40.8 C; avg 34.4 K -> 45.6 C. Conservative Tier 1 (P90 max 34.5-35 K) -> 50 C.
+
+## 4. Tray-loop budgets for one 15 kW plate (kPa; low-high from coupling Cv band)
+
+| configuration | 18 LPM | 15 LPM (1.0/kW) | 11.25 LPM (0.75/kW) | 36 LPM (2x) |
+|---|---|---|---|---|
+| CoolIT-like + 1x UQD08, 12 mm stubs, 1/2-in hose | 65-80 | 47-58 | 29-35 | 225-287 |
+| CoolIT-like + 2x UQD08, 15 mm fittings, 5/8-in hose | 36-40 | 27-30 | 18-19 | 115-130 |
+| LoopCore + 1x UQD08, 12 mm stubs, 1/2-in hose | 44-59 | 31-41 | 18-24 | 170-231 |
+| LoopCore + 2x UQD08 (dual-end ports), no orifice | 16-19 | 11-14 | 6-8 | 59-75 |
+| LoopCore + 2x UQD08 + TFM orifice 10 kPa (recommended) | 26-29 | 18-21 | 10-12 | 99-115 |
+| LoopCore + 3/4-in class pair + TFM orifice 10 kPa | 23-28 | 16-20 | 9-11 | 88-111 |
+
+Recommended loop at 18 LPM, parts (kPa): couplings 4.9-8.7, hose 1.9, fittings 4.2, TFM cartridge+wells 0.8, orifice 10.0, plate 3.7
+
+Catalogue Cv check, UQD08 pair at 18 LPM: Cv 4.75 (CPC max) 14.0 kPa; Cv 3.7 (FITOK) 23.0 kPa; dual pairs at 9 LPM each: 3.5-5.8 kPa
+
+## 5. Rack manifold uniformity: 18 trays x 15 kW, 324 LPM at 1.2 LPM/kW, 2U pitch, theta_d 1 / theta_c 2
+
+| branch (rated dP at 18 LPM) | header ID | layout | header dP variation kPa | tray flow max/min | worst tray flow % | T1 max-dT penalty at worst tray K |
+|---|---:|---|---:|---:|---:|---:|
+| CoolIT-like + 1x UQD08 (72 kPa) | 50 mm | U | 5.2 | 1.036 | 98.8 % | +0.11 |
+| CoolIT-like + 1x UQD08 (72 kPa) | 50 mm | Z | 11.3 | 1.081 | 96.7 % | +0.31 |
+| CoolIT-like + 1x UQD08 (72 kPa) | 63 mm | U | 2.0 | 1.014 | 99.5 % | +0.04 |
+| CoolIT-like + 1x UQD08 (72 kPa) | 63 mm | Z | 4.5 | 1.032 | 98.7 % | +0.12 |
+| LoopCore + 1x UQD08 (51 kPa) | 50 mm | U | 5.2 | 1.051 | 98.3 % | +0.16 |
+| LoopCore + 1x UQD08 (51 kPa) | 50 mm | Z | 11.3 | 1.115 | 95.4 % | +0.45 |
+| LoopCore + 1x UQD08 (51 kPa) | 63 mm | U | 2.0 | 1.019 | 99.3 % | +0.06 |
+| LoopCore + 1x UQD08 (51 kPa) | 63 mm | Z | 4.5 | 1.044 | 98.1 % | +0.17 |
+| LoopCore + 2x UQD08, no orifice (17 kPa) | 50 mm | U | 5.2 | 1.152 | 95.1 % | +0.47 |
+| LoopCore + 2x UQD08, no orifice (17 kPa) | 50 mm | Z | 11.2 | 1.363 | 86.7 % | +1.41 |
+| LoopCore + 2x UQD08, no orifice (17 kPa) | 63 mm | U | 2.0 | 1.057 | 98.1 % | +0.18 |
+| LoopCore + 2x UQD08, no orifice (17 kPa) | 63 mm | Z | 4.5 | 1.135 | 94.5 % | +0.53 |
+| LoopCore + 2x UQD08 + 10 kPa orifice (27 kPa) | 50 mm | U | 5.2 | 1.096 | 96.8 % | +0.30 |
+| LoopCore + 2x UQD08 + 10 kPa orifice (27 kPa) | 50 mm | Z | 11.3 | 1.222 | 91.4 % | +0.86 |
+| LoopCore + 2x UQD08 + 10 kPa orifice (27 kPa) | 63 mm | U | 2.0 | 1.036 | 98.8 % | +0.11 |
+| LoopCore + 2x UQD08 + 10 kPa orifice (27 kPa) | 63 mm | Z | 4.5 | 1.085 | 96.5 % | +0.33 |
+
+## 6. Mixed loads on one manifold (equal-dP rule)
+
+Power-shelf branch (2 kW, rated 1.2 LPM, intrinsic 4 kPa at rated) on a header set for 27 kPa GPU branches: draws 3.1 LPM (2.6x rated) unless its TFM orifice adds 23 kPa at rated flow. With 10 power branches per rack that is 19 LPM stolen from 324 LPM of GPU flow (6 %).
+
+## 7. GPU-class plates (lidded, uniform heat over the lid footprint)
+
+| case | flow LPM | CoolIT-like paste avg/max | LoopCore T1 PCM avg/max | LoopCore T2 LM avg/max | plate dP CoolIT-like / LoopCore kPa |
+|---|---:|---|---|---|---|
+| B300 1.4 kW, 45 cm2, 1.0 LPM/kW | 1.4 | 14.5 / 21.7 | 17.7 / 19.6 | 16.5 / 18.1 | 1.2 / 2.6 |
+| Rubin 2.3 kW, 60 cm2, 1.0 LPM/kW | 2.3 | 16.1 / 23.5 | 18.4 / 20.3 | 16.9 / 18.5 | 2.0 / 2.7 |
+| Rubin 2.3 kW, 60 cm2, 1.2 LPM/kW | 2.8 | 14.8 / 22.2 | 16.0 / 17.9 | 14.4 / 16.1 | 2.5 / 2.8 |
+| Rubin Ultra 3.6 kW, 80 cm2, 1.0 LPM/kW | 3.6 | 17.6 / 25.1 | 19.1 / 21.1 | 17.3 / 19.0 | 3.3 / 3.0 |
+| CoolIT 4 kW point, 25 cm2, 1.5 LPM/kW | 6.0 | 40.0 / 50.7 | 31.0 / 34.4 | 24.6 / 26.8 | 6.2 / 4.1 |
+
+Die-zone estimate, Rubin 2.3 kW (2 dies, 16.6 cm2, 1.94 kW; split-flow passes ~65 % of 2.3 LPM over the dies, 16-20 mm path; LoopCore zoned comb sends 88 %):
+- 1.0 LPM/kW: CoolIT-like paste 35.7 / 45.2 K; LoopCore PCM 27.8 / 30.7 K; LoopCore LM 23.1 / 25.2 K (die-zone case-to-inlet, no lateral spreading credit)
+- 1.2 LPM/kW: CoolIT-like paste 34.0 / 43.5 K; LoopCore PCM 26.0 / 28.9 K; LoopCore LM 21.3 / 23.4 K (die-zone case-to-inlet, no lateral spreading credit)
+
+## 8. Real 2027-28 package, hottest die cell (4 x 26 x 33 mm at 350 W/cm2 + 16 HBM, zoned), synthesis fit
+
+- robust core R, PCM: 62.3 K -> Tcase,max 107.3 C
+- robust core R, LM: 48.3 K -> Tcase,max 93.3 C
+- performance core P (die zone only, 25 um loops), PCM: 53.5 K -> Tcase,max 98.5 C
+- performance core P (die zone only, 25 um loops), LM: 39.5 K -> Tcase,max 84.5 C
+- CoolIT-like split-flow (paste 0.05, flow over dies then HBM): 88.6 K -> 134 C; with LM ~76 K -> ~121 C
+
+## 9. Facility-level value, 100 MW IT liquid-captured
+
+| scenario | TCS flow LPM | CDUs (2,400 LPM, flow-limited, N) | TCS dP kPa | hydraulic kW | pump electric kW (60 %) | energy GWh/yr | PUE delta vs A |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| A benchmark: CoolIT-like, 1x UQD08, 1.2 LPM/kW (tray 72 kPa) | 120,000 | 50 | 212 | 425 | 708 | 6.20 | +0.0000 |
+| B LoopCore, 1x UQD08, same 1.2 LPM/kW (tray 51) | 120,000 | 50 | 191 | 383 | 638 | 5.59 | -0.0007 |
+| C LoopCore, 1x UQD08, 1.0 LPM/kW (design point) | 100,000 | 42 | 133 | 222 | 369 | 3.23 | -0.0034 |
+| D LoopCore, 1x UQD08, 0.75 LPM/kW (65 C return floor) | 75,000 | 32 | 75 | 93 | 156 | 1.36 | -0.0055 |
+| E LoopCore, 2x UQD08 + metering, 1.0 LPM/kW (tray 19) | 100,000 | 42 | 116 | 194 | 323 | 2.83 | -0.0038 |
+
+Supply-temperature value (estimates per gap-cost report: US$0.8-2.0 M capex per K per 100 MW of dry cooler, US$0.16-0.32 M/yr per K trim-chiller energy in hot climates):
+- GPU-class lidded (Rubin 2.3 kW, max dT gain, T1 PCM): +3.1 K supply at equal Tcase,max -> US$2.5-6.2 M capex + US$0.50-1.00 M/yr (hot climate) per 100 MW
+- 15 kW-class conservative (P90): +9.2 K supply at equal Tcase,max -> US$7.4-18.4 M capex + US$1.47-2.94 M/yr (hot climate) per 100 MW
+- 15 kW-class nominal T1: +13.1 K supply at equal Tcase,max -> US$10.5-26.2 M capex + US$2.10-4.19 M/yr (hot climate) per 100 MW
+- 15 kW-class T2 LM: +19.2 K supply at equal Tcase,max -> US$15.4-38.4 M capex + US$3.07-6.14 M/yr (hot climate) per 100 MW
+
+## 10. GPU-class tray loop (4 x 2.3 kW GPU + 2 x 0.5 kW CPU = 10.2 kW, 1.0 LPM/kW = 10.2 LPM)
+
+- GPU plate (LoopCore-G, 60 cm2, 2.3 LPM): 2.7 kPa port-to-port
+- per-plate branch with UQD04-class service pair: 11-24 kPa; with UQD06-class: 4-6 kPa
+- tray UQDB08 pair at 10.2 LPM: 6.3-11.2 kPa; TFM orifice 10 kPa; cartridge+wells 0.3 kPa
+- tray total (UQD04 service pairs): 28-45 kPa; (UQD06 service pairs): 21-28 kPa
+- reference: vendor GB300-class skived plate 12 kPa at 1.7 LPM -> ~19 kPa at 2.3 LPM (flow^1.5), no service coupling; tray total 26-31 kPa without metering
+
+## 11. Variants
+
+- LP18 (fins 1.5 mm, comb 3.2 kPa): 28.9 / 31.9 K, plate dP 5.0 kPa, Qcap 20.6 kW
+- dual 12 mm ports at 18 LPM: plate dP 5.1 kPa, hydraulic 1.52 W
+- T1 at 0.75 LPM/kW: 33.8 / 36.8 K; +3.4 K P90 penalty -> 37.2 / 40.2 K
+- T1 at 1.0 LPM/kW: 29.9 / 32.9 K; +3.4 K P90 penalty -> 33.3 / 36.3 K
+- T2 at 0.75 LPM/kW: 28.7 / 30.8 K
+- T1 at 1.0 LPM/kW, 50 C inlet: Tcase,max 82.9 C
+
+Done.

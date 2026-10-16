@@ -1,0 +1,20 @@
+{
+ "part": "grate_land",
+ "valid": true,
+ "solids": 1,
+ "volume_mm3": 15751.0,
+ "mass_g": 140.8,
+ "bbox": [
+  -60.5,
+  -60.5,
+  2.8,
+  60.5,
+  60.5,
+  4.1
+ ],
+ "stl": "/home/user/Rez/docs/cooling/cad/out/grate_land.stl",
+ "step": "/home/user/Rez/docs/cooling/cad/out/grate_land.step",
+ "step_MB": 0.4,
+ "step_xz_MB": 0.04,
+ "seconds": 0.4
+}

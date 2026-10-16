@@ -1,0 +1,135 @@
+==============================================================================
+1. LOCAL BASE BENDING BETWEEN FINS / OVER UNSUPPORTED SPANS at p_burst = 1.5 MPa
+==============================================================================
+span                                 t_base    sigma      w_max  SF vs yield   SF UTS
+fin gap 0.10 mm                       0.5 mm   0.030 MPa  2.83e-07 um       2333     7333
+fin gap 0.10 mm                       0.8 mm   0.012 MPa  6.92e-08 um       5973    18773
+fin gap 0.10 mm                       1.0 mm   0.008 MPa  3.54e-08 um       9333    29333
+
+slot width 0.30 mm (fins continuous)    0.5 mm   0.270 MPa   2.3e-05 um        259      815
+slot width 0.30 mm (fins continuous)    0.8 mm   0.105 MPa  5.61e-06 um        664     2086
+slot width 0.30 mm (fins continuous)    1.0 mm   0.068 MPa  2.87e-06 um       1037     3259
+
+perimeter land 4 mm                   0.5 mm  48.000 MPa     0.726 um          1        5
+perimeter land 4 mm                   0.8 mm  18.750 MPa     0.177 um          4       12
+perimeter land 4 mm                   1.0 mm  12.000 MPa    0.0907 um          6       18
+
+plenum over base 6 mm (avoid)         0.5 mm 108.000 MPa      3.67 um          1        2
+plenum over base 6 mm (avoid)         0.8 mm  42.188 MPa     0.897 um          2        5
+plenum over base 6 mm (avoid)         1.0 mm  27.000 MPa     0.459 um          3        8
+
+plenum over base 10 mm (avoid)        0.5 mm 300.000 MPa      28.3 um          0        1
+plenum over base 10 mm (avoid)        0.8 mm 117.188 MPa      6.92 um          1        2
+plenum over base 10 mm (avoid)        1.0 mm  75.000 MPa      3.54 um          1        3
+
+==============================================================================
+2. FINS AS TENSION TIES (brazed / diffusion-bonded both faces)
+==============================================================================
+operating   0.30 MPa: fin tie  0.60 MPa | tip-bond  0.71 MPa | manifold/cover bond  0.60 MPa
+proof       0.60 MPa: fin tie  1.20 MPa | tip-bond  1.41 MPa | manifold/cover bond  1.20 MPa
+burst       1.50 MPa: fin tie  3.00 MPa | tip-bond  3.53 MPa | manifold/cover bond  3.00 MPa
+
+Safety factors at burst (1.5 MPa) on the tip bond (3.53 MPa):
+  OFHC annealed (post-braze / post-diffusion-bond)     SF_yield  19.8  SF_UTS  62.3
+  OFHC half-hard (only if joints made cold)            SF_yield  70.8  SF_UTS  85.0
+  brazed lap-shear 100-200 MPa                         SF  28.3 ..  56.7
+  diffusion bond ~180 MPa                              SF  51.0
+  Kt=2.5 at fin root, bonded fraction 85% -> 8.8 MPa, SF_yield(annealed) 7.9
+  Kt=2.5 at fin root, bonded fraction 30% -> 25.0 MPa, SF_yield(annealed) 2.8
+
+Burst-pressure ladder for the tied HMMC sandwich (1.0 mm base):
+  fin fracture (UTS annealed)          :   93.5 MPa
+  fin-tip braze, 100 MPa shear         :   42.5 MPa
+  cover over 6 mm header, yield / UTS  :   24.3 /   76.4 MPa
+  4 mm perimeter land, yield / UTS     :    8.8 /   27.5 MPa   <-- governs
+  -> SF on 1.5 MPa burst (yield-based) :    5.8
+  perimeter seam (3 mm braze) shear at burst: untied cavity 13.5 MPa  |  tied sandwich 2.0 MPa
+
+==============================================================================
+3. EFFECTIVE BENDING STIFFNESS D (N.m per m width)
+==============================================================================
+construction                                                  D_along   D_across     h mm   t_equiv
+plain 1.0 mm plate                                                 11         11     1.00    1.00 mm
+plain 2.0 mm plate                                                 88         88     2.00    2.00 mm
+skived: 2 mm base + 4 mm free-tip fins (base alone)              1632         88     6.00    3.25 mm
+skived cover 3 mm (separate, perimeter-joined)                    298        298     3.00    3.00 mm
+skived base + cover acting in parallel (mounting load)           1929        386     9.00    4.28 mm
+HMMC tied sandwich 1+1+1.75+2.5 mm                               2456       2208     6.25    5.96 mm
+
+core shear modulus of 0.1/0.1x1.0 mm fin layer: along fins 21.8 GPa, across fins 0.59 GPa
+across-fin shear deflection / bending deflection (SS strip, uniform load): 0.21 -> stiffness knock-down 1/(1+r) = 0.83
+effective isotropic D used below: HMMC 2119 N.m | skived base alone 379 N.m | skived base+cover 677 N.m | plain 2 mm 88 N.m
+stiffness ratio HMMC sandwich / plain 2 mm base = 24 x ; / skived base alone = 6 x ; / skived base+cover = 3.1 x
+
+==============================================================================
+4. GLOBAL BOW UNDER INTERNAL PRESSURE (untied base = clamped square plate over wetted cavity)
+==============================================================================
+operating 0.3 MPa
+  plain 1.0 mm base                    bow    4.665 mm  edge stress    1077 MPa  (yield 70)
+  plain 2.0 mm base                    bow    0.583 mm  edge stress     269 MPa  (yield 70)
+  skived 2 mm base + 4 mm free fins    bow    0.136 mm  edge stress      36 MPa  (yield 70)
+  skived 3 mm cover                    bow    0.173 mm  edge stress     120 MPa  (yield 70)
+  HMMC tied sandwich                   bow    0.000 um  (self-equilibrated: ties carry p; only 4 mm land strip bends)
+burst 1.5 MPa
+  plain 1.0 mm base                    bow   23.324 mm  edge stress    5385 MPa  (yield 70)
+  plain 2.0 mm base                    bow    2.915 mm  edge stress    1346 MPa  (yield 70)
+  skived 2 mm base + 4 mm free fins    bow    0.678 mm  edge stress     182 MPa  (yield 70)
+  skived 3 mm cover                    bow    0.864 mm  edge stress     598 MPa  (yield 70)
+  HMMC tied sandwich                   bow    0.000 um  (self-equilibrated: ties carry p; only 4 mm land strip bends)
+
+Untied base: max unsupported square span s for sigma = 0.308 p s^2/t^2 <= allowable at burst 1.5 MPa
+  t = 1 mm: s <=  12.3 mm (yield, annealed) |  21.8 mm (UTS, rupture)
+  t = 2 mm: s <=  24.6 mm (yield, annealed) |  43.6 mm (UTS, rupture)
+  t = 3 mm: s <=  36.9 mm (yield, annealed) |  65.5 mm (UTS, rupture)
+  unsupported cavity  60 mm: needs t >=  4.9 mm (yield) /  2.7 mm (UTS)
+  unsupported cavity 108 mm: needs t >=  8.8 mm (yield) /  4.9 mm (UTS)
+
+==============================================================================
+5. BOW UNDER MOUNTING LOAD (plate between bolts, die reaction at centre)
+==============================================================================
+construction                                      130 N      300 N      450 N
+plain 2 mm base alone [SS edges]               199.4 um   460.2 um   690.4 um
+plain 2 mm base alone [corner bolts]          1216.6 um  2807.4 um  4211.2 um
+skived base+cover (parallel) [SS edges]         26.0 um    60.0 um    89.9 um
+skived base+cover (parallel) [corner bolts]    158.5 um   365.7 um   548.6 um
+HMMC tied sandwich [SS edges]                    8.3 um    19.2 um    28.7 um
+HMMC tied sandwich [corner bolts]               50.6 um   116.8 um   175.2 um
+
+bow across a 50 mm die ~ (50/108)^2 = 0.21 of the full-span bow; spec 25-50 um
+Pressure-vs-mount competition: p_op x 117 cm2 = 3499 N  (12x a 300 N mount load); at burst 17496 N
+Mean TIM pressure from 300 N over 50 mm die = 0.120 MPa; untied base pushes with p_op = 0.3 MPa -> crowning dominates
+
+==============================================================================
+6. THERMAL BOW (hot base constrained by cooler fins/manifold/cover; Timoshenko bimetal, n=1)
+==============================================================================
+HMMC: 1 mm base vs 5.25 mm bonded stack              dT_base-rest  8.9 K  curvature 0.0189 1/m  bow over 50 mm   5.9 um | over 108 mm  27.5 um
+skived: 2 mm base vs 4 mm fins (50 % solid, as 2 mm) dT_base-rest  9.8 K  curvature 0.0609 1/m  bow over 50 mm  19.0 um | over 108 mm  88.9 um
+HMMC 1 mm base       constrained in-plane thermal stress ~  21.8 MPa (cycles 0 -> this; fatigue amp 10.9 MPa vs 70 MPa endurance)
+skived 2 mm base     constrained in-plane thermal stress ~  14.4 MPa (cycles 0 -> this; fatigue amp  7.2 MPa vs 70 MPa endurance)
+  Cu vs Si die 50 mm (D2D)         dT 40 K: relative shear displacement at edge  13.9 um
+  Cu vs Si die 50 mm (D2D)         dT 60 K: relative shear displacement at edge  20.9 um
+  Cu vs organic substrate 108 mm   dT 40 K: relative shear displacement at edge   5.4 um
+  Cu vs organic substrate 108 mm   dT 60 K: relative shear displacement at edge   8.1 um
+
+==============================================================================
+7. CREEP, FATIGUE, BUCKLING, HANDLING
+==============================================================================
+  homologous temperature at  50 C: 0.24 Tm  (creep regime >0.4 Tm = 270 C)
+  homologous temperature at  85 C: 0.26 Tm  (creep regime >0.4 Tm = 270 C)
+  tie stress at operating 0.71 MPa, pressure-cycle amplitude 0.35 MPa -> fatigue SF 198 (annealed endurance 70 MPa)
+  fin Euler/plate buckling stress (fixed-fixed, 0.1 x 1.0 mm): 2176 MPa  vs mounting compression 0.08 MPa -> yield governs, no buckling
+  mass over the 108 mm footprint: HMMC 0.53 kg (6.25 mm thick) | skived 0.73 kg (9.0 mm)
+  base-thickness floor (non-pressure): post-bond flatness machining 0.10-0.20 mm + erosion/corrosion allowance 0.10 mm + etch/skive tolerance 0.05 mm
+  -> 0.8 mm finished (1.0 mm as-bonded) is the practical minimum; pressure alone would allow < 0.5 mm.
+
+==============================================================================
+8. SUMMARY TABLE (markdown)
+==============================================================================
+| quantity | CoolIT-like skived (2 mm base, free fins) | HMMC tied sandwich (1 mm base) |
+|---|---:|---:|
+| effective D (N.m) | 379 (base) / 677 (+cover) | 2119 |
+| local base stress between fins @1.5 MPa | 0.04 MPa (0.2 mm gap, 2 mm) | 0.0075 MPa |
+| base bow under 0.3 MPa operating (108 mm cavity, untied) | 0.14 mm (yields) | 0 (ties) |
+| fin/bond tie stress @1.5 MPa | n/a | 3.5 MPa (SF 20 annealed yield) |
+| governing pressure, untied 108 mm cavity | ribbed base yields 0.58 / ruptures 1.81 MPa; 3 mm cover yields 0.18 / ruptures 0.55 MPa | 8.8 MPa yield (4 mm land) |
+| mounting bow, 300 N, corner bolts | 366 um | 117 um |

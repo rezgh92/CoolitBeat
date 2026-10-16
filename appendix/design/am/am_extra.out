@@ -1,0 +1,36 @@
+## 1. ECAM Cu conductivity sensitivity (117 cm2, 15 kW, 18 LPM)
+| k_fin W/mK | R core PCM avg / max | P core LM avg / max |
+|---:|---|---|
+| 390 | 28.05 / 31.05 | 20.23 / 22.33 |
+| 370 | 28.22 / 31.22 | 20.32 / 22.42 |
+| 350 | 28.40 / 31.41 | 20.43 / 22.53 |
+| 330 | 28.61 / 31.61 | 20.54 / 22.64 |
+| 300 | 28.96 / 31.96 | 20.74 / 22.84 |
+
+## 2. Segmented ECAM fins on Cu-diamond (P geometry, LM): strips of length Ls with 0.2 mm breaks
+continuous fins: avg 19.37 max 21.47 K, h_eff 184
+strips 1 mm: Nu x1.10, area x0.83 -> avg 20.01 max 22.11 K (delta +0.64 K), h_eff 165
+strips 2 mm: Nu x1.03, area x0.91 -> avg 19.75 max 21.85 K (delta +0.38 K), h_eff 172
+strips 4 mm: Nu x1.00, area x0.95 -> avg 19.62 max 21.73 K (delta +0.25 K), h_eff 176
+350 W/cm2 soldered lid, 2 mm strips: die-top dT 36.0 K vs continuous 34.7 K
+
+## 3. CTE mismatch: Cu-diamond (E ~300 GPa, 7 ppm/K) with copper (E 120 GPa, 17 ppm/K)
+| configuration | dT from stress-free K | free mismatch over 30 mm half-span um | bow over 60 mm um |
+|---|---:|---:|---:|
+| 1.0 mm Cu-diamond insert diffusion-bonded into Cu frame (stress-free at 900 C), at 20 C | 880 | 264 | (rim yields; not a bimetal) |
+| same, Ag-sinter / Cu-Sn TLP rim joint (stress-free at 250 C), at 20 C | 230 | 69 | (rim yields; not a bimetal) |
+| continuous ECAM Cu fins (0.75 mm equivalent along fins) on 1.0 mm Cu-diamond, -40 C storage | 65 | 20 | 215 |
+| same, +40 K in operation | 40 | 12 | 133 |
+| printed Cu manifold walls (1.3 mm equivalent) on 1.0 mm Cu-diamond, -40 C storage | 65 | 20 | 189 |
+Segmented fins (<= 2 mm strips) and segmented grate carry no long-range stress: bow -> ~0 (strip-level only); the cap must be CTE-matched (Mo70Cu30 7-8 ppm/K or CuW).
+
+## 4. Indium TIM1 bond line vs lid CTE (shear strain gamma = d_alpha * dT * DNP / BLT <= gamma_allow)
+- Cu lid 17 ppm/K: min BLT 259 um at gamma_allow 0.25, R'' 0.0321 cm2K/W, 11.2 K at 350 W/cm2
+- CuW / MoCu 7-8 ppm/K: min BLT 88 um at gamma_allow 0.25, R'' 0.0123 cm2K/W, 4.3 K at 350 W/cm2
+- Cu-diamond 7 ppm/K: min BLT 79 um at gamma_allow 0.25, R'' 0.0112 cm2K/W, 3.9 K at 350 W/cm2
+
+## 5. Development loop calendar (weeks to a tested manifold variant)
+- clear SLA manifold on water table (uniformity, theta_c): 1-2 weeks
+- L-PBF Cu manifold block + skived core, bolted with metal C-seal, TTV-A: 2-3 weeks
+- etched-laminate + diffusion-bond prototype: 8-12 weeks
+- 2.5-D CNC block + diffusion bond prototype: 10-12 weeks

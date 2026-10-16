@@ -1,0 +1,7 @@
+draft: total 1.75 kg  [base+fins (1.0 base) 0.270; grate 1.0 0.110; meter 0.4 0.050; plenum laminations 9.0 0.550; separator 1.5 0.210; header bar 10.5 0.410; stubs/guard/springs/backplate 0.150]
+PKG-A: total 1.17 kg  [base+fins (0.8 base) 0.251; metered grate 1.7 (meter merged) 0.211; folded plenum 0.8 mm, 5.0 mm channels + end frame 0.186; separator 1.5 0.191; arched drawn cap 1.0 mm + 2 port bosses 0.176; stubs/guard/springs/backplate 0.150]
+PKG-A + 316L separator: total 1.04 kg  [base+fins (0.8 base) 0.251; metered grate 1.7 (meter merged) 0.211; folded plenum 0.8 mm, 5.0 mm channels + end frame 0.186; arched drawn cap 1.0 mm + 2 port bosses 0.176; stubs/guard/springs/backplate 0.150; separator 0.6 mm 316L (Ni strike) 0.068]
+draft: body 14.9 mm, at the bar 25.4 mm
+draft (mfg-corrected bar): body 14.9 mm, at the bar 26.4 mm
+PKG-A (8 mm arched header): body 11.8 mm, at the bar 20.8 mm
+PKG-A (6 mm triple-arch header): body 11.8 mm, at the bar 18.8 mm

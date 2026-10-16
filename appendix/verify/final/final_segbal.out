@@ -1,0 +1,23 @@
+Rev A layout: 7 inlet lines, 8 outlet lines, 14 segments per fin gap (5040 in the field)
+- PKG-A as closed (open outlet windows, port jet diffused), 18 LPM: line max/min 1.086, segment max/min 1.359 (min 0.837), converged True
+- PKG-A as closed (open outlet windows, port jet diffused), 36 LPM: line max/min 1.087, segment max/min 1.791 (min 0.706), converged True
+- PKG-A, port jet undiffused, 18 LPM: line max/min 1.144, segment max/min 1.406 (min 0.829), converged True
+- PKG-A, port jet undiffused, 36 LPM: line max/min 1.151, segment max/min 1.775 (min 0.702), converged True
+- + outlet-side orifice row 0.5 kPa, 18 LPM: line max/min 1.077, segment max/min 1.188 (min 0.907), converged True
+- + outlet-side orifice row 0.5 kPa, 36 LPM: line max/min 1.082, segment max/min 1.247 (min 0.879), converged True
+- + outlet-side orifice row 0.5 kPa, port jet undiffused, 18 LPM: line max/min 1.127, segment max/min 1.240 (min 0.899), converged True
+- + outlet-side orifice row 0.5 kPa, port jet undiffused, 36 LPM: line max/min 1.136, segment max/min 1.302 (min 0.870), converged True
+- + outlet header area x2 (no orifice), 18 LPM: line max/min 1.036, segment max/min 1.100 (min 0.946), converged True
+- + outlet header area x2 (no orifice), 36 LPM: line max/min 1.041, segment max/min 1.172 (min 0.908), converged True
+- + outlet orifice 1.0 kPa, 18 LPM: line max/min 1.069, segment max/min 1.133 (min 0.934), converged True
+- + outlet orifice 1.0 kPa, 36 LPM: line max/min 1.073, segment max/min 1.157 (min 0.922), converged True
+Combined fixes:
+- outlet header x2 + outlet orifice 0.5 kPa, 9 LPM: line max/min 1.026, segment max/min 1.045 (min 0.976), converged True
+- outlet header x2 + outlet orifice 0.5 kPa, 18 LPM: line max/min 1.031, segment max/min 1.061 (min 0.967), converged True
+- outlet header x2 + outlet orifice 0.5 kPa, 36 LPM: line max/min 1.033, segment max/min 1.076 (min 0.958), converged True
+- outlet header x2 + outlet orifice 0.5 kPa, port jet undiffused, 9 LPM: line max/min 1.055, segment max/min 1.078 (min 0.968), converged True
+- outlet header x2 + outlet orifice 0.5 kPa, port jet undiffused, 18 LPM: line max/min 1.063, segment max/min 1.098 (min 0.959), converged True
+- outlet header x2 + outlet orifice 0.5 kPa, port jet undiffused, 36 LPM: line max/min 1.069, segment max/min 1.115 (min 0.951), converged True
+- outlet header x2, port jet undiffused, 9 LPM: line max/min 1.063, segment max/min 1.096 (min 0.960), converged True
+- outlet header x2, port jet undiffused, 18 LPM: line max/min 1.074, segment max/min 1.139 (min 0.939), converged True
+- outlet header x2, port jet undiffused, 36 LPM: line max/min 1.081, segment max/min 1.209 (min 0.904), converged True

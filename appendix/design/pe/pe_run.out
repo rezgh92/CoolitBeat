@@ -1,0 +1,100 @@
+# HMMC-PE power-electronics quantification
+
+## B1. Candidate cartridge cores, 84 cm2 module footprint, 10 L/min, 6 kW (scoping model)
+
+| core | gap/fin/H mm | L mm | fluid | u_ch m/s | Re | h kW/m2K | eta | h_eff kW/m2K | NTU | cal frac | dP ch | dP K+slot | dP hdr | dP orif | dP port | dP total kPa |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| A-coarse 0.50/0.40x4 Cu | 0.5/0.4x4.0 | 5.0 | WEG 50/50 @ 65C | 0.045 | 30 | 3.5 | 0.81 | 27 | 0.37 | 0.53 | 0.02 | 0.01 | 0.04 | 0.00 | 1.41 | 1.47 |
+| A 0.40/0.30x3 Cu | 0.4/0.3x3.0 | 5.0 | WEG 50/50 @ 65C | 0.059 | 31 | 4.2 | 0.83 | 33 | 0.44 | 0.54 | 0.03 | 0.01 | 0.04 | 0.00 | 1.41 | 1.49 |
+| A-fine 0.30/0.25x2.5 Cu | 0.3/0.25x2.5 | 4.0 | WEG 50/50 @ 65C | 0.061 | 24 | 5.5 | 0.82 | 44 | 0.59 | 0.55 | 0.05 | 0.01 | 0.04 | 0.00 | 1.41 | 1.51 |
+| DC-R 0.15/0.10x2 Cu (PG25 core) | 0.15/0.1x2.0 | 4.0 | WEG 50/50 @ 65C | 0.069 | 14 | 10.3 | 0.62 | 108 | 1.46 | 0.62 | 0.22 | 0.01 | 0.04 | 0.00 | 1.41 | 1.67 |
+| Al 0.50/0.50x4 (skived 6063) | 0.5/0.5x4.0 | 5.0 | WEG 50/50 @ 65C | 0.051 | 34 | 3.6 | 0.74 | 23 | 0.31 | 0.53 | 0.02 | 0.01 | 0.04 | 0.00 | 1.41 | 1.47 |
+
+Core A uniformity: branch 41 Pa vs header head 131 Pa at 0.5 m/s -> ratio 0.3 (rule >= 6; add comb if < 6)
+
+## B2. Pin-fin baseline calibration (per switch, 8 x 4.5 mm SiC dies = 1.62 cm2 on a 14 cm2 cell)
+
+Calibrated pin-fin h_eff (base-referenced) = 22.3 kW/m2K -> Rth mean 0.1000, max 0.1058 K/W; die-referenced R'' = 0.162 cm2K/W
+Zukauskas cross-check (2 mm pins, 3.0 x 2.6 mm staggered, 8 mm tall, 120 mm frontal width, no bypass): Re_d 778, h 9.8, eta 0.53, h_eff 39 kW/m2K; with 30-50 % tip bypass ~20-27 kW/m2K -> calibration is plausible
+  sensitivity: pin-fin base 2 mm -> calibrated h_eff 23.4 kW/m2K
+  sensitivity: pin-fin base 4 mm -> calibrated h_eff 22.0 kW/m2K
+
+## B3. Per-switch Rth(j-f) to LOCAL fluid, 10 L/min WEG 65 C (Fourier spreading model)
+
+| variant | stack | h_eff kW/m2K | Rth mean K/W | Rth max K/W | die-ref R'' cm2K/W | vs pin-fin |
+|---|---|---|---|---|---|---|
+| Pin-fin baseline (HPD G2 class) | 3.0 mm Cu base, SnAg 0.10 | 22 | 0.1000 | 0.1058 | 0.162 | +0 % |
+| ShowerPower-class flat base (KB-L band, h 12) | 3.0 mm Cu base, solder | 12 | 0.1304 | 0.1372 | 0.211 | +30 % |
+| ShowerPower-3D-class (KB-L band, h 30) | 3.0 mm Cu base, solder | 30 | 0.0900 | 0.0954 | 0.146 | -10 % |
+| PE-A1 drop-in cartridge, core A | 1.5 mm Cu base, solder | 33 | 0.0895 | 0.0953 | 0.145 | -11 % |
+| PE-A1 coarse core (0.5 mm gaps) | 1.5 mm Cu base, solder | 27 | 0.0956 | 0.1020 | 0.155 | -4 % |
+| PE-A2 cartridge, sintered | 1.5 mm Cu base, Ag sinter | 33 | 0.0855 | 0.0912 | 0.139 | -14 % |
+| PE-DS direct-substrate (fins on 1.0 mm base sintered to AMB) | 1.0 mm Cu base, Ag sinter | 33 | 0.0874 | 0.0933 | 0.142 | -13 % |
+| PE-DS fine core (filtered loop) | 1.0 mm, sinter | 44 | 0.0772 | 0.0820 | 0.125 | -23 % |
+| PE-DS with DC-R core (PG25-class filtration) | 1.0 mm, sinter | 108 | 0.0561 | 0.0583 | 0.091 | -44 % |
+| PE-Al cartridge (Al 6063 core, DBA-class) | 2.0 mm Al base, sinter | 23 | 0.1128 | 0.1210 | 0.183 | +13 % |
+| PE-DSC double-sided, core A both sides | 2 x (1.0 mm base, sinter) + 1 mm Cu spacer | 33 | 0.0469 | 0.0500 | 0.076 | -53 % |
+| PE-DSC double-sided, DC-R core both sides | 2 x (1.0 mm base, sinter) + 1 mm Cu spacer | 108 | 0.0311 | 0.0323 | 0.050 | -69 % |
+| DSC with pin-fin-class h on both sides (today's DSC reference) | 2 x (1.0 mm base, sinter) + 1 mm Cu spacer | 22 | 0.0532 | 0.0563 | 0.086 | -47 % |
+
+Published anchors: Infineon FS01MR12A8MA2B 0.103 typ / 0.113 max K/W per switch (10 L/min, 60 C); NREL WEG jet impingement ~0.15 cm2K/W (die-ref.); EPFL manifold-microchannel SiC module 9.85 mm2K/W = 0.099 cm2K/W (water, 2.16 L/min, lab).
+
+Base thickness sweep (core A h_eff, sinter attach): 0.5 mm 0.0907, 0.8 mm 0.0885, 1.0 mm 0.0874, 1.5 mm 0.0855, 2.0 mm 0.0844, 3.0 mm 0.0836
+Base thickness sweep (pin-fin h_eff, solder): 1.0 mm 0.1075, 2.0 mm 0.1021, 3.0 mm 0.1000, 4.0 mm 0.0995, 5.0 mm 0.0999
+
+Die-area sensitivity (recalibrate pin-fin h each time; relative gain of PE-DS core A):
+  SiC 1.22 cm2/switch: pin-fin h 29.5 kW/m2K; PE-DS Rth 0.0968 -> -3 %
+  SiC 1.62 cm2/switch: pin-fin h 22.3 kW/m2K; PE-DS Rth 0.0874 -> -13 %
+  SiC 2.03 cm2/switch: pin-fin h 19.1 kW/m2K; PE-DS Rth 0.0813 -> -19 %
+
+## B4. Module level, 6 x 1 kW, 10 L/min WEG 65 C inlet: hottest-switch Tj, spread, headroom
+
+Coolant outlet rise 9.7 K
+| variant | flow routing | caloric at hottest switch K | Tj,max C | die-to-die / switch-to-switch spread K | +current at equal Tj,max | SiC area at equal Tj,max |
+|---|---|---|---|---|---|---|
+| Pin-fin baseline (HPD G2 class) | series along 3 phases | 8.1 | 178.9 | 12.3 | -0 % | -0 % |
+| Pin-fin baseline (HPD G2 class) | transverse (parallel phases) | 4.9 | 175.7 | 5.8 | +1 % | -2 % |
+| PE-A1 drop-in cartridge, core A | manifold, every cell fresh | 5.2 | 165.5 | 5.9 | +6 % | -9 % |
+| PE-A2 cartridge, sintered | manifold | 5.2 | 161.4 | 5.6 | +9 % | -12 % |
+| PE-DS direct-substrate (fins on 1.0 mm base sintered to AMB) | manifold | 5.2 | 163.5 | 5.9 | +8 % | -11 % |
+| PE-DSC double-sided, core A both sides | manifold, 2 sides in parallel | 5.2 | 120.3 | 3.1 | +44 % | -41 % |
+| PE-Al cartridge (Al 6063 core, DBA-class) | manifold | 5.1 | 191.1 | 8.2 | -5 % | +9 % |
+
+## B5. Hydraulics: dP at 10 L/min (model; inertial terms not Re-corrected at -40 C, see note)
+
+| core | 65 C | 25 C | -40 C (10 L/min) | -40 C (5 L/min) |
+|---|---|---|---|---|
+| A 0.40/0.30x3 Cu | 1.5 | 1.6 | 3.5 | 1.3 |
+| A-coarse 0.50/0.40x4 Cu | 1.5 | 1.5 | 2.5 | 0.9 |
+| A-fine 0.30/0.25x2.5 Cu | 1.5 | 1.6 | 4.3 | 1.8 |
+| pin-fin field only (Eu = 0.35 + 50/Re, 23 rows) | 1.4 (Re 778) | 1.7 | 13.2 (Re 14) | 6.3 |
+| pin-fin module + reference cooler (datasheet 7.6 kPa at 65 C; housing 6.2 kPa held inertial) | 7.6 | 8.0 | 19.4 (x2-3 housing if laminar) | 7.9 |
+
+## B6. Dielectric (PAO-2, 65 C) vs WEG 50/50 in core A (10 L/min and at equal caloric rise)
+
+- WEG 50/50 @ 65C at 10.0 L/min: h_eff 33 kW/m2K, Rth(j-f) PE-DS 0.0874 K/W, dT_out 9.7 K, dP 1.5 kPa
+- PAO-2 @ 65C at 10.0 L/min: h_eff 13 kW/m2K, Rth(j-f) PE-DS 0.1357 K/W, dT_out 20.2 K, dP 1.1 kPa
+- PAO-2 @ 65C at 20.8 L/min: h_eff 15 kW/m2K, Rth(j-f) PE-DS 0.1265 K/W, dT_out 9.7 K, dP 4.8 kPa
+- pin-fin in PAO at 10 L/min: h ratio 0.32 -> h_eff 7.1 kW/m2K, Rth 0.1736 K/W
+
+## B7. Data-centre 800 VDC power stage on a PG25 plate (45 C inlet): plate vs TIM
+
+PE-DC cores at 2.4 kW / 2.9 L/min PG25 over 60 cm2: DC-R h_eff 124 kW/m2K dP 0.28 kPa; DC-D (0.25/0.20x3, 6 mm) h_eff 72 kW/m2K dP 0.26 kPa
+| plate (h_eff) | TIM | R'' TIM cm2K/W | Tj - T_in per 400 W switch K (local) |
+|---|---|---|---|
+| tube-in-plate / machined channel (6 kW/m2K) | gap pad | 0.5 | 108.7 |
+| tube-in-plate / machined channel (6 kW/m2K) | grease | 0.15 | 88.8 |
+| tube-in-plate / machined channel (6 kW/m2K) | PCM | 0.08 | 84.1 |
+| tube-in-plate / machined channel (6 kW/m2K) | Ag sinter (direct substrate) | 0.003 | 78.1 |
+| skived split-flow plate (40) | gap pad | 0.5 | 64.8 |
+| skived split-flow plate (40) | grease | 0.15 | 43.3 |
+| skived split-flow plate (40) | PCM | 0.08 | 38.1 |
+| skived split-flow plate (40) | Ag sinter (direct substrate) | 0.003 | 31.4 |
+| PE-DC-D derated core | gap pad | 0.5 | 60.6 |
+| PE-DC-D derated core | grease | 0.15 | 38.5 |
+| PE-DC-D derated core | PCM | 0.08 | 33.1 |
+| PE-DC-D derated core | Ag sinter (direct substrate) | 0.003 | 26.2 |
+| PE-DC-R core | gap pad | 0.5 | 58.1 |
+| PE-DC-R core | grease | 0.15 | 35.5 |
+| PE-DC-R core | PCM | 0.08 | 29.9 |
+| PE-DC-R core | Ag sinter (direct substrate) | 0.003 | 22.8 |

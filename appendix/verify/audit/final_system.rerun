@@ -1,0 +1,102 @@
+## 1. Hydraulic stack, CDU to plate (18 LPM per 15 kW package; reference rack = 18 trays x 1 package = 324 LPM, 270 kW; 4 racks ~ 1.08 MW)
+tray loop (single UQD08): Rev A 42-51 kPa vs CoolIT-like 56-79 kPa; dual UQD08: Rev A ~17-20 kPa
+rack + CDU 80 kPa: loop head Rev A 122-131 vs 136-159 kPa -> saving 11-18 %
+rack + CDU 124 kPa: loop head Rev A 166-175 vs 180-203 kPa -> saving 8-14 %
+rack + CDU 180 kPa: loop head Rev A 222-231 vs 236-259 kPa -> saving 6-11 %
+head-limited CDU (assumed 250 kPa available, 100 kPa CDU+piping at reference flow, 20 kPa rack manifold+hoses): Rev A N/Nref = 1.356
+head-limited CDU (assumed 250 kPa available, 100 kPa CDU+piping at reference flow, 20 kPa rack manifold+hoses): CoolIT-like N/Nref = 1.275
+-> racks per head-limited CDU: +6 % for homogeneous Rev A racks (assumption-driven)
+pump power saved per plate 4.3 W hydraulic, 8.6 W electrical at 50 % wire-to-water; per 100 MW: 58 kW -> US$40k/yr at US$0.08/kWh
+CDU capex credit when head-limited (research base US$9-25 per plate): US$60-167k per 100 MW, one-time
+mixed racks: Rev A branches need 20-50 kPa keyed orifices (verify-hydraulics rack.py): system saving = 0
+start-up 17 C: Rev A plate dP at 18 LPM ~9.4 kPa (inertial 6.05 + viscous 1.55 x mu ratio); CoolIT-like ~41 kPa (16 kPa viscous assumed)
+start-up 25 C: Rev A plate dP at 18 LPM ~8.7 kPa (inertial 6.05 + viscous 1.55 x mu ratio); CoolIT-like ~33 kPa (16 kPa viscous assumed)
+start-up 45 C: Rev A plate dP at 18 LPM ~7.6 kPa (inertial 6.05 + viscous 1.55 x mu ratio); CoolIT-like ~22 kPa (16 kPa viscous assumed)
+
+## 2. Return temperature and heat reuse (15 kW, max-case limit 85 C, return cap 65 C)
+0.75 LPM/kW (rise 20.3 K): return CoolIT paste 61.1 / PCM 65.0 C; Rev A paste 65.0 / PCM 65.0 C (thermal limit, P50)
+1.0 LPM/kW (rise 15.2 K): return CoolIT paste 56.0 / PCM 59.9 C; Rev A paste 61.5 / PCM 65.0 C (thermal limit, P50)
+1.2 LPM/kW (rise 12.7 K): return CoolIT paste 53.5 / PCM 57.4 C; Rev A paste 59.0 / PCM 62.9 C (thermal limit, P50)
+CoolIT PCM 1.2 LPM/kW: return 57.2 C -> heat-pump COP to 80 C ~6.2
+Rev A PCM 1.2 LPM/kW: return 62.7 C -> heat-pump COP to 80 C ~7.6
+20 MW reused (ERF 20 % of 100 MW): heat-pump electricity 3.9 vs 3.0 MW -> 0.8 MW less; at 6,000 h/yr and US$0.10/kWh: US$0.51 M/yr (contingent on loop-wide supply temperature)
+hot-dry (Phoenix-class): adiabatic hours at 45 C supply ~800, at +5.5 K ~200 (illustrative climate assumption) -> ~600 h removed; water at 0.4-0.8 L/kWh-rejected x 100 MW: 24-48 thousand m3/yr
+temperate (Frankfurt-class): adiabatic hours at 45 C supply ~5, at +5.5 K ~0 (illustrative climate assumption) -> ~5 h removed; water at 0.4-0.8 L/kWh-rejected x 100 MW: 0-0 thousand m3/yr
+hot-humid (Singapore-class): adiabatic hours at 45 C supply ~0, at +5.5 K ~0 (illustrative climate assumption) -> ~0 h removed; water at 0.4-0.8 L/kWh-rejected x 100 MW: 0-0 thousand m3/yr
+Rev A PKG-A (vacuum braze, BAg): cradle-to-gate ~8.6 kgCO2e (Cu 1.43 kg buy, Ag 5.0 g; screening factors, ISO 14067 study needed)
+Rev A C2 (Cu-Sn TLP): cradle-to-gate ~7.6 kgCO2e (Cu 1.43 kg buy, Ag 0.0 g; screening factors, ISO 14067 study needed)
+incumbent like-sized (est.): cradle-to-gate ~10.7 kgCO2e (Cu 2.0 kg buy, Ag 2.5 g; screening factors, ISO 14067 study needed)
+pump-energy saving 76 kWh/yr per plate -> 30 kgCO2e/yr at 0.4 kg/kWh (homogeneous racks only)
+
+## 3. Landed cost per plate at a US data centre (PKG-A US$162 factory cost at 100k in Asia; C2 US$141)
+base 162 | TW: factory 162 + freight 4 + Sec.232 exposure 0 / 25 % / 50 % of customs value (211) = 166 / 219 / 271
+base 162 | VN: factory 157 + freight 5 + Sec.232 exposure 0 / 25 % / 50 % of customs value (204) = 162 / 213 / 264
+base 162 | MX: factory 175 + freight 3 + Sec.232 exposure 0 / 25 % / 50 % of customs value (227) = 178 / 235 / 292
+base 162 | US: factory 217 + freight 1 + Sec.232 exposure 0 / 25 % / 50 % of customs value (282) = 218 / 218 / 218
+base 141 | TW: factory 141 + freight 4 + Sec.232 exposure 0 / 25 % / 50 % of customs value (183) = 145 / 191 / 237
+base 141 | VN: factory 137 + freight 5 + Sec.232 exposure 0 / 25 % / 50 % of customs value (178) = 142 / 186 / 231
+base 141 | MX: factory 152 + freight 3 + Sec.232 exposure 0 / 25 % / 50 % of customs value (198) = 155 / 205 / 254
+base 141 | US: factory 189 + freight 1 + Sec.232 exposure 0 / 25 % / 50 % of customs value (246) = 190 / 190 / 190
+
+## 4. Statistics of the head-to-head
+Welch vs CoolIT's 3 published plates (SD 1.69 K): even with infinite PRISM plates the one-sided alpha 0.05 margin needed is > 2.84 K (dof -> 2)
+one-sample test vs the published 34.4 K (fixed reference), margin 3.4 K, plate SD 1.0 K: n = 3 plates for power 0.8 at one-sided alpha 0.05
+one-sample test vs the published 34.4 K (fixed reference), margin 3.4 K, plate SD 1.7 K: n = 4 plates for power 0.8 at one-sided alpha 0.05
+one-sample test vs the published 34.4 K (fixed reference), margin 2.6 K, plate SD 1.0 K: n = 3 plates for power 0.8 at one-sided alpha 0.05
+one-sample test vs the published 34.4 K (fixed reference), margin 2.6 K, plate SD 1.7 K: n = 5 plates for power 0.8 at one-sided alpha 0.05
+Welch, margin 3.4, SD 1.0, n 3: t 3.00, dof 3.3, one-sided p 0.026
+Welch, margin 3.4, SD 1.0, n 5: t 3.17, dof 2.9, one-sided p 0.027
+Welch, margin 3.4, SD 1.0, n 8: t 3.28, dof 2.5, one-sided p 0.029
+Welch, margin 3.4, SD 1.7, n 3: t 2.46, dof 4.0, one-sided p 0.035
+Welch, margin 3.4, SD 1.7, n 5: t 2.75, dof 4.4, one-sided p 0.023
+Welch, margin 3.4, SD 1.7, n 8: t 2.97, dof 3.7, one-sided p 0.023
+
+## 5. Reliability demonstration and mechanical loads
+zero-failure success run R90/C90: n = 22
+zero-failure success run R95/C90: n = 45
+zero-failure success run R90/C95: n = 29
+zero-failure success run R99/C90: n = 230
+Rev A PKG-A plate 1.17 kg: inertial load at 30 g / 50 g = 344 / 574 N
++ load frame 0.3-0.6 kg 1.62 kg: inertial load at 30 g / 50 g = 477 / 795 N
+draft PRISM 1.74 kg: inertial load at 30 g / 50 g = 512 / 853 N
+CoolIT est. 1.4 kg: inertial load at 30 g / 50 g = 412 / 687 N
+
+## 6. 12-month budget (US$ M), verifier-completed
+- Labour 14.5 FTE (draft): 3.30-3.30
+- Added FTE: BD/customer eng 1.5, SQE Asia 1, compliance 0.5, cost eng 0.5: 0.60-0.80
+- PG25 rig, upgraded 25 -> 40 kW: 0.60-0.70
+- TTVs incl. 100 cm2 + 25 cm2 + high-flux Cu-neck TTV-D: 0.38-0.45
+- Flow, printed-manifold, fouling rigs: 0.23-0.23
+- IR flow-screen station: 0.20-0.20
+- Confocal pressure scan, He leak, D5470: 0.30-0.60
+- Prototypes and coupons: 0.35-0.35
+- Build-B dies (moved forward from M12-18): 0.25-0.60
+- CFD/FEA licences, CT services: 0.10-0.25
+- Lab fit-out: 0.10-0.30
+- Reliability incl. chemistry matrix, shock/vib/orientation: 0.38-0.50
+- Independent lab: 0.15-0.15
+- IP: FTO charts + opinions, provisionals: 0.25-0.35
+- Compliance: CBP ruling, 62368-1 support, PFAS BOM: 0.05-0.10
+- E0 incumbent plates and couplings: 0.04-0.06
+subtotal 7.28-8.94; with 15-20 % contingency 8.4-10.7
+
+## 7. Programme probabilities (model x programme factors; programme factors are judgement)
+- decisive PCM (<= 31 / <= 36 K) at M12: model 0.60 x join 0.8 x rig 0.9 = 0.43
+- paste avg win at 117 cm2: model 0.81 x join 0.8 x rig 0.9 = 0.58
+- paste max win: model 0.90 x join 0.8 x rig 0.9 = 0.65
+- PCM avg+max win and dP: model 0.95 x join 0.8 x rig 0.9 = 0.68
+- paste avg win at 100 cm2 (R-grade): model 0.44 x join 0.8 x rig 0.9 = 0.32
+- paste avg win at 100 cm2 (R+ PKG-B): model 0.69 x join 0.8 x rig 0.9 = 0.50
+
+## 8. Facility value vs premium per 100 MW (15 kW class)
+PKG-A vacuum braze: price premium US$0.34 M; value at P50 +5.5 K: US$3.0-6.0 M -> 9-17x
+PKG-A vacuum braze: price premium US$0.34 M; value at P90 +0.6-1.8 K (use 1.2): US$0.6-1.3 M -> 2-4x
+C2 belt TLP: price premium US$0.14 M; value at P50 +5.5 K: US$3.0-6.0 M -> 21-42x
+C2 belt TLP: price premium US$0.14 M; value at P90 +0.6-1.8 K (use 1.2): US$0.6-1.3 M -> 5-9x
+GPU class (37,500 plates per 100 MW): lean PRISM-G US$129-148 vs incumbent ~US$110: premium US$19-38 -> price premium US$1.0-2.0 M; value at 1-3 K (max only) US$0.5-3.3 M -> 0.3-3x: not a value case
+
+## 9. P&L sketch per plate (planning assumptions)
+Hyperscaler ramp 10k/yr (CM, laser/CNC parts): ASP 600, factory 400, CM margin 48, warranty reserve 3 % 18 -> our gross profit 134/plate = US$1.3 M/yr (22 %)
+Hyperscaler 100k/yr, PKG-A: ASP 330, factory 162, CM margin 19, warranty reserve 3 % 10 -> our gross profit 139/plate = US$13.9 M/yr (42 %)
+Hyperscaler 100k/yr, C2: ASP 330, factory 141, CM margin 17, warranty reserve 3 % 10 -> our gross profit 162/plate = US$16.2 M/yr (49 %)
+opex after qualification ~US$5.0 M/yr (engineering, BD, quality, insurance US$0.3-0.6 M, IP reserve) -> break-even ~33k plates/yr at ~US$150 gross profit

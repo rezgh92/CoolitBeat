@@ -1,0 +1,37 @@
+parameter,value (mm unless stated)
+material,OFE C10100
+sheet_t,0.8
+z0,4.5
+z1,10.3
+height,5.8
+y_extent,57.0
+flat_w,5.714
+wall_x_offset_from_line,3.857
+wall_t,0.8
+bend_r_inner,0.6
+bend_r_outer,1.4
+bottom_flat_lines,outlet lines (kind out/edge_out) at z 4.5..5.3
+top_flat_lines,inlet lines (kind in) at z 9.5..10.3
+bottom_slot.w,1.8
+bottom_slot.length,110.0
+bottom_slot.r,0.9
+top_windows.w_x,5.0
+top_windows.h_y,10.0
+top_windows.r,1.0
+top_windows.y_centres,-21.0 -7.0
+flange.w,1.5
+flange.at_x_abs,59.357
+flange.z,"top (9.5..10.3), outward"
+bleed_holes.d,1.1
+bleed_holes.z,7.4
+bleed_holes.y_abs,55.5
+bleed_holes.in_walls_of_inlet_channels,True
+end_frames.n,2
+end_frames.x_len,120.7
+end_frames.y_t,2.5
+end_frames.z_h,5.78
+end_frames.y_centre_abs,58.25
+end_frames.slot_w,0.9
+end_frames.slot_depth,1.0
+mass_g_lane.corrugation,131.9
+mass_g_lane.frames,29.7

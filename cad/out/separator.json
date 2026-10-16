@@ -1,0 +1,20 @@
+{
+ "part": "separator",
+ "valid": true,
+ "solids": 1,
+ "volume_mm3": 23312.3,
+ "mass_g": 208.4,
+ "bbox": [
+  -60.5,
+  -60.5,
+  10.3,
+  60.5,
+  60.5,
+  12.1
+ ],
+ "stl": "/home/user/Rez/docs/cooling/cad/out/separator.stl",
+ "step": "/home/user/Rez/docs/cooling/cad/out/separator.step",
+ "step_MB": 0.7,
+ "step_xz_MB": 0.07,
+ "seconds": 0.7
+}

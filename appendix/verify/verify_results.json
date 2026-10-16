@@ -1,0 +1,1549 @@
+{
+ "verify:physics": {
+  "key": "physics",
+  "report_path": "docs/cooling/appendix/verify/verify-physics.md",
+  "claims_checked": [
+   {
+    "claim": "cell2d.py 2-D conjugate model is implemented correctly (PRISM-15 L6 2-D core)",
+    "draft_value": "22.83 K (L4 23.96, L8 22.25; pk-pk 1.70/3.69/5.46)",
+    "our_value": "22.88 K converged (L4 23.99, L8 22.28; identical pk-pk); grid d 0.05->0.02 mm changes +0.05 K",
+    "verdict": "confirmed",
+    "basis": "Independent from-scratch FV solver verify/vp_cell.py; energy closure 1e-4, mass 1e-13"
+   },
+   {
+    "claim": "Fluid-unmixed-in-z (two-equation Hele-Shaw) treatment is appropriate",
+    "draft_value": "used throughout 3.2",
+    "our_value": "appropriate: laminar Re 34-200, z-diffusion length ~0.1 mm vs 2 mm fin; omits 3-D y-discrete orifice jets (stagnation 1-1.8 kPa vs 0.73 kPa downstream), est <=0.3 K",
+    "verdict": "confirmed",
+    "basis": "Scaling analysis; local fin-tip impingement ~1.4-1.9 m/s not the 0.41 m/s mean"
+   },
+   {
+    "claim": "PRISM-15 2-D differential vs CoolIT reconstruction is 0.0 K, so headline avg/max with PCM at 117 cm2 TTV",
+    "draft_value": "28.4 / 33.3 K",
+    "our_value": "29.9 / 34.8 K (own penalty +1.48 K = 6.9% of core must be carried; 28.4 corresponds to PRISM at the 2-D-recalibrated CoolIT footprint ~123-125 cm2)",
+    "verdict": "corrected",
+    "basis": "Calibration knob in coldplate_model is footprint; subtracting CoolIT's absorbed penalty is invalid for our own 117 cm2 TTV or vs measured CoolIT"
+   },
+   {
+    "claim": "Like-for-like paste avg/max at benchmark",
+    "draft_value": "30.4 / 37.2 K (-12% / -16%)",
+    "our_value": "31.8 / 38.7 K (-7.6% / -12%)",
+    "verdict": "corrected",
+    "basis": "Same as above; vp_mc.py"
+   },
+   {
+    "claim": "LM Tier 2 and P-grade budgets",
+    "draft_value": "LM 23.3/27.3; P+PCM 25.4/29.7; P+paste 27.4/33.6",
+    "our_value": "LM 24.8/28.7; P+PCM 26.7/31.0; P+paste 28.6/34.9",
+    "verdict": "corrected",
+    "basis": "Own 2-D penalty: R L6 +6.9%, P L4 +7.3%"
+   },
+   {
+    "claim": "CoolIT-like 2-D penalty (basis of differential)",
+    "draft_value": "+1.75 K (+6.9% of core)",
+    "our_value": "+1.41 K (+5.5%) with realistic full-height end-face exit; 3.5-11.4% across plausible undisclosed CoolIT fin geometries; 6.9% reproduced only with draft's 1 mm top-window exit",
+    "verdict": "corrected",
+    "basis": "vp_run2.py / vp_run3.py"
+   },
+   {
+    "claim": "1-D budget terms at benchmark (caloric, conv, base, TIM, ripple crest)",
+    "draft_value": "7.6 / 10.5 / 3.3 / 7.1 PCM, 9.0 paste, 1.9 LM / crest 1.85",
+    "our_value": "7.57 / 10.55 / 3.29 / 7.05, 8.97, 1.92 / 1.84",
+    "verdict": "confirmed",
+    "basis": "Analytic eps-NTU (NTU 1.20), fin efficiency 0.648, heff 121.5 kW/m2K"
+   },
+   {
+    "claim": "Kerf benefit and Hele-Shaw short-circuit suppression",
+    "draft_value": "no-kerf L6 +0.6 K; kerf fill ~+1 K",
+    "our_value": "kerf worth 0.66 K at L6; inlet kerf filled +0.30 K, both +0.66 K; kerf permeability ratio 4-16 gives +/-0.25 K",
+    "verdict": "confirmed",
+    "basis": "vp_350p.py sensitivities"
+   },
+   {
+    "claim": "Q capacity at Tcase,max 85 C, 1.2 LPM/kW",
+    "draft_value": "19.4 kW PCM / 16.6 paste / 26.4 LM",
+    "our_value": "18.2 / 15.7 / 24.2 kW",
+    "verdict": "corrected",
+    "basis": "Bisection with own penalty"
+   },
+   {
+    "claim": "Inlet temperature headroom at 15 kW",
+    "draft_value": "51.7 C PCM / 47.8 C paste",
+    "our_value": "50.2 C / 46.3 C",
+    "verdict": "corrected",
+    "basis": "85 C minus corrected max"
+   },
+   {
+    "claim": "Footprint 100 cm2 hard mode: average parity, max/dP wins hold at every footprint",
+    "draft_value": "paste 34.0 / 41.7 K (parity avg)",
+    "our_value": "paste 35.7 / 43.4 K: avg loses by 1.3 K, max margin only 0.8 K; P(max win | A<110) 0.73",
+    "verdict": "refuted",
+    "basis": "vp_mc.py deterministic + conditional MC"
+   },
+   {
+    "claim": "Monte Carlo P(avg<34.4) paste pub/fair and P(max<44.2)",
+    "draft_value": "0.88 / 0.90; 0.97 / 0.96",
+    "our_value": "0.79 / 0.82; 0.93; P(avg<34.4 | A<105) 0.39",
+    "verdict": "corrected",
+    "basis": "Draft distributions with own penalty N(f,0.01); draft c2d is symmetric not one-sided; fair basis mean 121.7 cm2 > 117 is favourable not a stress test; double-counts CoolIT penalty"
+   },
+   {
+    "claim": "Model probability of decisive PCM result (<=31/<=36 K)",
+    "draft_value": "draft MC implies 0.81 model-only; judgement ~0.6 with programme risk",
+    "our_value": "0.62 model-only; ~0.45 with programme risk",
+    "verdict": "corrected",
+    "basis": "vp_mc2.py vs draft prism_scorecard.mc"
+   },
+   {
+    "claim": "CoolIT 4 kW point: drop-in R-grade ties with PCM",
+    "draft_value": "0.0093 C/W vs <0.009 (tie)",
+    "our_value": "0.0096-0.0097 at 25 cm2 (loses 7-8%); 0.0115 if heater ~20 cm2; paste 0.0109; only LM wins at 25 cm2 (0.0078)",
+    "verdict": "refuted",
+    "basis": "Own penalty; draft's own number already exceeds the bound"
+   },
+   {
+    "claim": "CoolIT-like reconstruction is a valid baseline off its calibration point",
+    "draft_value": "used for GPU class, 350 W/cm2, flow sweep, Q cap",
+    "our_value": "predicts 0.0126 C/W for CoolIT's 4 kW plate vs measured <0.009 (>=37% high)",
+    "verdict": "refuted",
+    "basis": "coldplate_model coolit_like(25) at 4 kW, 1.5 LPM/kW"
+   },
+   {
+    "claim": "Flux-graded flow length: >=250 W/cm2 -> 4-5 mm",
+    "draft_value": "4-5 mm at high flux",
+    "our_value": "L4 worst on avg and crest at 350/200/128 W/cm2; crest flat within 0.35 K over L5-8; avg falls monotonically with L",
+    "verdict": "refuted",
+    "basis": "vp_Lrule.py"
+   },
+   {
+    "claim": "GPU-class uniform lid: 12 mm cells give a narrow average win",
+    "draft_value": "-0.3 to -1.0 K avg (2.3 kW/60 cm2: 15.5 vs 16.1)",
+    "our_value": "-0.50 K (no lid, end-face CoolIT exit), -0.20 K with 3 mm Cu lid (case = lid top): parity within +/-25%; max win ~1-3 K plausible",
+    "verdict": "corrected",
+    "basis": "vp_lid.py; lid raises PRISM-12 avg 0.63 K vs CoolIT 0.33 K"
+   },
+   {
+    "claim": "350 W/cm2 package: CoolIT-like 88.6 K at paste 0.05 and ~76 K / 121 C with LM",
+    "draft_value": "88.6 K paste 0.05; ~76 K LM",
+    "our_value": "88.6 K is at paste 0.07 (TIM 24.5 K); paste 0.05 -> 81.6 K; LM -> 69.4 K (~114 C)",
+    "verdict": "corrected",
+    "basis": "nonuniform-heatmap.py R_PASTE_CI = 0.07e-4 and budget output"
+   },
+   {
+    "claim": "350 W/cm2 PRISM Tcase,max with LM: R 93-94 C, P-grade 84 C; beats split-flow by 27-28 K",
+    "draft_value": "93-94 C / 84 C / 27-28 K",
+    "our_value": "~97 C / ~87 C (misses 85 C) / ~18-20 K like-for-like",
+    "verdict": "corrected",
+    "basis": "Own 2-D penalty +3.76 K (R L5) and +3.06 K (P L4) vs 1.6/0.2 used; isothermal caloric +0.5 K"
+   },
+   {
+    "claim": "2.5 mm die-SKU fins gain 1.3 K at 350 W/cm2",
+    "draft_value": "61.7 -> 60.4 K",
+    "our_value": "0.33 K gain in 2-D (46.78 -> 46.45 K core)",
+    "verdict": "corrected",
+    "basis": "vp_350.py"
+   },
+   {
+    "claim": "Straight Cu fins at 0.15 mm gap cannot exceed heff ~138 kW/m2K",
+    "draft_value": "138",
+    "our_value": "138 kW/m2K (1-D, tall-fin limit); unreachable in 2-D",
+    "verdict": "confirmed",
+    "basis": "Fin optimisation sweep"
+   },
+   {
+    "claim": "Recovery of ~1.9 K vs corrected PSM-12 from windows + kerf + 6 mm cells",
+    "draft_value": "1.9 K",
+    "our_value": "1.95 K (2-D vs 2-D, method-independent)",
+    "verdict": "confirmed",
+    "basis": "24.78 vs 22.83 K"
+   },
+   {
+    "claim": "CoolIT-like flow sweep maxima (6.2) from scoping model",
+    "draft_value": "0.75 LPM/kW 48.3 K; 2.4 LPM/kW 40.8 K",
+    "our_value": "52.1 K; 37.7 K (ramp = 0.5 dT_out, not fixed 6.3 K)",
+    "verdict": "corrected",
+    "basis": "coldplate_model hotspot_flow_K bug"
+   },
+   {
+    "claim": "Plate-to-plate spread win and PCM scatter 1.5 K / flow hot spot 1.5 K",
+    "draft_value": "robust win",
+    "our_value": "not computed by any model; assumptions",
+    "verdict": "unverifiable",
+    "basis": "No calculation in arch/ predicts PRISM plate-to-plate spread"
+   }
+  ],
+  "fatal_issues": [
+   "Headline absolute numbers (28.4/33.3 K PCM, 30.4/37.2 K paste 'at 117 cm2') are ~1.5 K optimistic: they subtract CoolIT's calibration-absorbed 2-D penalty, valid only at the 2-D-recalibrated CoolIT footprint (~124 cm2), not for our 117 cm2 TTV or vs CoolIT's measurement; publishing them as TTV predictions is indefensible (corrected 29.9/34.8 and 31.8/38.7 K).",
+   "D1 claim 'beats on every metric CoolIT disclosed' is false for the drop-in core: CoolIT's 4 kW plate resistance is lost with PCM (0.0096-0.0115 vs <0.009) and paste (0.0109); the draft's own 0.0093 already exceeds the bound, so 'tie' is wrong.",
+   "350 W/cm2 'beats split-flow by 27-28 K' compares CoolIT-like at paste 0.07 (88.6 K) with PRISM at paste 0.05; like-for-like margin ~18-20 K, CoolIT LM ~114 C not 121 C, and with PRISM's own 2-D penalty the P-grade reaches ~87 C (misses 85 C)."
+  ],
+  "required_changes": [
+   "Use PRISM's own absolute 2-D penalty (+6.9% of core at L6 R, +7.3% P L4, +8.7-9% at 350 W/cm2) in every absolute prediction: headline, scorecard, MC, Q capacity (18.2/15.7/24.2 kW), inlet headroom (50.2/46.3 C), 4 kW, 350 W/cm2, 25-30 kW; keep any differential only as a model-to-model statement at a declared recalibrated footprint with a 3.5-11.4% CoolIT-geometry band.",
+   "Republish MC: paste P(avg<34.4) 0.79 pub / 0.82 fair, P(max<44.2) 0.93; PCM decisive (<=31/<=36) 0.62 model-only, ~0.45 with programme risk; state that the footprint-fair triangle (mean 121.7 cm2) is favourable, not a stress test, and that model-form error is excluded.",
+   "Footprint text: at 100 cm2 paste like-for-like the average loses by ~1.3 K (35.7 vs 34.4) and the max margin is only 0.8 K; delete 'maximum wins hold at every footprint'.",
+   "Section 6.4/6.7/D1: change the CoolIT 4 kW point from 'ties' to 'loses (7-8% at 25 cm2, ~28% if heater ~20 cm2)'; only LM qualifies at 25 cm2.",
+   "Section 6.3 and scorecard: relabel CoolIT-like 88.6 K as paste 0.07; like-for-like paste 0.05 = 81.6 K, LM = 69.4 K (~114 C); apply full penalty (R ~97 C LM, P ~87 C LM); cut 2.5 mm fin gain to 0.3 K; restate margin as ~18-20 K.",
+   "Section 3.3/6.4: restate GPU-class uniform-lid average as parity (-0.2 to -0.5 K, lid-dependent); keep the max win; disclose that the CoolIT-like reconstruction overpredicts CoolIT's real 4 kW plate by >=37%, so all model-only CoolIT-like baselines are unvalidated.",
+   "Flux-graded rule: change the >=250 W/cm2 branch from 4-5 mm to 5-6 mm (L4 is dominated on avg and crest in 2-D at 128-350 W/cm2) or justify short cells on hydraulics only.",
+   "Patch coldplate_model.py: split-flow ramp hot spot = 0.5*dT_out (not fixed 6.3 K); PG25 k ~0.49 W/mK; regenerate the 6.2 CoolIT-like column (0.75 LPM/kW max 52.1 K, 2.4 LPM/kW 37.7 K) and remove or regenerate stale prism_model.out / docstring (C2D 5.2%)."
+  ],
+  "improvements": [
+   "Calibrate the CoolIT reconstruction on both CoolIT data points (15 kW and 4 kW) with at least two parameters, or test purchased incumbent plates before quoting any model-only CoolIT-like comparison.",
+   "Run one 3-D CFD cell (one 2 mm orifice pitch x one 6 mm cell) to quantify y-wise gap maldistribution under the discrete jets and the true fin-tip impingement velocity (est. 1.4-1.9 m/s locally vs the 0.41 m/s mean).",
+   "Model the lid explicitly for every lidded-package claim (lid isothermalises long cells and erodes the 12 mm average gain).",
+   "Correlate TIM error between PRISM and CoolIT in same-TIM probability comparisons, and add a model-form error term to the MC.",
+   "Re-check the P-grade at L 5-6 mm, since L4 was dominated in every R-grade 2-D run.",
+   "Use a PG25 property table with stated uncertainty (k ~0.48-0.50 W/mK at 50 C adds ~+0.4 K to PRISM's core)."
+  ]
+ },
+ "verify:hydraulics": {
+  "key": "hydraulics",
+  "report_path": "docs/cooling/appendix/verify/verify-hydraulics.md",
+  "claims_checked": [
+   {
+    "claim": "Plate dP port-to-port at 18 LPM, 20 mm ports (4.2); external claim <= 7.5 kPa",
+    "draft_value": "5.9 kPa (claim <= 7.5)",
+    "our_value": "5.5 kPa mid; band 4.0-7.9 kPa",
+    "verdict": "confirmed",
+    "basis": "hyd_budget.py: independent element K/Cd choices; the high case (oblong orifice, Cd 0.65, sharp tees) reaches 7.9 kPa, so the <= 7.5 claim sits at about P85"
+   },
+   {
+    "claim": "Plate dP at 18 LPM with 16 mm ports; claim <= 10 kPa",
+    "draft_value": "8.2 kPa",
+    "our_value": "8.3 kPa mid; band 6.0-11.5 kPa",
+    "verdict": "confirmed",
+    "basis": "same budget with a 1.49 m/s port; the high case exceeds the claim"
+   },
+   {
+    "claim": "Meter orifices 0.5 x 0.9 mm (486 of them), Cd 0.72, 1.37 m/s, 1.82 kPa",
+    "draft_value": "1.82 kPa at 1.37 m/s",
+    "our_value": "1.82 kPa only for a 0.45 mm2 rectangle; an oblong (stadium) is 0.396 mm2, giving 1.56 m/s and 2.35 kPa; Cd 0.61-0.80 at Re 700-840 and t/Dh 0.6",
+    "verdict": "corrected",
+    "basis": "the orifice geometry is undefined; short-orifice Cd is Re- and punch-direction-dependent"
+   },
+   {
+    "claim": "Ports K 3.5 combined (1.6 kPa) plus mid-fed tees K 1.5 per side (0.80 kPa)",
+    "draft_value": "2.4 kPa",
+    "our_value": "1.8-3.0 kPa",
+    "verdict": "confirmed",
+    "basis": "0.955 m/s (458 Pa head) in the port; the outlet combining bull-tee is under-counted (K 1.5 on header velocity, against about 2 on port velocity), but the total is within \u00b125 %"
+   },
+   {
+    "claim": "Separator windows in + out",
+    "draft_value": "0.56 kPa in the table; 0.46 in prism_flow.py",
+    "our_value": "0.42-0.70 kPa",
+    "verdict": "confirmed",
+    "basis": "K 3-5 total on 0.53 m/s; the table sums to 5.96 kPa against the script's 5.86 (internal inconsistency)"
+   },
+   {
+    "claim": "Fin channels 0.15 x 2.0 mm, 6 mm segments, 0.15 m/s, Re 34",
+    "draft_value": "0.65 kPa",
+    "our_value": "0.62-0.66 kPa; Re 34.6; Darcy fRe 87.2",
+    "verdict": "confirmed",
+    "basis": "Shah-London parallel-plate fRe plus Hagenbach correction"
+   },
+   {
+    "claim": "Window, kerf turn and outlet window",
+    "draft_value": "0.08 kPa",
+    "our_value": "0.05-0.15 kPa, rising to 0.3-0.5 kPa if about half the flow descends the 0.3 mm kerf",
+    "verdict": "unverifiable",
+    "basis": "kerf area is only 1.33x the orifice area per line; needs single-cell CFD"
+   },
+   {
+    "claim": "Guard screen, clean",
+    "draft_value": "0.30 kPa",
+    "our_value": "0.1-0.2 kPa for square-weave 50 \u00b5m mesh; 1-30 kPa for Dutch-weave or sintered-felt 'absolute' media",
+    "verdict": "confirmed",
+    "basis": "Idelchik low-Re screen at 0.12 m/s face velocity over 25 cm2; valid only if the media is specified as square weave"
+   },
+   {
+    "claim": "82 % of plate dP is inertial",
+    "draft_value": "0.82",
+    "our_value": "0.826",
+    "verdict": "confirmed",
+    "basis": "4.84 / 5.86 kPa from prism_flow.py terms"
+   },
+   {
+    "claim": "Flow sweep 4.2 / 5.9 / 12.4 / 21.4 kPa at 15 / 18 / 27 / 36 LPM; claim <= 27 kPa at 36 LPM",
+    "draft_value": "21.4 kPa at 36 LPM (12.8 W)",
+    "our_value": "21.4 kPa and 12.85 W exact; independent band at 36 LPM 15.6-28.6 kPa",
+    "verdict": "confirmed",
+    "basis": "the arithmetic reproduces; the <= 27 kPa claim is marginal at the high band"
+   },
+   {
+    "claim": "About 70 % lower / 3.7x lower than the CoolIT reconstruction",
+    "draft_value": "5.9 vs ~22 kPa",
+    "our_value": "at matched bores: 3.5x (71 %) at 20 mm, 2.8x (64 %) at 16 mm, 1.9x (47 %) at 12 mm (1/2-in barbs as in CoolIT's TTV); core without ports 4.3 vs 18.8 kPa",
+    "verdict": "corrected",
+    "basis": "the reconstruction carries a flat 3 kPa port allowance (about a 15-17 mm bore), so the ratio depends on the port-bore boundary"
+   },
+   {
+    "claim": "Along-plenum uniformity, offset feed \u00b114 mm: max/min 1.065-1.085; centre-fed 1.04",
+    "draft_value": "1.065-1.085 / 1.04",
+    "our_value": "1.036-1.076 / 1.01-1.03 (new solver); the draft's run() reproduces 1.064-1.084 when called with PRISM geometry",
+    "verdict": "confirmed",
+    "basis": "plenum_check.py (window feed, turbulent friction, four momentum-coefficient sets); the filed plenum_prism.py __main__ runs only 3 mm-plenum cases, so the cited numbers do not reproduce from the file as filed"
+   },
+   {
+    "claim": "A 0.9 kPa branch would give 1.3-1.5 max/min (lesson that justifies a >= 2 kPa meter)",
+    "draft_value": "1.3-1.5",
+    "our_value": "1.16-1.22 on PRISM's 4.5 x 9 mm plenum at 2 LPM",
+    "verdict": "corrected",
+    "basis": "the draft's figure comes from a 3 x 7 mm plenum at 1.29 LPM, not PRISM geometry"
+   },
+   {
+    "claim": "Slot-to-slot ratio 9.8; global max/min <= 1.10 expected",
+    "draft_value": "<= 1.10",
+    "our_value": "line level 1.04-1.07 (1.09-1.13 with an undiffused port jet); fin-segment level 1.23-1.43 at 18 LPM and 1.41-1.71 at 36 LPM",
+    "verdict": "refuted",
+    "basis": "header_net2/3/4.py: the meter fixes line flow but not the left/right segment split, which only the 0.67 kPa viscous segment resists against outlet-header and outlet-window pressure differences (protection ratio about 1.5-3, against the draft's rule of >= 6)"
+   },
+   {
+    "claim": "Uniformity ratios fall by <= 13 % at 2x flow",
+    "draft_value": "<= 13 %",
+    "our_value": "13 % at line level; the segment protection term halves at 2x",
+    "verdict": "corrected",
+    "basis": "viscous fin term grows as Q, header and window heads as Q^2"
+   },
+   {
+    "claim": "18 plenums alternating in/out; 6,480 parallel segments",
+    "draft_value": "18 plenums (9 in / 9 out), 6,480 segments",
+    "our_value": "18 alternating lines give 6,120 segments; one edge inlet line feeds a single segment at 1.68x nominal; two 3 mm dead-end fin strips over the heated area (5.6 %), estimated +10-15 K locally; the 6,480 count needs 19 lines",
+    "verdict": "refuted",
+    "basis": "layout geometry and network model (18-line case: segment max/min about 2.0)"
+   },
+   {
+    "claim": "Mean fin entry 0.41 m/s is under the 0.5 m/s cap, against PSM-12's 1.32 m/s",
+    "draft_value": "0.41 m/s",
+    "our_value": "0.41 m/s is an area mean; the jet exits at 1.56-2.1 m/s and travels only 1.0 mm (2 minor diameters, inside the potential core) to the fin tops and kerf, then impinges on the 1.0 mm base",
+    "verdict": "refuted",
+    "basis": "free-jet potential core is about 4-6 diameters; this is not a like-for-like comparison with PSM-12's slit velocity"
+   },
+   {
+    "claim": "Dead-end bleed through a 0.6 mm hole carries about 4 % of plenum flow",
+    "draft_value": "4 %",
+    "our_value": "1.2 %; 4 % needs a 1.1 mm hole",
+    "verdict": "corrected",
+    "basis": "Cd 0.65 orifice at 2.55 kPa"
+   },
+   {
+    "claim": "Velocity rules: ports and headers <= 1.5 m/s and meter <= 2.0 m/s at 150 % of rated flow",
+    "draft_value": "satisfied with 20 mm ports",
+    "our_value": "satisfied at 22.5 LPM only for a rectangular orifice area (oblong gives 1.95 m/s); the 16 mm option gives 1.87 m/s at 22.5 LPM (fails); outlet side above 60 C falls in the CDA 0.6-0.9 m/s band, against 0.95 m/s at the outlet port",
+    "verdict": "corrected",
+    "basis": "CDA hot-water velocity guidance; hyd_budget.py and loop_rack.py"
+   },
+   {
+    "claim": "UQD08 pair costs about 20-35 kPa at 18 LPM (Cv estimate \u00b150 %)",
+    "draft_value": "20-35 kPa",
+    "our_value": "14-24 kPa (Cv 3.65-4.75); 11 kPa at Cv 5.32 (unconfirmed)",
+    "verdict": "corrected",
+    "basis": "vendor data: FITOK UQD08 Cv 3.65 / 3.70 / 3.76, CPC Everis Cv ~4.75 max, Danfoss 5.32 (snippet); 10 mm bore runs 3.8 m/s at 18 LPM; vendors' 5 m/s reference flow is 22.5-23.6 LPM"
+   },
+   {
+    "claim": "Single UQD08 tray loop: about 30-45 kPa with PRISM, 64-90 kPa with a CoolIT-like plate",
+    "draft_value": "30-45 / 64-90 kPa",
+    "our_value": "40-49 / 56-79 kPa (1 m 1/2-in hose, four 12 mm stubs)",
+    "verdict": "corrected",
+    "basis": "loop_rack.py with vendor Cv"
+   },
+   {
+    "claim": "Dual UQD08 pairs: tray loop about 15-25 kPa with PRISM",
+    "draft_value": "15-25 kPa",
+    "our_value": "15-18 kPa",
+    "verdict": "confirmed",
+    "basis": "loop_rack.py at 9 LPM per pair"
+   },
+   {
+    "claim": "'UQD12' is not confirmed in OCP UQD v2.0.0",
+    "draft_value": "not confirmed",
+    "our_value": "vendor brochures (Staubli, Danfoss, FITOK) list sizes only up to UQD08",
+    "verdict": "confirmed",
+    "basis": "secondary vendor sources; the spec's own table was not read"
+   },
+   {
+    "claim": "Low-dP plate needs a 63 mm rack manifold or a ~10 kPa branch orifice; direct return (U) beats reverse return (Z)",
+    "draft_value": "rule (from system-platform)",
+    "our_value": "18 trays at 324 LPM: 1.058 (63 mm U), 1.136 (63 mm Z), 1.155 (50 mm U), 1.096 (50 mm U + orifice)",
+    "verdict": "confirmed",
+    "basis": "independent rack.py dividing/combining manifold; matches sysplat to \u00b10.004; holds for homogeneous racks"
+   },
+   {
+    "claim": "Keyed inlet orifices are needed only on low-dP auxiliary plates",
+    "draft_value": "auxiliary plates only",
+    "our_value": "in a mixed rack with CoolIT-like trays (CDU flow-limited), un-orificed PRISM trays draw +10 % (single UQD08) or +35 % (dual UQD08) and starve incumbents by 10-35 %",
+    "verdict": "corrected",
+    "basis": "rack.py mixed-rack case; the rule must extend to PRISM branches"
+   },
+   {
+    "claim": "Is 82 % inertial dP a problem for balancing against high-dP plates on a shared manifold?",
+    "draft_value": "not addressed",
+    "our_value": "No: inertial branches are stiffer (-11.6 % vs -15.8 % flow for -20 % header dP) and viscosity-insensitive (about 4 % shift at a 25 C start-up), and all UQD08 branches are 75-96 % inertial anyway. Real issues: low absolute dP in mixed racks, and port-to-port dP is blind to fin fouling (a 10 \u00b5m deposit adds +54 % fin dP but +6 % plate dP)",
+    "verdict": "confirmed",
+    "basis": "rack.py; a fouling sensitivity check (dP \u221d 1/g^3)"
+   },
+   {
+    "claim": "Equal pumping power (6.5 W, 28.5 LPM) gives 25.1 / 30.0 K (PCM)",
+    "draft_value": "28.5 LPM; 25.1 / 30.0 K",
+    "our_value": "plate-boundary arithmetic is right; at the tray-loop boundary with a single UQD08: 19.3-21.7 LPM, about 27.3-27.8 / 32.2-32.7 K; at 28.5 LPM the meter runs 2.17 m/s (over the 2.0 m/s cap) and a UQD08 runs about 6 m/s",
+    "verdict": "corrected",
+    "basis": "loop_rack.py solved at both boundaries; thermal from the draft's ev() at the corrected flows"
+   },
+   {
+    "claim": "Flow to match 34.4 K average: 11.1 LPM (0.74 LPM/kW), 0.46 W, outlet 65.5 C",
+    "draft_value": "11.1 LPM, outlet 65.5 C",
+    "our_value": "violates the draft's own 65 C return rule; return-limited minimum 11.2-11.4 LPM gives 34.0-34.2 K",
+    "verdict": "corrected",
+    "basis": "energy balance with \u03c1cp 3.95-4.01 MJ/m3K"
+   },
+   {
+    "claim": "2x flow (36 LPM): PRISM 21.4 kPa / 12.8 W; CoolIT-like 58-69 kPa",
+    "draft_value": "21.4 / 58-69 kPa",
+    "our_value": "21.4 kPa / 12.85 W; CoolIT-like 58-61 kPa (22 kPa base), up to about 90 kPa on the 35 kPa working value",
+    "verdict": "confirmed",
+    "basis": "component scaling; at 36 LPM PRISM ports run 1.91 m/s and the meter 2.74 m/s (labelled characterisation only)"
+   },
+   {
+    "claim": "Q capacity at 1.2 LPM/kW: LM 26.4 kW, P+PCM 23.3 kW, P+LM 34.1 kW; 25 kW and 30 kW cases",
+    "draft_value": "26.4 / 23.3 / 34.1 kW",
+    "our_value": "these need 28-41 LPM; the 20 mm port exceeds 1.5 m/s above 28.3 LPM (23.6 kW) and the meter exceeds 2.0 m/s above 26.2 LPM (21.9 kW rectangular; 19.2 kW oblong)",
+    "verdict": "refuted",
+    "basis": "the draft's own velocity rules (checklist row 10)"
+   }
+  ],
+  "fatal_issues": [
+   "The 18-plenum alternating layout as specified (9 in / 9 out at 6 mm pitch over a 108 mm field) contradicts the draft's own 6,480-segment count (it gives 6,120). It leaves 3 mm dead-end fin strips over the heated TTV area at both edges (5.6 % of area; conduction estimate +10-15 K locally), and one edge inlet line dumps its full metered flow into one segment at 1.68x nominal (segment max/min about 2.0). Built as written, this exposes the 33.3 / 37.2 K maximum claims if any TC sits near a heater edge. Trivial fix: 19 lines with edge outlets.",
+   "The published Q-capacity figures at 1.2 LPM/kW (LM 26.4 kW, P+PCM 23.3 kW, P+LM 34.1 kW, and the 25-30 kW cases on PRISM-15) need 28-41 LPM. That breaks the draft's own velocity rules: the 20 mm port exceeds 1.5 m/s above 23.6 kW and the meter exceeds 2.0 m/s above 21.9 kW (19.2 kW with oblong orifices). Those public claims cannot be defended without re-sizing the meter and ports or capping the ratings."
+  ],
+  "required_changes": [
+   "Adopt a 19-line layout (9 inlets; 10 outlets, with edge outlets at \u00b154 mm and half-area edge windows). Put the inlet port at x = 0 over a window and the outlet port between windows. Move header centres to about \u00b116 mm: as drawn, the 26 mm and 30 mm headers centred at \u00b114 mm touch with no wall. Keep the inlet-header tie rib clear of the port bore.",
+   "Add segment-level flow balancing. The meter fixes each line's flow but not its left/right split, which only the 0.67 kPa fin segment resists. Options: a 0.5-1.0 kPa outlet-side orifice row; a split meter (1.3 kPa inlet + 0.6 kPa outlet, no dP cost); or a doubled outlet-header area with matched edge windows. Each brings segment max/min from 1.23-1.43 down to 1.07-1.10 at 18 LPM.",
+   "Redefine the E2 water-table pass metric at fin-segment level (dye or IR per segment), not per line. Measured per line, it will pass while segments are at 1.2-1.4.",
+   "Define the meter orifice: rectangular with corner radii (0.45 mm2) or a 0.5 x 1.0 mm stadium. Define punch direction relative to forward flow. Measure Cd(Re) on coupons at Re 300-1,600. An oblong 0.5 x 0.9 orifice with Cd 0.65 takes the plate to 7.9 kPa, breaking the <= 7.5 kPa claim.",
+   "Specify the plate guard as square-weave 50 \u00b5m mesh, built as an inside-out radial diffuser in the inlet boss so the port jet does not land on the centre window (undiffused, line max/min rises to 1.09-1.13). Carry a <= 1 kPa allowance.",
+   "Restate every dP comparison at a matched boundary: core 4.3 vs 18.8 kPa; port-to-port at a common stated bore (3.5x at 20 mm, 2.8x at 16 mm, 1.9x at 12 mm); tray loop with named UQD08 Cv. Replace the UQD08 pair estimate of 20-35 kPa with 14-24 kPa from vendor Cv 3.65-4.75, pending E0.",
+   "Label the equal-pumping-power row as plate-only. Add the tray-loop-boundary row (about 19-22 LPM, about 27.5 / 32.5 K PCM). Note that 28.5 LPM breaks the draft's own meter cap.",
+   "Restate flow-to-match as return-limited: about 11.4 LPM, 65.0 C outlet, about 34.0 K.",
+   "Cap Q-capacity ratings at the flow that satisfies the velocity rules (about 22 kW for the current meter and 20 mm ports), or declare a high-flow meter and port SKU for the LM, P-grade and 25-30 kW claims.",
+   "Extend the keyed-orifice rule to PRISM branches in any rack shared with higher-dP plates: un-orificed, they over-draw +10-35 % and starve incumbents. State that the dP advantage turns into a CDU-head saving only in PRISM-homogeneous racks.",
+   "Replace '0.41 m/s fin entry, PSM-12 was 1.32 m/s' with the jet velocity at the fin tops (about 1.4-2.1 m/s). Make the offset-orifice option (jets land on the grate lip) the baseline, so jets no longer strike the 1.0 mm base pressure boundary. Add base-thickness measurement under the jets (UT or sectioning) at 1x / 1.5x / 2x flow to E4.",
+   "Use fin-field dP taps (inlet plenum to outlet plenum) for the E4 'core dP drift <= 10 %' criterion and the field dP signature. Port-to-port dP is 82 % inertial and sees fin fouling only weakly (a 10 \u00b5m deposit adds +6 % plate dP).",
+   "Fix the internal inconsistencies: bleed size (0.6 mm gives 1.2 %; 4 % needs 1.1 mm); separator window 0.56 kPa in the table vs 0.46 in the script; plenum_prism.py's __main__, which does not run the PRISM geometry behind the cited 1.065-1.085."
+  ],
+  "improvements": [
+   "Drop the 16 mm port option, or rate it at <= 12 LPM: it breaks the draft's own 1.5 m/s rule inside the OCP 25-150 % sweep (1.87 m/s at 22.5 LPM).",
+   "Analyse the dual-UQD08, both-end-fed header variant separately: its header topology differs from the mid-fed case analysed in 4.3.",
+   "Treat 18 LPM as the practical ceiling for a single UQD08 (3.8 m/s at 18 LPM against the vendors' 5 m/s reference of 22.5-23.6 LPM). Make dual pairs the standard for ratings above about 19 kW and for any 2x-flow test with couplings.",
+   "Use 0-2 kPa or 0-10 kPa differential transducers (\u00b10.25 % FS) so the OCP 25 %-of-rated point (about 0.42 kPa) is measurable.",
+   "Run a single-cell CFD of orifice, window, kerf and segment before the Rev A freeze. It should pin down the kerf flow share, the window/kerf loss (0.08 vs up to 0.5 kPa), the jet-impingement velocity and the crossflow effect on orifice Cd near the plenum feed.",
+   "Apply the Copper Development Association hot-water band (0.6-0.9 m/s above 60 C) to the outlet side at the headroom operating point. Keep the outlet port near 0.9 m/s or document inhibitor-based justification.",
+   "Lead the external hydraulic claim with core dP plus the three-boundary table, using UQD08 Cv measured on purchased couplings in E0."
+  ]
+ },
+ "verify:cost-market": {
+  "key": "cost-market",
+  "report_path": "docs/cooling/appendix/verify/verify-cost-market.md",
+  "claims_checked": [
+   {
+    "claim": "LME copper ~US$14.4-14.7k/t Sep 2026; OFE US$17-19/kg; copper line ~US$35 at 100k (2.5 kg buy, 0.85 kg scrap)",
+    "verdict": "corrected",
+    "draft_value": "US$35",
+    "our_value": "US$35-43 (P50 39); buy ~2.9 kg, scrap ~1.3 kg",
+    "basis": "LME confirmed (Cochilco 1 Sep 14,395.5; Westmetall 8 Sep 14,737). Part-by-part mass balance: the 2x4.5 mm laminations alone need ~1.4 kg strip for 0.55 kg finished. OFE premium plausible range US$17-22/kg; the scrap credit of 79 % LME is conservative. Partly offsetting."
+   },
+   {
+    "claim": "Skived core + tip planing US$22 at 100k",
+    "verdict": "confirmed",
+    "draft_value": "US$22",
+    "our_value": "US$14-28",
+    "basis": "Research band US$15-28; consistent with 3-4 min cycle"
+   },
+   {
+    "claim": "Braze filler + clean US$5 at 100k",
+    "verdict": "refuted",
+    "draft_value": "US$5",
+    "our_value": "US$13-24 (route A 19-24, route B 13-19)",
+    "basis": "Silver ~US$65/oz Sep 2026. 25 um BAg-8 over ~410 cm2 of lands = 10.2 g filler, 7.4 g Ag = US$15.5 of silver alone. No project file uses a silver price."
+   },
+   {
+    "claim": "Vacuum braze US$16 at 100k, 30-80 per load, ~1.5 furnaces per 100k/yr",
+    "verdict": "corrected",
+    "draft_value": "US$16; 1.5 furnaces",
+    "our_value": "US$18-27 incl. stack-up; 1.7-3.1 furnaces (P50 2.2)",
+    "basis": "6-11 h cycles for dense fixtured loads, 7,000 h/yr availability, fixture wear US$2-10 per plate-cycle, 4-12 min stack-up labour per plate"
+   },
+   {
+    "claim": "Stamping parts US$5 + laminations US$4, die amortisation implicit",
+    "verdict": "corrected",
+    "draft_value": "US$9, no die line",
+    "our_value": "US$10-21 plus US$1.3-3.3 die amortisation per SKU at 100k/yr/SKU",
+    "basis": "Five stamping dies plus a forging die cost US$0.4-1.0 M per SKU. The 4.5 mm d/t=1 laminations need flattening or lapping for the braze gap. Per-SKU zoning means each new zoning needs new dies, costing US$0.4-1 M and 8-14 weeks."
+   },
+   {
+    "claim": "Test incl. IR screen US$9 at 100k",
+    "verdict": "confirmed",
+    "draft_value": "US$9",
+    "our_value": "US$7-14",
+    "basis": "Station time ~10-15 min across He, proof+confocal, dP, IR, flush; line capex US$1-1.6 M"
+   },
+   {
+    "claim": "Yield, scrap, overhead 15 % at 100k",
+    "verdict": "corrected",
+    "draft_value": "15 %",
+    "our_value": "~20 % mature (93 % yield, 12 % ovh); 18-25 %+ at ramp",
+    "basis": "Non-reworkable 6-layer single braze; the judges' own 18-25 % rule for bonded stacks at ramp"
+   },
+   {
+    "claim": "PRISM-15 factory cost ~US$160 at 100k/yr",
+    "verdict": "corrected",
+    "draft_value": "US$160",
+    "our_value": "US$197/209/222 (P10/50/90); floor US$173",
+    "basis": "Independent bottom-up Monte Carlo (verify/cost_market_check.py)"
+   },
+   {
+    "claim": "PRISM-15 ~US$300 at 10k/yr",
+    "verdict": "corrected",
+    "draft_value": "US$300",
+    "our_value": "US$370-430",
+    "basis": "Laser-cut/CNC parts, ramp yield 75-92 %, silver"
+   },
+   {
+    "claim": "Stretch: US$113 at 1M/yr shown against incumbent ~US$110",
+    "verdict": "refuted",
+    "draft_value": "US$113 vs 110",
+    "our_value": "incumbent ~US$75 at 1M/yr",
+    "basis": "The comparison mixes volume columns (draft's own 175/110/75 incumbent table)"
+   },
+   {
+    "claim": "Skived split-flow plate of CoolIT's class ~US$175/110/75",
+    "verdict": "corrected",
+    "draft_value": "US$110 at 100k",
+    "our_value": "GB-class US$102-122 confirmed; like-sized CoolIT-15-class US$116-137 (P50 126)",
+    "basis": "US$110 is the research canonical 100x120 mm GB-class plate with corrected copper, not a 125-130 mm, 1.2-1.6 kg 15 kW-class plate"
+   },
+   {
+    "claim": "PRISM +45 % per plate at 100k",
+    "verdict": "corrected",
+    "draft_value": "+45 %",
+    "our_value": "+50 to +83 % (P50 +66 %) vs like-sized incumbent; US$67-99 per plate",
+    "basis": "Corrected PRISM cost vs like-sized incumbent"
+   },
+   {
+    "claim": "PRISM 8-10 % worse per kW of Tcase-limited capacity (8.2 vs 7.6 PCM; 9.6 vs 8.7 paste)",
+    "verdict": "corrected",
+    "draft_value": "8-10 % worse",
+    "our_value": "27-29 % worse (10.8 vs 8.5 PCM; 12.6 vs 9.8 paste)",
+    "basis": "Draft's own capacities with corrected costs"
+   },
+   {
+    "claim": "PRISM-G ~US$120 vs incumbent US$105-110 at 100k",
+    "verdict": "refuted",
+    "draft_value": "US$120 (+US$10-15)",
+    "our_value": "US$126-134 on the draft's own rate card; US$159-180 bottom-up (+US$43-71)",
+    "basis": "No derivation exists in the draft or any script. PRISM process costs (6 brazed parts, dies, Ag braze, test) barely scale with size."
+   },
+   {
+    "claim": "GPU plate ASPs US$300-400 (GB300 ~300, Rubin up to 400)",
+    "verdict": "confirmed",
+    "draft_value": "US$300-400",
+    "our_value": "US$300 / up to US$400; Taiwanese report US$150-300 generic",
+    "basis": "Morgan Stanley via TechRadar / igor'sLAB / cloudnews; cnyes"
+   },
+   {
+    "claim": "Rubin ~US$400 per assembly, US$200-260 bare",
+    "verdict": "corrected",
+    "draft_value": "US$200-260 bare",
+    "our_value": "~US$300-360 bare",
+    "basis": "US$200-260 was derived from the GB300 US$300 line; the same UQD/hose deduction on US$400 gives US$300-360"
+   },
+   {
+    "claim": "Group-A gross margin 17-20 % cannot carry +45 %",
+    "verdict": "refuted",
+    "draft_value": "17-20 % GM",
+    "our_value": "AVC GM 24.4 % (2Q25), 29.8 % (1Q26), 32.6 % (2Q26); ASIC margins higher than GPU",
+    "basis": "AVC 2Q26 results (Quartr, UDN). The conclusion survives: a US$57-83 premium consumes 50-90 % of the US$90-120 gross profit."
+   },
+   {
+    "claim": "NVIDIA Group-A = Jentech, AVC, Cooler Master, Delta; CoolIT absent",
+    "verdict": "confirmed",
+    "draft_value": "4 suppliers",
+    "our_value": "confirmed; volume Rubin plates mainly AVC + Cooler Master; NVIDIA uses a standardised design",
+    "basis": "TVBS, Digitimes 18 Mar 2026, Taiwan News; UDN; Morgan Stanley note via chinatimes"
+   },
+   {
+    "claim": "Dry-cooler value US$0.8-2.0 M per K per 100 MW",
+    "verdict": "corrected",
+    "draft_value": "US$0.8-2.0 M",
+    "our_value": "US$0.54-1.09 M (P50 0.78); installed US$/kW unverifiable",
+    "basis": "LMTD: 7-13 % UA per K at 8-12 K approach; only 55-80 % of installed cost scales with UA; existing units gain only 4-6 %/K; no public dry-cooler price found"
+   },
+   {
+    "claim": "Inlet-temperature headroom +7-11 K (15 kW class)",
+    "verdict": "corrected",
+    "draft_value": "+7-11 K",
+    "our_value": "+7.0 K like-for-like at P50; +2.2 K (paste) / +3.4 K (PCM) at P90",
+    "basis": "+11 K pairs PRISM-PCM (51.7 C) with CoolIT-paste (40.8 C); CoolIT re-tested on PCM is 44.7 C (draft's own scorecard)"
+   },
+   {
+    "claim": "Facility value 15-60x the plate premium for 15 kW class",
+    "verdict": "corrected",
+    "draft_value": "15-60x",
+    "our_value": "4.6-10x at P50 headroom; 1.8-4.2x at P90",
+    "basis": "6,667 plates per 100 MW; price premium = corrected cost premium / 0.7; corrected US$/K. No 15 kW socket ships in volume before ~2029."
+   },
+   {
+    "claim": "GPU-class +2-3 K worth US$1.6-6 M vs ~US$1 M premium per 100 MW (1.5-6x)",
+    "verdict": "refuted",
+    "draft_value": "1.5-6x",
+    "our_value": "0.33-0.8x with costed PRISM-G (1.6-3.3x only with the undocumented US$120)",
+    "basis": "Draft table 3.3 gives a 1.7-2.4 K max improvement (avg 0.3-1.0 K; conservative case loses); 37,500 GPU plates per 100 MW"
+   },
+   {
+    "claim": "Value is capturable via TCO purchase / chiller-free operation",
+    "verdict": "corrected",
+    "draft_value": "facility value priced in",
+    "our_value": "only where buyer = facility owner and the whole loop and vendor spec allow higher supply",
+    "basis": "NVIDIA already markets Rubin at 45 C with no chillers (CES 2026). Supply is set by the most limiting device and the vendor spec. Margin is mostly spent on the next chip (option value)."
+   },
+   {
+    "claim": "Hyperscaler ASIC beachhead: samples M12-15, qualified M18, volume 2028",
+    "verdict": "corrected",
+    "draft_value": "volume 2028",
+    "our_value": "volume 2029; socket contested",
+    "basis": "AVC ships Google TPU v8 and AWS Trainium3 liquid products from 4Q26 and prioritises ASIC capacity. AWS T3 / AMD MI move to double-sided plates >US$3,000 (rumour). Samples late 2027 miss 2028 design-ins."
+   },
+   {
+    "claim": "NVIDIA volume via know-how-plus-supply agreement with a Group-A/B house (Feynman 2028, volume 2029)",
+    "verdict": "corrected",
+    "draft_value": "Group-A/B partnership",
+    "our_value": "decision-maker is NVIDIA thermal engineering; MCL/MLCP may replace lidded plates",
+    "basis": "Morgan Stanley: NVIDIA standardised cold-plate design under central purchasing. JPMorgan/TechNews: MCL to replace cold plates on dual-die Rubin from 2H26, mainstream 2027; Jentech leads MCL, AVC/Auras MLCP."
+   },
+   {
+    "claim": "12-month budget US$6.6 M (+-15 %), 14-15 FTE",
+    "verdict": "corrected",
+    "draft_value": "US$6.6 M",
+    "our_value": "arithmetic confirmed (5.48 + 20 % = 6.58); complete scope US$7.5-8.7 M with the US$1.1 M contingency kept",
+    "basis": "Missing US$0.9-2.1 M: Build-B dies (stamped parts at M6-9 but tooling budgeted M12-18), confocal / He / D5470 equipment, CFD/FEA and CT, 25 kW lab fit-out, BD. US$228k/FTE plausible. No BD FTE, no P&L, no plan for CM capex of US$3.7-9 M per 100k/yr."
+   },
+   {
+    "claim": "DLC TCS spend >US$11 B in 2026",
+    "verdict": "unverifiable",
+    "draft_value": ">US$11 B (CoolIT)",
+    "our_value": "third-party US$4-8 B; AVC alone ~US$6 B/yr revenue with ~30 % liquid cooling",
+    "basis": "Scopes differ; the CoolIT figure is plausible at TCS level"
+   },
+   {
+    "claim": "Ranked applications with power electronics at 6-7 (800 VDC, SST, SiC traction licence)",
+    "verdict": "corrected",
+    "draft_value": "PE ranks 6-7",
+    "our_value": "mission sets PE second; PRISM-DC is uncosted; shelf plate has no thermal advantage; 800 VDC shelf market US$4-90 M/yr",
+    "basis": "Mission text; draft 6.6 concession; judge: a 1.8 kg Cu stack is overkill for 5-30 W/cm2; SST still early (OCP SST spec v0.3; Enphase volume 2028)"
+   },
+   {
+    "claim": "OCP Cold Plate Test Spec v1.0.0 dated October 2026",
+    "verdict": "corrected",
+    "draft_value": "October 2026",
+    "our_value": "effective 3 Sep 2026 (PDF posted in the 2026/10 folder)",
+    "basis": "OCP PDF front matter via search"
+   },
+   {
+    "claim": "prism_cost.py arithmetic",
+    "verdict": "confirmed",
+    "draft_value": "304 / 159 / 113",
+    "our_value": "304 / 159 / 113",
+    "basis": "Line sums 258 / 138 / 100.5 x (1.18 / 1.15 / 1.12). All inputs are hard-coded; no silver, dies or capex; incumbent fixed at US$112 GB-class."
+   }
+  ],
+  "fatal_issues": [
+   "F1 (public claim): The facility value case ('15-60x the premium for 15 kW-class, 1.5-6x for GPU-class') is indefensible as published. +11 K headroom compares PRISM-PCM with CoolIT-paste (like-for-like is +7.0 K at P50 and +2.2-3.4 K at P90). US$/K per 100 MW is US$0.5-1.1 M, not 0.8-2.0. With a costed PRISM-G (US$159-180) the GPU-class TCO case inverts to 0.3-0.8x. The 15 kW case survives at only ~2-10x, for a socket that does not ship before ~2029.",
+   "F2 (public claim): The cost concession is materially understated. Factory cost at 100k is US$195-225 (floor US$173), not US$160: silver-bearing braze filler is missing (US$13-24 vs 5), braze needs 2-3 furnaces per 100k, and yield/overhead should be ~20 %+. The premium is +50-83 % vs a like-sized incumbent and ~27-29 % worse per kW, not +45 % / 8-10 %. PRISM-G's US$120 has no derivation and exceeds nothing on the draft's own rate card (US$126-134).",
+   "F3 (GTM): Rank-2 'NVIDIA volume via a Group-A/B know-how-plus-supply agreement' targets the wrong decision-maker. NVIDIA standardises the plate design and buys centrally, so a Group-A house cannot insert PRISM. The plain lidded-plate socket for Rubin Ultra/Feynman is at risk from micro-channel lids (Jentech) and micro-channel cold plates (AVC/Auras), expected mainstream from 2027."
+  ],
+  "required_changes": [
+   "Re-cost PRISM-15 with silver at US$60-72/oz (filler US$13-24), 2-3 vacuum furnaces per 100k/yr (braze US$18-27), lamination flattening, a per-SKU die line (US$0.4-1.0 M per SKU) and 18-25 % yield/overhead at ramp. Publish US$175-225 at 100k and ~US$370-430 at the 10k ramp. Remove the US$113-at-1M vs US$110-at-100k comparison.",
+   "Compare against a like-sized 15 kW-class incumbent (~US$116-137, not the GB-class US$110). Restate the premium as +50-83 % and US$/kW as ~27-29 % worse.",
+   "Derive PRISM-G cost bottom-up (expect US$160-180). Make the GPU-class TCO claim conditional on that number, or drop it.",
+   "Restate inlet headroom like-for-like: +7 K at P50 and +2-3 K at P90 for 15 kW class; +1.7-2.4 K nominal for GPU class. Use US$0.5-1.1 M per K per 100 MW, marked unverified pending dry-cooler quotes. State the capture conditions: loop-wide margin, vendor inlet spec, owner-operator buyer.",
+   "Correct Group-A gross margin to ~30-33 % (AVC 2Q26 32.6 %) and the Rubin bare-plate price to ~US$300-360. Keep the conclusion that a licence-only route does not close.",
+   "Re-route the NVIDIA channel through NVIDIA thermal engineering (reference design) and an MCL/MLCP co-design path with Jentech or AVC/Auras. Add MCL adoption as a ranked risk with a G2 decision.",
+   "Move hyperscaler ASIC volume to 2029. Acknowledge that AVC already ships TPU v8 and Trainium3 liquid cooling from 4Q26 and prioritises ASIC capacity.",
+   "Fix the Build-B tooling contradiction: stamped parts at M6-9 vs tooling budgeted at M12-18. Fund the missing US$0.9-2.1 M (dies, confocal / He / D5470 equipment, CFD/FEA/CT, lab fit-out, BD) or cut scope explicitly; realistic 12-month budget is US$7.5-8.7 M. Add 1-2 BD / customer-engineering FTE.",
+   "Add a one-page P&L (ASP, CM margin, our margin, break-even volume) and a plan for funding CM scale-up capex of US$3.7-9 M per 100k/yr. Add a warranty / liability / insurance plan.",
+   "Either rank power electronics second as the mission asks or justify the deviation. Add a PRISM-DC cost estimate and name a power-module partner. Correct the OCP spec date to effective 3 Sep 2026."
+  ],
+  "improvements": [
+   "Make the meter sheet the only per-SKU part (laser-cut or photo-etched, no hard die) and keep plenum laminations universal per pitch family. This makes the '2-3 week zoning' claim true and removes US$0.4-1 M of dies per custom SKU.",
+   "Silver-thrifty joining: plate Ag only on fin-tip/land contact areas, or promote the Cu-Sn TLP route C as the cost-down. Hedge or index silver in supply contracts.",
+   "Lead the value pitch where the premium is small relative to ASP: double-sided ASIC plate assemblies (reported >US$3,000, so the premium is ~2-3 %) and hot-climate campuses (design dry-bulb 45-50 C), where +7 K removes trim chillers or adiabatic water.",
+   "Frame headroom as future-proofing a 45 C facility for the next chip generation (option value), not as capex avoided today, since NVIDIA already sells W45 as chiller-free.",
+   "Use Google's multi-loop clean-water practice (Hot Chips 2025) as evidence that the filtration-gated P-grade fits Google first.",
+   "Ask RFQs to quote furnace loads per cycle and cycle time explicitly, silver content per plate, and die cost per SKU, so the three largest uncertainties are retired at M1."
+  ]
+ },
+ "verify:manufacturing": {
+  "key": "manufacturing",
+  "report_path": "docs/cooling/appendix/verify/verify-manufacturing.md",
+  "claims_checked": [
+   {
+    "claim": "Skive 0.15/0.15 x 2.0 mm OFE fins over a 108 mm field (aspect 13)",
+    "draft_value": "feasible, 3-4 min/plate",
+    "our_value": "aspect 13 inside the 10-25 skiving range; stroke force about 6-16 kN over 108 mm",
+    "verdict": "confirmed",
+    "basis": "mfg_checks.py section 1; research/manufacturing-cost.md skiving limits"
+   },
+   {
+    "claim": "Base skived on a 2.5 mm blank",
+    "draft_value": "2.5 mm blank",
+    "our_value": "volume balance h*t = p*d gives d = 1.0 mm, so the base is 1.5 mm during the skive (lower bound of >=1.5-2 mm); fins stand 1.0 mm above the blank face, so the sealing rim needs a >=3.5-4.0 mm blank with a pocketed field; the rim is unspecified",
+    "verdict": "corrected",
+    "basis": "volume conservation; CrossComb proposal's own >=1.5-2 mm rule"
+   },
+   {
+    "claim": "Gang-saw 0.3 mm kerfs through skived fins; cross-cutting skived fins is established practice",
+    "draft_value": "US$3/plate incl. bright-dip deburr, +/-0.05 mm",
+    "our_value": "no precedent found for <0.4 mm fins at 0.3 mm pitch; tooth force 2-9 N vs fin-wall lateral collapse 1.4-5 N; 12,960 exit-burr/chip sites per plate; bright dip removes only 2-5 um",
+    "verdict": "refuted",
+    "basis": "plastic-collapse estimate of a cold-worked 0.15 mm fin wall; web search (cross-cut only at coarse pitch); fallback without kerfs exists (+0.6 K)"
+   },
+   {
+    "claim": "Kerf termination and floor depth (implicitly controlled)",
+    "draft_value": "not addressed",
+    "our_value": "a 20-63 mm saw runs 6-11 mm past the full-depth point against an 8.5 mm border, notching the rim braze land; kerf overshoot thins the 1.0 mm hinge that governs the unbonded-strip defect",
+    "verdict": "corrected",
+    "basis": "saw arc geometry sqrt(2Rd-d^2); section 9 of mfg_checks.py"
+   },
+   {
+    "claim": "Plenum layer = 2 stamped 4.5 mm OFE laminations; closed-end 4.5 mm slots trivially stamped, punchable at d/t 1.0",
+    "draft_value": "US$4 at 100k, US$2.5 at 1M",
+    "our_value": "d/t=1 is fine, but the web/t is 0.33 (1.5 mm web, 4.5 mm stock) vs >=1-2t conventional and about 0.6t fineblanking; slot width 1.0t vs >=1.5t; about 370 t shear per lamination; burrs 0.2-0.45 mm on 1.5 mm walls. Use CNC (US$8-15), 4x2.25 mm fineblanked or 6x1.5 mm stamped laminations",
+    "verdict": "refuted",
+    "basis": "Mate/Xometry/MetalForming punching rules; fineblanking 0.6t minimum"
+   },
+   {
+    "claim": "Floor grate 1.0 mm with 1.2 x 108 mm closed-end windows, stamped",
+    "draft_value": "stamped",
+    "our_value": "d/t 1.2, web/t 4.8, guided blade punch about 340 MPa; feasible with burr side away from the fin tips and flattening of the 4.8 mm strips",
+    "verdict": "confirmed",
+    "basis": "punch stress and buckling estimate; stamping rules"
+   },
+   {
+    "claim": "486 oblong 0.5 x 0.9 mm orifices punched in 0.4 mm sheet, +/-0.02 mm, verified by backlit vision",
+    "draft_value": "punchable at d/t>=1, +/-4 % area",
+    "our_value": "feature feasible (d/t 1.25, web/t >=2.75); t/d 0.8 at Re about 600 is the thick-orifice regime, so Cd 0.62-0.8 depends on die-roll orientation and flow direction; vision checks area, not Cd",
+    "verdict": "confirmed",
+    "basis": "stamping rules; orifice Re from draft velocity 1.37 m/s, Dh 0.64 mm"
+   },
+   {
+    "claim": "Single-cycle vacuum braze of the 6-7 part stack at <=0.2 MPa fixture load",
+    "draft_value": "<=0.2 MPa, <=1 MPa at fin tips",
+    "our_value": "0.2 MPa = 3.1 kN/plate (320 kg dead weight), so a differential-expansion fixture with stepped pads is needed; 7 kPa flattens a 100 um bow in the 1.5 mm base; tip stress 0.57 MPa is creep-safe",
+    "verdict": "confirmed",
+    "basis": "plate flattening pressure 0.00406 p a^4/D; fixture arithmetic"
+   },
+   {
+    "claim": "Route B (5 um Ag plating) gives the least wicking",
+    "draft_value": "least liquid",
+    "our_value": "about 7 um liquid closes only about 14 um of tip gap against a +/-20 um tip plane, giving partial bonding unless tips are held to +/-5-10 um or Ag is 8-10 um; route A 25 um foil supplies 3.4x the needed liquid (about 35 um gap-top fill)",
+    "verdict": "corrected",
+    "basis": "filler volume budget per fin pitch; capillary hierarchy 47-190 kPa joint vs 12.7 kPa fin gap vs 6.3 kPa kerf"
+   },
+   {
+    "claim": "Fin tips brazed over 80 % of their length (tie stress uses f=0.80)",
+    "draft_value": "0.80",
+    "our_value": "0.70 after the 0.3 mm masking from window edges; 0.56 at the E1 gate of 70 % land bond",
+    "verdict": "corrected",
+    "basis": "geometry: 4.2 of 6 mm filler-covered"
+   },
+   {
+    "claim": "Braze 30-80 plates/load, about 1.5 furnaces per 100k/yr, US$16/plate",
+    "draft_value": "1.5 furnaces, US$16",
+    "our_value": "1.3-5.4 furnaces at 85 % availability and 2-3 loads/day; about US$20-30/plate incl. fixture assembly",
+    "verdict": "corrected",
+    "basis": "throughput arithmetic"
+   },
+   {
+    "claim": "Fly-cut the base to 1.0 +/-0.1 mm after braze on a tied but compliant fin field",
+    "draft_value": "+/-0.1 mm, <=20 um flat",
+    "our_value": "foundation modulus about 29 kN/mm3, deflection about 0.3 um under 50 N, so no chatter; tolerance set by skive base and braze bow: RSS +/-0.075, worst case +/-0.13 mm; machining residual layer adds <=14 um bow over 108 mm (3 um over a die)",
+    "verdict": "confirmed",
+    "basis": "beam on elastic foundation; tolerance stack; Stoney-type bow estimate"
+   },
+   {
+    "claim": "Unbonded-patch tolerance about 12 mm (yield at 1.5 MPa)",
+    "draft_value": "12 mm",
+    "our_value": "8.6-10.2 mm square or 6.7-8.0 mm strip at yield 35-50 MPa; with kerfs a single unbonded land strip (6.3 mm kerf-to-kerf) reaches 31-46 MPa at proof and collapses plastically at 3.5-5.0 MPa",
+    "verdict": "refuted",
+    "basis": "draft kept the 70 MPa calculation from base-stress-stiffness.md; kerfs cut the fin ribs so hinges form at the 1.0 mm base"
+   },
+   {
+    "claim": "Fin tie stress 7.8 MPa (19 local) at 3.1 MPa design burst",
+    "draft_value": "7.8 / 19 MPa",
+    "our_value": "8.9 / 22 MPa at f=0.70; 11.1 / 28 at f=0.56; 16 / 40 at 4.5 MPa",
+    "verdict": "corrected",
+    "basis": "p*pitch/(t*f) with Kt 2.5"
+   },
+   {
+    "claim": "Plenum wall 12 MPa, separator 14 MPa, perimeter land SF>=3 at 3.1 MPa",
+    "draft_value": "12 / 14 MPa / SF>=3",
+    "our_value": "12.4 / 13.9 MPa / 7.7 MPa (SF 4.5-6.5)",
+    "verdict": "confirmed",
+    "basis": "4p tension; fixed strip p b^2/(2t^2)"
+   },
+   {
+    "claim": "Header-bar top wall 3.5 mm over 13 mm rib-split headers: 21 / 31 MPa",
+    "draft_value": "3.5 mm, 21 MPa",
+    "our_value": "stack-up 8 mm header + 3.5 mm = 11.5 mm > 10.5 mm bar, so the wall is 2.5 mm: 36-49 MPa design, 52-71 MPa sample, plastic collapse 4.5-6.4 MPa",
+    "verdict": "corrected",
+    "basis": "draft section 2.2 stack vs 5.2; fixed strip and collapse 4 sy t^2/b^2"
+   },
+   {
+    "claim": "Section 5.2 lists the governing load paths",
+    "draft_value": "6 rows",
+    "our_value": "missing floor-grate cantilever (23/34 MPa with the meter sheet bonded; 46/67 MPa and 4.0 MPa collapse if not) and plenum-wall/header-rib crossings under the bar (about 240 N each, about 32-47 MPa local)",
+    "verdict": "corrected",
+    "basis": "cantilever 1.65 mm from wall face; tributary 6 x 13 mm per crossing"
+   },
+   {
+    "claim": "Internal missed joints only cause bypass caught by IR and dP; leak-before-break",
+    "draft_value": "caught",
+    "our_value": "25 um gap 0.009 LPM (harmless, invisible); 100 um gap 0.6 LPM (visible); but each of 6 interfaces is also an external perimeter seam vs 1 on the incumbent",
+    "verdict": "confirmed",
+    "basis": "slot-flow g^3 law, PG25 at 45 C"
+   },
+   {
+    "claim": "Pressurised flatness scan detects unbonded ties (12 mm patch about 3 um, 20 mm about 20 um, 1 um resolution)",
+    "draft_value": "marginal at critical size",
+    "our_value": "3.7 / 28 um reproduced, but yield-critical patches (7-9 mm) give 0.4-1.2 um and an unbonded land strip 0.58 um, so they are undetectable; burst-critical patches (13-15 mm) give 4-9 um and are detectable",
+    "verdict": "corrected",
+    "basis": "clamped plate w=0.00126 p a^4/D; strip p L^4/(384D)"
+   },
+   {
+    "claim": "100 % IR flow screen detects wicking blockage, cross-leaks and maldistribution; E1 gate <=1 % channels blocked by IR",
+    "draft_value": "channel-level",
+    "our_value": "Cu lateral diffusion 3.3 mm at 0.1 s and 10 mm at 1 s, so resolution is 5-10 mm (blocked line yes, 1 % of channels no); lapped Cu emissivity 0.02-0.05 needs a coating",
+    "verdict": "corrected",
+    "basis": "sqrt(alpha t); copper emissivity"
+   },
+   {
+    "claim": "Mass about 1.75 kg (1.6 pocketed); body 14.9 mm; about 25.4 mm at the bar",
+    "draft_value": "1.75 kg / 14.9 / 25.4 mm",
+    "our_value": "1.74 kg for stack + bar + stubs, excluding the 2 kN load frame or backplate (0.3-0.6 kg); body 14.9 mm confirmed; 26.4 mm at the bar if the 3.5 mm top wall is kept",
+    "verdict": "corrected",
+    "basis": "part-by-part volume x 8.94 g/cm3"
+   },
+   {
+    "claim": "OFE copper about 2.5 kg buy, 0.85 kg scrap, US$35",
+    "draft_value": "US$35",
+    "our_value": "about 3.5 kg buy, 1.8 kg scrap, about US$41",
+    "verdict": "corrected",
+    "basis": "lamination slugs 0.7 kg + strip skeletons + rim block"
+   },
+   {
+    "claim": "Factory cost US$160 at 100k/yr (+45 %), 8-10 % worse per kW",
+    "draft_value": "US$160",
+    "our_value": "about US$180-205 (+65-85 %), about 25-35 % worse per kW of Tcase-limited capacity",
+    "verdict": "corrected",
+    "basis": "plenum +4-11, kerf support +2-7, braze +5-15, copper +6, 15 % overhead"
+   },
+   {
+    "claim": "Post-braze annealed OFE yield 35-50 MPa, design 40 MPa",
+    "draft_value": "35-50",
+    "our_value": "consistent with annealed OFE (Aurubis R220 <=140 MPa as-annealed upper bound; grain growth lowers it)",
+    "verdict": "confirmed",
+    "basis": "Aurubis C10100 datasheet; judge correction"
+   },
+   {
+    "claim": "Fin-tip tie braze has no volume precedent (draft treats it as the development item)",
+    "draft_value": "make-or-break, trade-secret moat",
+    "our_value": "Nidec WO2026100588A1 (published 2026-05-15) claims fin tips brazed to the cover with anti-blockage tip geometry: the practice is being industrialised and is an FTO item",
+    "verdict": "unverifiable",
+    "basis": "web search: patsnap summary only, claims not read"
+   }
+  ],
+  "fatal_issues": [
+   "The plenum-lamination stamping route cannot be built as specified. It calls for 1.5 mm webs between 4.5 mm closed-end slots in 4.5 mm OFE: web/t 0.33 against >=1-2t for conventional stamping and about 0.6t for fineblanking, and a slot width of 1.0t against >=1.5t. The draft's statement that closed-end slots are 'trivially stamped in 1-4.5 mm copper' and its US$4 / US$2.5 cost lines are indefensible. The architecture survives with CNC or thinner laminations, at higher cost.",
+   "Tie integrity cannot be screened per part as claimed. The kerfs cut every fin rib, so the governing defect is a single unbonded land strip, spanning 6.3 mm kerf to kerf. Such a strip reaches yield at the 1.0 mm kerf hinges at the 1.55 MPa proof and collapses plastically at 3.5-5 MPa. It does not rupture (membrane action), bulges only 0.6 um at proof and changes no flow. It therefore passes proof, the pressurised flatness scan, the IR screen, dP, sample burst and the E1 gate of >=40 % per 10 mm cell. The 'what replaces C-SAM' claim, the planned process patent and the inspection moat rest on a method that misses this defect. Plates remain leak-tight at MAWP, so this is a rating and verification problem, not a safety one."
+  ],
+  "required_changes": [
+   "Re-specify the plenum layer and re-cost it, including the 1M/yr path. Options: CNC-milled single 9 mm plate (about US$8-15 at volume); 4 x 2.25 mm fineblanked laminations (web/t 0.67); or 6 x 1.5 mm stamped laminations (web/t 1.0), which add 2-4 more braze interfaces and external seams.",
+   "Fix the header-bar stack-up error: 8 mm headers + 3.5 mm top wall do not fit a 10.5 mm bar. Options: a 3.5 mm wall in an 11.5 mm bar (26.4 mm at the bar), or 7 mm headers (0.89 m/s), or a third rib. Re-state the 5.2 stress row, which is currently 36-49 MPa at 3.1 MPa with a 2.5 mm wall.",
+   "Complete the 5.2 load-path table: add the floor-grate cantilever (make the meter-sheet-to-land joint structural and gate it) and the plenum-wall/header-rib crossings under the bar (FEA in E1); use a tie bonded fraction of 0.70; replace '12 mm patch tolerance' with 7-9 mm square and one land strip for the kerfed field.",
+   "Re-scope inspection honestly. The flatness scan screens only burst-relevant patches (>=13 mm). Add per-land-strip process control: preform-presence vision, Ag thickness by XRF, grate-strip flatness. Add lot over-proof at 2.5-3.1 MPa with a before/after zero-pressure flatness map to detect permanent set, and lot CT of full plates for filler presence per land strip. Change the E1 gate to 'every land strip >= X % bonded over any 10 mm'.",
+   "Define the kerf process and add it as an E1 factor: support-medium fill (wax, ice or melt-out polymer) during sawing; kerfs stopped >=8 mm from the rim, or ends finished by EDM; a 0.05-0.1 mm stub left above the base; a measured burr limit (<=15 um) and a chip-entrapment criterion in place of 'bright-dip deburr'.",
+   "Specify the base blank as >=3.5-4.0 mm with a pocketed field and rim, giving a base of >=1.5-2.0 mm during the skive, and update the copper buy to about 3.5 kg (about US$41).",
+   "Filler routes: route B needs a tip plane of +/-5-10 um (diamond planing along the fin direction, not an arc fly-cut across the fins) or 8-10 um of Ag. Route A should use 12-15 um or perforated foil. Add tip-plane tolerance as an E1 factor.",
+   "Restate braze capacity as 2-5 furnaces per 100k/yr at about US$20-30 per plate, with differential-expansion fixtures stepped for the bar/separator top.",
+   "IR screen: apply a high-emissivity coating to the as-brazed face and run the screen before the face fly-cut, which then removes the coating. Claim 5-10 mm resolution, not channel counts. Replace 'channels blocked by IR' in E1 with CT and sectioning.",
+   "Scorecard: state the mass boundary, since 1.74 kg excludes the 2 kN load frame. Move the central factory cost to about US$190 (+65-85 %) and the per-kW penalty to about 25-35 %."
+  ],
+  "improvements": [
+   "Specify burr orientation and flattening to +/-20 um for all stamped sheets, and die-roll orientation for the orifices. Test orifice Cd in both flow directions, since the plate is advertised as back-flushable.",
+   "Track leak yield across the 6 external perimeter seams (the incumbent has 1). Consider the optional green-laser perimeter seam as standard.",
+   "Use post-fly-cut flatness print-through (unbonded regions spring back about 5-10 um) as a free tie-bond signal.",
+   "Budget the confocal pressure-scan station (about US$0.2-0.4 M), which is absent from the 12-month budget.",
+   "Add Nidec WO2026100588A1 (fin tips brazed to the cover, anti-blockage tip geometry; published 2026-05-15) to the FTO list next to provisional #1. It shows fin-tip brazing is being industrialised and weakens the 'tie-braze recipe as trade secret' moat."
+  ]
+ },
+ "verify:ip": {
+  "key": "ip",
+  "report_path": "docs/cooling/appendix/verify/verify-ip.md",
+  "claims_checked": [
+   {
+    "claim": "Kerfing fins at every inlet and outlet line means each segment runs one way and no channel has an inlet between its ends, so PRISM designs around CoolIT Split-Flow",
+    "draft_value": "robust design-around",
+    "our_value": "Not robust. The parent abstract says each microchannel defines a 'continuous channel flow path between its first end and opposite end'. A 0.3 mm kerf is an opening and does not block that path, so the passage between outlet windows (12 mm) stays continuous, with the window plus kerf at its middle (dependent claim 3: middle 20 %). My independent Darcy model finds about 49 % of each segment's inflow enters through fin tips under the 1.2 mm window. The window overhangs 0.45 mm of fin tips per side (75 % of the window area). The kerf is worth 0.6 K of a 22.8 K cell (2.6 %), an insubstantial difference under the doctrine of equivalents.",
+    "verdict": "refuted",
+    "basis": "Google Patents and Justia abstract and dependent-claim snippets for US 8,746,330 / 9,603,284; verify/ip_entry_split.py; draft section 3.2 table"
+   },
+   {
+    "claim": "'513 is avoided by putting distribution in separate stamped laminations",
+    "draft_value": "design-in",
+    "our_value": "The '513 independent claim (snippet) recites walls defining microchannels, an elongate inlet between the ends, a plate and seal separating the inlet path from the outlet paths, opposed subflows, and a housing with ports. Dependents cover a seal forming part of the plate and a plate and seal as one piece. PRISM's brazed stamped grate, meter sheet and separator arguably supply this element rather than avoid it.",
+    "verdict": "refuted",
+    "basis": "USPTO image-ppubs 12495513 snippets via search"
+   },
+   {
+    "claim": "US 12,101,906 is of unknown scope",
+    "draft_value": "unknown",
+    "our_value": "Application 15/462,753, filed 17 Mar 2017, continuation of '284 in the 2008 Split-Flow family. It claims an inlet passage feeding each microchannel between its ends; a dependent claim recites a larger outlet for the central channel. Google estimates expiry at 9 Sep 2028. '513 (17/079,225, filed 23 Oct 2020) continues it and was published (issued) 9 Dec 2025.",
+    "verdict": "corrected",
+    "basis": "USPTO PDF front matter for '513 and '906; Google Patents family table"
+   },
+   {
+    "claim": "Parent-family claims run 11 Aug 2028 to about mid-2031 depending on PTA",
+    "draft_value": "Aug 2028 to mid-2031",
+    "our_value": "Statutory end is 11 Aug 2028. '906 PTA is about 29 days (Google, 9 Sep 2028). The '330 PTA is unread, with an upper bound of about Jun 2031. '284 and '513 probably carry terminal disclaimers.",
+    "verdict": "confirmed",
+    "basis": "term arithmetic in verify/ip_entry_split.py; Google expiry estimate"
+   },
+   {
+    "claim": "'567 claims were revived by CoolIT v. Vidal (listed as a Split-Flow patent)",
+    "draft_value": "revived Split-Flow claims",
+    "our_value": "The Federal Circuit vacated and remanded (22-1221, 7 Mar 2024) on the meaning of 'matingly engaged'. Claim 1 requires 'a compliant member matingly engaged with the second side of the housing member'. It is not a split-flow claim, and the remand outcome is unverified. A brazed PRISM plate has no compliant member.",
+    "verdict": "corrected",
+    "basis": "CAFC opinion 22-1221; IPWatchdog; Crowell client alert"
+   },
+   {
+    "claim": "Claims relying on the 2012 CIP (9,453,691, 11,994,350, 12,460,878) run to about Feb 2032 plus PTA",
+    "draft_value": "to ~Feb 2032 (4 patents listed)",
+    "our_value": "The date is right ('691 filed 21 Feb 2012). '878 claim 1 requires a housing forming a pump volute with an impeller, which a passive plate does not have. '691 and '350 are unread. The family also includes 9,909,820, 10,274,266 and 10,415,597, which the draft omits; '266 had a 2021 IPR decision finding some claims unpatentable.",
+    "verdict": "corrected",
+    "basis": "USPTO gazette US 12,460,878; CoolIT patent marking list; Docket Alarm IPR2020-00825"
+   },
+   {
+    "claim": "Non-US deliveries are not blocked (no foreign counterparts recalled)",
+    "draft_value": "no foreign counterparts",
+    "our_value": "The 2012 family has TW I606224 (TW101110072, priority US 13/401,618), a Taiwan invention patent running to about 2032 if annuities are paid. Taiwan is where Group-A partners manufacture. The DE 202012002974 U1 and JP 3179086 U utility models have expired.",
+    "verdict": "refuted",
+    "basis": "Google Patents family entries for TWI606224B, DE202012002974U1 and JP3179086U"
+   },
+   {
+    "claim": "A dated memo maps PRISM to expired Harpole US 5,088,005 and Cooligy patents, giving a practising-the-prior-art shield",
+    "draft_value": "Harpole/TRW US 5,088,005",
+    "our_value": "US 5,088,005 is Ciaccio / Sundstrand ('Cold plate for cooling electronics', fee-expired). Harpole and Eninger 1991 is non-patent literature. US law has no practising-the-prior-art defence to literal infringement (Tate Access Floors, 2002): invalidity needs clear and convincing evidence. For equivalents, the memo helps only through ensnarement. Better anchors are Cooligy US 6,986,382 (expired), Delphi US 7,331,378 (priority Jan 2006, before CoolIT's 2007 provisional; status to verify), LLNL US 5,099,311 and Walpole US 5,099,910.",
+    "verdict": "refuted",
+    "basis": "Google Patents US5088005A, US6986382, US7331378, US5099311; case law"
+   },
+   {
+    "claim": "Expired MMC art invalidates any Split-Flow claim that reads on PRISM",
+    "draft_value": "implied strong",
+    "our_value": "Asetek petitioned against '330 in IPR2015-01276 on Kang, Bonde and Philpott; an IPR certificate issued in Feb 2018. CoolIT counter-asserted '330 and '284 in 2019-22, so some claims survived manifold-microchannel art. Invalidity strength is medium at best until the decision is read.",
+    "verdict": "corrected",
+    "basis": "PTACTS IPR2015-01276 petitioner brief; Google Patents IPR certificate; CourtListener 3:19-cv-00410; DCD"
+   },
+   {
+    "claim": "Cooligy US 6,986,382 / 7,156,159 / 7,104,312 / 7,000,684 are expired",
+    "draft_value": "expired",
+    "our_value": "'382 shows 'Expired - Lifetime' (current assignee Vertiv). '684 was filed 6 Oct 2003. The others are 2003 filings, so expiry in 2023-24 is plausible, but their status was not seen individually.",
+    "verdict": "confirmed",
+    "basis": "Google Patents status line; citing-patent text"
+   },
+   {
+    "claim": "Microfabrica US 12,255,123: priority Mar 2021, live to ~2042",
+    "draft_value": "to ~2042",
+    "our_value": "Provisional 18 Mar 2021; filed 18 Mar 2022; granted 18 Mar 2025. Statutory end 18 Mar 2042 plus PTA.",
+    "verdict": "confirmed",
+    "basis": "Justia Microfabrica listing"
+   },
+   {
+    "claim": "PRISM's meter orifices are distribution, not jet cooling; fallback is to offset orifice rows >= 0.4 mm so jets land on the grate lip",
+    "draft_value": "low risk, ~0 K fallback",
+    "our_value": "The draft's own cell2d model credits jet impingement on the kerf floor (h_floor_in 15 kW/m2K), with about 4.7 hydraulic diameters of submerged stand-off. The 0.15 mm gaps fall inside the patent's described 15-300 um post-jetting channels. A 0.5 mm orifice offset by 0.4 mm spans 0.15-0.65 mm from the kerf centre, inside the 0.6 mm half-window, so the jets land on fin tips. That moves PRISM toward the parent family's 'integrated fin and microjet arrays'.",
+    "verdict": "refuted",
+    "basis": "draft sections 2.2/3.2; arch/cell2d.py; USPTO 12255123 description; geometry arithmetic"
+   },
+   {
+    "claim": "JetCool/Flex family numbers (10,665,529; 11,018,077; 11,594,470; 12,432,878; 11,191,184; 11,277,937)",
+    "draft_value": "JetCool/Flex",
+    "our_value": "11,018,077 and 11,594,470 are assigned to MIT (licensed). 11,191,184, 11,277,937 and 12,432,878 (filed Jul 2024) are JetCool. Risk to PRISM is low to medium (no per-jet returns, no open cavity), but they should be charted.",
+    "verdict": "confirmed",
+    "basis": "Golden/Justia snippets; USPTO gazette US 12,432,878"
+   },
+   {
+    "claim": "The 9.1 list covers the live manifold-microchannel families",
+    "draft_value": "about 12 families",
+    "our_value": "Missing: Intel US 12,133,357 (filed 16 Dec 2020, granted 29 Oct 2024; openings into the fins toward the surface, across a fin, then away), Intel US 11,804,418 (DLMJ: interleaved distribution channels over a fin-wall microchannel array), and Toyota US 11,428,478 ('gridded microchannel assembly' in an MMC heat sink, priority Dec 2019, active). The Toyota patent is the closest live art to a kerfed fin grid.",
+    "verdict": "corrected",
+    "basis": "USPTO gazette and Google Patents snippets"
+   },
+   {
+    "claim": "CoolIT enforces competently",
+    "draft_value": "yes",
+    "our_value": "Stronger than stated. CoolIT sued Asetek on Split-Flow (D. Del. 2014), counter-asserted '330/'284/'266 (N.D. Cal. 2019-22, claim construction orders 2020-21), defended '200 through IPR (2020), and won the '567 appeal (2024).",
+    "verdict": "confirmed",
+    "basis": "bit-tech; DCD; CourtListener; electronics-cooling; CAFC"
+   },
+   {
+    "claim": "FTO search and opinion on about 12 families for US$80-140k",
+    "draft_value": "US$80-140k",
+    "our_value": "At least 20 US patents in at least 9 relevant families, plus TW I606224. Charts plus formal opinions are more likely about US$150-250k (background-knowledge estimate).",
+    "verdict": "corrected",
+    "basis": "family count in this review; typical opinion cost (background knowledge)"
+   },
+   {
+    "claim": "Filing 2 (flux-graded flow-length rule) is novel",
+    "draft_value": "to be filed",
+    "our_value": "Anticipated or obvious over Cooligy US 7,104,312, Toyota US 11,149,937 (graded MMC; fee-expired but still prior art), HUST US 12,178,022, Corintis heat-map manifolds and the programme's own PSM-12 slit-pitch zoning. Claimed as a 'rule', it also risks rejection under 35 USC 101.",
+    "verdict": "refuted",
+    "basis": "Google Patents snippets for 11,149,937 and 12,178,022; panel judge notes"
+   },
+   {
+    "claim": "Filing 3 (tie-bond flatness screen and infrared flow fingerprint) can be patented and also kept as a trade secret",
+    "draft_value": "patent plus trade secret",
+    "our_value": "These are internal factory method claims that cannot be detected or enforced against offshore makers. A patent requires an enabling disclosure, which defeats the trade secret.",
+    "verdict": "refuted",
+    "basis": "35 USC 112(a) enablement and best-mode disclosure; enforceability reasoning"
+   },
+   {
+    "claim": "Thermal cost of a stricter design-around (inlet window narrowed to the kerf, so each segment is fed only through its end face)",
+    "draft_value": "not considered",
+    "our_value": "-0.11 K (-0.21 K with both windows narrowed), using the draft's own cell2d at L 6 mm and h 13.3 kW/m2K. It is thermally neutral, but it raises the downflow velocity in the window about 4x and needs \u00b10.05 mm alignment.",
+    "verdict": "unverifiable",
+    "basis": "verify/ip_endfed_cost.py (model only, \u00b125 %)"
+   }
+  ],
+  "fatal_issues": [
+   "The Split-Flow design-around in 9.1 ('kerfs ... so no channel has an inlet between its ends') cannot be defended as a non-infringement position. The kerf leaves the inter-fin flow path continuous across the inlet line. About half of each segment's inflow enters through fin tips under the floor-grate window. '513's plate-and-seal element is arguably supplied by the stamped laminations. The kerf's 2.6 % thermal value supports an insubstantial-difference finding. Any US offer, sale or US-site evaluation before about 9 Sep 2028 (plus any '330 PTA, up to about Jun 2031) carries high literal and doctrine-of-equivalents risk. The R1 no-kerf fallback removes even this weak design-around.",
+   "The plan's 'non-US deliveries are not blocked' premise is refuted. The 2012 'Fluid heat exchange systems' family has Taiwan invention patent TW I606224, live to about 2032 if maintained. Taiwan is where the D2 Group-A partner would manufacture. Until its claims are charted, the Taiwan-manufacture and non-US-first route is not cleared.",
+   "The Microfabrica position ('distribution rather than jet cooling') is contradicted by the draft's own model, which credits kerf-floor jet impingement, and by its 0.15 mm channels, which sit inside the 15-300 um 'post-jetting microchannel' range. The stated ~0 K fallback (0.4 mm orifice offset) moves the jets onto fin tips, toward the parent family's 'integrated fin and microjet arrays'. That is a live risk to about 2042 with no valid fallback modelled."
+  ],
+  "required_changes": [
+   "Rewrite the 9.1 Split-Flow row:\n- list the 2008 family as '330, '284, '906 (15/462,753, est. expiry 9 Sep 2028) and '513 (issued 9 Dec 2025), all ending about Aug-Sep 2028 plus the '330 PTA;\n- list the 2011-12 family separately: '567 (compliant-member claim; remanded, outcome unknown), '691, 9,909,820, 10,274,266, 10,415,597, '350, '878 (pump-volute claim), plus TW I606224.",
+   "Replace 'no channel has an inlet between its ends' with an honest position: literal and doctrine-of-equivalents risk is medium-high until the 2008 family expires. The defences are invalidity, ensnarement, and claim limitations PRISM may lack (seal, housing), all pending counsel.",
+   "Correct the prior-art memo:\n- US 5,088,005 is Ciaccio/Sundstrand, not Harpole/TRW; cite Harpole and Eninger 1991 as non-patent literature;\n- anchor on Cooligy US 6,986,382, Delphi US 7,331,378 (verify status), LLNL US 5,099,311 and Walpole US 5,099,910;\n- frame the memo as invalidity and ensnarement evidence, not as a practising-the-prior-art defence (Tate Access Floors, 2002).",
+   "Delete the Microfabrica fallback 'offset orifice rows >= 0.4 mm so jets land on the grate lip'. With a 1.2 mm window it lands the jets on fin tips. Replace it with a meter that discharges sideways or into a settling stand-off of at least 8-10 hydraulic diameters, and re-model its dP and uniformity.",
+   "Make the kerf mandatory for any US SKU sold before Split-Flow expiry. The R1 no-kerf fallback must be limited to non-US or post-expiry sales.",
+   "Add to the 9.1 FTO list: Intel US 12,133,357 and US 11,804,418; Toyota US 11,428,478 (gridded microchannel assembly in an MMC heat sink); TW I606224; and the 2012-family members the draft omits.",
+   "State that before the opinion there are no US offers, sales or US-site evaluation units, including US demos tied to the OCP 2027 result: there is no research exemption for commercial evaluation. Set the US launch date to no earlier than 10 Sep 2028 unless the opinion clears an earlier date.",
+   "Raise the FTO budget from US$80-140k to about US$150-250k for charts plus formal opinions on at least 20 patents and the TW counterpart. Add IP indemnity or insurance for hyperscaler and Nvidia-partner contracts.",
+   "Rework section 9.2:\n- keep filing 1 only as a narrow combination with numeric limits;\n- turn filings 2 and 4 into defensive publications, since they are anticipated or obvious and filing 4 would be infringed only by customers;\n- keep filing 3 as a trade secret, not a patent;\n- keep filing 5.\n- Draft all filings and marketing without 'split', 'between the ends' or 'halves the path' language."
+  ],
+  "improvements": [
+   "Narrow the inlet floor-grate window to the kerf width plus braze tolerance (about 0.3-0.5 mm), so each fin segment is fed only through its end face. The draft's own cell2d gives -0.1 K (neutral). It removes the 'opening over the channel between its ends' reading for a segment-based construction. It must be co-designed with the Microfabrica meter fix and with braze-fillet masking.",
+   "Pull and read, in weeks 0-2:\n- the IPR2015-01276 final written decision and the Feb 2018 certificate for '330, and the patent owner's arguments (constructions of 'spaced from', 'adjacent', seal/'direct contact');\n- the N.D. Cal. 3:19-cv-00410 claim construction orders (Docs 149 and 258);\n- the '567 remand record (IPR2020-00747/-00825) and the '266 decision.\nThese define the estoppel and disclaimer limits on CoolIT's claims.",
+   "Check Patent Center for pending continuations of '513 and '878. CoolIT keeps families pending serially and could draft claims against PRISM after the OCP 2027 disclosure, within the 2008/2012 specifications and terms.",
+   "Verify the status and assignee of Delphi US 7,331,378. CoolIT's marking list appears to include it. If it is still live through PTA, it is both risk and prior art.",
+   "Run TIPO and CNIPA searches for CoolIT and for the chosen Group-A partner's own manifold and skived-plate patents. In a partnership, the partner's portfolio is a cross-licence asset.",
+   "Chart the T3 spring-screw gimbal against '567 ('compliant member matingly engaged', construed as 'mechanically joined or fitted together') and against '886/'733, even though the risk is low.",
+   "Clear Nvidia US 12,446,195 (AlN-heater TTV) before publishing the TTV proxy method defensively.",
+   "Search Purdue HMMC (including US 12,550,296), IBM Zurich, Mikros/Jabil and Alloy Enterprises claims, which this run did not verify, plus 2025-26 Group-A applications as they publish.",
+   "Fix an internal inconsistency: section 3.2 states 1.2 mm windows, but run_final_cell.py and run_L.py use a 1.0 mm inlet window (hi=0.5) for some cases. State which width is the frozen geometry, because the claim chart depends on it."
+  ]
+ },
+ "verify:close-the-losses": {
+  "key": "close-the-losses",
+  "report_path": "docs/cooling/appendix/verify/verify-close-the-losses.md",
+  "claims_checked": [
+   {
+    "claim": "Factory cost per plate is about US$160 against about US$110 at 100k/yr (+45 %).",
+    "verdict": "corrected",
+    "draft_value": "US$160 vs ~110 (+45 %)",
+    "our_value": "Corrected draft US$209 (197-222) vs like-sized incumbent US$126 (+66 %). Lean package PKG-A: US$162 (+29 %, range +16 to +42 %). C2 (PKG-A plus silver-free Cu-Sn TLP joint in a belt furnace): US$141 (+12 %, range +1 to +24 %). Probability that C2 costs no more than the incumbent: 0.08.",
+    "basis": "ctl/cost_mass_height.py uses the same Monte Carlo basis as verify/cost_market_check.py (Sep-2026 Cu and Ag). Savings: copper buy falls from 2.91 to 1.43 kg; the forged bar becomes a drawn arched cap; 6 braze interfaces become 4; furnaces per 100k/yr fall from 2.2 to 1.6."
+   },
+   {
+    "claim": "PRISM is 8-10 % worse per kW of Tcase-limited capacity.",
+    "verdict": "corrected",
+    "draft_value": "+8-10 %",
+    "our_value": "Corrected draft +33-36 %. PKG-A +1 to +4 % (parity). C2 -9 % (paste) and -12 % (PCM), i.e. a win.",
+    "basis": "Capacities include PRISM's own 2-D penalty (ctl/lean_pkg.out): PKG-A 15.9 kW paste, 18.8 kW PCM. CoolIT 12.9 / 14.8 kW. Costs from ctl/cost_mass_height.out."
+   },
+   {
+    "claim": "Mass about 1.6-1.75 kg, slightly heavier than CoolIT's estimated 1.2-1.6 kg; a concession.",
+    "verdict": "corrected",
+    "draft_value": "1.6-1.75 kg",
+    "our_value": "PKG-A 1.17 kg (1.04 kg with a 0.6 mm 316L separator), same boundary as the draft. Probable win; CoolIT's plate is unweighed.",
+    "basis": "ctl/mass_height.py, part by part: metered grate 0.21, folded plenum 0.19, arched cap 0.18 vs bar 0.41, laminations 0.55."
+   },
+   {
+    "claim": "Height only at parity: about 25 mm at the bar.",
+    "verdict": "corrected",
+    "draft_value": "25.4 mm (26.4 mm once the top-wall error is corrected)",
+    "our_value": "PKG-A 20.8 mm at the bar (18.8 mm with a triple-arch header) vs CoolIT's estimated 22-28 mm. Probable win.",
+    "basis": "Plenums go from 9 to 5 mm deep by spending about 1.2 kPa of dP margin. Graded orifice artwork keeps along-plenum max/min at 1.061 (18 LPM) and 1.068 (36 LPM), better than the draft's 1.083 (ctl/plenum_graded_pkgA.out). The meter merges into the grate and the cap is arched."
+   },
+   {
+    "claim": "At CoolIT's 4 kW point (25 cm2, 6 LPM) the drop-in core ties with PCM: 0.0093 vs < 0.009 C/W.",
+    "verdict": "refuted",
+    "draft_value": "0.0093 C/W (tie)",
+    "our_value": "0.0095 PCM and 0.0108 paste with PRISM's own penalty: a loss. But the draft's own CoolIT reconstruction gives 0.0130 under the same conditions, and still 0.0094 with liquid metal and water, so the comparison is not like-for-like. Same-condition ratio PRISM / CoolIT reconstruction: 0.80-0.83. Dedicated PRISM-S4 SKU: LM 0.0062-0.0079 (20-25 cm2), PCM 0.0082-0.0087 (25 cm2 only). Paste never wins (best 0.0093-0.0110).",
+    "basis": "ctl/sku4kw.py: cell2d own penalty, PG25 and water, 20 and 25 cm2 heaters, R, R+, P and CoolIT-like builds."
+   },
+   {
+    "claim": "Like-for-like paste average is at parity if CoolIT's footprint was 100 cm2 (34.0 vs 34.4 K).",
+    "verdict": "corrected",
+    "draft_value": "34.0 / 41.7 K",
+    "our_value": "Corrected 35.64 / 43.15 K: loses 3.6 % (P = 0.33). PKG-A 34.25 / 42.73 K: parity (P = 0.50). PKG-B (R+ 0.12 mm gap, filtration-gated) 31.91 / 40.03 K: -7 % (P = 0.75).",
+    "basis": "ctl/sweep_core.out, sweep2.out and lean_pkg.out, with Monte Carlo on the draft's distributions plus PRISM's own penalty."
+   },
+   {
+    "claim": "The maximum, dP, capacity and headroom wins hold at every footprint.",
+    "verdict": "refuted",
+    "draft_value": "maximum holds at 100 cm2 (41.7 K)",
+    "our_value": "Paste maximum at 100 cm2: 43.15 K, P(max < 44.2) = 0.57. PKG-A: 0.61. Only PKG-B (0.84) or liquid metal is robust.",
+    "basis": "ctl/lean_pkg.out Monte Carlo. Paste scatter of about 4.1 K and a ripple crest of 2-3 K dominate."
+   },
+   {
+    "claim": "Stretch build with a 0.8 mm base gives 27.8 / 32.6 K on PCM.",
+    "verdict": "corrected",
+    "draft_value": "27.8 / 32.6 K",
+    "our_value": "29.21 / 34.30 K at L 6 with PRISM's own penalty. PKG-A (L 7.7, base 0.8): 28.65 / 34.46 K.",
+    "basis": "ctl/sweep_core.out, ctl/lean_pkg.out"
+   },
+   {
+    "claim": "Thinner 0.10 mm fins at a 0.15 mm gap model 0.6 K worse; taller 2.5 mm fins are rejected.",
+    "verdict": "confirmed",
+    "draft_value": "+0.6 K / +0.4 K",
+    "our_value": "No gain: 0.0 K on the average and +0.27 K on the maximum for 0.10 mm fins at H 2.0; +0.02 K for 2.5 mm fins.",
+    "basis": "ctl/sweep_core.out"
+   },
+   {
+    "claim": "Kerfs are worth about 0.6 K.",
+    "verdict": "confirmed",
+    "draft_value": "0.6 K",
+    "our_value": "0.64 K at L 6 / base 1.0; 0.41 K in PKG-A (L 7.7 / base 0.8).",
+    "basis": "ctl/sweep_core.out and the PKG-A no-kerf run."
+   },
+   {
+    "claim": "9 mm-deep plenums and a separate meter sheet are needed for along-plenum uniformity of 1.065-1.085.",
+    "verdict": "corrected",
+    "draft_value": "4.5 x 9 mm plenums, 1.83 kPa meter",
+    "our_value": "6.9 x 5.0 mm plenums with a 2.3 kPa meter and 5 graded orifice sizes (1.16x area span) give 1.061 at 18 LPM and 1.068 at 36 LPM. The compensation is flow-independent because both the plenum profile and the meter scale with u^2.",
+    "basis": "ctl/plenum_graded.py: the draft's plenum physics with a per-branch R2."
+   },
+   {
+    "claim": "Plate dP 5.9 kPa at 18 LPM (about 70 % below CoolIT's ~22 kPa).",
+    "verdict": "confirmed",
+    "draft_value": "5.9 kPa",
+    "our_value": "PKG-A 7.1 kPa at 18 LPM (still about -68 %); 25.4 kPa at 36 LPM, inside the <= 27 kPa claim. Meter 1.92 m/s at 150 % of rated flow, inside the 2.0 m/s cap.",
+    "basis": "ctl/pkgA_dp_stress.py, using the draft's element method."
+   },
+   {
+    "claim": "No field record and no 10-year fouling claim (Class D).",
+    "verdict": "confirmed",
+    "draft_value": "none / not claimed",
+    "our_value": "Field record is irreducible at launch. Fouling life at equal filtration is irreducible: 0.15 mm gives about 7 y vs 15 y for 0.2 mm behind 50 um absolute, and a 0.2 mm gap loses the average (36.5 K paste). A dose-equivalent E4 (100x for 1,000 h, about 11 y of particulate dose, fin-field dP taps) gives a measurable launch surrogate.",
+    "basis": "physics/fouling-filtration.md relative-life table; ctl/sweep_core.out (0.20 mm gap row)."
+   },
+   {
+    "claim": "Horizontal port layout or the dual 1/2-in pair is the route to lower height.",
+    "verdict": "refuted",
+    "draft_value": "dual 1/2-in horizontal: ~32 mm at the bar",
+    "our_value": "No height gain at 18 LPM: a 16-20 mm bore needs a boss of at least 20-24 mm. Vertical bosses on a 7-9 mm arched cap give 18.8-20.8 mm.",
+    "basis": "Geometric: bore plus walls versus the cap stack in ctl/mass_height.out."
+   },
+   {
+    "claim": "PRISM-G costs about US$120 against US$105-110 for the incumbent.",
+    "verdict": "corrected",
+    "draft_value": "US$120",
+    "our_value": "About US$148 (C1 route) or about US$129 (C2 route) with the lean moves applied. That is still a +17 to +35 % loss per plate against GB-class incumbents (verifier bottom-up: US$159-180).",
+    "basis": "verify-cost-market PRISM-G scaling applied to the C1 and C2 line items (rough)."
+   }
+  ],
+  "fatal_issues": [
+   "Claim-level, not architecture-level: the 4 kW single-die 'tie' (and D1's 'beats every metric CoolIT disclosed') cannot be published in either direction. The draft's own CoolIT reconstruction cannot reproduce CoolIT's < 0.009 C/W at 25 cm2 under any TIM or coolant tried: 0.0130 with paste on PG25, 0.0094 with liquid metal and water. CoolIT's 4 kW test conditions or geometry therefore differ from its 15 kW test. Only a head-to-head test on one TTV, or the PRISM-S4 SKU with liquid metal (or P/R+ grade on PCM at 25 cm2), gives a defensible absolute win.",
+   "Claim-level: the draft's concession list (height at parity, slightly heavier, +45 % per plate) misstates both the cost gap and its cause. On the verifier basis the premium is +66 % against a like-sized incumbent. The forged bar, the 9 mm lamination block (whose stamping route is refuted) and the separate meter sheet are the cost and height drivers, and none is required by the physics. Lean alternatives exist: 20.8 mm at the bar, 1.17 kg, US$162 (PKG-A) or US$141 (C2)."
+  ],
+  "required_changes": [
+   "Adopt PKG-A as Rev A. (1) A 1.7 mm metered grate replaces grate plus meter: inlet recess gang-milled 1.3 mm deep, orifices pierced through the 0.4 mm web. (2) A single folded 0.8 mm Cu corrugation with 5 mm channels replaces the plenum laminations; the inlet channels have the grate as their floor, so no braze joint lies within about 3 mm of an orifice. (3) Graded orifice artwork, 5 sizes spanning 1.16x in area. (4) A drawn arched 1.0 mm Cu cap with brazed 20 mm bosses replaces the forged bar. (5) Flow length L 7.7 mm with 15 lines (7 inlet, 8 outlet, edge outlets), which also fixes the 18-line edge-layout error. (6) A 0.8 mm base, E1-gated, with 1.0 mm as the fallback (+0.7 K).",
+   "Rewrite the 6.7 concession table. Height and mass become probable wins, to be confirmed by measuring the E0 incumbent plates. Cost per kW becomes parity (PKG-A) or a win (C2). Per-plate cost becomes an irreducible +10-30 % premium against a like-sized incumbent. The 4 kW point becomes 'not like-for-like; PRISM-S4 wins with LM, and on PCM with P/R+ grade at 25 cm2; paste irreducible'. At 100 cm2 the R-grade is at parity and R+ wins; the paste maximum at 100 cm2 is not robust (P 0.57-0.61). Field record and like-for-like fouling life are irreducible.",
+   "Add the PRISM-S4 single-die SKU (50 x 50 mm, P or R+ core, L 5-6, 0.8 mm base, liquid metal by default) to sections 2.3 and 6.4. Extend E0 to a CoolIT 4 kW-class plate tested on a 25 cm2 TTV with the same TIM.",
+   "Add PKG-B, the R+ grade (0.12 / 0.12 x 1.8 mm, L 6, base 0.8), for loops with a 25-33 um absolute tray cartridge. It is the only drop-in-mechanics route to a robust 100 cm2 paste win: average 31.9 K (P 0.75), maximum 40.0 K (P 0.84).",
+   "Add to E1: a route-C Cu-Sn TLP joint in a continuous N2/H2 belt furnace (the C2 cost route, US$141); per-land-strip unbonded detection at 0.8 mm base (proof bulge about 2.2 um, against a collapse of 1.6-2.3 MPa if a strip is unbonded); and the pitch and alignment tolerance of the folded corrugation against the grate windows.",
+   "Redesign E4 as a dose-equivalent test: 100x particle dose for 1,000 h (about 11 years of particulate dose), measured with fin-field dP taps. Publish that as the launch fouling surrogate, not as a field-life claim.",
+   "Re-cost with ctl/cost_mass_height.py on the verifier basis. Re-cost PRISM-G with the same moves (about US$129-148) and state that GPU-class per-plate cost remains a loss."
+  ],
+  "improvements": [
+   "Optional 0.6 mm 316L separator, Ni-struck: -0.12 kg (1.04 kg total). CTE is within about 1 ppm/K of OFE. Rejected alternative: aluminium for any wetted part (Al-Cu galvanic couple, no common braze cycle, a gasket leak path).",
+   "Triple-arch 6 mm header for 18.8 mm at the bar where the slot-to-slot ratio still clears 6.",
+   "Measure the post-test paste bond line on both plates. A tied, flat face plausibly saves -0.2 to -0.5 K per um of mean BLT at 128-150 W/cm2, enough to close the 100 cm2 average if it is real. It is unverified, so keep it out of the scorecard.",
+   "Reduce paste scatter with stencilled paste on a face flat to <= 10 um. Scatter (4.1 K at 150 W/cm2) is the main driver of the weak 100 cm2 maximum.",
+   "Present a system-level equal-cost case: 15 kPa less plate dP is worth US$9-25 per plate of CDU capex when the CDU is head-limited. That covers the C2 premium, but it is contingent and must not be counted in the plate cost.",
+   "Use programmable-pitch skiving (0.20 mm gaps in HBM and margin bands) and P-grade bands only over dies on PRISM-G. It saves about 10-20 % of skive strokes. Never apply it to the uniform 15 kW TTV (+4.7 K wherever applied).",
+   "Keep the 50 um guard on the drop-in R-grade. Replace it with a coarse debris catcher (-US$2-3, -0.3 kPa) only on SKUs sold with a mandatory <= 50 um absolute tray cartridge.",
+   "Narrow the field-record gap with a 300-500-plate hyperscaler pilot from M12 (about 150-500 plate-years by M18-24) and serialised proof, He, dP and IR records."
+  ]
+ },
+ "critic": {
+  "missing": [
+   {
+    "item": "Rack / CDU / loop integration view, with the dP win valued at system level",
+    "why": "The draft values its dP win only at the plate boundary (5.9 vs ~22 kPa, 'about 70 % lower'). Measured at the tray loop with one UQD08 pair it is 40-49 vs 56-79 kPa. With an 80-180 kPa rack-plus-CDU head added, the saving is only about 7-19 % of loop head (verify/completeness_checks.py). Hydraulic pump power saved is about 31 kW per 100 MW, or about 63 kW electrical at 50 % pump efficiency, worth about US$44k/yr. In mixed racks the saving must also be spent on 20-50 kPa keyed orifices (verify-hydraulics). There is no reference rack, no CDU head or flow budget, no start-up (17-25 C) or turndown case, and no CDU control-mode guidance. The dual-UQD08 both-end-fed header topology is not analysed.",
+    "how_to_fill": "Add a section built around a reference 15 kW-class tray and rack (for example 72 packages, about 1 MW), using verify/rack.py and verify/loop_rack.py. Include: the dP stack from CDU to plate at the three OCP boundaries; U and Z manifold cases; homogeneous and mixed racks with keyed orifices; a CDU head/flow saving expressed as racks per CDU; start-up and part-load flow; and US$ value per 100 MW from CDU capex (US$9-25 per plate when the CDU is head-limited) plus pump energy. Report it as a contingent value, not a headline."
+   },
+   {
+    "item": "Controls and telemetry architecture (field observability of PRISM's own failure modes)",
+    "why": "The plate is passive, and 'telemetry, if wanted, lives in the tray'. Port-to-port dP is 82 % inertial: a 10 um deposit raises fin dP by 54 % but plate dP by only 6 % (verify-hydraulics). Guard blinding, kerf-floor impaction and fin fouling are therefore invisible in the field until temperatures rise. Nothing defines alarm thresholds, a BMC/Redfish schema, inlet-temperature or flow control modes, or a minimum-inlet / dew-point limit.",
+    "how_to_fill": "Specify either fin-field dP taps brought out to a tray fluid module, or BMC-inferred resistance drift ((Tcase or Tj - Tin)/P at known flow) with thresholds tied to the fouling model. Also define: guard and cartridge dP alarms; PLDM/Redfish sensor definitions; recommended CDU control (dP vs dT setpoint); and the operating inlet envelope, including W17 condensation limits. FTO-check against NVIDIA 'intelligent plate' filings and CoolIT 9,052,252."
+   },
+   {
+    "item": "Coolant chemistry and alternative-coolant view",
+    "why": "The wetted path holds Ag-Cu braze fillets, and route C would add Cu-Sn intermetallics, in PG25 for 10 years. Not addressed: galvanic Ag/Cu or Cu3Sn behaviour, inhibitor (azole) compatibility and depletion, Cu-ion release, or biofilm in low-shear 0.15 mm gaps (wall shear 7.7 Pa). The OCP PG25 Guidelines action limits are unread. Water, PG30 and EG curves exist only as a 'secondary curve' line. Two-phase is never mentioned in the draft, although physics/two-phase-option.md shows it is 6-14 K hotter at the 60 C Tsat a 45 C loop forces, and Accelsius markets '54 C inlet = 45 C single-phase' (+9 K). Ecolab/Nalco, CoolIT's owner, sells the loop chemistry PRISM depends on.",
+    "how_to_fill": "Add a chemistry section with:\n- an E5 coupon and electrochemical matrix (Ag-Cu and Cu-Sn joints, named inhibitor packages, 65 C, 3,000 h, Cu/Ag ion and inhibitor tracking);\n- property curves and performance at 17-60 C for PG25, PG30, water and EG;\n- a one-paragraph, quantified 'why not two-phase / immersion' with re-entry triggers (PFAS outcome, facility water \u2264 40 C).\nState the dependence on loop chemistry as a commercial risk."
+   },
+   {
+    "item": "Serviceability and field-replacement concept",
+    "why": "The draft has no service procedures. Missing:\n- how the in-boss guard is serviced (it needs a tray drain);\n- who owns the tray cartridge and at what interval;\n- PCM rework;\n- how an LM 'factory pre-wetted FRU with 5-year inspection' interacts with GPU or package RMA;\n- the back-flush procedure;\n- spares and MTTR.\nWithout the tray cartridge, which is only 'recommended' for R-grade, the 25 cm2 guard becomes the loop filter. Scaled from physics/fouling-filtration.md, it reaches 50 % blockage in about 65 days at 1e-4 particles/mL and about 6 days at 1e-3/mL.",
+    "how_to_fill": "Write a service concept per SKU:\n- procedures, intervals tied to the fouling model, tools and owner (OEM, hyperscaler or us);\n- a drip-free disconnect sequence;\n- an LM handling SOP and RMA flow;\n- guard and cartridge life with and without the tray cartridge, quantified at 1e-4 to 1e-2 /mL.\nDecide whether the tray cartridge is mandatory for the R-grade. If it is, drop 'drop-in'."
+   },
+   {
+    "item": "Safety and leak-management case",
+    "why": "Leak-before-break is asserted, but the stack has about 6 external perimeter braze seams against 1 on the incumbent (verify-manufacturing). Also missing:\n- integration with OCP ACS leak detection (drip trays, rope sensors);\n- a leak-rate or FIT target;\n- liquid-metal escape: Ga-In is conductive (shorts), and Ga embrittles aluminium, yet close-the-losses proposes Al load frames;\n- HV safety for PRISM-DC at 800 VDC on a shared conductive PG25 loop (isolation, creepage, stray-current corrosion).\nPRISM's low dP makes negative-pressure (leak-proof) loops feasible at 18 LPM with dual UQD08, a safety differentiator the draft does not use.",
+    "how_to_fill": "Add a top-level safety FMEA (external leak, LM escape, HV fault, over-pressure, freeze). Set targets: leaks per million plate-years and PPM at shipment. Add drip-tray and sensor compatibility, and an Al exclusion zone for LM SKUs. Add an IEC 62477-1 / UL isolation plan for PRISM-DC. Add a negative-pressure rating curve (plate plus dual UQD08 under 30-50 kPa sub-atmospheric) as a marketed option."
+   },
+   {
+    "item": "Sustainability view (heat reuse, water, carbon, PFAS)",
+    "why": "There is no sustainability content (0 hits for PFAS, reuse, WUE, carbon). The corrected headroom allows about 62.7 C return at 1.2 LPM/kW (inlet 50.2 C, PCM), and up to the 65 C cap at 0.75-1.0 LPM/kW. CoolIT reaches 53.3 C (paste) or 57.2 C (PCM) at 1.2 LPM/kW. That difference is district-heating grade, relevant to the German EnEfG energy-reuse-factor duty (10/15/20 % for new DCs from Jul 2026/27/28) and to EU EED reporting. Not quantified: water use (adiabatic hours avoided), embodied carbon (1.74 kg OFE plus 7.4 g Ag per plate, against energy saved), or recyclability. The wetted path uses PTFE (\u00a78.1 #8, PTFE-lined hoses) and the LM dam uses FKM, both fluoropolymers that ECHA RAC kept in scope of the EU PFAS restriction (final opinion 2 Mar 2026).",
+    "how_to_fill": "Add a sustainability section with:\n- return temperature against flow and TIM for PRISM and CoolIT;\n- ERF and heat-reuse value for a reference 100 MW site in DE and Nordics;\n- a WUE model for three climates (adiabatic hours removed by +2-7 K);\n- an ISO 14067 cradle-to-gate CO2e per plate against lifetime pump and chiller savings;\n- a PFAS-free bill of materials (EPDM, PPSU/PEEK, non-fluorinated dam) with qualification in E5.\nThen use these as value arguments."
+   },
+   {
+    "item": "Manufacturing scale-up and supply-chain plan",
+    "why": "The draft gives a process chain and a cost table but no ramp. Missing:\n- a plates/month ramp curve;\n- CM selection criteria;\n- funding for the US$3.7-9 M per 100k/yr CM capex (verify-cost-market);\n- long-lead items (vacuum furnaces, skiving machines, progressive dies);\n- OFE strip sources;\n- silver exposure (US$13-24 per plate at US$60-72/oz) and a hedge;\n- per-SKU die economics;\n- Taiwan manufacture blocked until TW I606224 is charted;\n- the 10k/yr ramp cost of about US$370-430 for the first 18-24 months.",
+    "how_to_fill": "Add a ramp plan from M12 to M36 (capacity, yield learning, capex, who funds it). Add a dual-source map per process with qualification gates. Add commodity hedging for Cu and Ag, a lead-time table, and a site decision tree (US / MX / VN / TW) driven by IP (TW I606224) and tariff."
+   },
+   {
+    "item": "Regulatory, compliance and trade view",
+    "why": "There is no compliance matrix. Missing:\n- IEC/UL 62368-1 liquid-filled-component requirements, which OEMs must certify (UL places them in Annex G, clause G.21 in the edition it cites);\n- PED 2014/68/EU Art. 4(3) sound-engineering-practice status;\n- RoHS and REACH declarations;\n- conflict-minerals reporting for Sn (route C) and W (T2 barrier);\n- EU PFAS;\n- export classification.\nMost material is US Section 232 copper tariffs. As reported, from 8 Jun 2026 there is 50 % on the full value of articles made entirely or almost entirely of copper and 25 % on copper derivatives, with heat-exchanger parts proposed for inclusion. On a TW/VN/MX-built plate that is about US$52-136 per plate (customs value about 1.3x factory cost), as large as or larger than the whole PRISM premium (US$67-99).",
+    "how_to_fill": "Build a compliance matrix per SKU and market. Request a CBP binding ruling on the HTS classification of the cold plate. Build a landed-cost model by build site (US, MX, TW, VN) including Section 232 and reciprocal tariffs, and let it drive the manufacturing-site decision. Name a compliance owner."
+   },
+   {
+    "item": "Test-infrastructure capability matrix (each claim mapped to a rig that can measure it)",
+    "why": "Several claims exceed the planned equipment:\n- TTV-A is limited to 18 kW (E3), but the scorecard publishes Q capacity of 19.4 (PCM nominal), 23.3, 26.4 and 34.1 kW, plus 25-30 kW cases, and the rig is 25 kW;\n- TTV-100 at 15 kW runs AlN heaters at 150 W/cm2, 97 % of their 155 W/cm2 rating;\n- the 350 W/cm2 KPI has no heater path (2.3x the AlN rating);\n- the confocal pressure-scan station is unbudgeted (US$0.2-0.4 M);\n- no ISO/IEC 17025 traceability, transient test, orientation test, or replication of CoolIT's 8-TC layout is defined.",
+    "how_to_fill": "Build a matrix with one row per claim: rig, TTV, maximum capability, k=2 uncertainty, owner and date. Either budget a 30-40 kW rig with high-flux Cu-block or diamond heaters for 350 W/cm2, or cap published claims at what can be measured. Name the independent lab and its accreditation. Replicate CoolIT's 8-TC layout and publish both the TC average and the area average."
+   },
+   {
+    "item": "Organisation, governance and decision rights",
+    "why": "The 14.5 FTE plan has no business development or customer engineering (one applications FTE only). It also has no procurement or cost engineering, no on-site supplier-quality staff at the Asian CM, no compliance or regulatory owner, and no RACI. It does not say who sits on the gate board or who can kill the programme at G1/G2. Verify-cost-market adds 1-2 BD FTE and US$0.9-2.1 M of missing items (realistic 12-month budget US$7.5-8.7 M).",
+    "how_to_fill": "Add an org chart with a RACI for each gate. Add 1-2 BD/customer-engineering FTE, 1 supplier-quality engineer in Asia, 0.5 compliance and 0.5 cost engineering. Define gate-board membership, external reviewers (an ex-OEM thermal architect, a patent counsel) and kill authority."
+   },
+   {
+    "item": "Customer requirements and interface control (named customer, envelope, qualification path)",
+    "why": "The draft has:\n- no named lead customer or letter of intent;\n- no NDA envelope (MGX/Kyber tray CAD or the NVIDIA design guide; the research flags these as unobtained);\n- no interface control drawing (mount pattern, port positions, load frame, keep-outs, mass limit);\n- no qualification route or timeline (NVIDIA RVL / ODM qualification takes 12-18 months to a first PO).\nRank-2 entry is routed through a Group-A house, but NVIDIA standardises the design centrally.",
+    "how_to_fill": "Add a requirements-capture plan with target accounts, NDA envelope requests and LOIs by G2. Write an ICD per SKU (PRISM-15, PRISM-G, PRISM-S4). Add a qualification Gantt per channel (hyperscaler, NVIDIA reference design via its thermal engineering, OEM)."
+   },
+   {
+    "item": "Mechanical integration: shock, vibration, orientation, venting, clamp",
+    "why": "Not covered:\n- shipping shock and vibration: a 1.74 kg plate, excluding the 0.3-0.6 kg frame, puts about 510-850 N on the package at 30-50 g, against package windows of 0.3-1 kN;\n- the 2 kN TTV clamp versus real retention;\n- orientation: vertical blades such as Kyber trap air in 9 mm plenums, dead ends and headers, and fin velocity is only 0.15 m/s;\n- a degas/vent procedure at commissioning.\nBow under the 2 kN clamp is deferred to FEA.",
+    "how_to_fill": "Add ISTA 3A / ASTM D4169 shock and vibration with the plate installed. Add orientation tests at 0/90/180 degrees with air-purge time and flow-rate criteria, and a venting procedure. Show load-frame FEA results at 0.3-1 kN and 2 kN, and set a plate-mass limit per SKU."
+   },
+   {
+    "item": "Transient (power-excursion) behaviour",
+    "why": "AI workloads swing package power within milliseconds to seconds (synchronous training steps, EDPp-type excursions). The 1.0 mm (and 0.8 mm) base halves near-die heat capacity relative to a 2 mm incumbent base: 0.34 vs 0.69 J/K/cm2, with Cu diffusion times of 9 vs 36 ms (verify/completeness_checks.py). No transient Tcase overshoot, CDU flow-control response or throttling analysis is given, and an NVIDIA architect will ask for it.",
+    "how_to_fill": "Run cell2d (or a 1-D RC network) with power steps of 1.0 to 1.5x TDP for 10 ms to 10 s, comparing a 0.8/1.0 mm base with a 2 mm base and the lidded package. Report peak overshoot against an incumbent, and add a transient KPI and a TTV test."
+   },
+   {
+    "item": "Production test sequence, dryness and internally generated debris",
+    "why": "The process chain runs wet tests (hydrostatic proof, 3-point dP, a 20 to 45 C water-step IR screen) around the He leak test with no drying step. Residual water in 0.15 mm x 2 mm gaps can mask leaks, freeze in the -40 C storage cycle, and seed corrosion or microbial growth before installation. There is no defined shipping state (dry with N2 or pre-filled). Debris generated inside the plate (12,960 kerf exit-burr and chip sites, braze spatter) sits downstream of every filter, which makes it the dominant commissioning-fouling source.",
+    "how_to_fill": "Define the sequence:\n1. He leak while dry.\n2. Wet tests.\n3. Vacuum-bake dry with a dew-point check.\n4. N2 cap.\nSet an ISO 16232 component-cleanliness code with a maximum particle size of \u2264 50 um and a chip-entrapment criterion (CT or flush gravimetry on samples), and define the shipping and storage state per SKU."
+   },
+   {
+    "item": "Comparison against competitors other than CoolIT, normalised",
+    "why": "The draft compares only with CoolIT. 'Elite' is undefined: PRISM's core R'' is 0.108 cm2K/W (convection plus base), 0.167 with caloric and 0.223 with PCM. Peer-reviewed MMC plates reach 0.065-0.09 total and Mikros/Jabil claims 0.02 core (water, different filtration). Missing from the comparison:\n- JetCool SmartPlate (Rjf 0.040-0.058 C/W at 600 W, 1.5 LPM/kW; claims -25 % against microchannel);\n- Frore LiquidJet (600 W/cm2 hot spot, 1.7 kPa, 0.87 LPM/kW, -6 to -12 C on Rubin);\n- Fabric8/Wiwynn ECAM (4 kW double-sided, '48 % better than skived') and UIUC/Fabric8 (-32 % R, -68 % dP);\n- ORNL diamond pin-fin (6.9 mK/W including TIM at 1 kW, 9 kPa);\n- ToneCooling GB300 (13 mK/W, 12 kPa);\n- AVC/Auras MLCP and Jentech MCL;\n- Accelsius (-9 C Tj; 54 C equivalent to 45 C);\n- ZutaCore (0.3 LPM/kW, 2.8 kW certified);\n- Corintis/Microsoft in-die (-65 % Si rise) and TSMC direct-to-silicon (> 2.6 kW at dT < 63 C);\n- CoolIT's own OMNI (> 300 W/cm2, 'up to 60 % lower R');\n- Boyd, Vertiv/CoolTera, Motivair, nVent, Delta, Cooler Master (no public plate data; say so).",
+    "how_to_fill": "Add a normalised table: R'' per area at stated coolant, flow per kW and TIM; dP per kW; flux limit; filtration requirement; TRL and volume readiness; IP; cost class. Add a 'what each would need to beat PRISM' column. Mark vendor-only figures. Use research/competitors-*.md and gap-competitor-plate-datasheets-gb300-rubin-scale.md."
+   },
+   {
+    "item": "Cheapest-path alternative baseline (incumbent plate plus better TIM) and an options analysis for the funding decision",
+    "why": "The synthesis lever ranking puts paste-to-LM at -7.1 K average and -9 K maximum. A CoolIT-like split-flow plate with LM therefore gives about 27.4 / 35.3 K, which beats PRISM+PCM corrected (29.9 / 34.8 K) on the average with no new manufacturing. The manager needs to see what the architecture buys over a TIM-only or licence-only programme, and over an MCL co-design. Appendix A compares only internal proposals.",
+    "how_to_fill": "Add an options table for:\n- (a) a TIM/interface programme on incumbent plates;\n- (b) PRISM, as drafted and as PKG-A;\n- (c) licensing or partnering with an existing MMC vendor (Mikros/Jabil, AVC MLCP);\n- (d) MCL co-design with Jentech;\n- (e) a two-phase hedge.\nGive each its cost, time, probability of a public win, margin over CoolIT like-for-like, and moat."
+   },
+   {
+    "item": "Statistical power and like-for-like statistic of the head-to-head",
+    "why": "CoolIT's plate averages are 32.5 / 35.2 / 35.6 K (SD 1.69 K). The corrected like-for-like paste margin (31.8 vs 34.4 K) is 2.6 K, only 0.7 K better than CoolIT's best plate. With 3 vs 3 plates it gives Welch p of about 0.10-0.13 (verify/completeness_checks.py), so it is not significant. CoolIT's 44.2 K is the worst of 24 readings over 3 plates (mean of per-plate maxima 43.2 K), while PRISM's 'max' is a single-plate model nominal. The draft's '3 plates x 3 re-mounts, k = 2' is not tied to a significance target.",
+    "how_to_fill": "Pre-register the analysis:\n- the number of plates needed for p < 0.05 at the expected margin (about 6-8 per side at 2.6 K);\n- compare worst-of-N against worst-of-N, and the mean of plate maxima;\n- lead with metrics whose margin exceeds the scatter (maximum, spread, dP, R'' at LM/PCM);\n- buy and test CoolIT-class plates on the same TTV (E0).\nAdd PKG-A (30.6 K) as the paste baseline."
+   },
+   {
+    "item": "Full OCP flow sweep (25-150 % of rated, 0.25-1.5 LPM/kW) against a corrected incumbent model",
+    "why": "D1 claims a win on 'every metric the OCP spec measures', which includes R at \u2265 6 flows. The draft shows only 0.75, 1.0, 1.2 and 2.4 LPM/kW. Its CoolIT-like column uses a fixed 6.3 K ramp that verify-physics shows is wrong off 1.2 LPM/kW (true values 52.1 K at 0.75 and 37.7 K at 2.4). The low end of the sweep, where the isothermal-cell caloric penalty and the 65 C return limit dominate, is missing.",
+    "how_to_fill": "Patch coldplate_model.py (ramp = 0.5\u00b7dT_out, PG25 k 0.49). Run PRISM (own 2-D penalty) and CoolIT-like at the 6+ OCP flows for paste and PCM. Flag points where the outlet exceeds 65 C. Publish R(flow) and dP(flow) as the class-A evidence."
+   },
+   {
+    "item": "Business case and P&L, including warranty, liability and IP indemnity",
+    "why": "There is no ASP, no margin, no break-even volume and no revenue timeline. There is also no warranty term or reserve, no product-liability or insurance plan for leaks in US$4-9 M racks, and no IP indemnity (a CoolIT/Ecolab suit costs US$3-5 M through trial). The corrected costs are US$175-225 at 100k and US$370-430 at the 10k ramp (verify-cost-market). The PRISM-G cost of US$120 has no derivation.",
+    "how_to_fill": "Add a one-page P&L per channel at 10k and 100k volumes using the PKG-A and C2 costs (US$162 / US$141) and the corrected incumbent (US$116-137). Include warranty reserve, insurance and indemnity lines, a bottom-up PRISM-G cost, and the break-even year."
+   },
+   {
+    "item": "Power electronics as the mission's second application",
+    "why": "The mission ranks power electronics second. The draft's exec item 10 says the same, but its ranked lists put power at 5th (\u00a70) and 6th-7th (\u00a77.1). The draft gives no PE thermal numbers at real conditions (SiC dies at 300-800 W/cm2 on AMB with Ag sinter; R'', \u0394Tj, power-cycling life), no PRISM-DC cost, no named module partner, and no HV or isolation analysis. The shelf plate is conceded to have no thermal advantage.",
+    "how_to_fill": "Add a PE section built on one reference module (an SST or 800 VDC rectifier SiC half-bridge). Give R'' and \u0394Tj against a pin-fin baseline in the same housing, the power-cycling life gain, cost, a named partner shortlist and the HV safety rules. Otherwise justify the re-ranking explicitly to the manager."
+   },
+   {
+    "item": "Requirements traceability and verification matrix",
+    "why": "Several public claims have no verifying experiment or pass criterion:\n- Q capacity above 18 kW, the 350 W/cm2 KPI, the 25-30 kW cases, GPU-class lids, the 10-year fouling life and the 4 kW point (E0 does not include a CoolIT 4 kW-class plate);\n- the E2 uniformity metric is per line, not per segment;\n- the E1 gate cannot see a single unbonded land strip.",
+    "how_to_fill": "Add a table tracing mission \u2192 requirement \u2192 design feature \u2192 experiment (E0-E5) \u2192 pass criterion \u2192 gate. Delete or caveat any claim without a row."
+   },
+   {
+    "item": "Market-window, technology-roadmap and competitor-response view",
+    "why": "Analysts expect micro-channel lids (Jentech) and micro-channel cold plates (AVC/Auras) to be mainstream from 2027, and Feynman (2028) is a candidate for in-package microfluidics. PRISM's MCL path (T3B) has no design numbers. Also missing:\n- CoolIT's likely responses: OMNI, multi-slot/zoned plates after 2028, an Ecolab chemistry bundle, publishing in its own OCP format;\n- Nidec WO2026100588 (fin-tip-brazed cover) showing that fin-tip ties are being industrialised;\n- how long the moat lasts once the full OCP report is published and filings 2-4 become defensive publications.",
+    "how_to_fill": "Add a roadmap with a quantified T3B / MCL-insert variant and a G2 MCL pivot decision. Add a competitor-response matrix (what each player can copy, how fast, and what stays proprietary). State the time-to-copy for AVC/Auras after the OCP disclosure."
+   },
+   {
+    "item": "Reliability quantification",
+    "why": "There is no FIT or leak-rate target, no Weibull or acceleration model for fouling, braze fatigue or LM, no field-failure acceptance level, and no warranty term. The E5 sample sizes (12-20 plates) are not justified statistically for any reliability and confidence target. The '10-year design life' contradicts the project's own fouling model (about 7 years behind 50 um absolute, against 15 years for 0.2 mm gaps).",
+    "how_to_fill": "Set reliability targets (for example R90/C90 at 10 years for leak; R drift \u2264 5 %). Size the demonstration tests (zero failures in n = 22 for R90/C90). Model acceleration factors for thermal cycling, pressure cycling and particulate dose (the 100x dose for 1,000 h surrogate). Separate the life claim into a dose-qualified claim and a field claim."
+   },
+   {
+    "item": "Clear, option-framed decisions for the line manager",
+    "why": "D1 asks for approval of a claim that is false: the 4 kW point is lost, and the paste average loses at 100 cm2. The draft never puts these decisions to the manager:\n- PKG-A versus the drafted stack;\n- the US launch date, given the Split-Flow expiry around Sep 2028;\n- the manufacturing site, given the tariff and TW I606224;\n- whether the tray cartridge is mandatory (which ends 'drop-in');\n- whether to fund P-grade/R+ with its filter kit (no cost or dP given);\n- the MCL and two-phase hedges.\nD3's budget omits US$0.9-2.1 M.",
+    "how_to_fill": "Rewrite D1-D3 as option tables (option, cost, schedule, probability, what is given up, recommendation). Add D4 (Rev A stack: draft or PKG-A/C2), D5 (US launch date and site), D6 (filtration: mandatory or recommended) and D7 (MCL/two-phase hedge budget). Carry the corrected probabilities (decisive PCM result about 0.45 including programme risk)."
+   }
+  ],
+  "inconsistencies": [
+   "The draft gives three different rankings for power electronics. Exec item 10 calls it 'the second application'. The ranked list in section 0 puts 800 VDC 5th. Section 7.1 puts it 6th, with traction 7th. The two lists also differ elsewhere: wafer-scale is rank 4 in 7.1 but absent from section 0, and CPU/NVSwitch/CPO is rank 4 in section 0 but rank 5 in 7.1.",
+   "Section 2.1 calls the meter 'an inertial meter that never touches a braze joint'. Sections 2.2 and 3.2 contradict this: the meter sheet is brazed to the grate below and the plenum above, and each orifice edge is only 0.35 mm from the meter/grate joint. Close-the-losses identifies that interface as the main wicking path to the orifices.",
+   "Several published capacity claims cannot be measured on the planned equipment. Q capacity is published at 19.4 kW (PCM nominal), 23.3, 26.4 and 34.1 kW, plus 25-30 kW cases (section 6.5). But TTV-A has an '18 kW limit' (E3) and the rig is rated 25 kW. TTV-100 at 15 kW runs its AlN heaters at 97 % of rating (150 of 155 W/cm2). The 350 W/cm2 KPI is 2.3x the heater rating, and no heater route is planned.",
+   "The FTO timing contradicts itself. E6 delivers 'claim chart and opinion' at M1-4, but the section 10.3 roadmap puts the 'FTO opinion' at M12-18. That is after the G4 public showing at the OCP Global Summit at M11-12 (held in San Jose, US) and after 'samples to two hyperscaler ASIC programmes'. D3 gates only 'US sales', not US demos or evaluation units, which verify-ip says are also infringing acts.",
+   "The beachhead contradicts the IP gating. Rank 1 is US hyperscaler ASICs with 'volume 2028'. But the Split-Flow 2008 family runs to about Aug-Sep 2028 (and up to about Jun 2031 with '330 patent-term adjustment), and the draft says 'no US sale before the opinion' and 'non-US deliveries first'. Most hyperscaler fleets are US-sited, and the 'non-US first' fallback through Taiwan manufacture is blocked by TW I606224.",
+   "Section 10.4 gives programme probabilities 'all risks' of 0.75-0.8 for a footprint-fair paste win and 0.75 for 'beats with PCM'. Those equal or exceed the model-only probabilities even after correction (0.79-0.82). Yet section 6.1 says process, schedule and TIM-identity risks are 'folded into 10.4', so no programme risk was actually deducted.",
+   "Sections 3.1 and 8.2 call 0.15 mm 'the 10-year fouling floor' and set a 10-year design-life target. The draft's own section 8.2 band (0.6-1.2x the relative life of a skived plate) and the project's fouling model (about 7 years behind 50 um absolute, against 15 years for 0.2 mm; close-the-losses) do not support 10 years.",
+   "Section 4.4 says the plate guard 'catches tray-to-plate debris only, so years of loading'. That holds only with the tray cartridge, which is merely 'recommended' for the drop-in R-grade. Without it the 25 cm2 guard is the loop filter. Scaled from physics/fouling-filtration.md, it reaches 50 % blockage in about 65 days at 1e-4/mL and about 6 days at 1e-3/mL, which contradicts 'drop-in'.",
+   "The scorecard columns break their own definitions. 'Conservative = R-grade Monte Carlo P90', but the GPU row uses a different design (4 mm cells), the 350 W/cm2 row uses a PCM nominal, and the cost row uses a cost scenario. 'Stretch = Tier 2 LM' also carries the P-grade, a different SKU (PRISM-G height and mass) and a different volume: US$113 at 1M/yr set against the incumbent's US$110 at 100k.",
+   "Section 6.4 contradicts the dP baseline. PRISM-G dP of 2-3 kPa is called 'parity with the scaled reconstruction (1.5-4 kPa)' and 'well below ~12 kPa for market GB300 plates'. So the reconstruction underpredicts the only published GPU-plate dP by 3-8x, which undermines its use as the ~22 kPa CoolIT dP baseline in sections 4.2 and 0.",
+   "Section 3.5 promises 'new meter artwork and plenum laminations ... a 2-3 week die change' per package. Section 5.6 costs every SKU at 100k/yr on hard progressive dies, which verify-cost-market puts at US$0.4-1.0 M and 8-14 weeks per SKU. A custom-zoned beachhead runs at the 10k-column cost, not the 100k column.",
+   "Exec item 6 and the scorecard give inlet headroom of '7-11 K' (51.7 vs 40.8 C). That pairs PRISM on PCM with CoolIT on paste, which breaks the like-for-like rule the draft sets in section 1.2. CoolIT re-tested on PCM is 44.7 C, so the like-for-like gain is +7.0 K at P50, and +5.8 K corrected (PKG-A).",
+   "Section 8.3 says 'Galinstan where -40 C storage applies'. Galinstan melts at about -19 C, so it solidifies within the section 8.1 storage cycle of -40/+70 C, and Ga alloys expand on freezing. Close-the-losses also proposes Al for the backplate and load frame, but Ga embrittles aluminium, so this conflicts with the Tier 2 LM SKUs.",
+   "The section 5.5 process chain has wet tests (hydrostatic proof, 3-point dP, a water-step IR screen) on both sides of the He leak test and no drying step. That conflicts with the He \u2264 1e-6 mbar\u00b7L/s claim, which water can mask, and with -40 C storage, where residual water in 0.15 mm gaps can freeze. No shipping state is defined.",
+   "Section 6.7 says mass is 'immaterial to buyers'. Section 5.7 counts it as a concession (+0.1-0.5 kg). The 1.74 kg excludes a 0.3-0.6 kg load frame (verify-manufacturing), and package shock loads of about 510-850 N at 30-50 g make mass material.",
+   "Section 4.1 sets a velocity rule of '\u2264 1.5 m/s at 150 % of rated flow' and then offers 16 mm ports, which run at 1.87 m/s at 22.5 LPM, inside the OCP sweep. The draft's own text admits 16 mm exceeds the rule above 18 LPM.",
+   "Section 9.1 says Microfabrica is avoided because PRISM is 'distribution, not jet cooling'. But sections 3.2 and cell2d credit kerf-floor impingement, and verify-physics finds jets of 1.4-2.1 m/s at the fin tops. The '0.41 m/s fin entry' in sections 3.2 and 4.1 is a y-average that hides these jets.",
+   "Exec item 9 calls the fin-tip tie braze 'the single make-or-break item, gated at M3', and E1 gates it with a '\u2265 40 % per 10 mm cell' criterion. Verify-manufacturing shows a single unbonded land strip passes every planned screen. The M3 gate can therefore pass a defect that governs the rating.",
+   "Section 1.2 dates the OCP Cold Plate Test Specification to 'October 2026'; verify-cost-market gives it as effective 3 Sep 2026. Class-A rules and D1's claim wording depend on a document the draft has not read ('read the OCP PDF in month 1', R5).",
+   "D1 asks approval of 'beats ... on every metric CoolIT disclosed', but the scorecard row for CoolIT's 4 kW point shows a loss with paste. Verify-physics finds it is also lost with PCM, at 0.0096-0.0115 against < 0.009 C/W."
+  ],
+  "hostile_attacks": [
+   "'Your architecture barely beats our plate like-for-like.' On paste, corrected PRISM is 31.8 K against our 34.4 K average. That is 0.7 K better than our best plate (32.5 K), and not statistically significant with 3 plates each (Welch p about 0.10-0.13). At a 100 cm2 footprint you lose the average by about 1.3 K. Your maximum margin there is 0.8 K, P about 0.57-0.61.",
+   "'Your headline is a TIM and clamp-pressure story.' The 28.4/33.3 K headline uses PCM at 25 psi (2 kN), which no real package allows (4-12 psi). It is also about 1.5 K optimistic, because you subtracted our calibration-absorbed 2-D penalty; corrected it is 29.9/34.8 K. Put LM on an incumbent split-flow plate and you get about 27.4/35.3 K, which beats PRISM+PCM on the average with no new manufacturing.",
+   "'You beat a deliberately standard demonstrator, not our best.' CoolIT's brief says the goal was to show that 'standard coldplate designs and standard system operation' suffice. A 7-part, 6-interface bespoke stack beating it says nothing about OMNI (> 300 W/cm2, 'up to 60 % lower R') or our 2027 product, which we will publish in the OCP format we wrote.",
+   "'Not drop-in.' The R-grade needs:\n- a new tray filter; without it your 25 cm2 guard is the loop filter and blinds in about 65 days at 1e-4/mL;\n- keyed 20-50 kPa orifices in any mixed rack;\n- a tighter commissioning cleanliness spec;\n- liquid-metal containment for the stretch tiers;\n- a new interface control drawing.\nThe P-grade 'decisive product' additionally needs \u2264 33 um absolute filtration that fleets do not have.",
+   "'Your dP win evaporates at the system boundary.' At the tray loop with UQD08s it is 40-49 vs 56-79 kPa. Against 80-180 kPa of rack and CDU head it is about 7-19 % of loop head and about US$44k/yr of pump energy per 100 MW. In mixed racks you must throttle it away with orifices. Your dP 'reconstruction' of our plate also disagrees by 3-8x with published GB300 plate dP.",
+   "'You lose the only other point we published.' At our 4 kW, 25 cm2 point PRISM's drop-in core is 0.0096-0.0109 C/W against < 0.009, and up to 28 % worse on a 20 cm2 heater. Your reconstruction misses that datum by \u2265 37 %, so every model-only 'CoolIT-like' comparison is model against model: the GPU class, 350 W/cm2, the flow sweep, Q capacity and inlet headroom.",
+   "'Split-Flow, plainly.' A 0.3 mm kerf does not end the inter-fin passage: about 49 % of inflow enters through fin tips under the window, between the channel's ends. The kerf is worth 2.6 % of cell dT (an insubstantial difference), and your stamped plates and seals supply '513's plate-and-seal element. Your US beachhead ships in 2028 while the 2008 family is live, and Taiwan manufacture runs into TW I606224. Your own marketing says PRISM 'removes split-flow's ramp' by doing split flow every 12 mm.",
+   "'Your maximum statistic is not ours.' 44.2 K is the worst of 24 readings over 3 plates; the mean of per-plate maxima is 43.2 K. PRISM's 'max' is a single-plate model nominal with an assumed 1.5 K maldistribution. Segment-level maldistribution is actually 1.23-1.43 (max/min), and the 18-line layout leaves dead-end fin strips over the heater edge that run 10-15 K hot.",
+   "'Your cost concession is understated and you have a tariff problem.' The plate is +50-83 % per plate against a like-sized incumbent (US$195-225 against US$116-137) and 27-29 % worse per kW, not +45 %. Since June 2026, all-copper articles imported into the US face a reported Section 232 tariff of 50 % (25 % for derivatives). That is US$52-136 per plate from TW/VN/MX, and it dwarfs any facility-value story.",
+   "'You cannot inspect your own critical joint.' An unbonded land strip passes proof, the flatness scan, the IR screen, dP, sample burst and your E1 gate. The plate has about 6 external braze seams against our 1. The kerfing of 0.15 mm skived Cu fins has no precedent and leaves 12,960 burr and chip sites downstream of every filter. The plenum stamping route (web/t 0.33) cannot be built.",
+   "'Your fouling story is worse than ours, and invisible.' A 0.15 mm gap behind 50 um absolute gives about 7 years of exclusion life, against 15 years for a 0.2 mm gap, from your own model. Port dP is 82 % inertial, so fin fouling barely moves it: +6 % plate dP for a 10 um deposit. The plate is passive with no field signature, and the operator finds out from GPU throttling.",
+   "(NVIDIA thermal architect) 'Why would we switch the Rubin/Feynman socket?' GPU-class average is parity (-0.2 to -0.5 K with a lid) and the maximum gain is +1.7-2.4 K. Your own section 6.4 says dP is not a differentiator. Per-plate cost is +17-35 % even after cost-down. It needs a tray filter, and the 1.74 kg plate puts 510-850 N of shock load on the package. We buy a standardised design centrally, so a Group-A house cannot insert it. Our roadmap is moving to micro-channel lids and MLCP, for which you have no design numbers.",
+   "(NVIDIA thermal architect) 'Where is your transient analysis?' A 1.0/0.8 mm base halves near-die heat capacity against a 2 mm base (0.34 vs 0.69 J/K/cm2; diffusion about 9 vs 36 ms). Under millisecond-to-second power excursions the case-temperature overshoot is unknown, and so is the throttling behaviour.",
+   "'Your 350 W/cm2 margin is mislabeled.' The split-flow 88.6 K uses paste 0.07, not 0.05. Like-for-like the margin is about 18-20 K, not 27-28 K. Your P-grade reaches about 87 C and misses 85 C. And your heaters are rated 155 W/cm2, so you cannot test it.",
+   "'Your capacity claims exceed your own rules and rigs.' The 26.4, 23.3 and 34.1 kW capacities need 28-41 LPM, which breaks your 1.5 m/s port and 2.0 m/s meter caps. Your TTV stops at 18 kW and your rig at 25 kW. The 'equal pumping power' row at 28.5 LPM also exceeds the meter cap.",
+   "'Two-phase already beats your headroom.' Accelsius publishes 54 C inlet as equivalent to single-phase at 45 C (+9 K) and -9 C Tj on B200. Corrected like-for-like, PRISM gives +5.8-7 K at P50 and +2-3 K at P90, and your facility value case (15-60x) collapses to about 2-10x for 15 kW and inverts for the GPU class.",
+   "'Your liquid-metal tier is not engineered for the field.' Galinstan freezes at about -19 C, inside your -40 C storage cycle. Ga embrittles the Al frames your own team proposes. No LM reliability data exist above about 10 cm2. A '5-year inspection FRU' is incompatible with GPU module RMA practice.",
+   "'You cannot claim a win on a spec you have not read.' The OCP recommended TIM, case definition, dP boundary and filtration rating are all unread, and you mis-date the spec. Your class-A 'must beat' rule is undefined until you do. You are also measuring in OCP format against our non-OCP brief, which mixes protocols.",
+   "'Your moat disappears the day you publish.' The full OCP report discloses the architecture, and filings 2-4 are anticipated or obvious (verify-ip). Nidec's WO2026100588 is already industrialising fin-tip-brazed covers. AVC and Auras already ship MLCP at 30-33 % gross margin with 40-50 % share. Ecolab, our parent, sells the loop chemistry and filtration your fine channels depend on.",
+   "'Your sustainability and compliance story is missing.' Your wetted path uses PTFE and your LM dam uses FKM, fluoropolymers kept in scope by ECHA RAC (Mar 2026). You give no IEC/UL 62368-1 liquid-filled-component plan, no water-use number, and no heat-reuse claim, though your headroom would allow about 62-65 C return water, which EnEfG/EED customers value."
+  ]
+ },
+ "final-architect": {
+  "final_path": "docs/cooling/appendix/verify/ARCHITECTURE-final.md",
+  "headline": "PRISM-15 Rev A is the design of record: the gap-closer's PKG-A lean stack, plus four fixes made in this revision. The fixes are a skirted drawn cap (one external perimeter seam), a stepped metered grate (jets land on the grate lip, not on the fins), a doubled outlet header with a 0.5 kPa outlet orifice row (segment max/min 1.06), and a mandatory supplied 33 um tray cartridge. Every number was re-run with each plate's own 2-D penalty and PG25 conductivity corrected to 0.49 W/mK. Against CoolIT on the same paste class: 31.0/38.7 K vs 34.4/44.2 K (-10 %/-12 %). On PCM: 29.1/34.8 K. Plate dP is 7.6 kPa vs about 22 kPa reconstructed; height 20.8 mm; mass 1.24 kg. Rev A wins on uniformity, capacity (+22-25 %), inlet headroom (+5.5 K at P50) and the maximum at every OCP flow. It costs US$165 vs US$126 per plate (+31 %); cost per kW is at parity, or 6-9 % better with the E1-gated C2 Cu-Sn belt route (US$144). It openly concedes the low-flow average, the 100 cm2 average, the 4 kW drop-in point, field record and fouling life at equal filtration. The 12-month programme costs US$8.4-10.7 M and is gated in tranches. P(decisive PCM result at M12) is about 0.43.",
+  "scorecard": [
+   {
+    "metric": "Average dT, same paste, 117 cm2",
+    "coolit": "34.4 K",
+    "conservative": "35.3 K (P90)",
+    "nominal": "31.0 K (-10 %); P(win) 0.81-0.85",
+    "stretch": "23.9 K (LM)"
+   },
+   {
+    "metric": "Maximum dT, same paste",
+    "coolit": "44.2 K",
+    "conservative": "43.6 K",
+    "nominal": "38.7 K (-12 %); P(win) 0.90-0.92",
+    "stretch": "28.8 K (LM)"
+   },
+   {
+    "metric": "Average / maximum, PCM 25 psi",
+    "coolit": "32.5 / 40.3 K (est., CoolIT re-tested on PCM)",
+    "conservative": "32.3 / 38.5 K",
+    "nominal": "29.1 / 34.8 K",
+    "stretch": "-"
+   },
+   {
+    "metric": "Average / maximum, paste, 100 cm2 hard mode",
+    "coolit": "34.4 / 44.2 K",
+    "conservative": "39.8 / 48.7 K",
+    "nominal": "34.7 / 43.1 K: average lost (parity); P(max win) 0.57",
+    "stretch": "26.5 / 31.5 K (LM); R+ grade 32.2 / 40.3 K"
+   },
+   {
+    "metric": "Maximum minus average, paste",
+    "coolit": "9.8 K",
+    "conservative": "9.5 K",
+    "nominal": "7.8 K",
+    "stretch": "4.8 K"
+   },
+   {
+    "metric": "OCP R(flow), 25-150 % of rated",
+    "coolit": "one point",
+    "conservative": "-",
+    "nominal": "maximum lower at every flow; average lower from 0.75 LPM/kW; average lost by 17 % at 0.25 LPM/kW, parity at 0.5",
+    "stretch": "-"
+   },
+   {
+    "metric": "Plate dP, 18 LPM, 20 mm ports",
+    "coolit": "undisclosed (~22 kPa reconstructed, band 17-42)",
+    "conservative": "<= 10 kPa (claim)",
+    "nominal": "7.6 kPa",
+    "stretch": "7.6 kPa"
+   },
+   {
+    "metric": "Q capacity at Tcase,max 85 C, 1.2 LPM/kW (paste / PCM)",
+    "coolit": "12.9 / 14.8 kW",
+    "conservative": "~13.8 / 15.6 kW (scaled)",
+    "nominal": "15.7 / 18.5 kW",
+    "stretch": "25.5 kW thermal with LM; rated 19.5 kW (meter velocity cap)"
+   },
+   {
+    "metric": "Inlet allowed at 15 kW (paste / PCM)",
+    "coolit": "40.8 / 44.7 C",
+    "conservative": "41.4 / 46.5 C",
+    "nominal": "46.3 / 50.2 C (+5.5 K like-for-like)",
+    "stretch": "52.3 C (return-limited)"
+   },
+   {
+    "metric": "CoolIT 4 kW point (25 cm2, 6 LPM)",
+    "coolit": "< 0.009 C/W",
+    "conservative": "-",
+    "nominal": "0.0095 PCM / 0.0107 paste (lost)",
+    "stretch": "0.0076 at 25 cm2, 0.0088 at 20 cm2 (LM); PRISM-S4 LM 0.0064-0.0068; not like-for-like"
+   },
+   {
+    "metric": "GPU-class uniform lid average (2.3 kW / 60 cm2)",
+    "coolit": "16.1 K (model)",
+    "conservative": "-",
+    "nominal": "parity (-0.2 to -0.5 K); maximum 1-3 K lower",
+    "stretch": "-"
+   },
+   {
+    "metric": "350 W/cm2 four-die package, Tcase,max with LM",
+    "coolit": "~114 C (model)",
+    "conservative": "-",
+    "nominal": "~98 C (win by ~17-20 K; misses 85 C)",
+    "stretch": "P-grade ~88 C (filtration-gated)"
+   },
+   {
+    "metric": "Transient: 1.5x pulse, absolute peak Tcase",
+    "coolit": "TTV 44.7 K at 100 ms (model)",
+    "conservative": "-",
+    "nominal": "41.8 K at 100 ms; lower at every pulse length from 10 ms to 10 s; excursion up to 1.0 K larger at 100 ms",
+    "stretch": "-"
+   },
+   {
+    "metric": "Height at the bar",
+    "coolit": "est. 22-28 mm",
+    "conservative": "22 mm",
+    "nominal": "20.8 mm",
+    "stretch": "18.8 mm (triple arch)"
+   },
+   {
+    "metric": "Mass (no load frame)",
+    "coolit": "est. 1.2-1.6 kg",
+    "conservative": "1.3 kg",
+    "nominal": "1.24 kg (parity to probable win)",
+    "stretch": "1.12 kg (316L separator)"
+   },
+   {
+    "metric": "External perimeter braze seams",
+    "coolit": "1",
+    "conservative": "1 + 2 bosses",
+    "nominal": "1 + 2 bosses (draft had 6)",
+    "stretch": "same"
+   },
+   {
+    "metric": "Factory cost at 100k/yr",
+    "coolit": "~US$126 (116-137), like-sized",
+    "conservative": "US$175",
+    "nominal": "US$165 (+31 %): loss",
+    "stretch": "US$144 (+14 %), C2 route, E1-gated"
+   },
+   {
+    "metric": "Cost per kW of capacity (paste / PCM)",
+    "coolit": "US$9.8 / 8.5",
+    "conservative": "-",
+    "nominal": "US$10.5 / 8.9 (+5-8 %, parity)",
+    "stretch": "US$9.2 / 7.8 (-6 to -9 %)"
+   },
+   {
+    "metric": "Fouling exclusion life (relative model)",
+    "coolit": "~15 y at a 0.2 mm gap behind 50 um absolute",
+    "conservative": "-",
+    "nominal": "~7 y at 50 um (loss at equal filtration); ~12 y behind the supplied 33 um cartridge",
+    "stretch": "-"
+   },
+   {
+    "metric": "Drop-in / field record",
+    "coolit": "yes / years",
+    "conservative": "-",
+    "nominal": "mechanically drop-in, but needs the supplied tray filter / none",
+    "stretch": "-"
+   }
+  ],
+  "changes_from_draft": [
+   "Every absolute number now carries PRISM's own 2-D penalty and PG25 k = 0.49 (verify-physics). The draft core moves from 28.4/33.3 to 29.9/34.8 K on PCM. Rev A is 29.1/34.8 K on PCM and 31.0/38.7 K on paste.",
+   "PKG-A is adopted as Rev A: a metered grate (meter merged into the grate), a folded 0.8 mm Cu plenum (replaces the refuted 4.5 mm stamped laminations), an arched drawn cap (replaces the forged bar and removes its stack-up error), graded 5 mm plenums, L 7.7 mm with 15 lines (fixes the 18-line edge error), and a 0.8 mm base gated on E1. Height goes from 26.4 to 20.8 mm, mass from 1.74 to 1.24 kg, cost from US$209 to US$165.",
+   "New in this revision: (a) a skirted cap, so there is one external perimeter seam instead of six; (b) a stepped-recess grate, so jets land on the grate lip, which keeps the 0.5 m/s fin-entry cap, protects the base and replaces the deleted Microfabrica fallback; (c) a doubled outlet header plus a 0.5 kPa outlet orifice row, which brings segment max/min from 1.36 to 1.06 at 18 LPM (re-run in final_segbal.py); (d) a mandatory supplied 33 um tray cartridge.",
+   "Plate dP is restated as 7.6 kPa (external claim <= 10 kPa), compared at matched boundaries: 2.7x at 20 mm bores, 1.7x at 12 mm. UQD08 pair is 14-24 kPa from vendor Cv; tray loop is 42-51 vs 56-79 kPa. Ratings are capped at 19.5 kW by meter velocity. The 16 mm port option is dropped.",
+   "A full OCP flow sweep was added with the CoolIT-like model patched (ramp = 0.5 dT_out, recalibrated to 119 cm2). It exposes a new concession: the average is lost at <= 0.5 LPM/kW.",
+   "Corrected claims: the 4 kW 'tie' becomes a loss for the drop-in core (PRISM-S4 SKU added); 100 cm2 average becomes parity/loss; 'maximum holds at every footprint' is deleted; 350 W/cm2 margin becomes ~17-20 K (P-grade ~88 C); GPU-class average becomes parity; flux rule never uses L 4 mm.",
+   "Cost is re-based on the verifier basis (silver, furnaces, dies, yield): draft US$209, Rev A US$165, C2 US$144, against a like-sized US$126 incumbent. Ramp cost is US$370-430. The 1M/yr comparison is removed. Facility value is restated (+5.5 K at P50, US$0.54-1.09 M/K, capture conditions stated). The GPU-class value case is shown to fail.",
+   "IP: the kerf design-around is stated as weak; family lists are corrected (including '906, '513, the 2012 family and TW I606224); the prior-art memo is corrected (US 5,088,005 is Ciaccio/Sundstrand); the FTO opinion moves to M4, before any US demo; US launch no earlier than 10 Sep 2028; US prototype exposure is flagged; filings 2-4 become defensive publications or trade secret.",
+   "Manufacturing: inspection re-scoped (dry He leak first, per-strip controls, lot over-proof and CT, IR before fly-cut, vacuum-bake dry, N2 ship state); kerf process defined; base blank >= 3.5-4 mm; filler routes resized; load-path table completed with tie bonded fraction 0.70.",
+   "New top-level sections and views: rack/CDU dP stack and contingent system value; controls and telemetry (fin-field dP taps, BMC drift, Redfish); serviceability; safety FMEA (leak FIT target, LM Al-exclusion, HV per IEC 62477-1, negative-pressure option); mechanical integration; transient model; coolant chemistry matrix E5c; sustainability (return temperature, heat reuse, water, CO2e, PFAS-free BOM); compliance matrix with Section 232 and landed cost by site; scale-up and supply chain; competitor table beyond CoolIT; competitor response; P&L; power electronics as the second application; test-infrastructure matrix; traceability; organisation with RACI-style roles and gate board; options analysis; 20 anticipated objections.",
+   "Statistics are pre-registered: a one-sample test against the published 34.4 K (5 plates x 3 re-mounts). Welch against CoolIT's n = 3 cannot resolve margins below 2.84 K. Worst-of-N is compared with worst-of-N.",
+   "Budget completed to US$8.4-10.7 M for 12 months with contingency (18 FTE, 40 kW rig, five TTVs, Build-B dies moved forward). Programme risk is now deducted from the probabilities (decisive PCM 0.43; paste average 0.58)."
+  ],
+  "remaining_concessions": [
+   "Per-plate factory cost: US$165 vs ~US$126 like-sized (+31 %), or +14 % with C2. This is irreducible: P(C2 <= incumbent) = 0.08.",
+   "Average at a 100 cm2 footprint with paste: 34.7 vs 34.4 K, i.e. parity or a slight loss (P 0.44). The paste maximum at 100 cm2 is not robust (P 0.57). Only the filtration-gated R+ grade or LM wins there.",
+   "Average R at low flow: lost by 17 % at 0.25 LPM/kW, parity at 0.5 LPM/kW (isothermal-cell caloric penalty). The maximum still wins at every flow.",
+   "CoolIT 4 kW point: the drop-in core loses on PCM (0.0095) and paste (0.0107). Only LM or the dedicated PRISM-S4 SKU wins, and not like-for-like until a head-to-head test.",
+   "Not fully drop-in: needs the supplied tray filter cartridge, keyed orifices in mixed racks, and <= 33 um filtration for R+/P.",
+   "Fouling exclusion life at equal filtration: ~7 y vs ~15 y for a 0.2 mm gap. Only a dose-qualified claim is possible at launch.",
+   "No field record at launch.",
+   "The system-level dP value is contingent: 6-18 % of loop head in homogeneous racks, zero in mixed racks.",
+   "GPU-class uniform lids: average at parity only, and per-plate cost higher (lean PRISM-G US$129-148 vs ~US$110). Not a value case.",
+   "350 W/cm2 over whole dies: no drop-in grade reaches 85 C (R ~98 C, P ~88 C, with LM).",
+   "The thin base gives up to 1.0 K larger excursion within 100 ms under power pulses, although the absolute peak stays lower.",
+   "US sales are IP-gated until about Sep 2028, or later if '330 PTA applies, unless the opinion clears earlier. Taiwan manufacture is blocked until TW I606224 is charted."
+  ],
+  "decisions": [
+   "D1 claim scope: adopt the scoped like-for-like claim (average, maximum, uniformity, capacity, headroom; maximum at every OCP flow; dP below any credible reconstruction; lower height, parity-or-better mass, parity cost per kW; costs more per plate, ships with tray filter, no field record). Release it only after G2. Do not claim the 4 kW point, the low-flow average or the 100 cm2 average.",
+   "D2 channel: build-and-supply through a non-Group-A contract manufacturer to hyperscaler ASIC programmes first. Approach NVIDIA through its thermal engineering team, with an MCL co-design path. A licence-only route does not close.",
+   "D3 budget: fund in tranches, US$2.3 M to G1 (M3), then full scope at US$8.4-10.7 M for 12 months (US$11.4-14.5 M to M18). The lean alternative is ~US$8.3 M.",
+   "D4 Rev A stack: the Rev A vacuum-BAg baseline (US$165). Decide the C2 Cu-Sn TLP belt route (US$144) at G1 on E1 results. Retire the draft geometry.",
+   "D5 US launch and site: no US offers, sales or evaluation units before the FTO opinion at M4; no US sale before 10 Sep 2028 unless the opinion clears earlier. The build site is set by a CBP binding ruling on Section 232: Vietnam or Mexico CM first; a US second source if loose plates draw 25-50 % duty; Taiwan only after TW I606224 is charted.",
+   "D6 filtration: make the >= 150 cm2, 33 um absolute tray cartridge mandatory and supplied. Market the plate as 'mechanically drop-in, ships with tray filter kit'.",
+   "D7 hedges: US$0.4-0.6 M for an MCL-insert (T3B) design study with Jentech or AVC/Auras, plus a two-phase watching brief with defined re-entry triggers. MCL pivot decision at G2."
+  ],
+  "top_risks": [
+   "R1 tie braze and per-strip detection: at a 0.8 mm base, one unbonded land strip collapses at 1.6-2.3 MPa. The base is gated on E1 proving 2.2 um bulge detection; the fallback is a 1.0 mm base (+0.7 K).",
+   "R8 IP: the Split-Flow 2008 family is live to about Sep 2028 (up to about Jun 2031 with '330 PTA), the kerf design-around is weak, TW I606224 blocks Taiwan manufacture, and Microfabrica's claim is addressed only by the stepped-grate redesign pending CFD.",
+   "R12 market: micro-channel lids and MLCP may displace lidded plates at NVIDIA from 2027, and AVC already ships TPU v8 and Trainium3 liquid cooling, so the hyperscaler beachhead is contested and volume slips to 2029.",
+   "R5/R4 benchmark: the OCP spec's recommended TIM and case definition are unread, and the footprint is ambiguous. If CoolIT's heaters were ~100 cm2 the paste average is at parity. The CoolIT-like reconstruction misses CoolIT's 4 kW datum by >= 37 %.",
+   "R9/R13 cost and tariffs: cost could exceed US$175, silver exposure is US$13-24 per plate, and Section 232 could add 0-50 % of customs value to loose plates imported into the US (CBP ruling needed).",
+   "Programme: P(decisive PCM result at M12) is about 0.43; the dominant failure mode is a 1-3 month slip at E1 or TTV commissioning.",
+   "R3 meter discharge: single-cell CFD must confirm fin-top velocity <= 0.5 m/s and the jet-on-lip geometry before the G1 freeze."
+  ],
+  "word_count": 13392
+ }
+}

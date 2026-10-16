@@ -1,0 +1,6 @@
+parameter,value (mm unless stated)
+n,15
+pitch,7.7143
+field,108.0
+x,-54.0 -46.2857 -38.5714 -30.8571 -23.1429 -15.4286 -7.7143 0.0 7.7143 15.4286 23.1429 30.8571 38.5714 46.2857 54.0
+kind,edge_out in out in out in out in out in out in out in edge_out

@@ -1,0 +1,244 @@
+{
+ "force_budget": [
+  {
+   "case": "TTV-A, 4 x 54 x 54 AlN, PCM 25 psi",
+   "area_cm2": 116.64,
+   "F_N": 2011,
+   "per_screw_N": 251.3,
+   "p_MPa": 0.172,
+   "psi": 25.0
+  },
+  {
+   "case": "TTV-100 hard mode, 4 x 50 x 50, PCM 25 psi",
+   "area_cm2": 100.0,
+   "F_N": 1724,
+   "per_screw_N": 215.5,
+   "p_MPa": 0.172,
+   "psi": 25.0
+  },
+  {
+   "case": "lidded 100 cm2 package, PCM/paste 4 psi",
+   "area_cm2": 100.0,
+   "F_N": 276,
+   "per_screw_N": 34.5,
+   "p_MPa": 0.028,
+   "psi": 4.0
+  },
+  {
+   "case": "lidded 100 cm2 package, 12 psi",
+   "area_cm2": 100.0,
+   "F_N": 827,
+   "per_screw_N": 103.4,
+   "p_MPa": 0.083,
+   "psi": 12.0
+  },
+  {
+   "case": "lidded 100 cm2, 60 N kit",
+   "area_cm2": 100.0,
+   "F_N": 480,
+   "per_screw_N": 60.0,
+   "p_MPa": 0.048,
+   "psi": 7.0
+  },
+  {
+   "case": "lidded 100 cm2, 110 N kit",
+   "area_cm2": 100.0,
+   "F_N": 880,
+   "per_screw_N": 110.0,
+   "p_MPa": 0.088,
+   "psi": 12.8
+  },
+  {
+   "case": "bare-die Rubin 16.6 cm2 die block, 60 N kit",
+   "area_cm2": 16.6,
+   "F_N": 480,
+   "per_screw_N": 60.0,
+   "p_MPa": 0.289,
+   "psi": 41.9
+  },
+  {
+   "case": "bare-die 4-die 33 cm2, 60 N kit",
+   "area_cm2": 33.0,
+   "F_N": 480,
+   "per_screw_N": 60.0,
+   "p_MPa": 0.145,
+   "psi": 21.1
+  }
+ ],
+ "ear_stress_MPa_per_N": 0.7778,
+ "screw": {
+  "thread": "M3x0.5-6g, 6.0 long",
+  "shoulder_d": 4.0,
+  "shoulder_fit": "h8",
+  "Ls_TTV": 45.94,
+  "Ls_product": 40.4,
+  "head": "dia 7.0 x 3.0, hex socket 2.5",
+  "stop_torque_Nm": 0.4,
+  "stop_preload_N": 667,
+  "tension_TTV_N": 918,
+  "stress_TTV_MPa": 183,
+  "euler_N": 11753,
+  "z_stop_TTV": -2.15,
+  "z_stop_product": -2.3,
+  "ear_gap_TTV": 0.15,
+  "ear_gap_product": 0.4
+ },
+ "frame": {
+  "TTV": {
+   "lands_z": 13.1,
+   "body_top": 29.1,
+   "pocket_floor": 19.1,
+   "pocket_d": 13.2,
+   "material": "6061-T6 (T1) / 17-4PH H1025 (T2 LM)"
+  },
+  "product": {
+   "lands_z": 13.1,
+   "lug_top": 15.1,
+   "t": 2.0,
+   "material": "301 1/2H stainless, formed"
+  },
+  "lug_stress_MPa": 2.5,
+  "land_bearing_TTV_MPa": 3.35
+ },
+ "clamp_bow_um": {
+  "TTV 2.0 kN": {
+   "two_side": 22.6,
+   "four_side": 6.7
+  },
+  "TTV-100 1.72 kN": {
+   "two_side": 19.4,
+   "four_side": 5.7
+  },
+  "product 480 N": {
+   "two_side": 5.4,
+   "four_side": 1.6
+  },
+  "product 880 N": {
+   "two_side": 9.9,
+   "four_side": 2.9
+  }
+ },
+ "thermal_bow_um": {
+  "benchmark_PCM_108": 18.7,
+  "tile_54": 4.7,
+  "Tcase85_108": 31.7,
+  "sign": "die face convex, corners lift"
+ },
+ "net_bow_um": {
+  "TTV_y": -4.0,
+  "product480_y": 13.3,
+  "x_thermal_only": 18.7
+ },
+ "expansion": {
+  "AlN tile TTV": {
+   "alpha_ppm": 4.5,
+   "slip_um": 87.8,
+   "half_um": 43.9,
+   "strain_25um": 1.75
+  },
+  "Si bare die": {
+   "alpha_ppm": 2.6,
+   "slip_um": 101.1,
+   "half_um": 50.5,
+   "strain_25um": 2.02
+  },
+  "Cu-block TTV-100": {
+   "alpha_ppm": 17.0,
+   "slip_um": 0.0,
+   "half_um": 0.0,
+   "strain_25um": 0.0
+  },
+  "organic substrate (CoWoS-L eff.)": {
+   "alpha_ppm": 12.0,
+   "slip_um": 35.1,
+   "half_um": 17.6,
+   "strain_25um": 0.7
+  },
+  "Cu lid on package": {
+   "alpha_ppm": 17.0,
+   "slip_um": 0.0,
+   "half_um": 0.0,
+   "strain_25um": 0.0
+  },
+  "6061 carrier": {
+   "alpha_ppm": 23.6,
+   "slip_um": -46.3,
+   "half_um": -23.2,
+   "strain_25um": 0.93
+  },
+  "17-4PH frame": {
+   "alpha_ppm": 10.8,
+   "slip_um": 43.5,
+   "half_um": 21.8,
+   "strain_25um": 0.87
+  }
+ },
+ "shock": {
+  "m_fru_kg": 1.325,
+  "F_50g_N": 650,
+  "F_30g_N": 390,
+  "ear_bearing_50g_MPa": 13.5
+ },
+ "mass_g": {
+  "core (params-core)": 282.0,
+  "grate GRT-L + GRT-W": 201.0,
+  "plenum PLN-C + 2 PLN-F": 161.6,
+  "separator 1.80 Cu": 173.7,
+  "cap (allocation to the cap lane, arch 5.1)": 250.0,
+  "stubs 2 x 316L 20 ID x 1.0 x 30": 31.5,
+  "guard screen + diffuser": 10.0,
+  "8 x CSS-15P screws": 42.5,
+  "8 x SPR-60 springs": 18.2,
+  "8 x SLV sleeves + washers + e-clips": 19.7,
+  "backplate 0.8 mm 301 118 sq, dia 60 hole": 70.1,
+  "8 x standoffs STD-8": 17.5,
+  "total_no_frame": 1277.8,
+  "frame_LF15P": 85.0,
+  "total_with_frame": 1362.8
+ },
+ "prism_g": {
+  "body": [
+   127.0,
+   137.0
+  ],
+  "mass_plate_cu_g": 1148,
+  "mass_316L_sep_g": 1030,
+  "ears": [
+   [
+    -40,
+    -72
+   ],
+   [
+    40,
+    -72
+   ],
+   [
+    -40,
+    72
+   ],
+   [
+    40,
+    72
+   ],
+   [
+    -68,
+    -45
+   ],
+   [
+    -68,
+    45
+   ],
+   [
+    68,
+    -45
+   ],
+   [
+    68,
+    45
+   ]
+  ],
+  "height_at_bar": 19.1,
+  "ports": "2 x dia 10 horizontal 316L stubs, +y end, axis z 12.0, OD 12",
+  "frame_lands": "y = +-(62.5..65.5) over the end frames"
+ }
+}

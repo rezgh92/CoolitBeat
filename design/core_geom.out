@@ -1,0 +1,71 @@
+## 1. Layout
+lines x (mm): -54.000, -46.286, -38.571, -30.857, -23.143, -15.429, -7.714, +0.000, +7.714, +15.429, +23.143, +30.857, +38.571, +46.286, +54.000
+interior kerfs (13): x = -46.286 .. +46.286 at 7.7143 pitch, w 0.3 +0.05/-0
+edge channels: x = +/-54.00 .. +/-54.35 (0.35 wide, +0.10/-0), outlets (half line flow)
+fins: 360 x 0.15 mm at 0.3 pitch, length 108.0 (x = +/-54.0), height 2.0; centres y = -53.850 .. +53.850
+segment clear lengths: interior 7.414 mm (x14 per gap incl. edges: edge 7.564); cell L = pitch 7.714
+outline: body 125.0 sq; rim outer 121.4 sq (lap face); land 1.8 wide at z 1.5; pocket 108.7 x 108.3; rim top width x 6.35 / y 6.55; border 8.50
+
+## 2. Blank, pocket and skive volume balance
+skive consumes d = h*t/p = 1.00 mm; pocket depth 1.00; base during skive 2.00 (verify-mfg floor 1.5-2.0); machined blank 4.00 (raw plate 4.2-4.5); post-braze fly-cut removes 1.20 mm
+  skive stroke force, uncut chip 0.05 x 108.3 mm, kc 1.2-1.8 GPa: 6.5-9.7 kN
+  skive stroke force, uncut chip 0.08 x 108.3 mm, kc 1.2-1.8 GPa: 10.4-15.6 kN
+  aspect ratio h/gap = 13.3 (skiving range 10-25); h/t = 13.3
+  CTX-class machine limits (web): Cu fin >= 0.08 mm, fin centre distance >= 0.16 mm, height 1-180 mm -> 0.15/0.30/2.0 inside
+
+## 3. Kerf gang saw
+  saw D 16: arc run-out beyond full-depth point 5.21 mm (field edge to rim wall: 0.15; full-depth zone |y| <= 48.8)
+  saw D 20: arc run-out beyond full-depth point 5.90 mm (field edge to rim wall: 0.15; full-depth zone |y| <= 48.1)
+  saw D 25: arc run-out beyond full-depth point 6.66 mm (field edge to rim wall: 0.15; full-depth zone |y| <= 47.3)
+  saw D 32: arc run-out beyond full-depth point 7.61 mm (field edge to rim wall: 0.15; full-depth zone |y| <= 46.4)
+  D 20 ramp zones: 2 x 5.90 mm = 10.9 % of field length; mean kerf depth in ramp 68 %
+  thermal cost of ramps: kerf credit 0.4 K (arch 3.2) x (1-0.68) x 0.109 = +0.014 K average; local <= +0.4 K in the last ~2 mm (also rim-cooled)
+  Vc 150 m/min -> n 2387 rpm; fz 0.003 -> vf 286 mm/min; tooth force kc1.5GPa x fz x 0.28 = 1.26 N (fin lateral capacity 1.4-5 N cold-worked; wax-potted fins are backed)
+  Vc 150 m/min -> n 2387 rpm; fz 0.005 -> vf 477 mm/min; tooth force kc1.5GPa x fz x 0.28 = 2.10 N (fin lateral capacity 1.4-5 N cold-worked; wax-potted fins are backed)
+  Vc 250 m/min -> n 3979 rpm; fz 0.003 -> vf 477 mm/min; tooth force kc1.5GPa x fz x 0.28 = 1.26 N (fin lateral capacity 1.4-5 N cold-worked; wax-potted fins are backed)
+  Vc 250 m/min -> n 3979 rpm; fz 0.005 -> vf 796 mm/min; tooth force kc1.5GPa x fz x 0.28 = 2.10 N (fin lateral capacity 1.4-5 N cold-worked; wax-potted fins are backed)
+  kerf width = blade 0.28 + side clearance/runout 0.02-0.06 -> 0.30-0.34 (spec 0.30 +0.05/-0)
+  kerf depth 1.925 +/-0.025 from the planed tip plane -> floor 0.05-0.10 above the fin root; never into the base
+  burr/chip sites: 13 kerfs x 360 x 2 + 2 trims x 360 = 10080
+  kerf as a vertical duct (half the line flow descends ~half-depth): mean v 0.66 m/s interior; edge channel 0.28 m/s (cap: fin entry <= 0.5 m/s)
+  fin gap bulk velocity 18 LPM / (360 gaps x 14 segments x 0.15 x 2.0): 0.198 m/s (architecture 0.20)
+
+## 4. Tip plane, die face and tolerance stack
+  fly-cut on tied fins, base 0.8: foundation k 29250 N/mm3, char. length 0.66 mm, 50 N thrust -> 0.49 um
+  fly-cut on tied fins, base 1.0: foundation k 29250 N/mm3, char. length 0.78 mm, 50 N thrust -> 0.35 um
+  base thickness, open-loop: RSS +/-0.074, worst +/-0.130 (spec 0.80 +0.10/-0 -> target 0.85 +/-0.05)
+  base thickness, per-plate UT-mapped final pass: RSS +/-0.029, worst +/-0.055 (spec 0.80 +0.10/-0 -> target 0.85 +/-0.05)
+  machining layer 30 um at 100 MPa residual: bow 14 um over 108 mm (verify-mfg) -> diamond finish pass <= 10 um deep: ~5 um
+  tip plane: planed along the fins with the rim top in the same pass -> coplanar by construction; spec <= 0.020 (route A/C), <= 0.010 target (route B)
+
+## 5. Stresses (allowable 40 MPa post-braze, architecture 5.2)
+  fin tie at 3.1 MPa, bonded fraction 0.70: 8.9 MPa (22 local Kt 2.5); at 4.5 MPa 12.9
+  fin tie at 3.1 MPa, bonded fraction 0.56: 11.1 MPa (28 local Kt 2.5); at 4.5 MPa 16.1
+  base strip between fins (0.15 span, 0.8 base) at 3.1 MPa: 0.054 MPa
+  base over interior kerf 0.30 mm span, 0.8 base: 0.22 MPa
+  base over edge channel 0.35 mm span, 0.8 base: 0.30 MPa
+  base over window + masking (fins continuous below) 1.80 mm span, 0.8 base: 7.85 MPa
+  defect case (one unbonded land strip, span 7.41), hinge 0.80: proof 67-100 MPa; collapse 1.86 MPa (E1 gate on per-strip detection)
+  defect case (one unbonded land strip, span 7.41), hinge 0.75: proof 76-114 MPa; collapse 1.64 MPa (E1 gate on per-strip detection)
+  defect case (one unbonded land strip, span 7.41), hinge 0.70: proof 87-130 MPa; collapse 1.43 MPa (E1 gate on per-strip detection)
+  -> kerf stub >= 0.05 mm guarantees hinge >= base: no kerf overshoot into the 0.8 mm base
+  clamp 300 N via load frame on the stack; if 1/8 reached an ear as a cantilever at the hole (3.5 mm arm): 29 MPa -> ears locate only; frame bears on the cap flats
+  clamp 1000 N via load frame on the stack; if 1/8 reached an ear as a cantilever at the hole (3.5 mm arm): 97 MPa -> ears locate only; frame bears on the cap flats
+  clamp 2000 N via load frame on the stack; if 1/8 reached an ear as a cantilever at the hole (3.5 mm arm): 194 MPa -> ears locate only; frame bears on the cap flats
+  shock 50 g x 1.27 kg = 623 N; in-plane on 8 ears 4.3 MPa; z-lift over clamp (300 N min) 40 N per ear at <= 2 mm stop arm: 18 MPa (<= 40)
+  lap seam load: cavity pressure is carried by the tied stack, skirt hoop sees end-frame leakage only -> seam is a leak barrier (verify-mfg SF 4.5-6.5)
+  rim top braze land (grate margin): x 6.35 / y 6.55 wide, filler masked 0.3 from the pocket edge -> 5.85 wetted
+
+## 6. Mass, copper, thermal consequences
+  base: 0.112 kg
+  rim: 0.053 kg
+  land_step: 0.006 kg
+  fins: 0.101 kg
+  ears: 0.008 kg
+  tap_bosses: 0.003 kg
+  pin_holes: -0.000 kg
+  core finished mass 0.282 kg (architecture base+fins line 0.251; plate 1.24 -> 1.27 kg, limit 1.4)
+  copper buy: 141 sq x 4.3 raw = 0.76 kg (ears in the blank); 127 sq = 0.62 kg if ears are not needed; architecture line 0.456 kg -> +0.31 kg buy, ~+US$1.8/plate net of scrap
+  fin length 108.0 = field: 0 K; fin count 360 = architecture: 0 K; kerf ramps +0.01 K avg; kerf stub 0.05-0.10: ~0 K (cell2d kerf-floor h credit is small, arch 3.2)
+  base 0.8 vs 1.0 fallback: 31.0/38.7 -> 31.7/39.2 K paste (final_thermal.out), +0.7 K
+  transient near-die heat capacity: 0.8 base 0.28 J/K/cm2 base alone (+ fins); architecture 0.28 J/K/cm2 with fins

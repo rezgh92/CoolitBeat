@@ -1,0 +1,20 @@
+{
+ "part": "cap",
+ "valid": true,
+ "solids": 1,
+ "volume_mm3": 26131.7,
+ "mass_g": 233.6,
+ "bbox": [
+  -61.7,
+  -61.7,
+  1.5,
+  61.7,
+  61.7,
+  20.8
+ ],
+ "stl": "/home/user/Rez/docs/cooling/cad/out/cap.stl",
+ "step": "/home/user/Rez/docs/cooling/cad/out/cap.step",
+ "step_MB": 0.7,
+ "step_xz_MB": 0.08,
+ "seconds": 1.3
+}

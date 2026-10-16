@@ -1,0 +1,139 @@
+# Advanced-manufacturing lens: scoping runs (15 kW, 18 LPM PG25, 45 C, 117 cm2 unless stated)
+
+## 0. Validation against the project model
+model HMMC-R PCM: avg 28.05 max 31.05 dP 5.32 kPa; this script: avg 28.05 max 31.05 dP 5.72 kPa (= model + 0.4 kPa clean screen)
+
+## 1. Fin-conduction ceiling at a fixed channel gap (straight plate fins, any process, infinite height)
+| gap mm | h (4 mm cell) kW/m2K | ceiling h_eff Cu 390 | opt. fin t mm | ceiling ECAM 370 | ceiling L-PBF 340 | ceiling Cu-diamond fins 600 (not makeable) | achieved by skived core |
+|---:|---:|---:|---:|---:|---:|---:|---|
+| 0.10 | 19.8 | 207 | 0.09 | 202 | 194 | 254 | 187 (P core 0.10/0.10x1.5) |
+| 0.15 | 13.2 | 138 | 0.14 | 134 | 129 | 169 | 127 (R core 0.15/0.10x2.0); 135 at H 3 mm |
+| 0.20 | 9.9 | 104 | 0.18 | 101 | 97 | 127 | 87-98 |
+| 0.40 | 5.3 | 53 | 0.36 | 52 | 50 | 66 | - |
+
+Reading: at the 0.15 mm fouling floor no copper plate-fin geometry exceeds ~138 kW/m2K; the skived R core is at 92 % of it (98 % at 3 mm fins). Resolution buys nothing once the gap is fixed by filtration.
+
+## 2. Variants at the benchmark point
+| variant | h_eff kW/m2K | caloric | TIM | base | conv | avg dT K | max dT K | R'' cm2K/W | dP kPa (incl. screen) | pump W | Q cap kW | note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| CoolIT-like skived split-flow, paste (calibrated reconstruction) | 101 | 6.3 | 9.0 | 6.6 | 12.6 | **34.5** | 44.3 | 0.269 | 24.6 | 7.4 | 12.7 | measured 34.4 / 44.2 |
+| A. Chassis, skived R core 0.15/0.10x2.0, same paste | 127 | 7.6 | 9.0 | 3.3 | 10.1 | **30.0** | 35.0 | 0.234 | 5.7 | 1.7 | 18.4 | like-for-like |
+| A. Chassis, skived R core, PCM [Tier 1, design of record] | 127 | 7.6 | 7.1 | 3.3 | 10.1 | **28.0** | 31.1 | 0.219 | 5.7 | 1.7 | 21.6 | 50 um abs screen |
+| A. Chassis, skived R core, liquid metal [Tier 2] | 127 | 7.6 | 1.9 | 3.3 | 10.1 | **22.9** | 25.0 | 0.179 | 5.7 | 1.7 | 29.7 |  |
+| A. Chassis, skived P core 0.10/0.10x1.5, PCM | 187 | 8.2 | 7.1 | 3.3 | 6.8 | **25.4** | 28.4 | 0.198 | 5.8 | 1.7 | 25.2 | <= 33 um abs loops |
+| A. Chassis, skived P core, liquid metal | 187 | 8.2 | 1.9 | 3.3 | 6.8 | **20.2** | 22.3 | 0.158 | 5.8 | 1.7 | 37.0 | <= 33 um abs loops |
+| B1. ECAM fins, same 0.15/0.10x2.0, k 370, PCM | 125 | 7.6 | 7.1 | 3.3 | 10.3 | **28.2** | 31.2 | 0.220 | 5.7 | 1.7 | 21.4 | parity check |
+| B2. ECAM fins 0.15/0.12x3.0 (near ceiling), PCM | 132 | 7.7 | 7.1 | 3.3 | 9.7 | **27.7** | 30.7 | 0.216 | 5.7 | 1.7 | 22.0 | +1 mm height |
+| B3. ECAM offset-strip fins, 1 mm strips (Nu x1.13, area x0.85), PCM | 116 | 7.5 | 7.1 | 3.3 | 11.1 | **28.9** | 31.9 | 0.226 | 5.9 | 1.8 | 20.7 | x* 0.08 -> 0.02 |
+| B4. ECAM staggered micro-pins d 0.15 / gap 0.15 / H 2.0 (correlation estimate) | 106 | - | - | - | 12.1 | ~30.1 | - | - | - | - | - | h 20.6 kW/m2K, eta 0.41: pins lose to plates |
+| B5. ECAM fins 0.10/0.10x1.5 (P geometry), k 370, LM | 184 | 8.1 | 1.9 | 3.3 | 7.0 | **20.3** | 22.4 | 0.159 | 5.8 | 1.7 | 36.7 | <= 33 um abs loops |
+| C1. L-PBF Cu straight fins at process limit 0.40/0.25x3.0, Ra 10-20 um, PCM | 40 | 6.7 | 7.1 | 3.3 | 31.9 | **48.9** | 51.9 | 0.382 | 5.7 | 1.7 | 10.8 | fouling-immune |
+| C2. L-PBF Cu gyroid-equivalent (0.45 pore / 0.25 wall, Nu x1.8, f x3.9), PCM | 54 | 6.9 | 7.1 | 3.3 | 23.6 | **40.8** | 43.8 | 0.319 | 5.7 | 1.7 | 13.3 | TPMS literature mult. |
+| C3. L-PBF gyroid monolith, split-flow 54 mm (no manifold), PCM | 55 | 6.3 | 7.1 | 3.3 | 23.5 | **40.2** | 48.0 | 0.313 | 16.7 | 5.0 | 11.5 | what 'print the whole plate' gives |
+| C4. Binder-jet Cu fins+base 0.50/0.40x3.0, k 328, PCM | 28 | 6.6 | 7.1 | 3.9 | 45.1 | **62.6** | 65.6 | 0.489 | 5.7 | 1.7 | 8.1 | porosity -> leak risk |
+| D1. R core + 1.0 mm Cu-diamond base (k 600), LM | 127 | 7.6 | 1.9 | 2.1 | 10.1 | **21.8** | 23.9 | 0.170 | 5.7 | 1.7 | 32.1 | vs A Tier 2 |
+| D2. R core + 0.5 mm CVD diamond insert + 0.5 mm Cu, braze 0.005, LM | 127 | 7.6 | 1.9 | 2.7 | 10.1 | **22.3** | 24.4 | 0.174 | 5.7 | 1.7 | 30.8 | full-field (cost-prohibitive) |
+| D3. Vapor-chamber base (evaporator+condenser 0.08 cm2K/W, 0.6 mm walls), LM | 127 | 7.6 | 1.9 | 12.2 | 10.1 | **31.9** | 34.0 | 0.249 | 5.7 | 1.7 | 18.7 | rejected |
+| X. ECAM 0.10/0.10x1.5 fins on 1.0 mm Cu-diamond (30 um Cu skins), LM | 184 | 8.1 | 1.9 | 2.3 | 7.0 | **19.4** | 21.5 | 0.151 | 5.8 | 1.7 | 39.8 | <= 33 um loops; Tier 3 / >30 kW |
+| X-R. ECAM 0.15/0.10x2.0 fins on Cu-diamond, LM | 125 | 7.6 | 1.9 | 2.3 | 10.3 | **22.1** | 24.2 | 0.173 | 5.7 | 1.7 | 31.3 | drop-in filtration |
+
+## 3. Other operating points, design of record (A, R core, PCM) and Tier 2
+| case | flow LPM | avg dT | max dT | dP kPa incl. screen | pump W |
+|---|---:|---:|---:|---:|---:|
+| 0.75 LPM/kW (Nvidia 45/65 C envelope) PCM / LM | 11.2 | 33.8 / 28.7 | 36.8 / 30.8 | 2.3 | 0.4 |
+| 1.0 LPM/kW PCM / LM | 15.0 | 29.9 / 24.8 | 32.9 / 26.9 | 4.0 | 1.0 |
+| 1.2 LPM/kW benchmark PCM / LM | 18.0 | 28.0 / 22.9 | 31.1 / 25.0 | 5.7 | 1.7 |
+| 2x flow, 36 LPM PCM / LM | 36.0 | 23.6 / 18.5 | 26.7 / 20.6 | 22.4 | 13.4 |
+| 2x flow with 20 mm ports | 36.0 | 23.6 | 26.7 | 16.3 | 9.8 |
+| equal pump power to CoolIT-like (7.4 W) | 29.4 | 24.6 / 19.5 | 27.6 / 21.6 | 15.0 | 7.4 |
+| flow to match CoolIT 34.4 K avg (PCM) | 10.9 | 34.4 | 37.4 | 2.1 | 0.39 |
+
+At 50 C inlet, 15 kW, PCM: Tcase,max 81.1 C
+
+## 4. Monte Carlo P10 / P50 / P90 (20k samples; Q cap on 1.5k)
+| variant | avg dT K | max dT K | dP kPa | Q cap kW |
+|---|---|---|---|---|
+| A Tier 1 R core PCM | 25.7 / 28.1 / 31.4 | 28.7 / 31.2 / 34.5 | 4.5 / 5.7 / 7.2 | 18.3 / 21.2 / 24.3 |
+| A Tier 2 R core LM | 21.7 / 23.0 / 24.8 | 23.8 / 25.2 / 27.0 | 4.5 / 5.7 / 7.2 | 26.8 / 29.8 / 32.9 |
+| A P core LM (<= 33 um) | 19.2 / 20.3 / 21.9 | 21.3 / 22.5 / 24.1 | 4.6 / 5.8 / 7.4 | 32.9 / 37.3 / 41.5 |
+| X ECAM P-fins on Cu-diamond LM | 18.4 / 19.4 / 21.0 | 20.4 / 21.6 / 23.2 | 4.6 / 5.8 / 7.4 | 35.1 / 40.2 / 44.9 |
+
+## 5. Real 2027-28 package: 4 reticle dies 26x33 mm at 350 W/cm2 + 16 HBM, zoned, hottest-die case-to-inlet
+| die-zone core / base | h_eff | PCM 0.055 | LM 0.015 | Tcase,max LM at 45 C | indium-soldered micro-channel lid, die top (In R'' by lid CTE) |
+|---|---:|---:|---:|---:|---:|
+| CoolIT-like split-flow (heat-map run, not the fit) | 101 | 88.6 (paste 0.05) | ~76 | ~121 C | - |
+| A: skived R core, 1 mm Cu | 127 | 62.3 | 48.3 | 93 C | 54.2 (99 C), In 0.032 |
+| A: skived P core, 1 mm Cu (<= 33 um) | 187 | 53.4 | 39.4 | 84 C | 45.4 (90 C), In 0.032 |
+| ECAM 0.15 fins near ceiling (B2), 1 mm Cu | 132 | 61.2 | 47.2 | 92 C | 53.1 (98 C), In 0.032 |
+| X-R: ECAM 0.15 fins on 1 mm Cu-diamond | 125 | 60.2 | 46.2 | 91 C | 44.8 (90 C), In 0.011 |
+| X: ECAM 0.10 fins on 1 mm Cu-diamond (<= 33 um) | 184 | 51.2 | 37.2 | 82 C | 35.8 (81 C), In 0.011 |
+| P core on 1 mm CuW (CTE-matched, conventional) | 187 | 62.9 | 48.9 | 94 C | 47.8 (93 C), In 0.012 |
+| P core on 1 mm MoCu (CTE-matched, conventional) | 187 | 60.4 | 46.4 | 91 C | 45.3 (90 C), In 0.012 |
+| P core + 0.5 mm CVD diamond insert + 0.5 mm Cu (braze 0.005) | 187 | 51.9 | 37.9 | 83 C | 43.8 (89 C), In 0.032 |
+| Vapor-chamber base (0.08 cm2K/W), P core | 187 | 77.8 | 63.8 | 109 C | 69.8 (115 C), In 0.032 |
+| Reference: bare-die LM on 0.8 mm Cu pedestal (sibling Tier 3A), R / P core | 127 / 187 | - | 46.5 / 37.6 (die top) | 92 / 83 C | - |
+| X as built: segmented 2 mm ECAM strips on Cu-diamond, CuMo cap (<= 33 um) | 172 | - | - | - | 37.1 (82 C), In 0.011 |
+
+Notes: fit valid for 1 mm bases and h_eff 100-350 kW/m2K; base re-based 1-D (die 26x33 mm >> spreading length 1.8-4 mm, so lateral spreading credit is negligible). CVD/VC rows include their interfaces.
+
+## 6. Sub-die hot spot (r = 1.13 mm patch, +650 W/cm2 over the 350 W/cm2 die field), base 1 mm, h_eff 187 kW/m2K, LM TIM 0.015, peak excess above the uniform field (axisymmetric finite volume)
+| base | peak excess K | vs Cu |
+|---|---:|---:|
+| Cu 390 | 27.7 | +0.0 |
+| Cu-diamond 600 | 22.4 | -5.3 |
+| CVD diamond 1500 | 15.8 | -11.9 |
+| CuW 190 | 42.4 | +14.6 |
+
+## 7. GPU-class plates (lidded, model), chassis R core vs CoolIT-like
+| case | CoolIT-like avg/max | R PCM avg/max | R LM avg/max | X (ECAM P on CuDia) LM avg/max | dP CoolIT-like / R |
+|---|---|---|---|---|---|
+| Rubin 2.3 kW, 60 cm2, 1.0 LPM/kW | 16.1 / 23.5 | 18.4 / 20.3 | 16.9 / 18.5 | 16.5 / 18.2 | 2.0 / 0.1 |
+| Rubin 2.3 kW, 60 cm2, 1.2 LPM/kW | 14.8 / 22.2 | 16.0 / 17.9 | 14.4 / 16.1 | 14.0 / 15.6 | 2.5 / 0.2 |
+| Rubin Ultra 3.6 kW, 80 cm2, 1.0 LPM/kW | 17.6 / 25.1 | 19.1 / 21.1 | 17.3 / 19.0 | 16.7 / 18.4 | 3.3 / 0.3 |
+| CoolIT 4 kW point, 25 cm2, 1.5 LPM/kW | 40.0 / 50.7 | 31.0 / 34.4 | 24.6 / 26.8 | 19.9 / 22.2 | 6.2 / 1.0 |
+
+## 8. >30 kW and wafer-scale (1.2 LPM/kW)
+| case | design | avg dT | max dT | dP kPa | Q cap kW |
+|---|---|---:|---:|---:|---:|
+| 30 kW, 150 cm2 (200 W/cm2) | A R core PCM | 38.8 | 42.6 | 22.3 | 27.5 |
+| 30 kW, 150 cm2 (200 W/cm2) | A R core LM | 30.8 | 33.2 | 22.3 | 38.7 |
+| 30 kW, 150 cm2 (200 W/cm2) | X ECAM P on CuDia LM | 24.9 | 27.3 | 21.3 | 51.9 |
+| 25 kW on 117 cm2 (214 W/cm2) | A R core PCM | 40.9 | 44.9 | 15.6 | 21.4 |
+| 25 kW on 117 cm2 (214 W/cm2) | A R core LM | 32.3 | 34.8 | 15.6 | 30.2 |
+| 25 kW on 117 cm2 (214 W/cm2) | X ECAM P on CuDia LM | 26.0 | 28.5 | 15.3 | 40.5 |
+| Wafer-scale 20 kW, 460 cm2 (43 W/cm2) | A R core PCM | 16.5 | 18.5 | 9.8 | 81.4 |
+| Wafer-scale 20 kW, 460 cm2 (43 W/cm2) | A R core LM | 14.8 | 16.5 | 9.8 | 109.4 |
+| Wafer-scale 20 kW, 460 cm2 (43 W/cm2) | X ECAM P on CuDia LM | 14.2 | 15.9 | 9.1 | 145.6 |
+(wafer-scale dP assumes the manifold is tiled with 4 port pairs; the single-port number is not meaningful)
+
+## 9. Unit factory cost by route, US$ per plate (KB-M/KB-L, RFQ needed)
+| line item | 10k/yr | 100k/yr |
+|---|---:|---:|
+| OFE Cu incl. swarf | 26 | 24 |
+| skived fin core | 40 | 24 |
+| 3 etched laminates (grate, plenum, comb) | 36 | 16 |
+| CNC manifold block | 80 | 34 |
+| cover + stubs | 14 | 6 |
+| vacuum diffusion bond | 55 | 32 |
+| screen, plugs, taps | 15 | 8 |
+| lapping, inspection | 12 | 6 |
+| load frame, screws | 20 | 14 |
+| He leak + flow test | 8 | 5 |
+| **A. chassis, skived core, factory cost incl. 12 % yield/overhead** | **343** | **189** |
+| Rubin-class (110 x 120 mm) chassis | 240 | 134 |
+
+| route (replaces) | 10k/yr | 100k/yr | adder vs chassis at 100k | basis |
+|---|---:|---:|---:|---|
+| B. ECAM full fin field 108x108 mm, 12 cm3 (replaces skived core 40/24) | 159 | 37-87 | +13 to +63 | 5 cm3/h & US$60/h today; 8-20 cm3/h & US$45-50/h at maturity (assumed; Fabric8 publishes none) |
+| X. die-zone core: Cu-diamond 1 mm x 40 cm2 + ECAM 0.10 fins 4 cm3 + Cu skins/rim weld | 253-573 | 117-277 | +117 to +277 | Cu-diamond US$4-12/cm2 (10k), 2-6 (100k) [KB-L, no published price] |
+| C. L-PBF Cu manifold block ~105 cm3 incl. supports (replaces CNC block + 2 laminates, 104/45) | 700 | 324 | +279 | 15 cm3/h single-laser at US$75/h; 50 cm3/h multi-laser at US$90/h; powder US$90-100/kg |
+| C'. Binder-jet Cu manifold block + sinter + HIP + machining | 60-120 | 30-60 | -15 to +15 | parity at best; 15-20 % shrink, 93-97 % dense |
+| C''. L-PBF Cu complete plate (fins >= 0.4 mm) | 400-900 | 250-500 | +60 to +310 vs chassis total | manufacturing-cost.md |
+| D. CVD diamond insert 34 cm2 x 0.5 mm (metallised, brazed) | 340-1700 | 300-1000 | +300 to +1000 | US$10/cm2 film to US$1/mm3 (Element Six 2015) |
+| D'. Vapor-chamber base (rejected thermally) | 60-90 | 25-40 | +10 to +25 | air-cooling VC industry |
+| Dev tooling: L-PBF Cu manifold test block / clear SLA manifold | 600-1200 / 80-200 each | - | - | 3-7 days |
+
+## 10. Power-electronics check: SiC module baseplate area 30-80 W/cm2, 50/50 WEG at 65 C, 10 LPM per module
+- forged pin-fin class (coarse 1.0/1.0 x 6 mm, 40 mm path): plate R'' 0.835 cm2K/W (incl. caloric), conv 35.4 K, base 3.8 K, avg dT 41.7 K at 50 W/cm2, dP 3.5 kPa
+- chassis de-rated 0.40/0.30 x 3 mm, 4 mm cells, Cu: plate R'' 0.417 cm2K/W (incl. caloric), conv 14.4 K, base 3.8 K, avg dT 20.9 K at 50 W/cm2, dP 1.8 kPa
+- L-PBF AlSi10Mg conformal 0.5/0.5 x 4 mm, 4 mm cells (k 150): plate R'' 0.691 cm2K/W (incl. caloric), conv 22.0 K, base 10.0 K, avg dT 34.6 K at 50 W/cm2, dP 1.8 kPa

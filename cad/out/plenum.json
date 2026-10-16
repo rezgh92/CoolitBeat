@@ -1,0 +1,20 @@
+{
+ "part": "plenum",
+ "valid": true,
+ "solids": 1,
+ "volume_mm3": 15230.8,
+ "mass_g": 136.2,
+ "bbox": [
+  -60.51,
+  -57.0,
+  4.5,
+  60.51,
+  57.0,
+  10.3
+ ],
+ "stl": "/home/user/Rez/docs/cooling/cad/out/plenum.stl",
+ "step": "/home/user/Rez/docs/cooling/cad/out/plenum.step",
+ "step_MB": 0.9,
+ "step_xz_MB": 0.09,
+ "seconds": 1.2
+}

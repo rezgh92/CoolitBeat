@@ -1,0 +1,80 @@
+# grate_cell.py output (DDD-grate)
+grate 1.7 = web 0.4 + land plate 1.30; recess 2.7 x 0.8 deep -> floor 0.50; lip 0.75; window 1.2
+
+## 1. Jet landing on the lip (18 LPM)
+orifice 0.5 x 1.05 r0.10 = 0.5164 mm2; mean exit u 1.54 m/s; vena contracta (Cc 0.62) 2.48 m/s; stagnation 0.5 rho u^2 1.19-3.09 kPa
+stand-off H 0.80 mm = 1.6 orifice widths (potential core 4-6 w: jet core intact at the lip); spread 0.080 mm per side
+jet footprint on the lip x = 0.670 .. 1.330 (lip x = 0.60 .. 1.35)
+inner margin jet edge -> window edge 0.070 mm; outer margin orifice edge -> recess wall 0.100 mm
+position stack (orifice +/-0.02, pocket/window +/-0.03, registration +/-0.03): RSS +/-0.047, worst +/-0.080
+margins at RSS: inner 0.023, outer 0.053; at worst case: inner -0.010, outer 0.020
+  recess 2.50 / lip 0.65: orifice centre 0.900, inner margin nominal -0.030, at RSS -0.077
+  recess 2.60 / lip 0.70: orifice centre 0.950, inner margin nominal 0.020, at RSS -0.027
+  recess 2.70 / lip 0.75: orifice centre 1.000, inner margin nominal 0.070, at RSS 0.023
+  recess 2.80 / lip 0.80: orifice centre 1.050, inner margin nominal 0.120, at RSS 0.073
+lip wall shear (impinging slot jet, Cf ~0.03-0.05 on the vena-contracta velocity): ~93-154 Pa at 18 LPM, x1.56 at 22.5 LPM (copper, PG25, <= 50 um particles: erosion check is E4)
+
+## 2. Window entry and fin-top velocity
+mean velocity through the 1.2 x 108 window face: 0.331 m/s at 18 LPM, 0.413 at 22.5 LPM (cap 0.5)
+entry-sheet model: all of an orifice's flow crosses the window edge through a section H x pitch (lip-side wall jet), then decays ~20 % over the 0.5 mm floor before the fin tops
+| H mm | floor mm | entry sheet u 18 LPM | fin-top est. 18 LPM | fin-top est. 22.5 LPM | inner jet margin (nominal) |
+|---|---|---|---|---|---|
+| 0.60 | 0.70 | 0.66 | 0.53 | 0.66 | 0.090 |
+| 0.70 | 0.60 | 0.57 | 0.45 | 0.57 | 0.080 |
+| 0.80 | 0.50 | 0.50 | 0.40 | 0.50 | 0.070 |
+| 0.90 | 0.40 | 0.44 | 0.35 | 0.44 | 0.060 |
+| 1.00 | 0.30 | 0.40 | 0.32 | 0.40 | 0.050 |
+kerf fraction of the window face 0.25; fin-tip stubs under the window 0.45 mm each side (open, unbonded)
+the estimate is +/-30 %: H is fixed by the E2 single-cell CFD and water-table PIV (pass: fin-top <= 0.5 m/s at 18 LPM); H range 0.7-0.9 mm, floor 0.4-0.6
+
+## 3. Orifice hydraulics
+Dh 0.666 mm; t/Dh 0.60 (thick-orifice regime); Re 823 at 18 LPM, 412 at 9 LPM, 1647 at 36 LPM
+| Cd | meter dp 18 LPM kPa | plate dp 18 LPM kPa (7.6 at Cd 0.72) | note |
+|---|---|---|---|
+| 0.61 | 3.20 | 8.50 | sharp thin plate, no reattachment |
+| 0.65 | 2.82 | 8.12 | verify-hydraulics low |
+| 0.72 | 2.30 | 7.60 | design, coupon-gated |
+| 0.80 | 1.86 | 7.16 | rounded entry / reattached |
+meter dp is 30 % of plate dp; a +/-10 % Cd error moves plate dp by 0.54 / -0.40 kPa
+velocity cap 2.0 m/s (mean) reached at 23.4 LPM; smallest-step orifices run 6 % above the mean (grate_artwork.out)
+
+## 4. Outlet orifice row (0.5 kPa at the line's nominal 18 LPM flow)
+interior line: 2.571 LPM, 54 holes 1.0 x 1.12 r0.15 = 1.1007 mm2 each (59.4 mm2); u 0.721 m/s; dp 0.504 kPa at 18 LPM, 2.02 at 36 LPM (Cd 0.72; row u target 0.718)
+edge line: 1.286 LPM, 27 holes 0.4 x 2.78 r0.1 = 1.1034 mm2 each (29.8 mm2); u 0.719 m/s; dp 0.501 kPa at 18 LPM, 2.01 at 36 LPM (Cd 0.72; row u target 0.718)
+segment balance with the row lumped per outlet line: grate_outlet_row.out (1.092 at 18 LPM, 1.122 at 27, 1.148 at 36; E2 pass <= 1.15 / 1.20)
+
+## 5. Land pattern, bond fraction, filler
+unbonded per line: window 1.2 + 2 x mask 0.3 = 1.80 mm; bonded land per pitch 5.914 mm
+bond fraction: 0.767 of the pitch, 0.798 of the fin-tip length between kerfs (target >= 0.70; E1 gate: every land strip >= 70 % bonded over any 10 mm -> 0.54 effective)
+capillary-break groove 0.15 x 0.08 at x = +/-0.775 (inside the mask zone 0.60-0.90); bonded width unchanged
+  capillary pressure 2 sigma / h at h 10 um: 180.0 kPa
+  capillary pressure 2 sigma / h at h 25 um: 72.0 kPa
+  capillary pressure 2 sigma / h at h 40 um: 45.0 kPa
+  capillary pressure 2 sigma / h at h 150 um: 12.0 kPa
+  capillary pressure 2 sigma / h at h 300 um: 6.0 kPa
+route A foil 13 um over the land: liquid per mm2 of land 13.0 um; tip plane +/-10 um needs ~20 um equivalent -> 12-15 um foil (verify-manufacturing #9)
+filler volume per plate (both grate interfaces, route A 13 um): tips 58 mm3, web/land 142 mm3 -> ~2.0 g BAg-8 (10.0 g/cm3)
+
+## 6. Grate stresses
+web over the recess (2.7 span, 0.4 t) under meter dp 9.2 kPa at 36 LPM, fixed-edge plate: 0.21 MPa; under proof/burst the web is wet both sides (0 net)
+plenum leg (0.8 wide) stands 3.06-3.86 mm from each line centre, on the full-thickness land; leg tension 29.9 MPa (pkgA_dp_stress)
+outlet side: land strip 2.46 mm from the window edge to the leg face, tie pull 3.1 MPa -> moment 12.4 N mm/mm, sigma 25.8 MPa at t 1.7 (allowable 40; pkgA 28.6 at a 3.25 mm arm)
+inlet side: full-thickness land 1.71 mm from the recess wall to the leg face -> 13.8 MPa; recess floor cantilever 0.75 mm at t 0.50, tied from x 0.90: M 0.31 -> 7.5 MPa
+tie stress per leg pitch at f 0.70: 11.6 MPa mean (verify-manufacturing 8.9 mean / 22 local on the fin-root basis)
+governing defect unchanged: one unbonded land strip spans kerf to kerf (7.41 mm), base lane / E1 (pkgA_dp_stress: 67-99 MPa at proof, 0.8 mm base)
+
+## 7. Process-limit checks (OFE C10100, annealed after braze; piercing in H01/H02 strip)
+| feature | d or w | t | d/t | web between | web/t | laser | perforating die |
+|---|---|---|---|---|---|---|---|
+| inlet orifice 0.5 x 1.05 | 0.50 | 0.40 | 1.25 | 0.88 | 2.20 | ok | ok |
+| outlet hole 1.0 x 1.12 | 1.00 | 0.40 | 2.50 | 0.88 | 2.20 | ok | ok |
+| edge outlet 0.4 x 2.78 | 0.40 | 0.40 | 1.00 | 1.22 | 3.05 | ok | ok |
+| window 1.2 in the 0.5 floor | 1.20 | 0.50 | 2.40 | 3.81 | 7.63 | ok | ok |
+| window 1.2 in 1.3 (outlet) | 1.20 | 1.30 | 0.92 | 3.81 | 2.93 | ok | fine-blank |
+rules: conventional piercing d >= 1.0 t, web >= 1.5-2 t (Mate / Xometry, verify-manufacturing); fine-blank d >= 0.6 t; punch clearance 4-6 % t per side for annealed Cu;
+burr <= 10 % t (shaved <= 0.015 mm); rollover 10-20 % t on the punch-entry side; laser: min feature 0.10 mm, kerf 0.03-0.05, taper <= 1 deg (<= 0.007/side over 0.4), HAZ <= 0.03, dross <= 0.02 (electropolish 3-5 um), position +/-0.01-0.02
+coining (closed die, annealed OFE): depth <= 30-40 % t at 300-600 MPa; the 0.8 deep recess is 62 % of 1.3 mm -> milled, not coined (coining only for the 0.08 grooves if not laser-scribed)
+gang/multi-spindle slot milling: 7 pockets x 109 mm, 2.7 mm 2-flute carbide, 2 passes of 0.4 -> 1.0 min at 1.5 m/min; laser piercing 756 holes x ~0.1 s -> ~1.3 min
+
+## 8. Mass (OFE 8.94 g/cm3)
+land plate 145 g; meter web 52 g; grate total 197 g (architecture 0.21 kg)

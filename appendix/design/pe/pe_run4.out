@@ -1,0 +1,13 @@
+## E1. Dielectric PAO-2 vs WEG 50/50 at 65 C
+- C-A sinter 2.0 mm, WEG 50/50 @ 65C 10.0 L/min: h_eff 41 kW/m2K, Rth 0.0776 K/W, dT_out 9.7 K, dP 2.9 kPa
+- C-A sinter 2.0 mm, PAO-2 @ 65C 10.0 L/min: h_eff 18 kW/m2K, Rth 0.1065 K/W, dT_out 20.2 K, dP 2.6 kPa
+- C-A sinter 2.0 mm, PAO-2 @ 65C 20.8 L/min: h_eff 20 kW/m2K, Rth 0.1021 K/W, dT_out 9.7 K, dP 11.2 kPa
+- C-R sinter 1.0 mm, WEG 50/50 @ 65C 10.0 L/min: h_eff 108 kW/m2K, Rth 0.0561 K/W, dT_out 9.7 K, dP 3.2 kPa
+- C-R sinter 1.0 mm, PAO-2 @ 65C 10.0 L/min: h_eff 49 kW/m2K, Rth 0.0738 K/W, dT_out 20.2 K, dP 2.9 kPa
+- C-R sinter 1.0 mm, PAO-2 @ 65C 20.8 L/min: h_eff 51 kW/m2K, Rth 0.0725 K/W, dT_out 9.7 K, dP 11.9 kPa
+- pin-fin, PAO-2 10 L/min: h_eff 7.1 kW/m2K, Rth 0.1736 K/W
+
+## E2. SiC-area sensitivity of the relative Rth gain (pin-fin h recalibrated to 0.100 K/W each time)
+- SiC 1.22 cm2/switch: pin-fin h 29.5; PE-A1 -9 %, PE-A2 -13 %, PE-DS-R -35 %
+- SiC 1.62 cm2/switch: pin-fin h 22.3; PE-A1 -18 %, PE-A2 -22 %, PE-DS-R -44 %
+- SiC 2.03 cm2/switch: pin-fin h 19.1; PE-A1 -25 %, PE-A2 -28 %, PE-DS-R -50 %

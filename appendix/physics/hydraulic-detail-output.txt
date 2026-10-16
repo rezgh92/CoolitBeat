@@ -1,0 +1,154 @@
+# hydraulic-detail: independent dP check (PG25 @ 50 C, 108x108 mm, 15 kW)
+
+check: Hagen-Poiseuille OK; model dp_ch(CoolIT-like)=3.63 kPa vs this script fd=14.53 kPa (ratio 4.00 -> model channel friction is 4x low)
+
+## 1. Velocities, Reynolds numbers, developing-flow parameters at 18 LPM
+| plate | u_ch m/s | Re_ch | Dh mm | x+ = L/(Dh Re) | K(inf) | u_slot | u_window | u_L2 man. | Re_L2 | parallel paths |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like skived 0.2/0.2x4, L54 | 0.694 | 213 | 0.381 | 0.67 | 0.75 | - | - | - | - | 540 |
+| finer skived 0.1/0.1x2, L54 | 1.389 | 213 | 0.190 | 1.33 | 0.75 | - | - | - | - | 1,080 |
+| HMMC 0.10 x 1.0 mm, L2 | 0.103 | 15.0 | 0.182 | 0.73 | 0.83 | 0.34 | 0.69 | 1.16 | 1718 | 29,160 |
+| HMMC 0.075 x 1.0 mm, L2 | 0.103 | 11.5 | 0.140 | 1.24 | 0.79 | 0.34 | 0.69 | 1.16 | 1718 | 38,880 |
+| HMMC 0.05 x 1.0 mm, L2 | 0.103 | 7.9 | 0.095 | 2.67 | 0.75 | 0.34 | 0.69 | 1.16 | 1718 | 58,320 |
+
+## 2. Component breakdown at 18 LPM
+### CoolIT-like skived 0.2/0.2x4 mm, L=54 mm split-flow  (18 LPM)
+| component | Pa |
+|---|---:|
+| port | 3,000 |
+| inlet plenum (K=1.0) | 1,227 |
+| entry: window contr. | 61 |
+| entry: 90deg turn | 291 |
+| entry: expansion | 0 |
+| channel fd friction | 14,526 |
+| channel Hagenbach | 181 |
+| exit: 90deg turn | 291 |
+| exit: expansion | 27 |
+| outlet plenum (K=1.0) | 2,181 |
+| **core (fins+nozzles/turns)** | **15,376** |
+| **total incl. headers+ports** | **21,784** |
+
+### finer skived 0.1/0.1x2 mm, L=54 mm split-flow  (18 LPM)
+| component | Pa |
+|---|---:|
+| port | 3,000 |
+| inlet plenum (K=1.0) | 1,227 |
+| entry: window contr. | 61 |
+| entry: 90deg turn | 1,163 |
+| entry: expansion | 0 |
+| channel fd friction | 116,204 |
+| channel Hagenbach | 725 |
+| exit: 90deg turn | 1,163 |
+| exit: expansion | 431 |
+| outlet plenum (K=1.0) | 2,181 |
+| **core (fins+nozzles/turns)** | **119,747** |
+| **total incl. headers+ports** | **126,155** |
+
+### HMMC 0.10/0.10 x 1.0 mm, L=2 mm, 0.3 mm slots, L2 1.2x4 mm fed both ends  (18 LPM)
+| component | Pa |
+|---|---:|
+| port | 3,000 |
+| L1 header in | 1,085 |
+| L1 header out | 1,085 |
+| L2 manifold in (entr+fric) | 738 |
+| L2 manifold out (fric+exit) | 1,075 |
+| nozzle in (contr+slot fric) | 60 |
+| entry: window contr. | 59 |
+| entry: 90deg turn | 284 |
+| entry: expansion | 171 |
+| channel fd friction | 330 |
+| channel Hagenbach | 4 |
+| exit: contr. to window | 100 |
+| exit: 90deg turn | 284 |
+| nozzle out (fric+exp) | 71 |
+| **core (fins+nozzles/turns)** | **1,362** |
+| **total incl. headers+ports** | **8,346** |
+
+## 3. dP vs flow (kPa) and hydraulic pumping power (W), 6-36 LPM
+| LPM | CoolIT-like skived 0.2/0.2x4, L54 core / total / W | finer skived 0.1/0.1x2, L54 core / total / W | HMMC 0.10 x 1.0 mm, L2 core / total / W | HMMC 0.075 x 1.0 mm, L2 core / total / W | HMMC 0.05 x 1.0 mm, L2 core / total / W |
+|---:|---:|---:|---:|---:|---:|
+| 6 | 4.9 / 5.6 / 0.56 | 39.1 / 39.8 / 3.98 | 0.2 / 1.2 / 0.12 | 0.3 / 1.3 / 0.13 | 0.6 / 1.5 / 0.15 |
+| 9 | 7.5 / 9.1 / 1.36 | 59.0 / 60.6 / 9.09 | 0.4 / 2.4 / 0.36 | 0.6 / 2.5 / 0.38 | 0.9 / 2.9 / 0.43 |
+| 12 | 10.1 / 12.9 / 2.58 | 79.0 / 81.9 / 16.38 | 0.7 / 4.0 / 0.80 | 0.9 / 4.1 / 0.83 | 1.3 / 4.6 / 0.92 |
+| 15 | 12.7 / 17.1 / 4.29 | 99.3 / 103.7 / 25.94 | 1.0 / 6.0 / 1.49 | 1.2 / 6.2 / 1.54 | 1.8 / 6.8 / 1.69 |
+| 18 | 15.4 / 21.8 / 6.54 | 119.7 / 126.2 / 37.85 | 1.4 / 8.3 / 2.50 | 1.6 / 8.6 / 2.58 | 2.3 / 9.3 / 2.79 |
+| 21 | 18.1 / 26.8 / 9.39 | 140.4 / 149.1 / 52.19 | 1.8 / 11.1 / 3.89 | 2.1 / 11.4 / 3.99 | 2.9 / 12.2 / 4.28 |
+| 24 | 20.9 / 32.3 / 12.91 | 161.2 / 172.6 / 69.05 | 2.2 / 14.3 / 5.72 | 2.6 / 14.6 / 5.85 | 3.5 / 15.6 / 6.22 |
+| 27 | 23.7 / 38.1 / 17.15 | 182.3 / 196.7 / 88.51 | 2.8 / 17.9 / 8.04 | 3.1 / 18.2 / 8.21 | 4.2 / 19.3 / 8.68 |
+| 30 | 26.6 / 44.4 / 22.19 | 203.5 / 221.3 / 110.66 | 3.3 / 21.8 / 10.92 | 3.7 / 22.3 / 11.13 | 4.9 / 23.4 / 11.71 |
+| 33 | 29.5 / 51.0 / 28.06 | 224.9 / 246.5 / 135.57 | 4.0 / 26.2 / 14.41 | 4.4 / 26.7 / 14.66 | 5.7 / 27.9 / 15.37 |
+| 36 | 32.5 / 58.1 / 34.85 | 246.6 / 272.2 / 163.33 | 4.6 / 31.0 / 18.58 | 5.1 / 31.5 / 18.88 | 6.5 / 32.9 / 19.72 |
+
+## 4. Thermal-resistance vs pumping-power Pareto (series thermal model, this script's hydraulics)
+| LPM | CoolIT-like skived 0.2/0.2x4, L54: avg dT / max dT / W_pump | finer skived 0.1/0.1x2, L54: avg dT / max dT / W_pump | HMMC 0.10 x 1.0 mm, L2: avg dT / max dT / W_pump | HMMC 0.075 x 1.0 mm, L2: avg dT / max dT / W_pump | HMMC 0.05 x 1.0 mm, L2: avg dT / max dT / W_pump |
+|---:|---:|---:|---:|---:|---:|
+| 6 | 47.4 / 57.2 / 0.56 | 41.0 / 50.8 / 3.98 | 37.0 / 41.0 / 0.12 | 34.1 / 38.1 / 0.13 | 31.9 / 35.9 / 0.15 |
+| 9 | 41.0 / 50.8 / 1.36 | 34.7 / 44.5 / 9.09 | 30.6 / 34.6 / 0.36 | 27.8 / 31.8 / 0.38 | 25.6 / 29.6 / 0.43 |
+| 12 | 37.8 / 47.6 / 2.58 | 31.5 / 41.3 / 16.38 | 27.4 / 31.4 / 0.80 | 24.6 / 28.6 / 0.83 | 22.4 / 26.4 / 0.92 |
+| 15 | 35.8 / 45.6 / 4.29 | 29.6 / 39.4 / 25.94 | 25.5 / 29.5 / 1.49 | 22.7 / 26.7 / 1.54 | 20.5 / 24.5 / 1.69 |
+| 18 | 34.5 / 44.3 / 6.54 | 28.3 / 38.1 / 37.85 | 24.1 / 28.1 / 2.50 | 21.4 / 25.4 / 2.58 | 19.3 / 23.3 / 2.79 |
+| 21 | 33.5 / 43.3 / 9.39 | 27.4 / 37.2 / 52.19 | 23.2 / 27.2 / 3.89 | 20.5 / 24.5 / 3.99 | 18.4 / 22.4 / 4.28 |
+| 24 | 32.8 / 42.6 / 12.91 | 26.7 / 36.5 / 69.05 | 22.5 / 26.5 / 5.72 | 19.8 / 23.8 / 5.85 | 17.7 / 21.7 / 6.22 |
+| 27 | 32.2 / 42.0 / 17.15 | 26.1 / 35.9 / 88.51 | 21.9 / 25.9 / 8.04 | 19.2 / 23.2 / 8.21 | 17.1 / 21.1 / 8.68 |
+| 30 | 31.7 / 41.5 / 22.19 | 25.7 / 35.5 / 110.66 | 21.4 / 25.4 / 10.92 | 18.8 / 22.8 / 11.13 | 16.7 / 20.7 / 11.71 |
+| 33 | 31.3 / 41.1 / 28.06 | 25.3 / 35.1 / 135.57 | 21.0 / 25.0 / 14.41 | 18.4 / 22.4 / 14.66 | 16.4 / 20.4 / 15.37 |
+| 36 | 31.0 / 40.8 / 34.85 | 25.0 / 34.8 / 163.33 | 20.7 / 24.7 / 18.58 | 18.1 / 22.1 / 18.88 | 16.1 / 20.1 / 19.72 |
+
+## 5. Equal-dP, equal-pumping-power and equal-dT crossovers vs the CoolIT-like plate at 18 LPM
+CoolIT-like @18 LPM: avg dT 34.5 K, max 44.3 K, core 15.4 kPa, total 21.8 kPa, W_pump 6.54 W
+
+| HMMC variant | basis | HMMC flow LPM | LPM/kW | HMMC dP total kPa | W_pump W | caloric K | conv K | avg dT K | max dT K | gain vs CoolIT-like |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| HMMC 0.10 x 1.0 mm, L2 | equal total dP | 30.0 | 2.00 | 21.8 | 10.88 | 3.8 | 7.9 | 21.4 | 25.4 | -13.1 K avg (38 %) |
+| HMMC 0.10 x 1.0 mm, L2 | equal core dP | 68.4 | 4.56 | 107.7 | 122.81 | 1.7 | 7.4 | 18.7 | 22.7 | -15.8 K avg (46 %) |
+| HMMC 0.10 x 1.0 mm, L2 | equal pump power (total) | 25.1 | 1.68 | 15.6 | 6.54 | 4.5 | 8.0 | 22.2 | 26.2 | -12.3 K avg (36 %) |
+| HMMC 0.10 x 1.0 mm, L2 | equal avg dT (34.5 K) | 6.9 | 0.46 | 1.5 | 0.17 | 16.5 | 8.3 | 34.5 | 38.5 | 37x less pump power, 2.6x less flow |
+| HMMC 0.075 x 1.0 mm, L2 | equal total dP | 29.7 | 1.98 | 21.8 | 10.77 | 3.8 | 5.3 | 18.8 | 22.8 | -15.7 K avg (45 %) |
+| HMMC 0.075 x 1.0 mm, L2 | equal core dP | 66.3 | 4.42 | 102.1 | 112.73 | 1.7 | 5.1 | 16.5 | 20.5 | -18.0 K avg (52 %) |
+| HMMC 0.075 x 1.0 mm, L2 | equal pump power (total) | 24.9 | 1.66 | 15.7 | 6.54 | 4.6 | 5.3 | 19.6 | 23.6 | -14.9 K avg (43 %) |
+| HMMC 0.075 x 1.0 mm, L2 | equal avg dT (34.5 K) | 5.9 | 0.39 | 1.2 | 0.12 | 19.4 | 5.4 | 34.5 | 38.5 | 54x less pump power, 3.1x less flow |
+| HMMC 0.05 x 1.0 mm, L2 | equal total dP | 28.8 | 1.92 | 21.8 | 10.47 | 3.9 | 3.2 | 16.9 | 20.9 | -17.6 K avg (51 %) |
+| HMMC 0.05 x 1.0 mm, L2 | equal core dP | 60.5 | 4.04 | 88.0 | 88.80 | 1.9 | 3.2 | 14.8 | 18.8 | -19.8 K avg (57 %) |
+| HMMC 0.05 x 1.0 mm, L2 | equal pump power (total) | 24.4 | 1.63 | 16.1 | 6.54 | 4.7 | 3.2 | 17.6 | 21.6 | -16.9 K avg (49 %) |
+| HMMC 0.05 x 1.0 mm, L2 | equal avg dT (34.5 K) | 5.3 | 0.35 | 1.2 | 0.11 | 21.6 | 3.3 | 34.5 | 38.5 | 60x less pump power, 3.4x less flow |
+
+## 6. Sensitivities (HMMC 0.10 x 1.0 mm, 18 LPM): core / total kPa
+| case | core kPa | total kPa | u_window m/s | header var./core |
+|---|---:|---:|---:|---:|
+| baseline (w_s 0.3, t_s 0.5, L2 1.2x4, K_turn 1.2, K(inf) fit) | 1.36 | 8.35 | 0.69 | 0.29 |
+| K_turn 1.0 | 1.27 | 8.25 | 0.69 | 0.32 |
+| K_turn 1.3 | 1.41 | 8.39 | 0.69 | 0.28 |
+| K(inf) = 1.4 (upper bound) | 1.37 | 8.35 | 0.69 | 0.29 |
+| slot 0.15 mm | 4.96 | 11.94 | 1.37 | 0.08 |
+| slot 0.20 mm | 2.81 | 9.80 | 1.03 | 0.14 |
+| slot 0.40 mm | 0.88 | 7.87 | 0.51 | 0.45 |
+| flow length 3 mm | 3.01 | 11.66 | 1.03 | 0.25 |
+| flow length 4 mm | 5.30 | 16.12 | 1.37 | 0.25 |
+| fin height 0.6 mm | 1.57 | 8.55 | 0.69 | 0.26 |
+| fin height 1.5 mm | 1.27 | 8.26 | 0.69 | 0.32 |
+| gap/fin 0.05 x 1.0 | 2.31 | 9.29 | 0.69 | 0.17 |
+| gap/fin 0.05 x 0.6 | 3.16 | 10.15 | 0.69 | 0.13 |
+| L2 manifold 1.2 x 8 mm (u_m halved) | 1.36 | 7.15 | 0.69 | 0.13 |
+| L2 fed one end only | 1.36 | 13.78 | 0.69 | 1.18 |
+| L2 one end only + 1.2x8 mm | 1.36 | 8.98 | 0.69 | 0.53 |
+| slot 0.15 + L2 1.2x8 (uniformity fix) | 4.96 | 10.74 | 1.37 | 0.04 |
+| no ports (core+manifold only) | 1.36 | 5.35 | 0.69 | 0.29 |
+| headers K 1.5 -> 3.0 @ 1.2 m/s | 1.36 | 10.52 | 0.69 | 0.29 |
+
+Skived sensitivities (18 LPM): K_turn 1.0: 15.3/21.7 kPa; K_turn 1.3: 15.4/21.8 kPa; K(inf)=1.4: 15.5/21.9 kPa; fins 0.25/0.25x4: 10.2/16.6 kPa; fins 0.2/0.2x5: 12.2/18.6 kPa; fins 0.15/0.15x3: 36.0/42.4 kPa; 
+
+## 7. Manifold flow-uniformity criterion
+Level-2 channel entry velocity 1.16 m/s, Re 1718; pressure variation along it ~401 Pa (friction 401 Pa vs momentum 337 Pa, opposite sign) against a branch (core) dP of 1362 Pa -> ratio 0.29. Rule of thumb: ratio <= 0.1-0.2 for <10 % flow non-uniformity.
+  slot 0.15 mm: core 4956 Pa, header var 401 Pa, ratio 0.08, total 11.9 kPa
+  L2 1.2x8: core 1362 Pa, header var 180 Pa, ratio 0.13, total 7.1 kPa
+  both: core 4956 Pa, header var 180 Pa, ratio 0.04, total 10.7 kPa
+
+## 8. Scaling check against published manifold-microchannel devices (same correlations)
+Core-only dP predicted by this network for literature-class geometries (volumetric flux j = V/A_fp):
+| case | j cm/s | u_ch m/s | Re_ch | u_window m/s | core dP kPa |
+|---|---:|---:|---:|---:|---:|
+| Escher-class: 2x2 cm, water-like mu, 1.3 LPM, b=0.05, H=0.3, L=1.0, slot 0.10, t_s 0.3 | 5.4 | 0.36 | 57 | 2.17 | 11.2 |
+| Drummond/Weibel-class: 3x3 of 5 mm? -> 1.5x1.5 cm, 0.8 LPM, b=0.03, H=0.3, L=0.5, slot 0.1, t_s 0.3 | 5.9 | 0.20 | 20 | 1.19 | 3.9 |
+| Jung/Ohadi-class: 1x1 cm, 0.5 LPM, b=0.075, H=0.5, L=1.0, slot 0.15, t_s 0.5 | 8.3 | 0.33 | 79 | 2.22 | 10.9 |
+| this work: 10.8x10.8 cm, 18 LPM PG25, b=0.10, H=1.0, L=2, slot 0.3, t_s 0.5 | 2.6 | 0.10 | 15 | 0.69 | 1.4 |
+

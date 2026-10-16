@@ -1,0 +1,80 @@
+## 1. Retention force budget (8 screws)
+TTV-A, 4 x 54 x 54 AlN, PCM 25 psi                   area  116.6 cm2  F    2011 N  per screw  251.3 N  p 0.172 MPa =  25.0 psi
+TTV-100 hard mode, 4 x 50 x 50, PCM 25 psi           area  100.0 cm2  F    1724 N  per screw  215.5 N  p 0.172 MPa =  25.0 psi
+lidded 100 cm2 package, PCM/paste 4 psi              area  100.0 cm2  F     276 N  per screw   34.5 N  p 0.028 MPa =   4.0 psi
+lidded 100 cm2 package, 12 psi                       area  100.0 cm2  F     827 N  per screw  103.4 N  p 0.083 MPa =  12.0 psi
+lidded 100 cm2, 60 N kit                             area  100.0 cm2  F     480 N  per screw   60.0 N  p 0.048 MPa =   7.0 psi
+lidded 100 cm2, 110 N kit                            area  100.0 cm2  F     880 N  per screw  110.0 N  p 0.088 MPa =  12.8 psi
+bare-die Rubin 16.6 cm2 die block, 60 N kit          area   16.6 cm2  F     480 N  per screw   60.0 N  p 0.289 MPa =  41.9 psi
+bare-die 4-die 33 cm2, 60 N kit                      area   33.0 cm2  F     480 N  per screw   60.0 N  p 0.145 MPa =  21.1 psi
+
+## 2. Ear bending if a screw loaded the ear directly (1.5 mm annealed Cu tab, hole 3.5 outboard of the body edge)
+F   40 N: bending stress   31.1 MPa (allowable 40 MPa post-braze OFE) -> OK
+F   60 N: bending stress   46.7 MPa (allowable 40 MPa post-braze OFE) -> FAIL
+F  110 N: bending stress   85.6 MPa (allowable 40 MPa post-braze OFE) -> FAIL
+F  251 N: bending stress  195.2 MPa (allowable 40 MPa post-braze OFE) -> FAIL
+
+## 3. Springs
+SPR-60: 302 SS d 1.3 Dm 6.5 (OD 7.8), Na 8.6, C 5.0, k 10.84 N/mm, F 60.1 N at x 5.54 (L0 27.5 -> L2 22.0), solid 13.8 (margin 8.2), tau 592 MPa (0.35 UTS); F tol: rate +-10% 6.0, L0 +-0.5 5.4, stack +-0.3 3.3 N
+SPR-110: 302 SS d 1.6 Dm 6.4 (OD 8.0), Na 11.0, C 4.0, k 20.37 N/mm, F 110.0 N at x 5.4 (L0 27.4 -> L2 22.0), solid 20.8 (margin 1.2), tau 614 MPa (0.36 UTS); F tol: rate +-10% 11.0, L0 +-0.5 10.2, stack +-0.3 6.1 N
+DIE-TTV: ISO 10243 heavy duty (red) 12.5 OD x 6.3 bore x 32 L0, Cr-Si rect. wire: k ~34.4 N/mm (12.36 N/mm at L0 89 scaled 89/32; vendor sheet +-10 %); TTV-A 251.3 N at 7.31 mm (22.8 % L0, limit 25 % (2e6 cycles) / 30 % static); TTV-100 215.5 N at 6.27 mm; installed length TTV-A 24.69
+
+## 4. Captive shoulder screw CSS-15 (M3 x 0.5 thread, dia 4.00 h8 shoulder) and height stacks
+TTV kit: pocket floor z 19.1 + die spring 24.69 -> head underside z 43.79; shoulder bottoms at z -2.15 -> shoulder length Ls_T 45.94
+product kit: lug top z 15.1 + washer 1.0 + coil 22.0 -> head underside z 38.10; shoulder bottoms at z -2.3 -> Ls_P 40.40
+TTV: stop torque 0.4 N.m -> preload 667 N; + spring 251 -> 918 N on As 5.03 mm2 = 183 MPa (A2-70 proof 450: 41 %; 17-4PH H900 yield 1170: 16 %)
+110 N kit: stop torque 0.4 N.m -> preload 667 N; + spring 110 -> 777 N on As 5.03 mm2 = 154 MPa (A2-70 proof 450: 34 %; 17-4PH H900 yield 1170: 13 %)
+shoulder dia 4.00, L 45.9: Euler (pinned) 11753 N vs 667 N preload; compressive 53 MPa
+
+## 5. Load-frame checks
+LF-15T Al 6061 x-member 20 x 16: I 6206 mm4, two 251 N lugs at 17.5 from the supports on a 115.0 span: mid deflection 16 um -> lug force change 0.6 N
+LF-15T 17-4PH same: I 6206 mm4, two 251 N lugs at 17.5 from the supports on a 115.0 span: mid deflection 6 um -> lug force change 0.2 N
+flat 4 mm plate member 11 wide (rejected): I 59 mm4, two 251 N lugs at 17.5 from the supports on a 115.0 span: mid deflection 601 um -> lug force change 20.6 N
+lug bending (spring axis 8 mm outboard of the land centre): 2.5 MPa (6061-T6 yield 240)
+TTV land 2.5 x 120 (one band): bearing on the 1.0 mm cap over separator/end frame 3.35 MPa (annealed Cu 40)
+product land, 110 N kit: bearing on the 1.0 mm cap over separator/end frame 1.47 MPa (annealed Cu 40)
+LF-15P x-member (2.0 mm 301 U 12 x 10): I 933 mm4, mid deflection at 2 x 110 N 17 um
+
+## 6. Plate sandwich: EI, clamp bow, thermal bow (bending about x, span in y between the +-y bands)
+neutral axis z 6.57; EI 2.176e+09 N.mm2 (full 125 width); per width 1.741e+07; across-fin shear knock-down 0.83 applied to deflections
+TTV 2.0 kN: 2-side bearing (y = +-58) concave bow  22.6 um; 4-side bearing would give  6.7 um
+TTV-100 1.72 kN: 2-side bearing (y = +-58) concave bow  19.4 um; 4-side bearing would give  5.7 um
+product 480 N: 2-side bearing (y = +-58) concave bow   5.4 um; 4-side bearing would give  1.6 um
+product 880 N: 2-side bearing (y = +-58) concave bow   9.9 um; 4-side bearing would give  2.9 um
+thermal bow, PCM benchmark (base 65.7 C, grate 51.5, upper stack 51 C): curvature 0.0128 1/m, die face convex (centre proud) 18.7 um over 108 mm, 4.7 um over a 54 mm tile
+at Tcase 85 C (base face ~76 C, paste): 31.7 um convex over 108 mm
+net at the 15 kW TTV point, 2-side bearing: thermal convex 18.7 - clamp concave 22.6 = -4.0 um in y (+ convex; x keeps the full thermal bow); product 480 N: +13.3 um
+
+## 7. Differential in-plane expansion over 108 mm, 20 -> 85 C (65 K), copper 17.0 ppm/K
+AlN tile TTV                       alpha   4.5: free slip  +87.8 um edge-to-edge, +43.9 um per side; TIM shear strain at 25 um BLT 1.75
+Si bare die                        alpha   2.6: free slip +101.1 um edge-to-edge, +50.5 um per side; TIM shear strain at 25 um BLT 2.02
+Cu-block TTV-100                   alpha  17.0: free slip   +0.0 um edge-to-edge,  +0.0 um per side; TIM shear strain at 25 um BLT 0.00
+organic substrate (CoWoS-L eff.)   alpha  12.0: free slip  +35.1 um edge-to-edge, +17.6 um per side; TIM shear strain at 25 um BLT 0.70
+Cu lid on package                  alpha  17.0: free slip   +0.0 um edge-to-edge,  +0.0 um per side; TIM shear strain at 25 um BLT 0.00
+6061 carrier                       alpha  23.6: free slip  -46.3 um edge-to-edge, -23.2 um per side; TIM shear strain at 25 um BLT 0.93
+17-4PH frame                       alpha  10.8: free slip  +43.5 um edge-to-edge, +21.8 um per side; TIM shear strain at 25 um BLT 0.87
+
+## 8. Shock loads (FRU = plate 1.24 + frame LF-15P 0.085 kg)
+ 0.5 g: inertial      6 N; vs clamp 480 N held (60 N kit), vs 880 N held (110 N kit); lateral: friction mu 0.2 x 480 = 96 N -> held; ear bearing 0.1 MPa
+10.0 g: inertial    130 N; vs clamp 480 N held (60 N kit), vs 880 N held (110 N kit); lateral: friction mu 0.2 x 480 = 96 N -> slides to the shoulder stops; ear bearing 2.7 MPa
+30.0 g: inertial    390 N; vs clamp 480 N held (60 N kit), vs 880 N held (110 N kit); lateral: friction mu 0.2 x 480 = 96 N -> slides to the shoulder stops; ear bearing 8.1 MPa
+50.0 g: inertial    650 N; vs clamp 480 N lift-off (60 N kit), vs 880 N held (110 N kit); lateral: friction mu 0.2 x 480 = 96 N -> slides to the shoulder stops; ear bearing 13.5 MPa
+
+## 9. Mass budget (g)
+core (params-core)                                 282.0
+grate GRT-L + GRT-W                                201.0
+plenum PLN-C + 2 PLN-F                             161.6
+separator 1.80 Cu                                  173.7
+cap (allocation to the cap lane, arch 5.1)         250.0
+stubs 2 x 316L 20 ID x 1.0 x 30                     31.5
+guard screen + diffuser                             10.0
+8 x CSS-15P screws                                  42.5
+8 x SPR-60 springs                                  18.2
+8 x SLV sleeves + washers + e-clips                 19.7
+backplate 0.8 mm 301 118 sq, dia 60 hole            70.1
+8 x standoffs STD-8                                 17.5
+TOTAL (architecture boundary: plate + stubs + springs + backplate, no load frame)  1277.8  (target 1240; SKU limit 1400)
+with product frame LF-15P 85 g: 1363 g; with 316L 0.6 mm separator (-106 g): 1172 g
+
+## 10. PRISM-G envelope (field 110 x 120, lines along y)
+body 127.0 x 137.0; outline scale 1.114; plate-only mass Cu 1148 g; with 316L separator 1030 g (limit 900)

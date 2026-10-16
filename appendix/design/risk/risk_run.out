@@ -1,0 +1,131 @@
+# risk-first-12mo: model runs
+
+## A. Project scoping model, 15 kW / 18 LPM PG25 / 45 C / 117 cm2
+
+| design | W/cm2 | cal | TIM | base | conv | avg dT | max dT | R'' | h_eff | dP kPa | pump W | Qcap kW |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like skived split-flow (117 cm2, paste)             |  128 |  6.3 |  9.0 |  6.6 | 12.6 | **34.5** | 44.3 | 0.269 |  101 | 24.6 |  7.4 | 12.7 |
+| RF-15 like-for-like, paste 0.07                            |  128 |  7.6 |  9.0 |  3.3 | 10.5 | **30.4** | 35.4 | 0.237 |  122 |  5.6 |  1.7 | 18.0 |
+| RF-15 named paste at 25 um BLT, 0.05                       |  128 |  7.6 |  6.4 |  3.3 | 10.5 | **27.8** | 32.8 | 0.217 |  122 |  5.6 |  1.7 | 20.3 |
+| RF-15 PCM pad (OCP-reference TIM) [Tier 1]                 |  128 |  7.6 |  7.1 |  3.3 | 10.5 | **28.4** | 31.4 | 0.222 |  122 |  5.6 |  1.7 | 21.1 |
+| RF-15 liquid metal on Ni [Tier 2, stretch]                 |  128 |  7.6 |  1.9 |  3.3 | 10.5 | **23.3** | 25.4 | 0.182 |  122 |  5.6 |  1.7 | 28.9 |
+| RF-10 (fin 0.10) paste 0.07                                |  128 |  7.6 |  9.0 |  3.3 | 10.1 | **30.0** | 35.0 | 0.234 |  127 |  5.5 |  1.7 | 18.4 |
+| RF-10 (fin 0.10) PCM                                       |  128 |  7.6 |  7.1 |  3.3 | 10.1 | **28.0** | 31.1 | 0.219 |  127 |  5.5 |  1.7 | 21.6 |
+| Fallback F1: base 1.5 mm, paste                            |  128 |  7.6 |  9.0 |  4.9 | 10.5 | **32.0** | 37.0 | 0.250 |  122 |  5.6 |  1.7 | 16.8 |
+| Fallback F1: base 1.5 mm, PCM                              |  128 |  7.6 |  7.1 |  4.9 | 10.5 | **30.1** | 33.1 | 0.235 |  122 |  5.6 |  1.7 | 19.6 |
+| Fallback F2: base 2.0, +/-20% flow, paste                  |  128 |  7.6 |  9.0 |  6.6 | 10.5 | **33.7** | 39.5 | 0.262 |  122 |  5.6 |  1.7 | 15.3 |
+| Fallback F2: base 2.0, +/-20% flow, PCM                    |  128 |  7.6 |  7.1 |  6.6 | 10.5 | **31.7** | 35.5 | 0.247 |  122 |  5.6 |  1.7 | 17.8 |
+| Upside U1: fin height 3.0 mm, PCM                          |  128 |  7.7 |  7.1 |  3.3 |  9.6 | **27.6** | 30.6 | 0.215 |  134 |  5.5 |  1.6 | 22.1 |
+
+RF-15 PCM detail: NTU 1.20, cal frac 0.60, h 13.3 kW/m2K, eta 0.65, h_eff 122, channel u 0.099 m/s Re 22, port u 1.49 m/s; dP: ch 0.28 + turns 0.01 + slot 0.00 + header 0.32 + window+screen 2.40 + ports 2.57 = 5.59 kPa
+
+Window check: per inlet slit 1.286 LPM; slit u 0.66 m/s; fin-gap entry u 1.32 m/s -> 1.76 kPa (K=2); outlet 0.66 m/s -> 0.44 kPa; branch 2.48 kPa. Plenum 3.0x9 offset-fed (long half) u 0.50 m/s dyn 125 Pa -> ratio 20 (rule >= 15). L1 inlet header 20x10 mm mid-fed u 0.75 m/s dyn 283 Pa -> ratio 8.8 (rule >= 6).
+Tie stress gap 0.15/fin 0.15, bonded 0.89, p 0.69 MPa: nominal 1.6 MPa, Kt2.5 3.9 MPa (annealed yield 70)
+Tie stress gap 0.15/fin 0.15, bonded 0.89, p 2.0 MPa: nominal 4.5 MPa, Kt2.5 11.3 MPa (annealed yield 70)
+Tie stress gap 0.15/fin 0.15, bonded 0.89, p 4.5 MPa: nominal 10.1 MPa, Kt2.5 25.4 MPa (annealed yield 70)
+Tie stress gap 0.15/fin 0.1, bonded 0.89, p 0.69 MPa: nominal 1.9 MPa, Kt2.5 4.9 MPa (annealed yield 70)
+Tie stress gap 0.15/fin 0.1, bonded 0.89, p 2.0 MPa: nominal 5.6 MPa, Kt2.5 14.1 MPa (annealed yield 70)
+Tie stress gap 0.15/fin 0.1, bonded 0.89, p 4.5 MPa: nominal 12.7 MPa, Kt2.5 31.7 MPa (annealed yield 70)
+Edge-fed single-pass skived reference 0.2/0.2x4, 2 mm base, paste (rig proxy, no central slot): avg 34.5 K, max ~47.5 K (hot-spot assumed 9.5 K), dP 70 kPa
+
+## B. Flow sweep (117 cm2, 15 kW): CoolIT-like paste vs RF-15 paste / PCM / LM
+
+| LPM/kW | LPM | CoolIT avg/max | dP | RF-15 paste avg/max | RF-15 PCM avg/max | RF-15 LM avg/max | RF dP kPa | RF pump W |
+|---:|---:|---|---:|---|---|---|---:|---:|
+| 0.60 | 9.0 | 41.0 / 50.8 | 9.8 | 40.2 / 45.2 | 38.3 / 41.3 | 33.2 / 35.3 | 1.5 | 0.22 |
+| 0.75 | 11.2 | 38.5 / 48.3 | 13.0 | 36.1 / 41.1 | 34.2 / 37.2 | 29.1 / 31.2 | 2.2 | 0.42 |
+| 1.00 | 15.0 | 35.8 / 45.6 | 19.1 | 32.2 / 37.2 | 30.3 / 33.3 | 25.2 / 27.3 | 3.9 | 0.98 |
+| 1.20 | 18.0 | 34.5 / 44.3 | 24.6 | 30.4 / 35.4 | 28.4 / 31.4 | 23.3 / 25.4 | 5.6 | 1.68 |
+| 1.50 | 22.5 | 33.2 / 43.0 | 33.9 | 28.6 / 33.6 | 26.6 / 29.6 | 21.5 / 23.6 | 8.6 | 3.24 |
+| 2.00 | 30.0 | 31.7 / 41.5 | 52.2 | 26.8 / 31.8 | 24.9 / 27.9 | 19.8 / 21.9 | 15.2 | 7.61 |
+| 2.40 | 36.0 | 31.0 / 40.8 | 69.3 | 25.9 / 30.9 | 24.0 / 27.0 | 18.9 / 21.0 | 21.8 | 13.08 |
+Flow to match 34.4 K avg with paste 0.07: 0.84 LPM/kW = 12.6 LPM; to match 44.2 K max: 0.63 LPM/kW = 9.5 LPM
+Flow to match 34.4 K avg with PCM pad: 0.74 LPM/kW = 11.1 LPM; to match 44.2 K max: 0.53 LPM/kW = 7.9 LPM
+Flow to match 34.4 K avg with liquid metal: 0.57 LPM/kW = 8.5 LPM; to match 44.2 K max: 0.43 LPM/kW = 6.4 LPM
+
+## C. Hard-mode footprint 100 cm2 (150 W/cm2) and soft 145 cm2, 15 kW 18 LPM
+
+| design | W/cm2 | cal | TIM | base | conv | avg dT | max dT | R'' | h_eff | dP kPa | pump W | Qcap kW |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like skived split-flow (100 cm2, paste)             |  150 |  6.3 | 10.5 |  7.7 | 14.7 | **39.2** | 49.6 | 0.262 |  102 | 24.7 |  7.4 | 10.6 |
+| RF-15 paste (100 cm2)                                      |  150 |  7.4 | 10.5 |  3.8 | 12.2 | **34.0** | 39.6 | 0.226 |  123 |  5.7 |  1.7 | 15.2 |
+| RF-15 PCM (100 cm2)                                        |  150 |  7.4 |  8.2 |  3.8 | 12.2 | **31.7** | 35.0 | 0.211 |  123 |  5.7 |  1.7 | 18.1 |
+| CoolIT-like skived split-flow (145 cm2, paste)             |  103 |  6.3 |  7.2 |  5.3 | 10.3 | **29.1** | 38.3 | 0.282 |  101 | 24.5 |  7.3 | 16.1 |
+| RF-15 paste (145 cm2)                                      |  103 |  7.8 |  7.2 |  2.7 |  8.6 | **26.3** | 30.6 | 0.254 |  121 |  5.5 |  1.7 | 22.6 |
+| RF-15 PCM (145 cm2)                                        |  103 |  7.8 |  5.7 |  2.7 |  8.6 | **24.7** | 27.4 | 0.239 |  121 |  5.5 |  1.7 | 26.1 |
+
+## D. GPU-class plates (uniform TTV, 1.2 LPM/kW) - where it does NOT win on average
+
+| design | W/cm2 | cal | TIM | base | conv | avg dT | max dT | R'' | h_eff | dP kPa | pump W | Qcap kW |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like skived split-flow (45 cm2, paste)              |   31 |  6.3 |  2.2 |  1.6 |  3.1 | **13.2** | 20.4 | 0.426 |   99 |  1.5 |  0.0 |  5.4 |
+| RF-15 PCM 1.4 kW 45 cm2                                    |   31 | 10.1 |  1.7 |  0.8 |  2.6 | **15.3** | 17.1 | 0.491 |  118 |  0.1 |  0.0 |  7.6 |
+| RF-15 LM 1.4 kW 45 cm2                                     |   31 | 10.1 |  0.5 |  0.8 |  2.6 | **14.0** | 15.7 | 0.451 |  118 |  0.1 |  0.0 | 10.1 |
+| CoolIT-like skived split-flow (60 cm2, paste)              |   38 |  6.3 |  2.7 |  2.0 |  3.9 | **14.8** | 22.2 | 0.387 |   99 |  2.5 |  0.1 |  7.1 |
+| RF-15 PCM 2.3 kW 60 cm2                                    |   38 |  9.7 |  2.1 |  1.0 |  3.2 | **16.0** | 18.0 | 0.418 |  118 |  0.2 |  0.0 | 10.3 |
+| RF-15 LM 2.3 kW 60 cm2                                     |   38 |  9.7 |  0.6 |  1.0 |  3.2 | **14.5** | 16.2 | 0.378 |  118 |  0.2 |  0.0 | 13.7 |
+| CoolIT-like skived split-flow (80 cm2, paste)              |   45 |  6.3 |  3.2 |  2.3 |  4.5 | **16.3** | 23.8 | 0.363 |   99 |  4.1 |  0.3 |  9.4 |
+| RF-15 PCM 3.6 kW 80 cm2                                    |   45 |  9.3 |  2.5 |  1.2 |  3.8 | **16.8** | 18.8 | 0.372 |  119 |  0.4 |  0.0 | 13.9 |
+| RF-15 LM 3.6 kW 80 cm2                                     |   45 |  9.3 |  0.7 |  1.2 |  3.8 | **15.0** | 16.7 | 0.332 |  119 |  0.4 |  0.0 | 18.5 |
+
+## D2. Die-zone (zoned) indicative 1-D: die area only, die-zone flow = 88 % of package flow at 1.2 LPM/kW
+
+| design | W/cm2 | cal | TIM | base | conv | avg dT | max dT | R'' | h_eff | dP kPa | pump W | Qcap kW |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like B300-class 1.4 kW, 2 dies 16 cm2               |   79 |  6.5 |  5.5 |  4.0 |  7.9 | **23.9** | 32.3 | 0.303 |  100 |  1.3 |  0.0 |  1.8 |
+| RF-15 PCM B300-class 1.4 kW, 2 dies 16 cm2                 |   79 |  8.5 |  4.3 |  2.0 |  6.6 | **21.4** | 23.8 | 0.272 |  120 |  0.2 |  0.0 |  2.8 |
+| RF-15 LM B300-class 1.4 kW, 2 dies 16 cm2                  |   79 |  8.5 |  1.2 |  2.0 |  6.6 | **18.2** | 20.1 | 0.232 |  120 |  0.2 |  0.0 |  3.8 |
+| CoolIT-like Rubin-class 2.3 kW, 2 dies 16.6 cm2            |  125 |  6.5 |  8.7 |  6.4 | 12.3 | **33.9** | 43.6 | 0.272 |  101 |  2.2 |  0.1 |  1.8 |
+| RF-15 PCM Rubin-class 2.3 kW, 2 dies 16.6 cm2              |  125 |  7.8 |  6.9 |  3.2 | 10.2 | **28.1** | 31.1 | 0.225 |  122 |  0.4 |  0.0 |  3.0 |
+| RF-15 LM Rubin-class 2.3 kW, 2 dies 16.6 cm2               |  125 |  7.8 |  1.9 |  3.2 | 10.2 | **23.1** | 25.2 | 0.185 |  122 |  0.4 |  0.0 |  4.1 |
+| CoolIT-like Rubin-Ultra-class 3.6 kW, 4 dies 33 cm2        |  101 |  6.7 |  7.1 |  5.2 | 10.1 | **29.1** | 38.1 | 0.287 |  101 |  3.6 |  0.2 |  3.6 |
+| RF-15 PCM Rubin-Ultra-class 3.6 kW, 4 dies 33 cm2          |  101 |  8.4 |  5.6 |  2.6 |  8.4 | **25.0** | 27.7 | 0.246 |  121 |  0.5 |  0.0 |  5.8 |
+| RF-15 LM Rubin-Ultra-class 3.6 kW, 4 dies 33 cm2           |  101 |  8.4 |  1.5 |  2.6 |  8.4 | **20.9** | 22.9 | 0.206 |  121 |  0.5 |  0.0 |  7.9 |
+
+## E. Physics-synthesis model + Monte Carlo (20k), RF geometry with window metering
+
+| design | avg dT P10/P50/P90 | max dT P10/P50/P90 | dP kPa P50 (P90) | pump W | Qcap kW P10/P50/P90 | P(avg<34.4) | P(max<44.2) | P(avg<=31.0) | P(max<=35.4) |
+|---|---|---|---|---|---|---:|---:|---:|---:|
+| CoolIT-like skived split-flow 0.2/0.2x4, 2 mm base, paste 0.07 (nominal 34.5/44.3) | 30.5/34.6/41.6 | 40.1/44.7/51.8 | 22.0 (25.4) | 6.59 | 10.3/12.6/14.8 | 0.482 | 0.454 | 0.143 | 0.001 |
+| RF-15 paste 0.07 (like-for-like) (nominal 30.4/35.4) | 26.4/30.4/37.4 | 31.4/35.6/42.5 | 5.5 (7.2) | 1.66 | 13.9/17.5/21.1 | 0.790 | 0.933 | 0.552 | 0.480 |
+| RF-15 PCM 0.055 (Tier 1) (nominal 28.4/31.4) | 26.1/28.5/31.8 | 29.1/31.6/35.0 | 5.5 (7.2) | 1.66 | 18.1/20.8/23.7 | 0.979 | 1.000 | 0.838 | 0.922 |
+| RF-15 LM 0.015 (Tier 2) (nominal 23.3/25.4) | 22.0/23.5/25.3 | 24.1/25.6/27.5 | 5.5 (7.2) | 1.66 | 26.1/29.2/32.3 | 1.000 | 1.000 | 1.000 | 1.000 |
+| RF-10 PCM 0.055 (nominal 28.0/31.1) | 25.7/28.1/31.4 | 28.7/31.2/34.5 | 5.5 (7.2) | 1.65 | 18.5/21.2/24.2 | 0.985 | 1.000 | 0.874 | 0.941 |
+| F2 fallback base 2.0, +/-20 %, paste (nominal 33.7/39.5) | 29.6/33.7/40.7 | 35.4/39.7/46.7 | 5.5 (7.2) | 1.66 | 12.1/15.0/17.7 | 0.562 | 0.813 | 0.216 | 0.097 |
+| F2 fallback base 2.0, +/-20 %, PCM (nominal 31.7/35.5) | 29.3/31.8/35.1 | 33.1/35.7/39.1 | 5.5 (7.2) | 1.66 | 15.5/17.5/19.7 | 0.846 | 0.996 | 0.345 | 0.442 |
+
+Nominal term budgets (physics model):
+- CoolIT-like skived split-flow 0.2/0.2x4, 2 mm base, paste 0.07: cal 6.3 + TIM 9.0 + base 6.6 + conv 12.6 = 34.5 K; hs flow 6.3 + TIM 3.5 -> max 44.3; h_eff 101 kW/m2K, NTU 1.00; dP 21.8 kPa, pump 6.54 W; Qcap 12.9 kW; R 2.30 mK/W, R'' 0.269
+- RF-15 paste 0.07 (like-for-like): cal 7.6 + TIM 9.0 + base 3.3 + conv 10.5 = 30.4 K; hs flow 1.5 + TIM 3.5 -> max 35.4; h_eff 122 kW/m2K, NTU 1.20; dP 5.5 kPa, pump 1.66 W; Qcap 17.8 kW; R 2.02 mK/W, R'' 0.237
+- RF-15 PCM 0.055 (Tier 1): cal 7.6 + TIM 7.1 + base 3.3 + conv 10.5 = 28.4 K; hs flow 1.5 + TIM 1.5 -> max 31.4; h_eff 122 kW/m2K, NTU 1.20; dP 5.5 kPa, pump 1.66 W; Qcap 21.1 kW; R 1.90 mK/W, R'' 0.222
+- RF-15 LM 0.015 (Tier 2): cal 7.6 + TIM 1.9 + base 3.3 + conv 10.5 = 23.3 K; hs flow 1.5 + TIM 0.6 -> max 25.4; h_eff 122 kW/m2K, NTU 1.20; dP 5.5 kPa, pump 1.66 W; Qcap 29.6 kW; R 1.55 mK/W, R'' 0.182
+- RF-10 PCM 0.055: cal 7.6 + TIM 7.1 + base 3.3 + conv 10.1 = 28.0 K; hs flow 1.5 + TIM 1.5 -> max 31.1; h_eff 127 kW/m2K, NTU 1.25; dP 5.5 kPa, pump 1.64 W; Qcap 21.5 kW; R 1.87 mK/W, R'' 0.219
+- F2 fallback base 2.0, +/-20 %, paste: cal 7.6 + TIM 9.0 + base 6.6 + conv 10.5 = 33.7 K; hs flow 2.3 + TIM 3.5 -> max 39.5; h_eff 122 kW/m2K, NTU 1.20; dP 5.5 kPa, pump 1.66 W; Qcap 15.3 kW; R 2.24 mK/W, R'' 0.262
+- F2 fallback base 2.0, +/-20 %, PCM: cal 7.6 + TIM 7.1 + base 6.6 + conv 10.5 = 31.7 K; hs flow 2.3 + TIM 1.5 -> max 35.5; h_eff 122 kW/m2K, NTU 1.20; dP 5.5 kPa, pump 1.66 W; Qcap 17.8 kW; R 2.12 mK/W, R'' 0.247
+
+2x flow (36 LPM, 2.4 LPM/kW) and equal pumping power:
+- CoolIT-like skived split-flow 0.2/0.2x4, 2 mm base, paste 0.07: 36 LPM avg 31.0 max 40.8 dP 57.8 kPa pump 34.7 W
+- RF-15 paste 0.07 (like-for-like): 36 LPM avg 25.9 max 30.9 dP 21.4 kPa pump 12.8 W
+- RF-15 PCM 0.055 (Tier 1): 36 LPM avg 24.0 max 27.0 dP 21.4 kPa pump 12.8 W
+- RF-15 LM 0.015 (Tier 2): 36 LPM avg 18.9 max 21.0 dP 21.4 kPa pump 12.8 W
+- equal pump power (6.5 W) RF-15 paste 0.07 (like-for-like): 1.91 LPM/kW (28.7 LPM), dP 13.7 kPa, avg 27.0 max 32.1
+- equal pump power (6.5 W) RF-15 PCM 0.055 (Tier 1): 1.91 LPM/kW (28.7 LPM), dP 13.7 kPa, avg 25.1 max 28.1
+- equal pump power (6.5 W) RF-15 LM 0.015 (Tier 2): 1.91 LPM/kW (28.7 LPM), dP 13.7 kPa, avg 20.0 max 22.1
+
+Inlet headroom (inlet T at which Tcase,max = 85 C, 15 kW, 18 LPM):
+- CoolIT-like skived split-flow 0.2/0.2x4, 2 mm base, paste 0.07: 40.7 C
+- RF-15 paste 0.07 (like-for-like): 49.6 C
+- RF-15 PCM 0.055 (Tier 1): 53.6 C
+- RF-15 LM 0.015 (Tier 2): 59.6 C
+
+## F. Real 2027-28 package stress case (4 x 26x33 mm dies at 350 W/cm2 + 16 HBM, zoned), hottest die cell
+- RF-15 robust (h_eff 122): paste 0.05: 61.8 K (107 C); PCM 0.055: 63.5 K (109 C); LM 0.015: 49.5 K (95 C)
+- RF-10 (h_eff 127): paste 0.05: 60.5 K (106 C); PCM 0.055: 62.3 K (107 C); LM 0.015: 48.3 K (93 C)
+- performance core 0.10/0.10x1.5 (die zone only, <= 33 um loops) (h_eff 187): paste 0.05: 51.7 K (97 C); PCM 0.055: 53.4 K (98 C); LM 0.015: 39.4 K (84 C)
+- CoolIT-like split-flow (report): 88.6 K paste 0.07 (134 C), ~76 K LM (121 C)
+
+## G. Hard-mode 100 cm2 footprint, physics model, nominal
+- CoolIT-like skived split-flow 0.2/0.2x4, 2 mm base, paste 0.07 at 100 cm2: avg 39.3 max 49.7
+- RF-15 paste 0.07 (like-for-like) at 100 cm2: avg 34.0 max 39.6
+- RF-15 PCM 0.055 (Tier 1) at 100 cm2: avg 31.7 max 35.0
+- RF-15 LM 0.015 (Tier 2) at 100 cm2: avg 25.7 max 27.9

@@ -1,0 +1,62 @@
+## 1. Geometry (mm)
+pitch 7.7143; inside channel width 6.914; flat between tangents 5.714; straight wall 3.00 (z 5.90-8.90); Ri 0.6 Ro 1.4; bend allowance (90 deg, K 0.35) 1.382
+inlet channel z 4.50-9.50 (floor = grate web), outlet channel z 5.30-10.30 (ceiling = separator): both 5.00 tall
+wall faces at |x - x_line| 3.457..4.257; bottom-flat contact on the grate |x - x_out| <= 2.857; bonded strip per side of the 1.8 slot: 1.657 (0.30 mask)
+top-flat contact under the separator |x - x_in| <= 2.857 (5.714 wide); outer walls at x = +/-57.857; flange free edge x = +/-60.357
+developed width 180.95 x blank length 116.0 (flats/bends y +/-57.0; wall tabs to y +/-58.0)
+fold lines (tangent pairs, s): 1.5-2.882, 5.882-7.265, 12.979-14.361, 17.361-18.743, 24.458-25.84, 28.84-30.222, 35.937-37.319, 40.319-41.701, 47.416-48.798, 51.798-53.18, 58.894-60.277, 63.277-64.659, 70.373-71.756, 74.756-76.138, 81.852-83.235, 86.235-87.617, 93.331-94.713, 97.713-99.096, 104.81-106.192, 109.192-110.575, 116.289-117.671, 120.671-122.053, 127.768-129.15, 132.15-133.532, 139.247-140.629, 143.629-145.011, 150.726-152.108, 155.108-156.49, 162.204-163.587, 166.587-167.969, 173.683-175.066, 178.066-179.448
+flat centres (s): bflat0 10.122, tflat1 21.601, bflat2 33.080, tflat3 44.558, bflat4 56.037, tflat5 67.516, bflat6 78.995, tflat7 90.474, bflat8 101.953, tflat9 113.432, bflat10 124.911, tflat11 136.390, bflat12 147.868, tflat13 159.347, bflat14 170.826
+mass: corrugation 131.9 g (sheet 18441 mm2), 2 end frames 29.7 g (2.5 x 5.78 x 120.71, 16 comb slots each), plenum total 161.6 g (architecture 190 g)
+separator 1.5 mm OFE 122.6 sq: 173.7 g (46 windows 2061 mm2; architecture 190 g); 0.6 / 0.8 / 1.0 mm 316L: 62 / 82 / 103 g
+
+## 2. Hydraulics (18 LPM unless stated; PG25 1005 kg/m3, 1.25 mPa s)
+solver check, point feed -14/+14 as the architecture model: per-orifice max/min 1.047 (grate lane 1.044), cell 1.052, long-half peak u 0.785 m/s (plenum_height.py 0.78)
+as-designed windows, 9 LPM: per-orifice max/min 1.043 (cell 1.047); inlet window split [0.489, 0.511], outlet split [0.421, 0.27, 0.181, 0.128]; conv True (69 it)
+as-designed windows, 18 LPM: per-orifice max/min 1.044 (cell 1.046); inlet window split [0.497, 0.503], outlet split [0.393, 0.271, 0.193, 0.144]; conv True (70 it)
+as-designed windows, 22.5 LPM: per-orifice max/min 1.045 (cell 1.046); inlet window split [0.499, 0.501], outlet split [0.386, 0.271, 0.195, 0.148]; conv True (70 it)
+as-designed windows, 27 LPM: per-orifice max/min 1.046 (cell 1.047); inlet window split [0.5, 0.5], outlet split [0.382, 0.27, 0.197, 0.151]; conv True (70 it)
+as-designed windows, 36 LPM: per-orifice max/min 1.046 (cell 1.048); inlet window split [0.502, 0.498], outlet split [0.375, 0.27, 0.2, 0.155]; conv True (70 it)
+inlet channel |u| max 0.647 m/s at y -2.0 (cap 0.62 = half flow / section; CDA band 0.9); outlet channel |u| max 0.662 m/s at y +4.0
+  22.5 LPM: inlet |u| max 0.81, outlet 0.83 m/s
+  36 LPM: inlet |u| max 1.29, outlet 1.32 m/s
+separator windows 18 LPM: inlet 5.0 x 10.0 r1.0 (49.1 mm2) u [0.434, 0.438] m/s, dp [0.151, 0.155] kPa; outlet u [0.343, 0.236, 0.168, 0.125] m/s, dp [0.094, 0.045, 0.023, 0.013] kPa; cap 0.6 m/s; edge outlet 4 x 5.0 x 5.0 at half flow: same u
+window dp in series (flow-weighted) 0.208 kPa (architecture budget 0.46; K 1.6 convention of final_segbal.py)
+bleed d 1.10 (Cd 0.62): branch dp at the dead ends 3.59 / 4.30 kPa -> 0.094 / 0.103 LPM per hole = 3.7 / 4.0 % of the line; 14 holes 7.7 % of 18 LPM; caloric term 7.5 K x bypass/(1-bypass) = +0.62 K on the average
+bleed d 0.80 (Cd 0.62): branch dp at the dead ends 3.59 / 4.30 kPa -> 0.050 / 0.055 LPM per hole = 1.9 / 2.1 % of the line; 14 holes 4.1 % of 18 LPM; caloric term 7.5 K x bypass/(1-bypass) = +0.32 K on the average
+bleed d 0.60 (Cd 0.62): branch dp at the dead ends 3.59 / 4.30 kPa -> 0.028 / 0.031 LPM per hole = 1.1 / 1.2 % of the line; 14 holes 2.3 % of 18 LPM; caloric term 7.5 K x bypass/(1-bypass) = +0.18 K on the average
+segbal final_segbal.py convention (A_w 6.9 x 14 both, edge half): 9 LPM line 1.026 / segment 1.045; 18 LPM line 1.031 / segment 1.061; 36 LPM line 1.033 / segment 1.076
+segbal as-designed windows: inlet 2 x 50, outlet 4 x 50, edge 4 x 25 mm2: 9 LPM line 1.027 / segment 1.046; 18 LPM line 1.031 / segment 1.062; 36 LPM line 1.034 / segment 1.077
+segbal as-designed, port jet undiffused: 9 LPM line 1.056 / segment 1.080; 18 LPM line 1.064 / segment 1.101; 36 LPM line 1.070 / segment 1.120
+
+## 3. Structure (post-braze OFE, design allowable 40 MPa; design burst 3.1 MPa, proof 1.55 MPa)
+wall tension at 1.55 MPa: p x pitch / t = 14.9 MPa; pull per wall 12.0 N/mm
+wall tension at 3.1 MPa: p x pitch / t = 29.9 MPa; pull per wall 23.9 N/mm
+wall tension at 4.5 MPa: p x pitch / t = 43.4 MPa; pull per wall 34.7 N/mm
+separator 1.5 Cu, uniform 1.55 MPa: edge 16.6 / mid 8.2 MPa (closed form 16.5)
+separator 1.5 Cu, cap-land band load (p 1.55 MPa x 14 pitch on a 2 mm land = 10.8 N/mm2) over an outlet channel 6.914: edge 53 / mid 24 MPa; wall-pull peak/mean 4.87
+separator 1.8 Cu, cap-land band load (p 1.55 MPa x 14 pitch on a 2 mm land = 10.8 N/mm2) over an outlet channel 6.914: edge 37 / mid 17 MPa; wall-pull peak/mean 4.87
+separator 2.0 Cu, cap-land band load (p 1.55 MPa x 14 pitch on a 2 mm land = 10.8 N/mm2) over an outlet channel 6.914: edge 30 / mid 14 MPa; wall-pull peak/mean 4.87
+separator 0.6 316L, cap-land band load (p 1.55 MPa x 14 pitch on a 2 mm land = 10.8 N/mm2) over an outlet channel 6.914: edge 333 / mid 149 MPa; wall-pull peak/mean 4.87
+separator 0.8 316L, cap-land band load (p 1.55 MPa x 14 pitch on a 2 mm land = 10.8 N/mm2) over an outlet channel 6.914: edge 187 / mid 84 MPa; wall-pull peak/mean 4.87
+separator 1.0 316L, cap-land band load (p 1.55 MPa x 14 pitch on a 2 mm land = 10.8 N/mm2) over an outlet channel 6.914: edge 120 / mid 54 MPa; wall-pull peak/mean 4.87
+separator 1.5 Cu, uniform 3.1 MPa: edge 33.3 / mid 16.5 MPa (closed form 32.9)
+separator 1.5 Cu, cap-land band load (p 3.1 MPa x 14 pitch on a 2 mm land = 21.7 N/mm2) over an outlet channel 6.914: edge 106 / mid 49 MPa; wall-pull peak/mean 4.87
+separator 1.8 Cu, cap-land band load (p 3.1 MPa x 14 pitch on a 2 mm land = 21.7 N/mm2) over an outlet channel 6.914: edge 74 / mid 34 MPa; wall-pull peak/mean 4.87
+separator 2.0 Cu, cap-land band load (p 3.1 MPa x 14 pitch on a 2 mm land = 21.7 N/mm2) over an outlet channel 6.914: edge 60 / mid 27 MPa; wall-pull peak/mean 4.87
+separator 0.6 316L, cap-land band load (p 3.1 MPa x 14 pitch on a 2 mm land = 21.7 N/mm2) over an outlet channel 6.914: edge 665 / mid 297 MPa; wall-pull peak/mean 4.87
+separator 0.8 316L, cap-land band load (p 3.1 MPa x 14 pitch on a 2 mm land = 21.7 N/mm2) over an outlet channel 6.914: edge 374 / mid 167 MPa; wall-pull peak/mean 4.87
+separator 1.0 316L, cap-land band load (p 3.1 MPa x 14 pitch on a 2 mm land = 21.7 N/mm2) over an outlet channel 6.914: edge 239 / mid 107 MPa; wall-pull peak/mean 4.87
+separator 1.5 Cu, 3 mm lands at 14 pitch, 3.1 MPa: edge 95 / mid 44 MPa
+separator 1.5 Cu, 2 mm lands at 10 pitch (8 wide arches), 3.1 MPa: edge 76 / mid 34 MPa
+over an inlet channel the separator is backed by the bonded 0.8 top flat: composite t 2.3 -> x0.43
+joint peel at 1.55 MPa: foundation length 0.28 mm; foot (bottom flat to grate, bonded strip 1.66): net uplift 8.9 N/mm -> peak ~63 MPa, mean 5; top flat to separator: net 7.5 N/mm -> peak ~54 MPa (BAg-8 joint tensile > 150; E1 FEA)
+joint peel at 3.1 MPa: foundation length 0.28 mm; foot (bottom flat to grate, bonded strip 1.66): net uplift 17.8 N/mm -> peak ~127 MPa, mean 11; top flat to separator: net 15.1 N/mm -> peak ~107 MPa (BAg-8 joint tensile > 150; E1 FEA)
+braze fixture 0.05 MPa at 790 C: top flat 1.3 MPa, bend corner 3.5 MPa (OFE hot 0.2 % proof ~10 MPa, est.), wall 0.5 MPa compression
+braze fixture 0.1 MPa at 790 C: top flat 2.6 MPa, bend corner 7.0 MPa (OFE hot 0.2 % proof ~10 MPa, est.), wall 1.0 MPa compression
+braze fixture 0.2 MPa at 790 C: top flat 5.1 MPa, bend corner 13.9 MPa (OFE hot 0.2 % proof ~10 MPa, est.), wall 1.9 MPa compression
+braze fixture 0.6 MPa at 790 C: top flat 15.3 MPa, bend corner 41.8 MPa (OFE hot 0.2 % proof ~10 MPa, est.), wall 5.8 MPa compression
+316L option: CTE mismatch ~1.0 ppm/K x 760 K = 0.076 % -> constrained stress 147 MPa (yield 170-240 annealed), edge shear-lag on the top-flat joints ~39 MPa (0.8 mm over 3 mm), as-brazed bow ~78 um over the half-width (removed by the fly-cut; +/-50 %)
+
+## 4. Cost (US$ at 100k/yr, Cu US$14.6/kg LME + 4 OFE premium, scrap 88 %)
+plenum copper: corrugation buy 0.145 kg / finished 0.132 -> US$2.53; frames buy 0.033 -> US$0.57; fold+pierce 0.9-1.4; frames saw/skim 0.6-1.0; tack 0.2 -> plenum US$4.6-5.8 (architecture 4.4)
+separator copper buy 0.218 kg / finished 0.174 -> US$3.48; pierce (compound die) + double-disc grind 1.0-1.5 -> separator US$4.5-5.3 (in the architecture's stampings 6.8 with the grate)

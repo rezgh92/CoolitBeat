@@ -1,0 +1,34 @@
+<section id="flow-dp" data-transition="fade" style="background:#f4f1ec;color:#15191c;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#b4643a;font-weight:600">Flow sweep and pressure drop</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:72px;font-weight:600;line-height:1.1">The maximum wins at every flow; the plate drop is a third of the reconstruction</h2>
+</div>
+<div style="display:flex;gap:40px;align-items:start">
+<div style="flex:1;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:30px;font-weight:600">Case-to-inlet rise at 15 kW, K</h3>
+<table style="font-size:24px;color:#15191c">
+<tr style="background:#e9e4da"><th style="width:18%;text-align:right">LPM</th><th style="width:27%;text-align:right">Pad avg / max</th><th style="width:27%;text-align:right">Paste avg / max</th><th style="width:28%;text-align:right">CoolIT-like paste</th></tr>
+<tr><td style="text-align:right">7.5</td><td style="text-align:right">41.9 / 50.5</td><td style="text-align:right">43.8 / 54.4</td><td style="text-align:right">43.5 / 62.1</td></tr>
+<tr><td style="text-align:right">11.25</td><td style="text-align:right">34.5 / 41.5</td><td style="text-align:right">36.4 / 45.4</td><td style="text-align:right">38.4 / 51.9</td></tr>
+<tr><td style="text-align:right">15</td><td style="text-align:right">30.9 / 37.1</td><td style="text-align:right">32.9 / 41.0</td><td style="text-align:right">35.7 / 46.8</td></tr>
+<tr><td style="text-align:right">18</td><td style="text-align:right">29.2 / 34.9</td><td style="text-align:right">31.1 / 38.8</td><td style="text-align:right">34.4 / 44.2 measured</td></tr>
+<tr><td style="text-align:right">22.5</td><td style="text-align:right">27.4 / 32.7</td><td style="text-align:right">29.4 / 36.6</td><td style="text-align:right">33.0 / 41.5</td></tr>
+</table>
+<p style="font-size:24px;line-height:1.35;color:#4a5058">The average crosses at about 0.5 LPM/kW: below that the split-flow plate’s short caloric path wins on the average. The maximum never crosses.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:30px;font-weight:600">Pressure drop, PG25 at 45 °C, kPa</h3>
+<table style="font-size:24px;color:#15191c">
+<tr style="background:#e9e4da"><th style="width:16%;text-align:right">LPM</th><th style="width:22%;text-align:right">Plate, 20 mm ports</th><th style="width:20%;text-align:right">With barbs</th><th style="width:22%;text-align:right">With UQD08 pair</th><th style="width:20%;text-align:right">CoolIT-like</th></tr>
+<tr><td style="text-align:right">7.5</td><td style="text-align:right">1.7</td><td style="text-align:right">2.2</td><td style="text-align:right">4.6 to 6.3</td><td style="text-align:right">7.8</td></tr>
+<tr><td style="text-align:right">15</td><td style="text-align:right">5.5</td><td style="text-align:right">7.6</td><td style="text-align:right">17 to 24</td><td style="text-align:right">19.1</td></tr>
+<tr><td style="text-align:right">18</td><td style="text-align:right">7.6</td><td style="text-align:right">10.6</td><td style="text-align:right">25 to 34</td><td style="text-align:right">24.6</td></tr>
+<tr><td style="text-align:right">27</td><td style="text-align:right">16.0</td><td style="text-align:right">22.7</td><td style="text-align:right">54 to 76</td><td style="text-align:right">44.4</td></tr>
+<tr><td style="text-align:right">36</td><td style="text-align:right">27.5</td><td style="text-align:right">39.5</td><td style="text-align:right">95 to 134</td><td style="text-align:right">69.3</td></tr>
+</table>
+<p style="font-size:24px;line-height:1.35;color:#4a5058">81 % of the plate drop is inertial. The meter takes 2.3 kPa, the fins 1.1, the ports 1.6. Quick-disconnects dominate any tray loop, which is why we publish three boundaries.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8f8a82">CoolIT-like columns are our calibrated split-flow model, measured only at 18 LPM (34.4 / 44.2 K). External claim: at or below 10 kPa at 18 LPM and 30 kPa at 36 LPM with 20 mm ports.</p>
+<aside>Below 0.75 LPM per kW the 15 kW outlet exceeds 65 °C and the OCP sweep is run at reduced power; resistance is power-independent to first order. The pressure-drop test is the cheapest and first measurement: it exposes the meter’s discharge coefficient before any thermal test is run.</aside>
+</section>

@@ -1,0 +1,26 @@
+<section id="margins" data-transition="fade" style="background:#15191c;color:#f4f1ec;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#d08a5e;font-weight:600">Margins</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:72px;font-weight:600;line-height:1.1;color:#f4f1ec">Rated by velocity, proven by pressure, gated on one defect</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+<div style="background:#242a2f;border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:30px;font-weight:600;color:#d08a5e">Pressure ratings</h3>
+<p style="font-size:25px;line-height:1.35;color:#c9c4bb">Working pressure 1.03 MPa (150 psi), 100 % proof at 1.55 MPa, design burst at or above 3.1 MPa, sample burst at or above 4.5 MPa. Highest stress at design burst: 29.8 MPa in the plenum wall against a 40 MPa allowable for annealed copper. The 12 kN pressure load on the fin field is carried by the ties and never reaches the clamp.</p>
+</div>
+<div style="background:#242a2f;border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:30px;font-weight:600;color:#d08a5e">Velocity caps set the rating</h3>
+<p style="font-size:25px;line-height:1.35;color:#c9c4bb">Meter orifices 1.54 m/s at 18 LPM, capped at 2.0 m/s, reached at 23.4 LPM: that cap, not thermal capacity, sets the 19.5 kW rating. Ports 0.95 m/s, arches 0.93, plenum 0.62, fin tops at or below 0.5 (E2 pass criterion), fin channels 0.20 m/s at Reynolds 44.</p>
+</div>
+<div style="background:#242a2f;border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:30px;font-weight:600;color:#d08a5e">The governing defect</h3>
+<p style="font-size:25px;line-height:1.35;color:#c9c4bb">One unbonded land strip between kerfs stays leak-tight at working pressure but collapses at 1.8 to 2.6 MPa, below design burst. At proof it bulges about 2 µm, which the 1 µm confocal scan sees; at a 1.0 mm base it bulged 0.6 µm and was invisible. The 0.85 mm base is therefore gated on experiment E1 showing per-strip detection; the fallback costs 0.7 K.</p>
+</div>
+<div style="background:#242a2f;border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:30px;font-weight:600;color:#d08a5e">Uniformity and bow</h3>
+<p style="font-size:25px;line-height:1.35;color:#c9c4bb">Along-plenum max/min 1.06, line 1.03, segment 1.06 to 1.09; the weakest segment runs 0.4 K hot against a 1.5 K allowance. Under the 2 kN test clamp the plate bows 23 µm concave and the hot base bows 19 µm convex: they cancel, and the die face is cut 0 to 10 µm concave so corners never lift hot.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8f8a82">Sources: architecture 5.2 and 4.3, DDD-grate 8, DDD-mech 7, perf_datasheet section 7. The plenum-wall to cap crossings await FEA in E1.</p>
+<aside>The defect story is the honest centre of the structural case. A tied plate is only as good as its worst land strip, so the control plan is built around finding that strip on every plate at proof. If E1 cannot show the bulge reliably at 0.85 mm, Rev A ships at 1.0 mm and still beats the benchmark by more than 2.5 K on the average.</aside>
+</section>

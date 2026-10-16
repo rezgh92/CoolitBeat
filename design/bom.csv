@@ -1,0 +1,26 @@
+pn,description,qty,material,mass_g_each,mass_g_total,process_class,supplier_class,source
+CORE,Base + skived fin field + rim + ears + tap bosses,1,C10100 OFE plate 4.3 mm H02 ASTM B152,282.0,282.0,"mill, skive, gang-saw, plane, flycut",skiving house (A1),DDD-core
+GRT-L,"Grate land plate 1.30: windows, recess pockets, grooves",1,C10100 OFE strip 1.30 H02,149.0,149.0,"slot-mill/punch, laser scribe, skim",precision stamping/machining (B1),DDD-grate
+GRT-W,"Grate meter web 0.40, artwork ART-TTV-15-A, 756 holes",1,C10100 OFE strip 0.40 O60/H01,52.0,52.0,"laser pierce, electropolish",laser job shop (B2),DDD-grate
+PLN-C,"Folded plenum corrugation, 15 channels",1,C10100 OFE strip 0.80 O60 +-0.03,139.1,139.1,"progressive pierce, sequential fold",fin-folding / HX forming (C1),DDD-plenum
+PLN-F,Comb end frame 2.5 x 5.78 x 120.7,2,C10100 OFE bar H04,14.9,29.8,"gang-saw slots, skim",machining (B1),DDD-plenum
+SEP,"Separator 1.80, 46 windows",1,C10100 OFE strip 1.80,173.7,173.7,"laser/stamp, flatten",stamping (B1),DDD-plenum
+CAP,"Drawn skirted cap 1.0, 6 arches, 2 port pockets",1,C10100 OFE sheet 1.00 O60,259.5,259.5,3-station deep draw + trim,deep-drawing shop (C2),cad/params.json (cap lane pending)
+BOSS-IN,"Inlet port boss, bore 20 / OD 26, guard seat",1,C10100 OFE bar,19.2,19.2,CNC turn,machining (B1),cad/params.json
+BOSS-OUT,"Outlet port boss, bore 20 / OD 26",1,C10100 OFE bar,19.2,19.2,CNC turn,machining (B1),cad/params.json
+TAP,dP-tap tube stub 1.6 x 0.3 x 6 (-T SKUs only),2,C12200 Cu tube,0.1,0.2,"cut, deburr",tube shop (B3),DDD-core 3.10
+PIN-AL2,"Locating pin 2.0 x 5.5, stays in the assembly",2,99.6 % alumina,0.1,0.2,ground,ceramic (E1),DDD-core 3.11
+PF-1,"BAg-8 preform ladder, fin-tip joint 12-15 um",1,BAg-8 (AWS A5.8) foil,2.0,2.0,laser-cut/photo-etched,filler vendor (D1),DDD-grate 7
+PF-2,"BAg-8 preform sheet, web/land joint 12-15 um",1,BAg-8 foil,1.2,1.2,laser-cut,filler vendor (D1),DDD-grate 7
+PF-3,"BAg-8 preform, plenum feet to web, 25 um",1,BAg-8 foil,0.9,0.9,laser-cut,filler vendor (D1),DDD-plenum 6
+PF-4,"BAg-8 preform, separator/flats/frames/cap lands/skirt, 25-50 um",1,BAg-8 foil,1.6,1.6,laser-cut,filler vendor (D1),DDD-plenum 6
+GUARD,Inlet guard: 50 um abs square-weave 316L inside-out radial diffuser,1,316L mesh + 1.0 frame,10.0,10.0,"form, spot-weld, press-fit",filter maker (D2),architecture 4.1
+STUB,Port stub 20 ID x 1.0 x 30 (UQD08 adapter seat),2,316L tube,15.75,31.5,"turn, braze/press",machining (B1),DDD-mech 12
+CSS-15P,"Captive spring screw M3, shoulder 4.00 x 40.4",8,17-4PH H900 passivated,5.3,42.4,"turn, roll thread",fastener (D3),DDD-mech 3.1
+SPR-60,"Coil spring d1.30, OD 7.8, L0 27.5, k 10.8 N/mm",8,302 SS,2.3,18.4,"coil, preset",spring maker (D3),DDD-mech 3.1
+SLV-P,Stop sleeve 5.5/4.1 x 21.2,8,303 SS,1.4,11.2,turn,fastener (D3),DDD-mech 3.1
+WSH-8,Washer 8.5/4.2 x 1.0,8,301 SS,0.6,4.8,stamp,fastener (D3),DDD-mech 3.1
+ECL-3.2,E-clip DIN 6799 3.2,8,spring steel,0.2,1.6,stamp,fastener (D3),DDD-mech 3.1
+LF-15P,"Product load frame, stamped 2.0 sheet, 4 hook tabs",1,"301 SS 1/2 hard, passivated",85.0,85.0,"stamp, form",stamping (B1),DDD-mech 4.2
+BP-15P,"Backplate 0.8 x 118 sq with 8 STD-8 standoffs (board side, kit)",1,301 SS + 17-4PH,87.6,87.6,"stamp, press-fit",stamping (B1),DDD-mech 12
+FLT-33,"Tray filter cartridge kit 33 um abs >= 150 cm2 (supplied, not in plate cost)",1,316L / PP housing,0,0,purchased,filter maker (D2),architecture D6

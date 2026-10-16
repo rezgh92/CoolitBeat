@@ -1,0 +1,75 @@
+# HMMC-E scoping run, 15 kW / 18 LPM PG25 / 45 C / 117 cm2
+
+| design | q'' W/cm2 | caloric | TIM | base | conv | **avg dT K** | max dT K | R'' cm2K/W | dP kPa (incl. screen) | pump W | Q cap kW | Tcase,max C |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like skived split-flow (117 cm2, paste) |   128 |   6.3 |   9.0 |  6.6 |  12.6 | ** 34.5** |  44.3 | 0.269 |  24.6 |  7.4 |  12.7 |  89.3 |
+| HMMC-E/R, same paste (like-for-like)           |   128 |   7.6 |   9.0 |  3.3 |  10.1 | ** 30.0** |  35.0 | 0.234 |   6.0 |  1.8 |  18.4 |  80.0 |
+| HMMC-E/R Tier 1 PCM pad                        |   128 |   7.6 |   7.1 |  3.3 |  10.1 | ** 28.0** |  31.1 | 0.219 |   6.0 |  1.8 |  21.6 |  76.1 |
+| HMMC-E/R Tier 2 liquid metal (Ni face)         |   128 |   7.6 |   1.9 |  3.3 |  10.1 | ** 22.9** |  25.0 | 0.179 |   6.0 |  1.8 |  29.7 |  70.0 |
+| HMMC-E/R Tier 3 direct-to-die (ref.)           |   128 |   7.6 |   0.0 |  2.6 |  10.1 | ** 20.3** |  22.4 | 0.159 |   6.0 |  1.8 |  35.7 |  67.4 |
+| HMMC-E/P PCM pad (<=33 um loops)               |   128 |   8.2 |   7.1 |  3.3 |   6.8 | ** 25.4** |  28.4 | 0.198 |   6.0 |  1.8 |  25.2 |  73.4 |
+| HMMC-E/P liquid metal (<=33 um loops)          |   128 |   8.2 |   1.9 |  3.3 |   6.8 | ** 20.2** |  22.3 | 0.158 |   6.0 |  1.8 |  37.0 |  67.3 |
+| HMMC-E/R low-profile 18 mm (1.5 mm fins, 3.2 kPa comb) |   128 |   7.5 |   7.1 |  3.3 |  11.1 | ** 28.9** |  31.9 | 0.226 |   7.1 |  2.1 |  20.6 |  76.9 |
+| HMMC-E/R LP15 (15.6 mm, 1.6 kPa comb)          |   128 |   7.5 |   7.1 |  3.3 |  11.1 | ** 28.9** |  31.9 | 0.226 |   5.5 |  1.7 |  20.6 |  76.9 |
+
+Tier-1 detail: NTU 1.25, cal_frac 0.60, h 13.2 kW/m2K, eta 0.56, h_eff 127 kW/m2K, u_ch 0.083 m/s (Re 19), u_slot 0.06 m/s, u_port 1.49 m/s
+dP split: channel 0.23 + turns 0.01 + slot 0.00 + header 0.61 + comb 2.20 + ports 2.57 + screen 0.40 = 6.0 kPa
+
+## Flow sweep (HMMC-E/R PCM and LM vs CoolIT-like), 15 kW, 117 cm2
+| LPM/kW | LPM | CoolIT avg/max K | dP kPa | pump W | E/R-PCM avg/max | dP (16 mm ports) | dP (20 mm ports) | pump W | E/R-LM avg/max | E/P-LM avg/max |
+|---:|---:|---|---:|---:|---|---:|---:|---:|---|---|
+| 0.60 | 9.0 | 41.0 / 50.8 | 9.8 | 1.5 | 38.0 / 41.0 | 1.6 | 1.2 | 0.2 | 32.9 / 35.0 | 31.2 / 33.3 |
+| 0.75 | 11.2 | 38.5 / 48.3 | 13.0 | 2.4 | 33.8 / 36.8 | 2.4 | 1.8 | 0.5 | 28.7 / 30.8 | 26.6 / 28.7 |
+| 0.90 | 13.5 | 36.7 / 46.5 | 16.6 | 3.7 | 31.2 / 34.2 | 3.4 | 2.6 | 0.8 | 26.1 / 28.2 | 23.7 / 25.8 |
+| 1.00 | 15.0 | 35.8 / 45.6 | 19.1 | 4.8 | 29.9 / 32.9 | 4.2 | 3.2 | 1.1 | 24.8 / 26.9 | 22.3 / 24.4 |
+| 1.20 | 18.0 | 34.5 / 44.3 | 24.6 | 7.4 | 28.0 / 31.1 | 6.0 | 4.5 | 1.8 | 22.9 / 25.0 | 20.2 / 22.3 |
+| 1.50 | 22.5 | 33.2 / 43.0 | 33.9 | 12.7 | 26.3 / 29.3 | 9.3 | 7.0 | 3.5 | 21.1 / 23.2 | 18.3 / 20.4 |
+| 2.00 | 30.0 | 31.7 / 41.5 | 52.2 | 26.1 | 24.5 / 27.5 | 16.5 | 12.3 | 8.2 | 19.4 / 21.5 | 16.4 / 18.5 |
+| 2.40 | 36.0 | 31.0 / 40.8 | 69.3 | 41.6 | 23.6 / 26.7 | 23.6 | 17.6 | 14.2 | 18.5 / 20.6 | 15.6 / 17.7 |
+
+Equal pumping power to the CoolIT-like plate (7.4 W at 18 LPM): HMMC-E/R runs 28.9 LPM (1.93 LPM/kW): PCM 24.7/27.7 K, LM 19.6/21.7 K
+Equal average dT (34.4 K): HMMC-E/R PCM needs 10.9 LPM (0.72 LPM/kW), dP 2.3 kPa, pump 0.38 W
+Equal average dT with the SAME paste: 12.3 LPM (0.82 LPM/kW)
+Equal MAX dT (44.2 K) with the same paste: 9.3 LPM (0.62 LPM/kW)
+
+## 2x flow (36 LPM, 2.4 LPM/kW) and inlet 50 C (W+)
+- HMMC-E/R (117 cm2, PCM pad): avg 23.6 K, max 26.7 K, dP 23.6 kPa, pump 14.2 W, u_port 2.98 m/s, u_slot 0.12 m/s
+- HMMC-E/R (117 cm2, liquid metal): avg 18.5 K, max 20.6 K, dP 23.6 kPa, pump 14.2 W, u_port 2.98 m/s, u_slot 0.12 m/s
+- HMMC-E/R PCM, 20 mm ports: avg 23.6 K, max 26.7 K, dP 17.6 kPa, pump 10.5 W, u_port 1.91 m/s, u_slot 0.12 m/s
+- 50 C inlet, 18 LPM, E/R PCM: Tcase,max 81.1 C, Q cap 17.9 kW
+- DI water, 18 LPM, E/R PCM: avg 26.6 / max 29.6 K, dP 5.8 kPa
+
+## GPU-class plates (1.2 LPM/kW unless stated)
+| design | q'' W/cm2 | caloric | TIM | base | conv | **avg dT K** | max dT K | R'' cm2K/W | dP kPa (incl. screen) | pump W | Q cap kW | Tcase,max C |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Rubin-class 2.3 kW, 60 cm2 lidded, 1.0 LPM/kW: CoolIT-like skived split-flow |    38 |   7.6 |   2.7 |  2.0 |   3.9 | ** 16.1** |  23.5 | 0.420 |   2.0 |  0.1 |   6.8 |  68.5 |
+| Rubin-class 2.3 kW, 60 cm2 lidded, 1.0 LPM/kW: HMMC-E/R |    38 |  12.2 |   2.1 |  1.0 |   3.1 | ** 18.4** |  20.3 | 0.480 |   0.2 |  0.0 |   9.6 |  65.3 |
+| Rubin-class 2.3 kW, 60 cm2 lidded, 1.0 LPM/kW: HMMC-E/R |    38 |  12.2 |   0.6 |  1.0 |   3.1 | ** 16.9** |  18.5 | 0.440 |   0.2 |  0.0 |  12.9 |  63.5 |
+| Rubin-class 2.3 kW, 60 cm2 lidded, 1.0 LPM/kW: HMMC-E/P |    38 |  13.1 |   0.6 |  1.0 |   2.1 | ** 16.8** |  18.4 | 0.437 |   0.3 |  0.0 |  15.9 |  63.4 |
+|  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Rubin-class 2.3 kW, 60 cm2, 1.2: CoolIT-like skived split-flow |    38 |   6.3 |   2.7 |  2.0 |   3.9 | ** 14.8** |  22.2 | 0.387 |   2.5 |  0.1 |   7.1 |  67.2 |
+| Rubin-class 2.3 kW, 60 cm2, 1.2: HMMC-E/R      |    38 |   9.8 |   2.1 |  1.0 |   3.1 | ** 16.0** |  17.9 | 0.416 |   0.2 |  0.0 |  10.5 |  62.9 |
+| Rubin-class 2.3 kW, 60 cm2, 1.2: HMMC-E/R      |    38 |   9.8 |   0.6 |  1.0 |   3.1 | ** 14.4** |  16.1 | 0.376 |   0.2 |  0.0 |  14.1 |  61.1 |
+| Rubin-class 2.3 kW, 60 cm2, 1.2: HMMC-E/P      |    38 |  10.6 |   0.6 |  1.0 |   2.1 | ** 14.2** |  15.9 | 0.372 |   0.4 |  0.0 |  17.5 |  60.9 |
+|  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Rubin-Ultra-class 3.6 kW, 80 cm2, 1.0: CoolIT-like skived split-flow |    45 |   7.6 |   3.2 |  2.3 |   4.5 | ** 17.6** |  25.1 | 0.391 |   3.3 |  0.2 |   9.0 |  70.1 |
+| Rubin-Ultra-class 3.6 kW, 80 cm2, 1.0: HMMC-E/R |    45 |  11.8 |   2.5 |  1.2 |   3.6 | ** 19.1** |  21.1 | 0.423 |   0.3 |  0.0 |  13.0 |  66.1 |
+| Rubin-Ultra-class 3.6 kW, 80 cm2, 1.0: HMMC-E/R |    45 |  11.8 |   0.7 |  1.2 |   3.6 | ** 17.3** |  19.0 | 0.383 |   0.3 |  0.0 |  17.5 |  64.0 |
+| Rubin-Ultra-class 3.6 kW, 80 cm2, 1.0: HMMC-E/P |    45 |  12.8 |   0.7 |  1.2 |   2.4 | ** 17.1** |  18.8 | 0.379 |   0.5 |  0.0 |  21.5 |  63.8 |
+|  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CoolIT-4kW TTV 4 kW, 25 cm2 (160 W/cm2), 1.5: CoolIT-like skived split-flow |   160 |   5.1 |  11.2 |  8.2 |  15.5 | ** 40.0** |  50.7 | 0.250 |   6.2 |  0.6 |   2.8 |  95.7 |
+| CoolIT-4kW TTV 4 kW, 25 cm2 (160 W/cm2), 1.5: HMMC-E/R |   160 |   5.7 |   8.8 |  4.1 |  12.3 | ** 31.0** |  34.4 | 0.194 |   1.0 |  0.1 |   4.9 |  79.4 |
+| CoolIT-4kW TTV 4 kW, 25 cm2 (160 W/cm2), 1.5: HMMC-E/R |   160 |   5.7 |   2.4 |  4.1 |  12.3 | ** 24.6** |  26.8 | 0.154 |   1.0 |  0.1 |   6.8 |  71.8 |
+| CoolIT-4kW TTV 4 kW, 25 cm2 (160 W/cm2), 1.5: HMMC-E/P |   160 |   6.1 |   2.4 |  4.1 |   8.4 | ** 21.0** |  23.2 | 0.131 |   2.0 |  0.2 |   8.5 |  68.2 |
+|  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+## Real 2027-28 package (4 x 26x33 mm dies at 350 W/cm2 + 16 HBM, 12.85 kW, 15.4 LPM), hottest-die case-to-inlet, zoned
+fit from nonuniform-heatmap: dT = 33 + 3500/h_eff + 350 (R_TIM - 0.05); h_eff from the model core at the die-zone flow
+- core R, h_eff 126 kW/m2K, paste 0.07: hot-die dT 67.7 K -> Tcase 113 C
+- core R, h_eff 126 kW/m2K, PCM 0.055: hot-die dT 62.4 K -> Tcase 107 C
+- core R, h_eff 126 kW/m2K, liquid metal 0.015: hot-die dT 48.4 K -> Tcase 93 C
+- core R, h_eff 126 kW/m2K, direct-to-die LM (lid+TIM1 removed, ~ -28 K at junction): hot-die dT 48.4 K -> Tcase 93 C
+- core P, h_eff 187 kW/m2K, paste 0.07: hot-die dT 58.7 K -> Tcase 104 C
+- core P, h_eff 187 kW/m2K, PCM 0.055: hot-die dT 53.5 K -> Tcase 98 C
+- core P, h_eff 187 kW/m2K, liquid metal 0.015: hot-die dT 39.5 K -> Tcase 84 C
+- core P, h_eff 187 kW/m2K, direct-to-die LM (lid+TIM1 removed, ~ -28 K at junction): hot-die dT 39.5 K -> Tcase 84 C

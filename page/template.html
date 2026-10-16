@@ -1,0 +1,386 @@
+<title>PRISM Cold Plate Architecture</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an engineering drawing package. A title block heads the sheet, then one reading column with wide figures and tables. */
+:root {
+  --bg: #eef1f2;
+  --sheet: #fbfcfc;
+  --ink: #15191c;
+  --ink-2: #48525a;
+  --ink-3: #6b757c;
+  --rule: #d3d9dd;
+  --rule-strong: #8f9aa1;
+  --copper: #9c4f27;
+  --copper-tint: #f2e2d6;
+  --cu-fill: #c27a4c;
+  --cu-fill-2: #d9a27c;
+  --gap-fill: #e7ecef;
+  --cold: #2a78d6;
+  --hot: #d9542a;
+  --win: #0f7a3d;
+  --win-bg: #e1f2e7;
+  --par: #7a5d00;
+  --par-bg: #f6edcf;
+  --loss: #a8261d;
+  --loss-bg: #f8e1de;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4;
+  --f-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101315; --sheet: #171b1e; --ink: #e7ebed; --ink-2: #b3bdc3; --ink-3: #8b959b;
+    --rule: #2a3236; --rule-strong: #56636a; --copper: #e4935f; --copper-tint: #3a2417;
+    --cu-fill: #b56d40; --cu-fill-2: #8a5536; --gap-fill: #22292d;
+    --cold: #3987e5; --hot: #e8693b;
+    --win: #52c784; --win-bg: #15301f; --par: #dcbc55; --par-bg: #332a0f; --loss: #f0756b; --loss-bg: #3a1714;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101315; --sheet: #171b1e; --ink: #e7ebed; --ink-2: #b3bdc3; --ink-3: #8b959b;
+  --rule: #2a3236; --rule-strong: #56636a; --copper: #e4935f; --copper-tint: #3a2417;
+  --cu-fill: #b56d40; --cu-fill-2: #8a5536; --gap-fill: #22292d;
+  --cold: #3987e5; --hot: #e8693b;
+  --win: #52c784; --win-bg: #15301f; --par: #dcbc55; --par-bg: #332a0f; --loss: #f0756b; --loss-bg: #3a1714;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 15.5px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+.sheet { max-width: 1040px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--rule-strong); }
+.inner { padding: 28px clamp(16px, 4vw, 48px) 40px; display: grid; gap: 44px; }
+.read { max-width: 70ch; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+h1 { font-size: clamp(34px, 5vw, 50px); font-weight: 700; letter-spacing: 0.01em; }
+h2 { font-size: 30px; font-weight: 600; letter-spacing: 0.01em; }
+h3 { font-size: 21px; font-weight: 600; }
+p { margin: 0; }
+section { display: grid; gap: 16px; min-width: 0; }
+.kicker { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--copper); }
+.lede { font-size: 18px; line-height: 1.55; color: var(--ink); max-width: 66ch; }
+.muted { color: var(--ink-2); }
+.small { font-size: 13.5px; color: var(--ink-3); }
+a { color: var(--copper); text-underline-offset: 2px; }
+a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+
+/* title block */
+.titleblock { display: grid; grid-template-columns: 2.2fr 1fr 1fr; border-bottom: 1px solid var(--rule-strong); }
+.titleblock > div { padding: 12px 16px; border-right: 1px solid var(--rule); border-top: 1px solid var(--rule); min-width: 0; }
+.titleblock > div:last-child { border-right: 0; }
+.tb-k { display: block; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+.tb-v { display: block; font-family: var(--f-mono); font-size: 13.5px; color: var(--ink); }
+.tb-main { grid-row: span 2; border-top: 0 !important; display: grid; align-content: center; gap: 6px; padding: 22px 20px !important; }
+.tb-main .tb-v { font-family: var(--f-display); font-size: 26px; font-weight: 700; line-height: 1.1; }
+
+/* headline strip */
+.verdict { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--rule); }
+.verdict > div { padding: 14px 16px; border-right: 1px solid var(--rule); display: grid; gap: 2px; }
+.verdict > div:last-child { border-right: 0; }
+.v-k { font-size: 12.5px; color: var(--ink-2); }
+.v-n { font-family: var(--f-display); font-size: 34px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.05; }
+.v-c { font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); }
+
+/* figures */
+figure { margin: 0; display: grid; gap: 10px; min-width: 0; }
+.figwrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--sheet); padding: 14px 10px 8px; }
+figcaption { font-size: 13.5px; color: var(--ink-2); max-width: 78ch; }
+figcaption b { color: var(--ink); font-weight: 600; }
+svg { display: block; max-width: 100%; height: auto; color: var(--ink); }
+svg.diagram, svg.chart { min-width: 640px; }
+svg text { font-family: var(--f-body); fill: currentColor; }
+.ptitle { font-family: var(--f-display); font-size: 19px; font-weight: 600; }
+.pnote { font-size: 12.5px; fill: var(--ink-3); }
+.lab { font-size: 12px; }
+.lab.strong { font-weight: 600; font-size: 12.5px; }
+.lab.dim-t { fill: var(--ink-3); font-size: 11.5px; }
+.em { font-size: 12.5px; fill: var(--ink-2); font-style: italic; }
+.field { stroke: var(--ink); stroke-opacity: 0.35; stroke-width: 0.8; }
+.arr-c { stroke: var(--cold); stroke-width: 2; }
+.arr-h { stroke: var(--hot); stroke-width: 2; }
+.arr-c.thin, .arr-h.thin { stroke-width: 1.6; }
+.arr-w { stroke: currentColor; stroke-width: 1.4; }
+.dim { stroke: currentColor; stroke-width: 1; }
+.lead { stroke: var(--ink-3); stroke-width: 1; }
+.tim { stroke: var(--copper); stroke-width: 3; stroke-dasharray: 6 4; }
+.l-cu { fill: var(--cu-fill); }
+.l-cu2 { fill: var(--cu-fill-2); }
+.l-gap { fill: var(--gap-fill); }
+.l-in { fill: var(--cold); fill-opacity: 0.55; }
+.l-out { fill: var(--hot); fill-opacity: 0.5; }
+.grid { stroke: var(--rule); stroke-width: 1; }
+.tick { font-family: var(--f-mono); font-size: 11px; fill: var(--ink-3); }
+.rowlab { font-size: 13px; font-weight: 600; }
+.rowsub { font-size: 11.5px; fill: var(--ink-3); }
+.total { font-family: var(--f-mono); font-size: 13px; font-weight: 500; }
+.seg { cursor: default; }
+.seg:hover, .seg:focus { opacity: 0.82; outline: none; }
+.s1 { fill: var(--s1); } .s2 { fill: var(--s2); } .s3 { fill: var(--s3); } .s4 { fill: var(--s4); } .s5 { fill: var(--s5); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend i { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+.tip { position: fixed; pointer-events: none; z-index: 5; background: var(--ink); color: var(--sheet); font-size: 12.5px; padding: 6px 9px; border-radius: 4px; max-width: 280px; }
+
+/* tables */
+.tblwrap { overflow-x: auto; min-width: 0; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tbl th, .tbl td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl thead th { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; border-bottom: 1px solid var(--rule-strong); white-space: nowrap; }
+.tbl tbody th { font-weight: 500; }
+.num { font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: 13px; white-space: nowrap; }
+.strong { font-weight: 600; }
+.chip { display: inline-block; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; white-space: nowrap; border: 1px solid currentColor; }
+.chip.win, .chip.prob { color: var(--win); background: var(--win-bg); }
+.chip.prob { border-style: dashed; }
+.chip.par { color: var(--par); background: var(--par-bg); }
+.chip.loss, .chip.con { color: var(--loss); background: var(--loss-bg); }
+.chip.con { border-style: dashed; }
+
+/* lists */
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+ul.plain, ol.plain { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+ol.plain li::marker { font-family: var(--f-mono); color: var(--copper); }
+.gates { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--rule); }
+.gates > div { padding: 12px 14px; border-right: 1px solid var(--rule); display: grid; gap: 4px; align-content: start; }
+.gates > div:last-child { border-right: 0; }
+.g-id { font-family: var(--f-mono); font-size: 12px; color: var(--copper); }
+.g-t { font-family: var(--f-display); font-size: 19px; font-weight: 600; line-height: 1.15; }
+.g-d { font-size: 13px; color: var(--ink-2); }
+.decision { border-left: 3px solid var(--copper); padding: 4px 0 4px 14px; display: grid; gap: 4px; }
+.decision b { font-family: var(--f-display); font-size: 19px; font-weight: 600; }
+.method { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); }
+.method > div { padding: 12px 14px; border-right: 1px solid var(--rule); display: grid; gap: 4px; align-content: start; }
+.method > div:last-child { border-right: 0; }
+.m-n { font-family: var(--f-display); font-size: 30px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 760px) {
+  .titleblock { grid-template-columns: 1fr 1fr; }
+  .tb-main { grid-column: 1 / -1; grid-row: auto; }
+  .verdict, .method { grid-template-columns: 1fr 1fr; }
+  .verdict > div:nth-child(2n), .method > div:nth-child(2n) { border-right: 0; }
+  .verdict > div, .method > div { border-bottom: 1px solid var(--rule); }
+  .cols { grid-template-columns: 1fr; }
+  .gates { grid-template-columns: 1fr; }
+  .gates > div { border-right: 0; border-bottom: 1px solid var(--rule); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<main class="sheet">
+  <header class="titleblock" aria-label="Document title block">
+    <div class="tb-main">
+      <span class="tb-k">Title</span>
+      <span class="tb-v">PRISM-15 Rev A cold plate: architecture of record</span>
+      <span class="tb-k" style="margin-top:6px">Purpose</span>
+      <span class="tb-v" style="font-family:var(--f-body);font-size:14px;font-weight:400">Top-level architecture to beat CoolIT's 15 kW single-phase cold plate, for a funding decision</span>
+    </div>
+    <div><span class="tb-k">Benchmark</span><span class="tb-v">CoolIT 15 kW Split-Flow, Jun 2026</span></div>
+    <div><span class="tb-k">Sheet</span><span class="tb-v">Architecture · Rev A · 14 Oct 2026</span></div>
+    <div><span class="tb-k">Operating point</span><span class="tb-v">15 kW · 18 LPM PG25 · 45 °C in</span></div>
+    <div><span class="tb-k">Reference area</span><span class="tb-v">117 cm² heated · 128 W/cm²</span></div>
+  </header>
+
+  <div class="inner">
+    <section>
+      <span class="kicker">Summary</span>
+      <h1>A short-path manifold plate that beats CoolIT's 15 kW result on temperature, pressure drop and capacity</h1>
+      <p class="lede">PRISM is an all-copper, single-braze cold plate. It feeds a fine skived fin field through metered lines, so coolant travels 7.7 mm instead of 54 mm. With the same paste CoolIT used, it runs 3.4 K cooler on average and 5.5 K cooler at the hottest point, at about a third of the pressure drop. It costs about 31 % more per plate, so the case is made per kilowatt and at the facility.</p>
+      <div class="verdict" role="list">
+        <div role="listitem"><span class="v-k">Average ΔT, same paste</span><span class="v-n">31.0 K</span><span class="v-c">CoolIT 34.4 K</span></div>
+        <div role="listitem"><span class="v-k">Maximum ΔT, same paste</span><span class="v-n">38.7 K</span><span class="v-c">CoolIT 44.2 K</span></div>
+        <div role="listitem"><span class="v-k">Plate pressure drop, 18 LPM</span><span class="v-n">7.6 kPa</span><span class="v-c">CoolIT ~22 kPa (reconstructed)</span></div>
+        <div role="listitem"><span class="v-k">Load at 85 °C case, PCM pad</span><span class="v-n">18.5 kW</span><span class="v-c">CoolIT 14.8 kW (est.)</span></div>
+      </div>
+      <p class="small">All PRISM values are model predictions (±25 % per term) to be confirmed by test. CoolIT values are from its June 2026 tech brief; its pressure drop, heated area and thermal interface resistance are not published and are reconstructed.</p>
+    </section>
+
+    <section>
+      <span class="kicker">The mechanism</span>
+      <h2>Where the win comes from: path length</h2>
+      <p class="read">A split-flow plate sends each parcel of coolant 54 mm along the fins. By the time it reaches the edge it has warmed by the full 12.7 K, and the fins there must be fed by long, narrow channels that cost pressure. PRISM cuts the same field into 14 short cells fed in parallel. Fin geometry is then chosen for heat transfer and fouling, not for pressure drop.</p>
+      <figure>
+        <div class="figwrap">{{FLOW_SVG}}</div>
+        <figcaption><b>Figure 1.</b> Coolant path along the 108 mm fin field, colour from inlet (blue) to outlet (orange) temperature. Short cells remove the hot edge; they cost about 1.2 K more average coolant rise because the wall stays nearly isothermal within each cell.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <span class="kicker">The budget</span>
+      <h2>Where CoolIT's 34.4 K goes, and which terms PRISM cuts</h2>
+      <div class="legend" aria-hidden="true">
+        <span><i style="background:var(--s1)"></i>Coolant rise (caloric)</span>
+        <span><i style="background:var(--s2)"></i>Thermal interface</span>
+        <span><i style="background:var(--s3)"></i>Copper base</span>
+        <span><i style="background:var(--s4)"></i>Convection in fins</span>
+        <span><i style="background:var(--s5)"></i>2-D penalty</span>
+      </div>
+      <figure>
+        <div class="figwrap">{{CHART_SVG}}</div>
+        <figcaption><b>Figure 2.</b> Average case-to-inlet temperature rise at 15 kW, 18 LPM PG25, 45 °C inlet. PRISM halves the base term (0.8 mm tied base instead of about 2 mm) and cuts convection by 1.7 K; the interface is the next lever and depends on the customer's package. Terms are rounded, so bars may differ from the totals by 0.1 K. Hover or focus a segment for its value.</figcaption>
+      </figure>
+      <div class="tblwrap">{{BUDGET_TABLE}}</div>
+    </section>
+
+    <section>
+      <span class="kicker">The scorecard</span>
+      <h2>Against CoolIT, metric by metric</h2>
+      <p class="read">Nominal is the model value. Conservative is the 90th percentile of a 20,000-sample Monte Carlo. Stretch is liquid metal on the same plate for thermal rows, and the silver-free Cu-Sn joint for cost rows. Every loss is listed, because a reviewer from CoolIT will find them.</p>
+      <div class="tblwrap">
+        <table class="tbl">
+          <thead><tr><th scope="col">Metric</th><th scope="col">CoolIT 15 kW</th><th scope="col">PRISM nominal</th><th scope="col">Conservative</th><th scope="col">Stretch</th><th scope="col">Verdict</th></tr></thead>
+          <tbody>
+{{SCORE_ROWS}}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <span class="kicker">What gets built</span>
+      <h2>Five copper layers, one braze cycle</h2>
+      <figure>
+        <div class="figwrap">{{STACK_SVG}}</div>
+        <figcaption><b>Figure 3.</b> PRISM-15 Rev A cross-section, 125 × 125 mm body over a 108 × 108 mm fin field, vertical scale true. Fin tips are brazed to the grate, so the 0.8 mm base carries coolant pressure without bowing and holds a pad or liquid metal at its rated resistance.</figcaption>
+      </figure>
+      <div class="cols">
+        <div class="read" style="display:grid;gap:10px">
+          <h3>Process chain</h3>
+          <ol class="plain">
+            <li>Skive the fin field, plane the tips, gang-cut the 0.3 mm kerfs.</li>
+            <li>Laser-pierce the grate artwork; this is the only per-package tooling.</li>
+            <li>Fold the plenum from 0.8 mm copper; draw the arched cap.</li>
+            <li>Vacuum-braze the stack in one cycle, with a single external seam.</li>
+            <li>Fly-cut the face to 0.8 mm and cut any HBM pedestal step.</li>
+            <li>Helium leak, proof, three-point pressure drop and an infrared flow screen on every plate.</li>
+          </ol>
+        </div>
+        <div class="read" style="display:grid;gap:10px">
+          <h3>One core, three interface tiers</h3>
+          <ul class="plain">
+            <li><b>Tier 1, drop-in:</b> phase-change pad on a lidded package. 29.0 / 34.8 K.</li>
+            <li><b>Tier 2, OEM co-design:</b> liquid metal on a nickel-plated face. 23.9 / 28.8 K.</li>
+            <li><b>Tier 3, chip co-design:</b> stepped pedestal on bare die; removes the lid and one interface.</li>
+            <li><b>Filtration grades:</b> 0.15 mm channels ship with a 33 µm tray filter; 0.12 and 0.10 mm grades need loops filtered to 33 µm or better.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="kicker">Where it goes</span>
+      <h2>Applications, ranked</h2>
+      <div class="tblwrap">
+        <table class="tbl">
+          <thead><tr><th scope="col">Rank</th><th scope="col">Application</th><th scope="col">Why PRISM fits</th><th scope="col">Entry</th></tr></thead>
+          <tbody>
+            <tr><th scope="row" class="num">1</th><td>Hyperscaler custom AI accelerators (TPU, Trainium, Maia class)</td><td>Owners control package, tray and loop, so they can adopt the filter, zoning and liquid metal</td><td class="num">samples M12–15, volume 2029</td></tr>
+            <tr><th scope="row" class="num">2</th><td>NVIDIA reference-design plates</td><td>Zoned feed keeps HBM off the die's outlet; must go through NVIDIA thermal engineering, not a Group-A supplier</td><td class="num">platform 2029–30</td></tr>
+            <tr><th scope="row" class="num">3</th><td>15–30 kW modules, Kyber-class blades, wafer-scale tiles</td><td>Flow length stays fixed as the plate grows, so capacity scales with area</td><td class="num">2028–29</td></tr>
+            <tr><th scope="row" class="num">4</th><td>800 VDC rectifiers and solid-state transformers (SiC)</td><td>Direct-substrate cooler in the same PG25 loop; sell power density and power-cycling life</td><td class="num">demo M9–12, volume 2028+</td></tr>
+            <tr><th scope="row" class="num">5</th><td>CPU, NVSwitch, co-packaged optics</td><td>Rack-kit completeness, not a thermal win</td><td class="num">with rack kits</td></tr>
+            <tr><th scope="row" class="num">6</th><td>SiC traction inverters</td><td>Coarse aluminium-compatible grade; licence only</td><td class="num">vehicles ~2030</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small read">"SSD converters" most likely meant SiC converters, covered by ranks 4 and 6. SSD storage drives (25–40 W each) gain nothing from this core and are excluded.</p>
+    </section>
+
+    <section>
+      <span class="kicker">Honest limits</span>
+      <h2>What PRISM does not win</h2>
+      <ul class="plain read">
+        <li><b>Price per plate:</b> about US$165 against US$126 at 100k a year. Cost per kilowatt is at parity, and the silver-free joint (decided at the first gate) would make it 6–9 % better.</li>
+        <li><b>A 100 cm² heated area:</b> if CoolIT's heaters were that small, the like-for-like average is a tie. The maximum still edges ahead.</li>
+        <li><b>Very low flow:</b> below 0.5 LPM/kW the short cells lose the average. The maximum still wins at every flow in the OCP sweep.</li>
+        <li><b>CoolIT's 4 kW single-die plate:</b> the drop-in core loses there. Only liquid metal or the dedicated small-die variant beats it.</li>
+        <li><b>Fouling and record:</b> 0.15 mm channels need the supplied 33 µm filter to match a coarser plate's life, and there is no field record yet.</li>
+        <li><b>350 W/cm² whole-die flux (2029+):</b> no drop-in grade reaches 85 °C case, though PRISM is about 16 K cooler than a model of split-flow there.</li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="kicker">Programme</span>
+      <h2>Twelve months to a public, independent result</h2>
+      <div class="gates">
+        <div><span class="g-id">G1 · M3</span><span class="g-t">Freeze Rev A</span><span class="g-d">Braze coupons prove the fin-tip ties; choose 0.8 or 1.0 mm base and the joint route. Kill if no route passes by M5.</span></div>
+        <div><span class="g-id">G2 · M6</span><span class="g-t">Measured parity</span><span class="g-d">5 plates × 3 mounts: PCM ≤ 31 / 36 K and paste ≤ 33 K, or re-scope the claim.</span></div>
+        <div><span class="g-id">G3 · M9</span><span class="g-t">Independent repeat</span><span class="g-d">ISO 17025 lab within ±1.5 K of our data.</span></div>
+        <div><span class="g-id">G4 · M12</span><span class="g-t">Go public</span><span class="g-d">Full OCP-format report at OCP Global Summit 2027.</span></div>
+        <div><span class="g-id">G5 · M18</span><span class="g-t">Qualified product</span><span class="g-d">Pilot of 300–500 plates, PPAP, samples to two hyperscaler programmes.</span></div>
+      </div>
+      <div class="cols">
+        <div class="read" style="display:grid;gap:10px">
+          <h3>Top risks</h3>
+          <ol class="plain">
+            <li><b>Fin-tip braze</b> (voids, wicking, undetected unbonded strips). Gate G1, three backup joint routes, 1.0 mm base fallback at +0.7 K.</li>
+            <li><b>CoolIT's patents.</b> The Split-Flow family runs to about Sep 2028 in the US and has a Taiwan member. No US sale before a freedom-to-operate opinion at M4.</li>
+            <li><b>Micro-channel lids at NVIDIA</b> could replace lidded plates from 2027. A US$0.4–0.6 M lid-insert study hedges it.</li>
+            <li><b>Benchmark ambiguity.</b> CoolIT's area and interface are unpublished. We test two vehicle sizes and buy incumbent plates to measure ourselves.</li>
+          </ol>
+        </div>
+        <div class="read" style="display:grid;gap:10px">
+          <h3>Budget and odds</h3>
+          <ul class="plain">
+            <li>US$2.3 M to the first gate; US$8.4–10.7 M for 12 months with contingency; US$11.4–14.5 M to a qualified product at M18.</li>
+            <li>About 18 people: thermal, mechanical, manufacturing, test, reliability, quality, IP.</li>
+            <li>Probability of the decisive PCM result at M12: about 0.43. Of beating CoolIT on PCM average, maximum and pressure drop: about 0.68.</li>
+            <li>The likeliest failure is a 1–3 month slip at the braze gate, not a thermal miss.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="kicker">For the line manager</span>
+      <h2>Decisions needed</h2>
+      <div class="decision"><b>D1 · The public claim</b><span class="muted">Claim the like-for-like win on average, maximum, uniformity, capacity and inlet headroom, and pressure drop below any credible reconstruction. Do not claim "every metric": state the cost premium, the tray filter and the missing field record. Release only after measured data at G2.</span></div>
+      <div class="decision"><b>D2 · Channel</b><span class="muted">Build and supply through a non-Group-A contract manufacturer to hyperscaler programmes first; approach NVIDIA through its thermal engineering team. Licensing alone does not close: the premium would consume most of a Group-A supplier's margin.</span></div>
+      <div class="decision"><b>D3 · Funding</b><span class="muted">Fund in tranches: US$2.3 M to G1 at month 3, then the full 12-month scope on a pass.</span></div>
+      <div class="decision"><b>D4–D7 · Design and hedges</b><span class="muted">Adopt Rev A with the vacuum braze and decide the cheaper Cu-Sn joint at G1. Make the 33 µm tray filter mandatory and supplied. Hold US sales until the IP opinion clears. Fund the micro-channel-lid study and a two-phase watching brief.</span></div>
+    </section>
+
+    <section>
+      <span class="kicker">How this was made</span>
+      <h2>Evidence and review behind the numbers</h2>
+      <div class="method">
+        <div><span class="m-n">22</span><span class="small">research reports on CoolIT, competitors, chip roadmaps, manufacturing, standards, IP and market</span></div>
+        <div><span class="m-n">8</span><span class="small">quantitative physics checks: hot spots, manifolds, fouling, stress, two-phase, interfaces</span></div>
+        <div><span class="m-n">8 × 3</span><span class="small">competing architectures, each scored by three independent judges</span></div>
+        <div><span class="m-n">6 + 2</span><span class="small">adversarial verifiers, then a completeness critic and a consistency audit</span></div>
+      </div>
+      <p class="read muted">The verification round moved the headline about 1.5 K against us, found two manufacturing routes unbuildable as first drawn, and showed the patent design-around was weak. Every one of those findings is reflected above. The full architecture document, the evidence base, and the scripts behind each number are in the repository under <a href="https://github.com/rezgh92/Rez/tree/claude/affectionate-thompson-h4wg4a/docs/cooling">docs/cooling</a>.</p>
+    </section>
+  </div>
+</main>
+<div class="tip" id="tip" hidden></div>
+<script>
+(function () {
+  var tip = document.getElementById('tip');
+  function show(el, x, y) {
+    tip.textContent = el.getAttribute('data-tip');
+    tip.hidden = false;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(x + 12, window.innerWidth - w - 8);
+    var top = y - h - 12; if (top < 8) top = y + 16;
+    tip.style.left = left + 'px'; tip.style.top = top + 'px';
+  }
+  function hide() { tip.hidden = true; }
+  document.querySelectorAll('.seg').forEach(function (el) {
+    el.addEventListener('mousemove', function (e) { show(el, e.clientX, e.clientY); });
+    el.addEventListener('mouseleave', hide);
+    el.addEventListener('focus', function () { var r = el.getBoundingClientRect(); show(el, r.left + r.width / 2, r.top); });
+    el.addEventListener('blur', hide);
+  });
+})();
+</script>

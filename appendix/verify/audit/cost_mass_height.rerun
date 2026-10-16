@@ -1,0 +1,30 @@
+| line (US$ at 100k/yr, P50) | C0 draft (verifier basis) | C1 PKG-A lean drop-in | C2 PKG-A + silver-free belt braze (E1-gated) | C3 PKG-B R+ core |
+|---|---|---|---|---|
+| copper | 38.8 | 22.1 | 22.1 | 22.1 |
+| skive | 20.5 | 20.5 | 20.5 | 25.0 |
+| kerf | 3.5 | 2.8 | 2.8 | 3.5 |
+| stampings | 6.3 | 6.8 | 6.8 | 7.1 |
+| plenum | 7.5 | 4.4 | 4.4 | 4.4 |
+| header | 14.5 | 5.3 | 5.3 | 5.3 |
+| filler | 18.5 | 14.7 | 4.3 | 14.7 |
+| braze | 21.9 | 17.6 | 8.5 | 17.6 |
+| dies | 2.3 | 2.0 | 2.0 | 2.0 |
+| flycut | 5.6 | 5.6 | 5.6 | 5.6 |
+| stubs | 8.3 | 8.3 | 8.3 | 8.3 |
+| hw | 14.0 | 14.0 | 14.0 | 14.0 |
+| test | 10.3 | 10.3 | 10.3 | 10.3 |
+| **factory cost P10/P50/P90** | 197/209/222 | 153/162/172 | 132/141/150 | 159/169/180 |
+| copper buy / finished kg | 2.91 / 1.60 | 1.43 / 1.02 | 1.43 / 1.02 | 1.43 / 1.02 |
+| vacuum furnaces per 100k/yr (P50) | 2.2 | 1.6 | belt | 1.6 |
+
+Incumbent like-sized CoolIT-15 class P10/50/90: 116/126/137
+C0 draft (verifier basis): premium vs like-sized incumbent P10/50/90 +50%/+66%/+83%; P(cost <= incumbent) 0.00
+C1 PKG-A lean drop-in: premium vs like-sized incumbent P10/50/90 +16%/+29%/+42%; P(cost <= incumbent) 0.00
+C2 PKG-A + silver-free belt braze (E1-gated): premium vs like-sized incumbent P10/50/90 +1%/+12%/+24%; P(cost <= incumbent) 0.08
+C3 PKG-B R+ core: premium vs like-sized incumbent P10/50/90 +21%/+34%/+48%; P(cost <= incumbent) 0.00
+
+US$ per kW of capacity (P50 cost / capacity): CoolIT-15 paste 9.77, PCM 8.52
+C0 draft (verifier basis): paste 13.25 (+36%); PCM 11.31 (+33%)
+C1 PKG-A lean drop-in: paste 10.20 (+4%); PCM 8.63 (+1%)
+C2 PKG-A + silver-free belt braze (E1-gated): paste 8.86 (-9%); PCM 7.49 (-12%)
+C3 PKG-B R+ core: paste 9.66 (-1%)

@@ -1,0 +1,20 @@
+{
+ "part": "plenum_frames",
+ "valid": true,
+ "solids": 2,
+ "volume_mm3": 3488.2,
+ "mass_g": 31.2,
+ "bbox": [
+  -60.35,
+  -59.5,
+  4.5,
+  60.35,
+  59.5,
+  10.28
+ ],
+ "stl": "/home/user/Rez/docs/cooling/cad/out/plenum_frames.stl",
+ "step": "/home/user/Rez/docs/cooling/cad/out/plenum_frames.step",
+ "step_MB": 0.0,
+ "step_xz_MB": 0.0,
+ "seconds": 0.0
+}

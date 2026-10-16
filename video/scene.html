@@ -1,0 +1,43 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>PRISM-15 Rev A video scene</title>
+<style>
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #0b0e11; font-family: "Inter", "DejaVu Sans", Arial, sans-serif; color: #f4f1ec; }
+#stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: radial-gradient(ellipse at 50% 42%, #232a31 0%, #14181c 48%, #0a0c0f 100%); }
+canvas#c { position: absolute; left: 0; top: 0; }
+#ui { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; }
+#svg { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.kicker { position: absolute; left: 96px; top: 64px; padding: 6px 14px; background: rgba(10,12,15,0.55); border-radius: 6px; font-size: 24px; letter-spacing: 5px; text-transform: uppercase; color: #d08a5e; font-weight: 600; }
+.chapter { position: absolute; right: 96px; top: 64px; padding: 6px 14px; background: rgba(10,12,15,0.55); border-radius: 6px; font-size: 22px; letter-spacing: 3px; text-transform: uppercase; color: #8f8a82; font-weight: 500; }
+.wordmark { position: absolute; left: 96px; bottom: 52px; padding: 4px 10px; background: rgba(10,12,15,0.45); border-radius: 4px; font-size: 20px; color: #6f6a63; letter-spacing: 1px; }
+.caption { position: absolute; left: 50%; bottom: 112px; transform: translateX(-50%); max-width: 1500px; padding: 18px 34px; background: rgba(10, 12, 15, 0.72); border-left: 4px solid #d08a5e; font-size: 34px; line-height: 1.3; color: #f4f1ec; border-radius: 6px; backdrop-filter: blur(4px); }
+.card { position: absolute; right: 96px; top: 150px; width: 640px; padding: 30px 36px; background: rgba(12, 15, 18, 0.80); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; backdrop-filter: blur(6px); }
+.card h3 { margin: 0 0 14px; font-size: 24px; letter-spacing: 3px; text-transform: uppercase; color: #d08a5e; font-weight: 600; }
+.card .row { display: flex; justify-content: space-between; gap: 24px; font-size: 28px; line-height: 1.35; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.card .row:last-child { border-bottom: none; }
+.card .row .k { color: #c9c4bb; }
+.card .row .v { color: #f4f1ec; font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.card .row .v.good { color: #7fc8f0; }
+.card .row .v.bad { color: #e8a079; }
+.label { position: absolute; padding: 8px 14px; background: rgba(10, 12, 15, 0.84); border: 1px solid rgba(255,255,255,0.16); border-radius: 8px; font-size: 25px; line-height: 1.25; color: #f4f1ec; white-space: nowrap; }
+.label small { display: block; font-size: 20px; color: #c9c4bb; font-weight: 400; }
+.title { position: absolute; left: 96px; top: 300px; width: 1100px; }
+.title h1 { margin: 0; font-size: 128px; line-height: 1.0; font-weight: 700; letter-spacing: -2px; color: #f4f1ec; }
+.title h2 { margin: 24px 0 0; font-size: 40px; line-height: 1.3; font-weight: 400; color: #c9c4bb; }
+.title p { margin: 28px 0 0; font-size: 24px; color: #8f8a82; }
+.big { position: absolute; left: 96px; top: 180px; width: 1000px; font-size: 64px; line-height: 1.15; font-weight: 600; color: #f4f1ec; }
+.check { position: absolute; left: 96px; top: 190px; width: 820px; }
+.check div { font-size: 32px; line-height: 1.35; padding: 10px 0 10px 56px; position: relative; color: #f4f1ec; }
+.check div::before { content: ""; position: absolute; left: 0; top: 16px; width: 30px; height: 30px; border-radius: 50%; border: 2px solid #d08a5e; }
+.check div.done::before { background: #d08a5e; }
+.check div.done::after { content: ""; position: absolute; left: 9px; top: 21px; width: 10px; height: 16px; border: solid #0b0e11; border-width: 0 4px 4px 0; transform: rotate(45deg); }
+#fade { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: #000; opacity: 0; }
+#zoning { position: absolute; left: 1050px; top: 120px; display: none; }
+</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="stage"><canvas id="c"></canvas></div>
+<div id="ui"><svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg><div id="dom"></div><canvas id="zoning" width="840" height="840"></canvas></div>
+<div id="fade"></div>
+<script type="module" src="./scene.js"></script>
+</body></html>

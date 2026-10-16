@@ -1,0 +1,73 @@
+# SYNTHESIS: corrected consolidated numbers, 15 kW / 18 LPM PG25 / 45 C inlet, 117 cm2 (128 W/cm2)
+
+dT_out = 12.66 K; CoolIT measured avg 34.4 / max 44.2 K
+
+## 1. Deterministic budget (nominal inputs)
+| design | h_eff kW/m2K | NTU | cal frac | caloric | TIM | base | conv | **avg dT** | hs flow | hs TIM | **max dT** | R'' cm2K/W | R mK/W | dP kPa | pump W | Qcap(max<=85C) kW | Qcap(avg<=85C) kW |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like skived split-flow 0.2/0.2x4, 2 mm base, paste 0.07 | 101 | 1.00 | 0.500 | 6.3 | 9.0 | 6.6 | 12.6 | **34.5** | 6.3 | 3.5 | **44.3** | 0.269 | 2.30 | 21.8 | 6.54 | 12.9 | 18.0 |
+| HMMC-R robust 0.15/0.10x2.0, L4, base 1.0, paste 0.07 (same TIM as benchmark) | 127 | 1.25 | 0.602 | 7.6 | 9.0 | 3.3 | 10.1 | **30.0** | 1.5 | 3.5 | **35.0** | 0.234 | 2.00 | 5.0 | 1.51 | 18.1 | 22.1 |
+| HMMC-R robust, PCM 0.055  [Tier 1 drop-in] | 127 | 1.25 | 0.602 | 7.6 | 7.1 | 3.3 | 10.1 | **28.0** | 1.5 | 1.5 | **31.1** | 0.219 | 1.87 | 5.0 | 1.51 | 21.5 | 24.3 |
+| HMMC-R robust, liquid metal 0.015  [Tier 2 OEM] | 127 | 1.25 | 0.602 | 7.6 | 1.9 | 3.3 | 10.1 | **22.9** | 1.5 | 0.6 | **25.0** | 0.179 | 1.53 | 5.0 | 1.51 | 30.3 | 33.1 |
+| HMMC-P performance 0.10/0.10x1.5, L4, PCM 0.055  (<= 33 um abs filtration) | 187 | 1.85 | 0.646 | 8.2 | 7.1 | 3.3 | 6.8 | **25.4** | 1.5 | 1.5 | **28.4** | 0.198 | 1.69 | 5.1 | 1.52 | 25.0 | 28.7 |
+| HMMC-P performance, liquid metal 0.015 | 187 | 1.85 | 0.646 | 8.2 | 1.9 | 3.3 | 6.8 | **20.2** | 1.5 | 0.6 | **22.3** | 0.158 | 1.35 | 5.1 | 1.52 | 37.9 | 41.9 |
+| (ref, not deployable) HMMC-fine 0.075x1.0, L4, LM 0.015 | 239 | 2.36 | 0.680 | 8.6 | 1.9 | 3.3 | 5.4 | **19.2** | 1.5 | 0.6 | **21.3** | 0.150 | 1.28 | 5.1 | 1.52 | 42.7 | 47.6 |
+| HMMC-R robust, D2D LM 0.015, base 0.8 (case = die top)  [Tier 3] | 127 | 1.25 | 0.602 | 7.6 | 1.9 | 2.6 | 10.1 | **22.3** | 1.5 | 0.6 | **24.4** | 0.174 | 1.48 | 5.0 | 1.51 | 31.7 | 34.8 |
+
+- CoolIT-like skived split-flow 0.2/0.2x4, 2 mm base, paste 0.07: u_ch 0.694 m/s, Re 213, h 10.2 kW/m2K, eta 0.47, n_paths 540, dp_ch 14.53 kPa; hydraulic-detail: 21.8 kPa, band 17-42 kPa; deployable: yes
+- HMMC-R robust 0.15/0.10x2.0, L4, base 1.0, paste 0.07 (same TIM as benchmark): u_ch 0.083 m/s, Re 19, h 13.2 kW/m2K, eta 0.56, n_paths 12114, dp_ch 0.23 kPa; design-H manifold; channel 0.23 kPa + orifice comb 1.97 kPa; deployable: yes
+- HMMC-R robust, PCM 0.055  [Tier 1 drop-in]: u_ch 0.083 m/s, Re 19, h 13.2 kW/m2K, eta 0.56, n_paths 12114, dp_ch 0.23 kPa; design-H manifold; channel 0.23 kPa + orifice comb 1.97 kPa; deployable: yes
+- HMMC-R robust, liquid metal 0.015  [Tier 2 OEM]: u_ch 0.083 m/s, Re 19, h 13.2 kW/m2K, eta 0.56, n_paths 12114, dp_ch 0.23 kPa; design-H manifold; channel 0.23 kPa + orifice comb 1.97 kPa; deployable: yes
+- HMMC-P performance 0.10/0.10x1.5, L4, PCM 0.055  (<= 33 um abs filtration): u_ch 0.132 m/s, Re 20, h 19.7 kW/m2K, eta 0.60, n_paths 15143, dp_ch 0.83 kPa; design-H manifold; channel 0.83 kPa + orifice comb 1.37 kPa; deployable: 25 um loops only
+- HMMC-P performance, liquid metal 0.015: u_ch 0.132 m/s, Re 20, h 19.7 kW/m2K, eta 0.60, n_paths 15143, dp_ch 0.83 kPa; design-H manifold; channel 0.83 kPa + orifice comb 1.37 kPa; deployable: 25 um loops only
+- (ref, not deployable) HMMC-fine 0.075x1.0, L4, LM 0.015: u_ch 0.198 m/s, Re 22, h 25.9 kW/m2K, eta 0.65, n_paths 20191, dp_ch 2.22 kPa; design-H manifold; channel 2.22 kPa + orifice comb 0.00 kPa; deployable: no (W/d <= 3)
+- HMMC-R robust, D2D LM 0.015, base 0.8 (case = die top)  [Tier 3]: u_ch 0.083 m/s, Re 19, h 13.2 kW/m2K, eta 0.56, n_paths 12114, dp_ch 0.23 kPa; design-H manifold; channel 0.23 kPa + orifice comb 1.97 kPa; deployable: yes
+
+## 2. Monte Carlo bands (P10 / P50 / P90), 20k samples (Q-cap on 2k)
+| design | avg dT K | max dT K | dP kPa | pump W | Qcap kW |
+|---|---|---|---|---|---|
+| CoolIT-like skived split-flow 0.2/0.2x4, 2 mm base, paste 0.07 | 30.4 / 34.6 / 41.5 | 40.0 / 44.6 / 51.8 | 19.0 / 21.9 / 25.4 | 5.71 / 6.58 / 7.61 | 10.3 / 12.9 / 15.0 |
+| HMMC-R robust 0.15/0.10x2.0, L4, base 1.0, paste 0.07 (same TIM as benchmark) | 26.0 / 30.0 / 36.9 | 31.0 / 35.2 / 42.1 | 3.9 / 5.0 / 6.6 | 1.16 / 1.51 / 1.99 | 13.9 / 18.1 / 21.7 |
+| HMMC-R robust, PCM 0.055  [Tier 1 drop-in] | 25.7 / 28.1 / 31.4 | 28.7 / 31.2 / 34.5 | 3.9 / 5.0 / 6.6 | 1.16 / 1.51 / 1.99 | 18.4 / 21.5 / 24.4 |
+| HMMC-R robust, liquid metal 0.015  [Tier 2 OEM] | 21.7 / 23.0 / 24.8 | 23.8 / 25.2 / 27.0 | 3.9 / 5.0 / 6.6 | 1.16 / 1.51 / 1.99 | 26.8 / 30.1 / 33.1 |
+| HMMC-P performance 0.10/0.10x1.5, L4, PCM 0.055  (<= 33 um abs filtration) | 23.1 / 25.4 / 28.6 | 26.1 / 28.5 / 31.7 | 4.0 / 5.1 / 6.4 | 1.20 / 1.52 / 1.93 | 21.0 / 25.1 / 28.8 |
+| HMMC-P performance, liquid metal 0.015 | 19.2 / 20.3 / 21.9 | 21.3 / 22.5 / 24.1 | 4.0 / 5.1 / 6.4 | 1.20 / 1.52 / 1.93 | 33.0 / 37.7 / 41.7 |
+| (ref, not deployable) HMMC-fine 0.075x1.0, L4, LM 0.015 | 18.2 / 19.3 / 20.8 | 20.3 / 21.4 / 23.0 | 4.3 / 5.1 / 6.1 | 1.29 / 1.53 / 1.83 | 36.7 / 42.5 / 47.3 |
+| HMMC-R robust, D2D LM 0.015, base 0.8 (case = die top)  [Tier 3] | 21.1 / 22.4 / 24.1 | 23.1 / 24.5 / 26.3 | 3.9 / 5.0 / 6.6 | 1.16 / 1.51 / 1.99 | 27.9 / 31.5 / 34.8 |
+
+## 3. Equal-pumping-power operating point (CoolIT-like hydraulic pump power at 18 LPM)
+CoolIT-like: 6.54 W at 18 LPM, 21.8 kPa
+| design | LPM/kW | LPM | dP kPa | caloric K | avg dT K | max dT K |
+|---|---:|---:|---:|---:|---:|---:|
+| HMMC-R robust 0.15/0.10x2.0, L4, base 1.0, paste 0.07 (same TIM as benchmark) | 1.97 | 29.6 | 13.3 | 4.3 | 26.5 | 31.5 |
+| HMMC-R robust, PCM 0.055  [Tier 1 drop-in] | 1.97 | 29.6 | 13.3 | 4.3 | 24.6 | 27.6 |
+| HMMC-R robust, liquid metal 0.015  [Tier 2 OEM] | 1.97 | 29.6 | 13.3 | 4.3 | 19.5 | 21.6 |
+| HMMC-P performance 0.10/0.10x1.5, L4, PCM 0.055  (<= 33 um abs filtration) | 2.00 | 30.1 | 13.1 | 4.5 | 21.6 | 24.6 |
+| HMMC-P performance, liquid metal 0.015 | 2.00 | 30.1 | 13.1 | 4.5 | 16.4 | 18.5 |
+
+## 4. Flow sensitivity (avg / max dT K, dP kPa) - CoolIT-like vs HMMC-R PCM vs HMMC-R LM
+| LPM/kW | LPM | CoolIT-like | HMMC-R PCM | HMMC-R LM |
+|---:|---:|---|---|---|
+| 0.6 | 9 | 41.0 / 50.8 / 9.1 | 38.0 / 41.0 / 1.3 | 32.9 / 35.0 / 1.3 |
+| 0.8 | 12 | 37.8 / 47.6 / 13.0 | 32.8 / 35.8 / 2.3 | 27.7 / 29.8 / 2.3 |
+| 1.0 | 15 | 35.8 / 45.6 / 17.2 | 29.9 / 32.9 / 3.6 | 24.8 / 26.9 / 3.6 |
+| 1.2 | 18 | 34.5 / 44.3 / 21.8 | 28.0 / 31.1 / 5.0 | 22.9 / 25.0 / 5.0 |
+| 1.5 | 22 | 33.2 / 43.0 / 29.5 | 26.3 / 29.3 / 7.8 | 21.1 / 23.2 / 7.8 |
+| 2.0 | 30 | 31.7 / 41.5 / 44.2 | 24.5 / 27.5 / 13.7 | 19.4 / 21.5 / 13.7 |
+| 2.5 | 38 | 30.8 / 40.6 / 61.4 | 23.5 / 26.5 / 21.2 | 18.3 / 20.4 / 21.2 |
+
+## 5. Real-package check: reticle die at 350 W/cm2 (H-Z2 zoning, 1 mm base), case dT at hottest die cell
+fit to nonuniform-heatmap sweep: dT_die,max = 33 + 3500/h_eff[kW/m2K] + (R_TIM - 0.05) x 350
+| core | h_eff | paste 0.05 | PCM 0.055 | LM 0.015 | T_case,max with LM (45 C in) |
+|---|---:|---:|---:|---:|---:|
+| HMMC-R 0.15/0.10x2.0 | 127 | 60.5 | 62.3 | 48.3 | 93.3 C |
+| HMMC-P 0.10/0.10x1.5 | 187 | 51.7 | 53.4 | 39.4 | 84.4 C |
+| HMMC-fine 0.075x1.0 (ref) | 239 | 47.7 | 49.4 | 35.4 | 80.4 C |
+CoolIT-like C-x-U (from report): 88.6 K paste, Tcase 134 C; junction adds ~ +17 K (lidded) at 350 W/cm2.
+Direct-to-die removes lid + TIM1 (0.064 + 0.015 cm2K/W = 28 K at 350 W/cm2 at the junction level).
+
+## 6. Required manifold branch resistance and orifice sizing (18 LPM, 14 inlet slots)
+- HMMC-R robust: channel 0.23 kPa -> orifice 1.97 kPa; hole velocity 1.18 m/s, 92 x 0.5 mm holes per 108 mm slot (pitch 1.2 mm)
+- HMMC-P performance 0.10/0.10x1.5: channel 0.83 kPa -> orifice 1.37 kPa; hole velocity 0.99 m/s, 110 x 0.5 mm holes per 108 mm slot (pitch 1.0 mm)
+
+Done.

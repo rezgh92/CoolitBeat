@@ -1,0 +1,176 @@
+# Jet-hybrid scoping model output (jet_hybrid_model.py)
+
+PG25 ~50 C: nu 1.244e-06 m2/s, Pr 9.45; j = 2.56 cm/s at 18 LPM, 5.13 at 36 LPM over 117 cm2
+
+## A. Bare-surface round-jet arrays with distributed returns, 117 cm2 uniform (H/D = 2)
+
+Continuity fixes the jet velocity: Vj = j / Ar, j = flow / footprint (2.56 cm/s at 18 LPM). h = area-averaged base h (no fins). dP = jet loss (1/Cd^2 + 1 dynamic heads, Cd 0.75) + 3.5 kPa ports/manifold.
+
+| LPM | d mm | Ar | pitch mm | Vj m/s | Re_d | h Martin* | h Womac | h laminar | jet dP kPa | plate dP kPa | pump W |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 18 | 0.3 | 0.005 | 3.76 | 5.13 | 1237* | 32 | 21 | 32 | 36.7 | 40.2 | 12.1 |
+| 18 | 0.3 | 0.010 | 2.66 | 2.56 | 618* | 27 | 17 | 30 | 9.2 | 12.7 | 3.8 |
+| 18 | 0.3 | 0.020 | 1.88 | 1.28 | 309* | 22 | 14 | 27 | 2.3 | 5.8 | 1.7 |
+| 18 | 0.3 | 0.040 | 1.33 | 0.64 | 155* | 17 | 12 | 24 | 0.6 | 4.1 | 1.2 |
+| 18 | 0.5 | 0.005 | 6.27 | 5.13 | 2062 | 27 | 17 | 25 | 36.7 | 40.2 | 12.1 |
+| 18 | 0.5 | 0.010 | 4.43 | 2.56 | 1031* | 23 | 14 | 23 | 9.2 | 12.7 | 3.8 |
+| 18 | 0.5 | 0.020 | 3.13 | 1.28 | 515* | 19 | 11 | 21 | 2.3 | 5.8 | 1.7 |
+| 18 | 0.5 | 0.040 | 2.22 | 0.64 | 258* | 14 | 9 | 19 | 0.6 | 4.1 | 1.2 |
+| 36 | 0.3 | 0.005 | 3.76 | 10.26 | 2474 | 52 | 31 | 46 | 146.8 | 160.8 | 96.5 |
+| 36 | 0.3 | 0.010 | 2.66 | 5.13 | 1237* | 43 | 25 | 42 | 36.7 | 50.7 | 30.4 |
+| 36 | 0.3 | 0.020 | 1.88 | 2.56 | 618* | 35 | 20 | 38 | 9.2 | 23.2 | 13.9 |
+| 36 | 0.3 | 0.040 | 1.33 | 1.28 | 309* | 27 | 17 | 34 | 2.3 | 16.3 | 9.8 |
+| 36 | 0.5 | 0.005 | 6.27 | 10.26 | 4123 | 43 | 24 | 35 | 146.8 | 160.8 | 96.5 |
+| 36 | 0.5 | 0.010 | 4.43 | 5.13 | 2062 | 37 | 20 | 32 | 36.7 | 50.7 | 30.4 |
+| 36 | 0.5 | 0.020 | 3.13 | 2.56 | 1031* | 30 | 16 | 30 | 9.2 | 23.2 | 13.9 |
+| 36 | 0.5 | 0.040 | 2.22 | 1.28 | 515* | 23 | 13 | 27 | 2.3 | 16.3 | 9.8 |
+(* Re < 2000: Martin extrapolated below its validity; treat as an optimistic bound.)
+
+Literature check (same correlations, water-like Pr 4, nu 0.6e-6): a 0.1 mm nozzle at Ar 0.02 needs Re ~3000 (Vj ~18 m/s, jet dP ~250 kPa, j ~0.36 m/s = 14x our 2.56 cm/s) to reach ~250 kW/m2K. The 100-300 kW/m2K microjet results (Browne/Peles, Brunschwiler/IBM 31-126 um) live at 10-40x our volumetric flux density and 5-50x our dP.
+
+## B. Slot-jet-into-micro-fin cell (uniform 128 W/cm2, j = 2.56 cm/s at 18 LPM)
+
+h_eff = (h_fin 2H eta + h_base b)/p with region weighting: jet column + turn (x1 = w_n/2 + 0.5 H: descent flow at (Vj+u_ch)/2 on the fin walls, plane stagnation on the floor) and channel flow (entrance restarted). 'open-slot ref' = same fins and flow length fed like an HMMC (no jet). Core dP excludes ports/manifold.
+
+| core | b/t/H mm | w_n mm | P_r mm | flow len mm | Vj m/s | u_ch m/s | h_st | h_desc | h_ch | eta | h_eff jet | h_eff open-slot ref | gain | dP noz | dP ch+ret | core dP kPa |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| R | 0.15/0.10/1.5 | 0.20 | 4 | 2 | 0.85 | 0.057 | 33 | 20 | 14.7 | 0.63 | **142** | 116 | 1.23 | 0.56 | 0.05 | 0.62 |
+| R | 0.15/0.10/1.5 | 0.20 | 6 | 3 | 1.28 | 0.085 | 40 | 23 | 13.8 | 0.64 | **138** | 116 | 1.19 | 1.23 | 0.15 | 1.37 |
+| R | 0.15/0.10/1.5 | 0.20 | 8 | 4 | 1.71 | 0.114 | 47 | 25 | 13.5 | 0.65 | **136** | 116 | 1.17 | 2.14 | 0.28 | 2.43 |
+| R | 0.15/0.10/1.5 | 0.25 | 4 | 2 | 0.68 | 0.057 | 26 | 19 | 14.8 | 0.64 | **139** | 116 | 1.20 | 0.35 | 0.05 | 0.41 |
+| R | 0.15/0.10/1.5 | 0.25 | 6 | 3 | 1.03 | 0.085 | 32 | 21 | 13.8 | 0.65 | **135** | 116 | 1.17 | 0.77 | 0.15 | 0.92 |
+| R | 0.15/0.10/1.5 | 0.25 | 8 | 4 | 1.37 | 0.114 | 37 | 23 | 13.5 | 0.65 | **133** | 116 | 1.15 | 1.36 | 0.28 | 1.64 |
+| R | 0.15/0.10/1.5 | 0.30 | 4 | 2 | 0.57 | 0.057 | 22 | 18 | 14.9 | 0.64 | **137** | 116 | 1.18 | 0.24 | 0.05 | 0.29 |
+| R | 0.15/0.10/1.5 | 0.30 | 6 | 3 | 0.85 | 0.085 | 27 | 20 | 13.8 | 0.65 | **133** | 116 | 1.15 | 0.53 | 0.14 | 0.68 |
+| R | 0.15/0.10/1.5 | 0.30 | 8 | 4 | 1.14 | 0.114 | 31 | 22 | 13.6 | 0.65 | **131** | 116 | 1.13 | 0.93 | 0.28 | 1.22 |
+| R | 0.15/0.10/2.0 | 0.20 | 4 | 2 | 0.85 | 0.043 | 33 | 19 | 15.5 | 0.51 | **155** | 127 | 1.22 | 0.56 | 0.04 | 0.60 |
+| R | 0.15/0.10/2.0 | 0.20 | 6 | 3 | 1.28 | 0.064 | 40 | 21 | 13.9 | 0.52 | **150** | 127 | 1.18 | 1.23 | 0.10 | 1.33 |
+| R | 0.15/0.10/2.0 | 0.20 | 8 | 4 | 1.71 | 0.085 | 47 | 22 | 13.6 | 0.52 | **148** | 127 | 1.16 | 2.14 | 0.21 | 2.35 |
+| R | 0.15/0.10/2.0 | 0.25 | 4 | 2 | 0.68 | 0.043 | 26 | 18 | 15.6 | 0.51 | **151** | 127 | 1.19 | 0.35 | 0.04 | 0.39 |
+| R | 0.15/0.10/2.0 | 0.25 | 6 | 3 | 1.03 | 0.064 | 32 | 20 | 13.9 | 0.52 | **147** | 127 | 1.15 | 0.77 | 0.10 | 0.88 |
+| R | 0.15/0.10/2.0 | 0.25 | 8 | 4 | 1.37 | 0.085 | 37 | 21 | 13.6 | 0.53 | **145** | 127 | 1.14 | 1.36 | 0.20 | 1.56 |
+| R | 0.15/0.10/2.0 | 0.30 | 4 | 2 | 0.57 | 0.043 | 22 | 17 | 15.8 | 0.52 | **149** | 127 | 1.17 | 0.24 | 0.03 | 0.28 |
+| R | 0.15/0.10/2.0 | 0.30 | 6 | 3 | 0.85 | 0.064 | 27 | 19 | 14.0 | 0.53 | **144** | 127 | 1.13 | 0.53 | 0.10 | 0.64 |
+| R | 0.15/0.10/2.0 | 0.30 | 8 | 4 | 1.14 | 0.085 | 31 | 20 | 13.7 | 0.53 | **143** | 127 | 1.12 | 0.93 | 0.20 | 1.14 |
+| X | 0.30/0.20/2.0 | 0.30 | 4 | 2 | 0.57 | 0.043 | 22 | 12 | 10.6 | 0.73 | **78** | 50 | 1.56 | 0.24 | 0.01 | 0.26 |
+| X | 0.30/0.20/2.0 | 0.30 | 6 | 3 | 0.85 | 0.064 | 27 | 14 | 8.1 | 0.75 | **72** | 50 | 1.44 | 0.53 | 0.04 | 0.57 |
+| X | 0.30/0.20/2.0 | 0.30 | 8 | 4 | 1.14 | 0.085 | 31 | 16 | 7.7 | 0.76 | **69** | 50 | 1.39 | 0.93 | 0.08 | 1.01 |
+| X | 0.30/0.20/2.0 | 0.40 | 4 | 2 | 0.43 | 0.043 | 17 | 11 | 11.1 | 0.74 | **75** | 50 | 1.50 | 0.13 | 0.01 | 0.15 |
+| X | 0.30/0.20/2.0 | 0.40 | 6 | 3 | 0.64 | 0.064 | 20 | 13 | 8.2 | 0.76 | **69** | 50 | 1.38 | 0.30 | 0.04 | 0.33 |
+| X | 0.30/0.20/2.0 | 0.40 | 8 | 4 | 0.85 | 0.085 | 23 | 14 | 7.7 | 0.76 | **67** | 50 | 1.33 | 0.52 | 0.07 | 0.60 |
+| X | 0.30/0.20/3.0 | 0.30 | 4 | 2 | 0.57 | 0.028 | 22 | 11 | 11.5 | 0.58 | **87** | 60 | 1.45 | 0.24 | 0.01 | 0.25 |
+| X | 0.30/0.20/3.0 | 0.30 | 6 | 3 | 0.85 | 0.043 | 27 | 12 | 8.6 | 0.59 | **86** | 60 | 1.42 | 0.53 | 0.03 | 0.56 |
+| X | 0.30/0.20/3.0 | 0.30 | 8 | 4 | 1.14 | 0.057 | 31 | 13 | 7.8 | 0.60 | **83** | 60 | 1.37 | 0.93 | 0.05 | 0.99 |
+| X | 0.30/0.20/3.0 | 0.40 | 4 | 2 | 0.43 | 0.028 | 17 | 10 | 11.5 | 0.59 | **83** | 60 | 1.38 | 0.13 | 0.01 | 0.14 |
+| X | 0.30/0.20/3.0 | 0.40 | 6 | 3 | 0.64 | 0.043 | 20 | 11 | 8.7 | 0.60 | **82** | 60 | 1.35 | 0.30 | 0.03 | 0.32 |
+| X | 0.30/0.20/3.0 | 0.40 | 8 | 4 | 0.85 | 0.057 | 23 | 12 | 7.8 | 0.60 | **79** | 60 | 1.31 | 0.52 | 0.05 | 0.57 |
+
+## C. Full plate at 15 kW / 18 LPM PG25 / 45 C / 117 cm2
+
+Plumbing as HMMC-elite design H: 16 mm ports 2.57 kPa + troughs/loops/tees 0.61 kPa at 18 LPM; integrated screen 0.40 kPa clean (R, P cores); X core has only a 100 um installation strainer (0.10 kPa). Hot spot = 1.5 K flow term (nozzle-metered, branch/head >= 6) + TIM scatter.
+
+| design | LPM | Vj m/s | h_eff kW/m2K | caloric | TIM | base | conv | **avg dT** | max dT | R'' cm2K/W | dP kPa | pump W | Q cap kW |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CoolIT-like skived split-flow, paste (calibration) | 18 | - | 101 | 6.3 | 9.0 | 6.6 | 12.6 | **34.5** | 44.3 | 0.269 | 24.6 | 7.4 | 12.7 |
+| HMMC-R 0.15/0.10x2.0, PCM (reference) | 18 | - | 127 | 7.6 | 7.1 | 3.3 | 10.1 | **28.0** | 31.1 | 0.219 | 5.7 | 1.7 | 21.6 |
+| HMMC-R, liquid metal (reference) | 18 | - | 127 | 7.6 | 1.9 | 3.3 | 10.1 | **22.9** | 25.0 | 0.179 | 5.7 | 1.7 | 29.7 |
+| JH-R b/t/H 0.15/0.10/2.0, w_n 0.22, P_r 8, paste 0.07 | 18 | 1.55 | 147 | 7.8 | 9.0 | 3.3 | 8.8 | **28.8** | 33.8 | 0.225 | 5.5 | 1.7 | 19.4 |
+| JH-R b/t/H 0.15/0.10/2.0, w_n 0.22, P_r 8, PCM pad | 18 | 1.55 | 147 | 7.8 | 7.1 | 3.3 | 8.8 | **26.9** | 29.9 | 0.210 | 5.5 | 1.7 | 22.9 |
+| JH-R b/t/H 0.15/0.10/2.0, w_n 0.22, P_r 8, liquid metal | 18 | 1.55 | 147 | 7.8 | 1.9 | 3.3 | 8.8 | **21.8** | 23.9 | 0.170 | 5.5 | 1.7 | 32.3 |
+| JH-X b/t/H 0.30/0.25/4.0, w_n 0.30, P_r 10, paste 0.07 | 18 | 1.57 | 88 | 7.2 | 9.0 | 3.3 | 14.6 | **34.1** | 39.1 | 0.266 | 5.1 | 1.5 | 15.5 |
+| JH-X b/t/H 0.30/0.25/4.0, w_n 0.30, P_r 10, PCM pad | 18 | 1.57 | 88 | 7.2 | 7.1 | 3.3 | 14.6 | **32.2** | 35.2 | 0.251 | 5.1 | 1.5 | 17.9 |
+| JH-X b/t/H 0.30/0.25/4.0, w_n 0.30, P_r 10, liquid metal | 18 | 1.57 | 88 | 7.2 | 1.9 | 3.3 | 14.6 | **27.0** | 29.1 | 0.211 | 5.1 | 1.5 | 23.2 |
+| JH-P b/t/H 0.10/0.10/1.5, w_n 0.18, P_r 6, paste 0.07 | 18 | 1.71 | 209 | 8.4 | 9.0 | 3.3 | 6.1 | **26.8** | 31.8 | 0.209 | 6.1 | 1.8 | 21.7 |
+| JH-P b/t/H 0.10/0.10/1.5, w_n 0.18, P_r 6, PCM pad | 18 | 1.71 | 209 | 8.4 | 7.1 | 3.3 | 6.1 | **24.8** | 27.8 | 0.194 | 6.1 | 1.8 | 26.1 |
+| JH-P b/t/H 0.10/0.10/1.5, w_n 0.18, P_r 6, liquid metal | 18 | 1.71 | 209 | 8.4 | 1.9 | 3.3 | 6.1 | **19.7** | 21.8 | 0.154 | 6.1 | 1.8 | 39.1 |
+
+JH-R Tier 3 direct-to-die (case = die top, base 0.8 mm, model R''=0 row): avg 19.8 K, max 21.9 K.
+
+JH-R Tier-1 detail: Vj 1.55 m/s in the gaps (lamina slot 0.93 m/s, Re_slot 165), u_ch 0.085 m/s (Re 19), impingement fraction of cell 0.28, h_stag 42 / h_desc 22 / h_ch 13.6 kW/m2K, eta 0.52, h_eff 147 kW/m2K (open-slot ref 127, gain 1.15); NTU 1.45; core dP 1.97 kPa (nozzle 1.76); plate 5.5 kPa; branch/header-head ratio 6.4.
+
+### C2. Flow sweep (15 kW, PCM): JH-R vs HMMC-R
+
+| LPM/kW | LPM | JH-R Vj | JH-R avg | max | dP kPa | pump W | HMMC-R avg | max | dP kPa | pump W | JH-X avg | dP kPa |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 0.6 | 9 | 0.78 | 37.5 | 40.5 | 1.5 | 0.2 | 38.0 | 41.0 | 1.5 | 0.2 | 42.5 | 1.3 |
+| 0.8 | 12 | 1.04 | 32.0 | 35.0 | 2.5 | 0.5 | 32.8 | 35.8 | 2.6 | 0.5 | 37.4 | 2.3 |
+| 1.0 | 15 | 1.30 | 28.9 | 31.9 | 3.9 | 1.0 | 29.9 | 32.9 | 4.0 | 1.0 | 34.3 | 3.5 |
+| 1.2 | 18 | 1.55 | 26.9 | 29.9 | 5.5 | 1.7 | 28.0 | 31.1 | 5.7 | 1.7 | 32.2 | 5.1 |
+| 1.5 | 22 | 1.94 | 24.9 | 27.9 | 8.6 | 3.2 | 26.3 | 29.3 | 8.9 | 3.3 | 30.0 | 7.9 |
+| 2.0 | 30 | 2.59 | 22.9 | 25.9 | 15.1 | 7.6 | 24.5 | 27.5 | 15.6 | 7.8 | 27.7 | 14.1 |
+| 2.4 | 36 | 3.11 | 21.9 | 24.9 | 21.7 | 13.0 | 23.6 | 26.7 | 22.4 | 13.4 | 26.4 | 20.2 |
+
+### C3. Equal pumping power and equal dP comparisons (15 kW, PCM)
+
+- at HMMC-R hydraulic power at 18 LPM (1.8 W): JH-R runs 18.5 LPM -> 26.6 / 29.6 K (5.8 kPa); HMMC-R runs 18.3 LPM -> 27.9 / 30.9 K (5.9 kPa).
+- at CoolIT-like at 18 LPM (6.5 W): JH-R runs 28.5 LPM -> 23.2 / 26.2 K (13.7 kPa); HMMC-R runs 28.2 LPM -> 24.8 / 27.8 K (13.8 kPa).
+
+## D. Real 2027-28 package: 4 x 26 x 33 mm dies at 350 W/cm2 + 16 HBM at 40 W/cm2 (12.85 kW, 15.4 LPM)
+
+Heat-proportional zoning (die block 91 % of flow, j_die = 3.0 x 2.19 = 6.6 cm/s), base 1.0 mm. Hottest-die case-to-inlet = caloric 6.7 + base 9.0 + TIM + q/h_eff_die (the nonuniform-heatmap fit dT = 33 + 3500/h_eff + 350(R_TIM - 0.05) reproduces HMMC-R 60.5/48.3 K). Nozzle zoning: equal nozzle dP in all zones, so die-zone jets run at the same velocity with ~3x the nozzle open area (shorter row pitch), HBM zone uses sparse 0.5 mm round orifices at the same dP.
+
+| core (die zone) | P_r mm | w_n mm | Vj m/s | u_ch m/s | h_eff die kW/m2K | open-slot ref | paste 0.05 | PCM 0.055 | LM 0.015 | T_case,max LM (1.0 mm base) | T_case,max LM (0.8 mm finished base) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| JH-R | 8.0 | 0.50 | 1.75 | 0.219 | **154** | 133 | 55.9 | 57.7 | 43.7 | 88.7 C | 86.9 C |
+| JH-R | 6.0 | 0.42 | 1.57 | 0.165 | **158** | 133 | 55.3 | 57.0 | 43.0 | 88.0 C | 86.2 C |
+| JH-R | 4.0 | 0.28 | 1.57 | 0.110 | **172** | 133 | 53.6 | 55.3 | 41.3 | 86.3 C | 84.5 C |
+| JH-X | 6.0 | 0.47 | 1.54 | 0.090 | **105** | 70 | 66.5 | 68.3 | 54.3 | 99.3 C | 97.5 C |
+| JH-P | 6.0 | 0.51 | 1.55 | 0.263 | **216** | 194 | 49.4 | 51.1 | 37.1 | 82.1 C | 80.3 C |
+| JH-P | 4.0 | 0.34 | 1.55 | 0.175 | **226** | 194 | 48.7 | 50.4 | 36.4 | 81.4 C | 79.6 C |
+| HMMC-R (synthesis) | - | - | - | - | 127 | - | 60.7 | 62.5 | 48.5 | 93.5 C | 91.7 C |
+| HMMC-P (synthesis, <=33 um loops) | - | - | - | - | 187 | - | 51.9 | 53.6 | 39.6 | 84.6 C | 82.8 C |
+| CoolIT-like split-flow | - | - | - | - | 101 | - | 67.8 | 69.6 | 55.6 | 100.6 C | 98.8 C |
+(CoolIT-like rows in the heatmap report are worse than this fit because its fluid under the die is 13.9 K, not 6.7 K: 88.6 K with paste, ~76 K with LM.)
+
+Die-zone core dP (JH-R, P_r 6.0 mm): 2.11 kPa (nozzle 1.73); the HBM/margin zones are orificed to the same branch dP.
+
+## E. GPU-class plates (uniform-footprint convention of model_output section 6, 1.2 LPM/kW, PCM unless noted)
+
+| case | footprint cm2 | q W/cm2 | LPM | CoolIT-like avg/max | HMMC-R avg/max | JH-R avg/max | JH-R Vj m/s | JH-R plate dP kPa | JH-R LM avg/max |
+|---|---:|---:|---:|---|---|---|---:|---:|---|
+| B300-class 1.4 kW | 45 | 31 | 1.68 | 13.2/20.4 | 15.2/17.1 | 15.3/17.1 | 0.41 | 0.2 | 14.0/15.7 |
+| Rubin 2.3 kW | 60 | 38 | 2.76 | 14.8/22.2 | 16.0/17.9 | 16.0/17.9 | 0.51 | 0.4 | 14.5/16.1 |
+| Rubin Ultra 3.6 kW | 80 | 45 | 4.32 | 16.3/23.8 | 16.7/18.7 | 16.7/18.7 | 0.60 | 0.6 | 14.9/16.6 |
+
+At 1.2 LPM/kW a 2-4 kW plate has 4-10x less flow per unit area than the 15 kW TTV; the jet velocity collapses (0.1-0.3 m/s at the same nozzle geometry) and the hybrid degenerates to a slot-fed manifold plate. Re-zoned (all nozzle area over the dies, see D) is where the GPU-class plate gets its jet benefit.
+
+Die-concentrated GPU plate check (Rubin-class 2.3 kW, 2 reticle dies 16.5 cm2 carrying ~2.0 kW = 121 W/cm2, 90 % of 2.76 LPM over the 17 cm2 die block):
+  - JH-R: j_die 2.4 cm/s, Vj 0.61 m/s, h_eff 153 kW/m2K; die case-to-inlet ~25.6 K (PCM) / 20.8 K (LM); core dP 0.3 kPa
+  - open-slot ref: j_die 2.4 cm/s, Vj 0.61 m/s, h_eff 127 kW/m2K; die case-to-inlet ~27.2 K (PCM) / 22.4 K (LM); core dP 0.3 kPa
+
+## F. Monte Carlo (20k samples), JH-R at 15 kW / 18 LPM
+
+h_eff: jet-model uncertainty (enhancement-region terms x lognormal sigma 0.30) and channel term +/-25 %; TIM lognormal with P90 at the upper datasheet value; base +/-10 %; caloric +/-5 %; hot-spot terms +/-40 %; dP: nozzle/inertial +/-45 %, viscous +/-25 %, plumbing +/-30 %.
+
+| design | avg P10 / P50 / P90 K | max P10 / P50 / P90 K | dP P10 / P50 / P90 kPa | Q cap P10 / P50 / P90 kW |
+|---|---|---|---|---|
+| JH-R, paste 0.07 | 25.0 / 28.9 / 35.5 | 29.7 / 33.9 / 40.7 | 4.5 / 5.5 / 6.6 | 23.9 / 19.3 / 14.6 |
+| JH-R, PCM pad | 24.5 / 27.0 / 30.3 | 27.4 / 30.0 / 33.4 | 4.5 / 5.6 / 6.6 | 26.3 / 22.9 / 19.4 |
+| JH-R, liquid metal | 20.4 / 21.9 / 24.0 | 22.4 / 24.0 / 26.2 | 4.5 / 5.5 / 6.6 | 36.0 / 32.0 / 27.7 |
+(Q cap column ordered pessimistic / median / optimistic.)
+
+## G. Scorecard extras (JH-R unless noted)
+
+- 36 LPM (PCM pad): avg 21.9 K / max 24.9 K, Vj 3.11 m/s, dP 21.7 kPa (16 mm ports) / 15.6 kPa (20 mm ports), pump 13.0 / 9.4 W
+- 36 LPM (liquid metal): avg 16.8 K / max 18.9 K, Vj 3.11 m/s, dP 21.7 kPa (16 mm ports) / 15.6 kPa (20 mm ports), pump 13.0 / 9.4 W
+- 18 LPM with 20 mm ports: dP 4.0 kPa, pump 1.2 W
+- flow for 34.4 K average (PCM pad): 10.5 LPM (0.70 LPM/kW), dP 1.9 kPa, pump 0.34 W, Vj 0.90 m/s
+- flow for 34.4 K average (liquid metal): 8.2 LPM (0.55 LPM/kW), dP 1.2 kPa, pump 0.17 W, Vj 0.71 m/s
+- flow for 34.4 K average (paste 0.07): 11.7 LPM (0.78 LPM/kW), dP 2.4 kPa, pump 0.47 W, Vj 1.01 m/s
+- inlet allowed for T_case,max 85 C at 15 kW / 18 LPM (paste 0.07): 51.2 C; T_case,max at 45 C inlet 78.8 C
+- inlet allowed for T_case,max 85 C at 15 kW / 18 LPM (PCM pad): 55.1 C; T_case,max at 45 C inlet 74.9 C
+- inlet allowed for T_case,max 85 C at 15 kW / 18 LPM (liquid metal): 61.1 C; T_case,max at 45 C inlet 68.9 C
+- CoolIT 4 kW plate comparison (50 x 50 mm, 4 kW, 6 LPM, PG25 45 C; CoolIT < 0.009 C/W max-case incl. TIM):
+    - JH-R paste 0.07: avg 31.5 K, max 37.4 K -> 0.0093 C/W max-case; Vj 2.42 m/s; core dP 4.56 kPa
+    - JH-R PCM pad: avg 29.1 K, max 32.5 K -> 0.0081 C/W max-case; Vj 2.42 m/s; core dP 4.56 kPa
+    - JH-R liquid metal: avg 22.7 K, max 25.0 K -> 0.0062 C/W max-case; Vj 2.42 m/s; core dP 4.56 kPa
+
+### G2. Die-concentrated GPU-class plates (1.2 LPM/kW, 90 % of flow over the die block, base 1.0 mm)
+
+| device (assumed) | Q kW | die block cm2 | die W/cm2 | LPM | Vj m/s | JH-R h_eff | open-slot ref h_eff | JH-R die case-to-inlet PCM / LM K | ref PCM / LM K | JH-R gain K |
+|---|---:|---:|---:|---:|---:|---:|---:|---|---|---:|
+| B300-class (2 dies) | 1.40 | 17 | 71 | 1.68 | 0.66 | 148 | 125 | 21.1 / 17.8 | 21.7 / 18.4 | 0.6 |
+| Rubin-class (2 dies) | 2.30 | 17 | 118 | 2.76 | 0.81 | 153 | 127 | 27.7 / 22.2 | 29.1 / 23.5 | 1.3 |
+| Rubin-Ultra-class (4 dies) | 3.60 | 35 | 91 | 4.32 | 0.62 | 147 | 126 | 24.4 / 20.1 | 25.2 / 20.9 | 0.8 |
+| 15 kW-class (4 dies, 350 W/cm2) | 12.85 | 36 | 338 | 15.42 | 1.55 | 171 | 133 | 59.7 / 43.8 | 65.3 / 49.4 | 5.6 |
+

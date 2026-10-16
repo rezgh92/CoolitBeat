@@ -1,0 +1,170 @@
+# hotspot-smoothing: 2-D conduction model of the periodic fluid-temperature hot spot
+
+Operating point: 15 kW, 18 LPM PG25, dT_out = 12.66 K, q'' = 128 W/cm2 on 117 cm2, T_in = 45.0 C, Pr = 9.4
+
+## 0. Channel data (local-Nu model)
+
+| channel | u m/s | Re | Dh mm | x*_L | Nu_fd | h_mean kW/m2K | eta | h_eff kW/m2K (footprint) | NTU = h_eff A/(m cp) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| HMMC 0.10/0.10 x 1.0 mm | 0.103 | 15 | 0.182 | 0.0775 | 6.45 | 19.4 | 0.76 | 158 | 1.56 |
+| HMMC-fine 0.075/0.075 x 1.0 mm | 0.103 | 12 | 0.140 | 0.1317 | 6.75 | 26.0 | 0.65 | 239 | 2.36 |
+| HMMC-ultrafine 0.05/0.05 x 0.6 mm | 0.171 | 13 | 0.092 | 0.1805 | 6.65 | 38.3 | 0.70 | 340 | 3.36 |
+| CoolIT-like 0.2/0.2 x 4 mm split-flow | 0.693 | 212 | 0.381 | 0.0707 | 7.08 | 10.2 | 0.47 | 102 | 1.00 |
+
+## 1. Validation: uniform fluid at mean temperature reproduces the 1-D series budget
+
+2-D model, T_f uniform = T_in + 6.33 K, base 1.0 mm: case dT avg = 24.15 K (spread 0.000 K); 1-D series model: 24.15 K (caloric 6.33 + TIM 6.41 + base 3.29 + conv 8.12).
+
+## 2. Plain HMMC, perfect distribution: case non-uniformity vs base thickness
+
+Fluid: T_in -> T_in+12.7 K over each 2 mm cell (period 4 mm).  'prescribed' = linear rise (task statement); 'coupled' = fluid energy balance solved with the solid (self-consistent).
+
+| base mm | fluid model | h model | avg case dT K | max-avg K | avg-min K | pk-pk K | fluid pk-pk at fin K | mean fluid dT K | iters |
+|---:|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 0.8 | prescribed | local | 23.28 | 0.39 | 0.40 | 0.78 | 12.5 | 6.32 | 0 |
+| 0.8 | coupled | local | 25.12 | 0.35 | 0.37 | 0.72 | 12.3 | 8.20 | 13 |
+| 1.0 | prescribed | local | 23.94 | 0.28 | 0.29 | 0.57 | 12.5 | 6.32 | 0 |
+| 1.0 | prescribed | mean | 24.14 | 0.24 | 0.24 | 0.49 | 12.5 | 6.32 | 0 |
+| 1.0 | coupled | local | 25.78 | 0.25 | 0.27 | 0.52 | 12.3 | 8.21 | 13 |
+| 1.5 | prescribed | local | 25.58 | 0.13 | 0.13 | 0.26 | 12.5 | 6.32 | 0 |
+| 1.5 | coupled | local | 27.43 | 0.12 | 0.12 | 0.24 | 12.3 | 8.21 | 13 |
+| 2.0 | prescribed | local | 27.23 | 0.06 | 0.06 | 0.12 | 12.5 | 6.32 | 0 |
+| 2.0 | coupled | local | 29.08 | 0.05 | 0.05 | 0.11 | 12.3 | 8.21 | 13 |
+
+## 2b. Why the coupled mean is higher: plate NTU and the isothermal-wall caloric term
+
+Lateral conduction makes the HMMC surface near-isothermal at the cell scale, so the fluid rises exponentially (front-loaded heat pickup), not linearly.  Mean fin-side wall rise: uniform-flux/linear = dT_out(1/2 + 1/NTU) [1-D model]; isothermal = dT_out/(1-exp(-NTU)).
+
+| design | h_eff kW/m2K | NTU | wall rise linear K | wall rise isothermal K | effective caloric fraction | case dT (1-D, linear) K | case dT (isothermal) K | penalty K |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| HMMC 0.10/0.10 x 1.0 mm (base 1.0 mm) | 158 | 1.56 | 14.45 | 16.03 | 0.625 | 24.15 | 25.73 | +1.58 |
+| HMMC-fine 0.075/0.075 x 1.0 mm (base 1.0 mm) | 239 | 2.36 | 11.70 | 13.98 | 0.680 | 21.39 | 23.68 | +2.28 |
+| HMMC-ultrafine 0.05/0.05 x 0.6 mm (base 1.0 mm) | 340 | 3.36 | 10.10 | 13.12 | 0.738 | 19.80 | 22.81 | +3.02 |
+| CoolIT-like 0.2/0.2 x 4 mm split-flow (base 2.0 mm) | 102 | 1.00 | 18.93 | 19.97 | 0.582 | 31.91 | 32.96 | +1.04 |
+
+(The split-flow plate is NOT isothermal over 54 mm, so the linear budget applies to it; the HMMC is isothermal over its 2 mm cells, so the isothermal budget applies - confirmed by the coupled 2-D runs in sections 2 and 6.)
+
+## 3. Plain HMMC, base 1.0 mm: sensitivity to fin geometry (h_eff) and to the fin-layer treatment
+
+| fin geometry | h_eff kW/m2K | avg case dT K (prescribed / coupled) | max-avg K FV distributed sink (prescribed / coupled) | max-avg K lumped-h_eff Robin, Fourier |
+|---|---:|---|---|---:|
+| HMMC 0.10/0.10 x 1.0 mm | 158 | 23.94 / 25.78 | 0.28 / 0.25 | 0.102 |
+| HMMC-fine 0.075/0.075 x 1.0 mm | 239 | 21.28 / 23.73 | 0.39 / 0.34 | 0.131 |
+| HMMC-ultrafine 0.05/0.05 x 0.6 mm | 340 | 19.72 / 22.35 | 0.60 / 0.50 | 0.297 |
+
+Lumped-h_eff Fourier model: top peak / fluid amplitude (triangle wave, period 4 mm; fin layer 1 mm at 50 % Cu):
+
+| base mm \ h_eff kW/m2K | 100 | 150 | 250 | (max-avg K at 150, x 6.33 K) |
+|---:|---:|---:|---:|---:|
+| 0.8 | 0.0161 | 0.0215 | 0.0295 | 0.136 |
+| 1.0 | 0.0116 | 0.0155 | 0.0213 | 0.098 |
+| 1.5 | 0.0052 | 0.0070 | 0.0096 | 0.044 |
+| 2.0 | 0.0024 | 0.0032 | 0.0044 | 0.020 |
+
+Same Fourier model, base only (no fin layer; h_eff at the base bottom), h_eff 158 kW/m2K: 0.5 mm: 0.174, 0.8 mm: 0.100, 1.0 mm: 0.071, 1.5 mm: 0.032, 2.0 mm: 0.014
+Fundamental-mode rule of thumb: attenuation ~ 1/(cosh(kt) + (k_cu*k/h_eff) sinh(kt)), k = 2pi/lambda.
+
+## 4. Manifold maldistribution (plain HMMC, base 1.0 mm)
+
+Slot flow factor (1+e): local fluid rise = 12.7/(1+e) K.  Patterns: (i) alternating slots +e/-e (period 8 mm); (ii) long-wavelength: one region of the plate at -e, another at +e, no smoothing between them; plate average = mean of the two regions (half/half).
+
+| e | pattern | fluid model | plate avg case dT K | max-avg K | avg-min K | starved-region avg K |
+|---:|---|---|---:|---:|---:|---:|
+| 0 | perfect | prescribed | 23.94 | 0.28 | 0.29 | - |
+| +/-10% | alternating slots | prescribed | 24.00 | 0.30 | 0.45 | - |
+| +/-10% | long-wavelength half/half | prescribed | 24.01 | 0.97 | 0.94 | 24.67 |
+| +/-20% | alternating slots | prescribed | 24.21 | 0.35 | 0.62 | - |
+| +/-20% | long-wavelength half/half | prescribed | 24.21 | 1.70 | 1.62 | 25.58 |
+| 0 | perfect | coupled | 25.78 | 0.25 | 0.27 | - |
+| +/-10% | alternating slots | coupled | 25.84 | 0.27 | 0.44 | - |
+| +/-10% | long-wavelength half/half | coupled | 25.89 | 1.25 | 1.23 | 26.87 |
+| +/-20% | alternating slots | coupled | 26.01 | 0.33 | 0.62 | - |
+| +/-20% | long-wavelength half/half | coupled | 26.23 | 2.33 | 2.27 | 28.26 |
+
+Analytic check (isothermal cells): starved cell wall rise = dT_out/((1-e)(1-exp(-NTU/(1-e)))):
+  e = 10%: starved 17.09 K, rich 15.19 K, half/half avg 16.14 K -> max-avg = 0.95 K
+  e = 20%: starved 18.46 K, rich 14.51 K, half/half avg 16.48 K -> max-avg = 1.97 K
+
+## 5. Interdigitated counter-flow HMMC (base 1.0 mm)
+
+(a) fin-scale interdigitation: every fin has one +x and one -x channel, so the fin sees (T_fA + T_fB)/2 = T_in + 6.33 K at every x (linear model) or a symmetric exponential pair (coupled).
+
+| case | fluid model | avg case dT K | max-avg K | avg-min K |
+|---|---|---:|---:|---:|
+| fin-scale counter-flow, perfect distribution | prescribed | 23.89 | 0.00 | 0.00 |
+| fin-scale counter-flow, alternating slots +/-10% | prescribed | 23.95 | 0.21 | 0.21 |
+| fin-scale counter-flow, alternating slots +/-20% | prescribed | 24.15 | 0.43 | 0.43 |
+| fin-scale counter-flow, long-wavelength +/-10% half/half | prescribed | 23.95 | 0.67 | 0.67 |
+| fin-scale counter-flow, long-wavelength +/-20% half/half | prescribed | 24.16 | 1.38 | 1.38 |
+| fin-scale counter-flow, perfect distribution | coupled | 26.16 | 0.01 | 0.01 |
+| fin-scale counter-flow, alternating slots +/-10% | coupled | 26.21 | 0.17 | 0.19 |
+| fin-scale counter-flow, alternating slots +/-20% | coupled | 26.39 | 0.36 | 0.37 |
+| fin-scale counter-flow, long-wavelength +/-10% half/half | coupled | 26.27 | 1.05 | 1.05 |
+| fin-scale counter-flow, long-wavelength +/-20% half/half | coupled | 26.64 | 2.18 | 2.17 |
+
+Recuperator check (constant h = h_mean, coupled fluid): fin-scale counter-flow vs plain -
+  plain: mean case dT 25.77 K, mean fluid seen 7.95 K; fin-scale counter-flow: 26.13 K, mean fluid seen 8.32 K -> penalty +0.37 K (hot exiting stream re-heats the cold entering stream through the shared fin).
+Grid check (plain, 1 mm base, coupled): dx=dz=40/20/10 um -> mean 25.80/25.78/25.78 K, max-avg 0.252/0.255/0.256 K (converged).
+
+(b) group-scale counter-flow: groups of channels w_g wide alternate direction across y (checkerboard, periods 4 mm in x and 2 w_g in y); y-modes solved with k_yy = 0 in the fin layer, linear sawtooth source (conservative).
+
+| group width w_g mm | channels/group | max-avg K | avg-min K |
+|---:|---:|---:|---:|
+| 0.5 | 2 | 0.001 | 0.001 |
+| 1.0 | 5 | 0.025 | 0.025 |
+| 2.0 | 10 | 0.126 | 0.126 |
+| 4.0 | 20 | 0.222 | 0.222 |
+| 8.0 | 40 | 0.243 | 0.243 |
+| plain (no interdigitation, same solver) | - | 0.243 | 0.243 |
+
+## 6. CoolIT-like split-flow plate (0.2/0.2 x 4 mm skived fins, 2 mm base, centre feed, 54 mm paths)
+
+| case | avg case dT K | max-avg K | avg-min K | case dT at centre / 10 / 27 / 50 mm / edge K |
+|---|---:|---:|---:|---|
+| prescribed-linear fluid, mean h | 31.90 | 5.43 | 5.43 | 26.5 / 28.0 / 31.9 / 37.0 / 37.3 |
+| prescribed-linear fluid, local h (entrance) | 31.99 | 5.76 | 7.87 | 24.1 / 27.8 / 32.3 / 37.4 / 37.7 |
+| coupled fluid, local h | 32.06 | 5.73 | 7.83 | 24.2 / 27.9 / 32.4 / 37.5 / 37.8 |
+| coupled, local h, 5 mm unheated overhang at exit | 31.55 | 4.42 | 7.31 | 24.2 / 27.9 / 32.4 / 35.0 / 29.4 |
+| coupled, local h, starved channel -10 % flow | 32.81 | 6.29 | 8.31 | 24.5 / 28.3 / 33.1 / 38.7 / 39.1 |
+| coupled, local h, rich channel +10 % flow | 31.44 | 5.27 | 7.45 | 24.0 / 27.6 / 31.8 / 36.4 / 36.7 |
+| coupled, local h, starved channel -20 % flow | 33.73 | 7.01 | 8.94 | 24.8 / 28.7 / 34.0 / 40.3 / 40.7 |
+| coupled, local h, rich channel +20 % flow | 30.93 | 4.89 | 7.13 | 23.8 / 27.4 / 31.3 / 35.5 / 35.8 |
+| +/-10 % channel-to-channel along the header (half/half) | 32.13 | 6.97 | 8.13 | - |
+| +/-20 % channel-to-channel along the header (half/half) | 32.33 | 8.41 | 8.53 | - |
+
+Fourier attenuation of a 108 mm-period fluid wave through 2 mm base + 4 mm fins (lumped model): 0.754 -> essentially no smoothing.
+
+## 7. CoolIT measured spread: systematic (location) vs random (plate-to-plate) components
+
+Grand mean 34.4 K; max single reading 44.2 K -> quoted hot-spot 9.8 K.
+Location means - grand mean (K): TC1: -3.1, TC2: -1.7, TC3: +1.6, TC4: +3.2, TC5: +8.8, TC6: -1.8, TC7: -3.6, TC8: -3.4
+Plate means: 32.5, 35.2, 35.6 K (plate-to-plate spread 3.1 K).
+Residual (location x plate interaction = TIM/assembly scatter) std = 2.5 K, max |resid| = 8.6 K (TC8 on plate 1).
+Systematic hot location (TC5): +8.8 K above the mean on all three plates; systematic range TC5 - TC7 = 12.4 K.
+TIM bond-line sensitivity at 128 W/cm2: +10 um of 3 W/mK paste = 4.3 K.
+
+## 8. Base-thickness trade-off (plain HMMC, coupled fluid, local h)
+
+| base mm | avg case dT K | max-avg K | max case dT K | max-avg with +/-20 % long-wave maldistribution K | max case dT with maldistribution K |
+|---:|---:|---:|---:|---:|---:|
+| 0.5 | 24.11 | 0.57 | 24.69 | 2.69 | 27.25 |
+| 0.8 | 25.12 | 0.35 | 25.47 | 2.43 | 28.00 |
+| 1.0 | 25.78 | 0.25 | 26.04 | 2.33 | 28.56 |
+| 1.5 | 27.43 | 0.12 | 27.55 | 2.17 | 30.05 |
+| 2.0 | 29.08 | 0.05 | 29.13 | 2.09 | 31.62 |
+
+## 9. Profiles over one 4 mm period (plain HMMC, 1 mm base): prescribed vs coupled fluid
+
+| x mm | fluid dT K (presc.) | base-bottom dT K (presc.) | case dT K (presc.) | fluid dT K (coupled) | case dT K (coupled) |
+|---:|---:|---:|---:|---:|---:|
+| 0.01 | 0.06 | 13.48 | 23.66 | 0.29 | 25.52 |
+| 0.25 | 1.58 | 13.61 | 23.68 | 3.62 | 25.54 |
+| 0.49 | 3.10 | 13.80 | 23.74 | 5.67 | 25.60 |
+| 0.99 | 6.26 | 14.30 | 23.94 | 8.83 | 25.79 |
+| 1.49 | 9.42 | 14.75 | 24.14 | 11.06 | 25.96 |
+| 1.75 | 11.06 | 14.90 | 24.20 | 11.95 | 26.02 |
+| 1.99 | 12.58 | 14.96 | 24.22 | 12.61 | 26.04 |
+| 2.49 | 9.54 | 14.76 | 24.14 | 11.14 | 25.97 |
+| 2.99 | 6.38 | 14.32 | 23.95 | 8.94 | 25.79 |
+| 3.99 | 0.06 | 13.48 | 23.66 | 0.29 | 25.52 |
+

@@ -1,0 +1,16 @@
+{
+ "core": 0,
+ "grate_land": 12,
+ "grate_web": 20,
+ "plenum": 30,
+ "plenum_frames": 30,
+ "separator": 44,
+ "cap": 60,
+ "boss_in": 78,
+ "boss_out": 78,
+ "guard": 90,
+ "screws": 0,
+ "frame": -14,
+ "ttv_block": -8,
+ "ttv_tiles": -8
+}

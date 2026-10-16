@@ -1,0 +1,41 @@
+## 1. Braze fixture (differential expansion, TZM leaf springs)
+thermal interference Cu stack vs TZM rods: 0.137 mm at 795 C
+target pressure 0.08 MPa -> 1250 N per plate; 8 TZM springs 80.0x20.0x2.5: k 683.59 N/mm each, 5468.8 N/mm total
+hot deflection 0.229 mm; cold preload set 0.092 mm (502 N cold); spring stress hot 150 MPa (TZM 800 C yield ~450)
+  shim error -0.05 mm -> hot load 977 N = 0.062 MPa
+  shim error +0.05 mm -> hot load 1523 N = 0.098 MPa
+plenum wall axial 0.77 MPa; fin metal (50 % solid) 0.16 MPa; separator span 6.914/1.8 fixed strip 0.59 MPa; arch hoop 0.48 MPa; OFE hot 0.2 % proof ~10 MPa
+
+## 2. Vacuum furnace capacity
+cycle 5.5 h, 3.52 loads/day, 60 plates/load -> 77,168 brazed plates per furnace-year
+   10,000/yr at yield 0.84: 0.15 furnaces
+  100,000/yr at yield 0.935: 1.39 furnaces
+
+## 3. Cost roll-up (US$ per plate, P50)
+line                                                                 100k    10k
+CORE copper blank 0.76 kg OFE                                        11.1   12.8
+GRT-L + GRT-W strip 0.28 kg                                           4.1    4.7
+PLN-C + PLN-F strip/bar 0.22 kg                                       3.2    3.7
+SEP + CAP + BOSS blanks 0.26 kg                                       3.7    4.3
+Skive (incl. blank mill, pocket, plane)                              20.5   53.3
+Kerf gang-saw, wax, de-wax, deburr                                    2.8    7.0
+GRT-L mill/punch/groove/skim                                          3.3    9.9
+GRT-W laser pierce + EP + vision                                      3.0    4.8
+PLN-C pierce + fold + PLN-F + tack                                    4.4   14.1
+SEP stamp/laser + flatten                                             1.5    3.8
+CAP draw (3 stations) + trim + 2 BOSS machine + braze bosses          6.3   18.9
+Filler BAg-8 preforms PF-1..PF-4 (~5.1 g) or Ag plate                14.7   20.6
+Vacuum braze (fixture amortised, 1.6 furnaces/100k)                  17.6   38.7
+Dies and tooling amortisation                                         2.0    8.0
+Fly-cut face, pedestal, in-line ultrasonic gauge                      5.6   10.1
+TAP x2, GUARD, stubs/adapters, Ni plate (T2 only, excluded)           8.3   13.3
+Hardware: 8 CSS-15P/SPR-60/SLV/WSH/clips, LF-15P frame, pins, pack   14.0   21.0
+Test: clean, He leak, proof+scan, dP, IR, bake, pack                 11.8   28.3
+sum of lines                                                        137.9  277.1
+factory cost = sum / yield x 1.12 overhead: 100k (0.935) 165.2; 10k (0.8) 388
+verifier C1 sum 134.4 + Rev A additions 2.5 = 136.9; architecture 165 (155-175)
+verifier lines + Rev A through the same yield/overhead: 164.0; this lane 100k: 165.2 (delta vs 165 +0.2); 10k: 388 (architecture 370-430)
+P10/P90 at 100k: 156 / 175 (verifier spread 153/172 on 162); 10k P10/P90 361 / 427
+
+## 4. BOM: 25 lines; mass on the architecture boundary (plate+stubs+springs, no frame; backplate excluded here) 1250 g; +BP-15P 87.6 -> 1337 g (mech 1,278); +LF-15P 85 -> FRU 1422 g
+Ag per plate (route A): 4.1 g in 5.7 g BAg-8

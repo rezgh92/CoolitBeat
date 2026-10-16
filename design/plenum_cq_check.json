@@ -1,0 +1,42 @@
+{
+ "corrugation": {
+  "valid": false,
+  "solids": 1,
+  "volume_mm3": 15555.2,
+  "mass_g": 139.1,
+  "bbox": [
+   -60.76,
+   -58.0,
+   4.5,
+   60.76,
+   58.0,
+   10.3
+  ],
+  "s": 5.7
+ },
+ "end_frames": {
+  "valid": true,
+  "solids": 2,
+  "volume_mm3": 3322.2,
+  "mass_g": 29.7,
+  "s": 0.8
+ },
+ "separator_1p8": {
+  "valid": true,
+  "solids": 1,
+  "windows": 46,
+  "volume_mm3": 23306.3,
+  "mass_g": 208.4,
+  "bbox": [
+   -61.3,
+   -61.3,
+   10.3,
+   61.3,
+   61.3,
+   12.1
+  ],
+  "s": 4.6
+ },
+ "holes_within_0p3_of_contact_strips": 0,
+ "plenum_total_mass_g": 168.8
+}

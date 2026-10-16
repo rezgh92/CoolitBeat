@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.npz
+*.log
+*.print.html
+cad/out/*.step
+cad/out/*-lite.*
+video/node_modules
+video/node_modules/
+video/frames*/
+video/audio/
+video/sections/
+node_modules/
+.DS_Store

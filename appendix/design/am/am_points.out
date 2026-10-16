@@ -1,0 +1,15 @@
+20 mm ports, 18 LPM: dP 4.20 kPa pump 1.26 W
+comb raised to 3.0 kPa branch (orifice 2.8): dP 6.52 kPa, pump 1.96 W; 36 LPM 25.6 kPa
+LM matches 34.4 K avg at 8.4 LPM (0.56 LPM/kW), dP 1.30, pump 0.18 W, max 36.5
+PCM matches 44.2 K max at 7.8 LPM (0.52 LPM/kW), outlet rise 29.0 K
+channel u 0.083 m/s Re 19; port u 16 mm 1.49 m/s; 36 LPM 16 mm 2.98; 20 mm 1.91
+R'' at P90 avg 31.4: 0.245; Tcase max P90 79.5
+Rubin 2.3 kW 60 cm2 12 mm ports: dP 0.33 kPa
+ECAM full fin field: 0.60-2.40 h/part; per 100k/yr 60000-240000 tool-h -> 10-40 tools at 6000 h/yr
+ECAM X fins only: 0.27-0.80 h/part; per 100k/yr 26667-80000 tool-h -> 4-13 tools at 6000 h/yr
+L-PBF manifold: 2.10-7.00 h/part; per 100k/yr 210000-700000 tool-h -> 35-117 tools at 6000 h/yr
+same paste at equal pump power (29.4 LPM): avg 26.5 max 31.5 dP 15.0 pump 7.4
+inlet branch 10x7.5 both-end fed: 0.50 m/s head 126 Pa ratio vs 2.2 kPa 17.5
+outlet branch 15x7.5 both-end: 0.33 m/s head 56 Pa ratio vs 2.2 kPa 39.4
+inlet branch one-end: 1.00 m/s head 502 Pa ratio vs 2.2 kPa 4.4
+LP15 inlet 10x5 both-end: 0.75 m/s head 283 Pa ratio vs 2.2 kPa 7.8

@@ -1,0 +1,20 @@
+{
+  "v": 4,
+  "createdOnFiles": {"v": 1, "at": "2026-10-16T04:40:00Z"},
+  "lists": "css",
+  "title": "PRISM-15 Rev A",
+  "order": ["cover", "mandate", "verdict", "idea", "stack", "core", "grate", "plenum-cap", "zoning", "datasheet", "flow-dp", "margins", "manufacturing", "cost", "mechanical", "cad", "concessions", "risks", "innovation", "applications", "programme", "decisions", "next"],
+  "sections": {
+    "brief": {"description": "The brief, the benchmark and the verdict at CoolIT’s own operating point.", "start": "cover"},
+    "design": {"description": "How the plate works and what each layer is.", "start": "idea"},
+    "performance": {"description": "The predicted datasheet, pressure drop and margins.", "start": "datasheet"},
+    "build": {"description": "Manufacturing route, cost, mounting and the CAD package.", "start": "manufacturing"},
+    "honesty": {"description": "What the design does not win and what could go wrong.", "start": "concessions"},
+    "business": {"description": "Innovation, applications, programme and the decisions requested.", "start": "innovation"}
+  },
+  "faces": {
+    "source-serif-4": {"family": "Source Serif 4", "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400..700&display=swap"},
+    "ibm-plex-sans": {"family": "IBM Plex Sans", "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"}
+  },
+  "designSystems": []
+}

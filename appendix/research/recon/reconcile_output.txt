@@ -1,0 +1,123 @@
+====================================================================================================
+A. Darcy / Fanning identity check
+====================================================================================================
+Hagen-Poiseuille 6250.0 Pa | 2*fRe_F*mu*u*L/Dh^2 6250.0 | fRe_D*mu*u*L/(2Dh^2) 6250.0 | v1 formula 1562.5 -> v1/true = 0.25
+24*poly(1) = 14.23 (square duct Fanning fRe = 14.23 -> Darcy 56.9) ; 24*poly(0) = 24.0 (parallel plates Fanning 24 -> Darcy 96)
+Shah&London alpha=0.05 (0.2 x 4 mm): Fanning fRe = 22.49, Darcy 89.9
+
+====================================================================================================
+B. The CoolIT-like 0.2/0.2 x 4 mm, 54 mm split-flow reconstruction at 18 LPM: v1, v1+fix, hydraulic-detail, v2
+====================================================================================================
+v1 (bug):      channel 3.63 + K_channel 0.48 + manifold 1.45 + ports(flat) 3.00 = 8.56 kPa   <- the '8.6 / ~9 kPa' quoted downstream
+v1 + 4x fix:   channel 14.53 + K_channel 0.48 + manifold 1.45 + ports(flat) 3.00 = 19.46 kPa   <- the '19 kPa' of manifold-maldistribution.md
+hydraulic-detail.md: channel fd+Hagenbach 14.71 + entry/exit 0.67 + plenums 3.41 + ports(flat) 3.00 = 21.78 kPa  <- the '22 kPa'
+v2 (on disk):  channel 14.53 + K_channel 0.48 + header 1.45 + ports(12 mm bore, K 2.3: u=2.65 m/s) 8.13 = 24.59 kPa  <- the '24.6 kPa' now in model_output.md
+   channel u = 0.693 m/s, Re = 212; core-only (channel + K) = 15.0 kPa in all three corrected versions
+
+Pitch sensitivity of the skived core (v2 model, 117 cm2, 18 LPM): gap/fin/H -> channel term, total
+  0.25/0.25 x 4.0 mm: u 0.69 m/s, channel   9.4 kPa, total  19.4 kPa, avg dT 38.2 K
+  0.20/0.20 x 4.0 mm: u 0.69 m/s, channel  14.5 kPa, total  24.6 kPa, avg dT 34.5 K
+  0.15/0.15 x 3.0 mm: u 0.92 m/s, channel  34.4 kPa, total  44.9 kPa, avg dT 31.4 K
+  0.15/0.10 x 2.0 mm: u 1.16 m/s, channel  43.8 kPa, total  54.7 kPa, avg dT 32.0 K
+  0.10/0.10 x 2.0 mm: u 1.39 m/s, channel 116.2 kPa, total 127.7 kPa, avg dT 28.3 K
+  0.10/0.15 x 2.0 mm: u 1.73 m/s, channel 145.3 kPa, total 157.9 kPa, avg dT 28.7 K
+
+====================================================================================================
+C. HMMC variants at 18 LPM: v1 (6.2), hydraulic-detail (8.3-8.6), manifold design H (5.0), v2 HMMC-R (5.3)
+====================================================================================================
+v1 HMMC 0.1/0.1x1.0, L=2 mm, 0.3 mm slots: channel 0.08 (bug; true 0.33) + K 0.02 + slot 0.09 + manifold 2.01 + ports(flat) 4.00 = 6.20 kPa (bug-free 6.44)
+v2 HMMC-R (design H, L=4 mm, 3.5 mm slots, 16 mm ports): channel 0.23 + K 0.01 + slot 0.00 + header 0.50 + orifice 2.00 + ports(u=1.49 m/s) 2.57 = 5.32 kPa ; u_ch 0.083 m/s
+v2 HMMC-P (design H, L=4 mm, 3.5 mm slots, 16 mm ports): channel 0.83 + K 0.03 + slot 0.00 + header 0.50 + orifice 1.50 + ports(u=1.49 m/s) 2.57 = 5.43 kPa ; u_ch 0.132 m/s
+v2 HMMC-F (design H, L=4 mm, 3.5 mm slots, 16 mm ports): channel 2.22 + K 0.06 + slot 0.00 + header 0.50 + orifice 1.00 + ports(u=1.49 m/s) 2.57 = 6.36 kPa ; u_ch 0.198 m/s
+hydraulic-detail HMMC 0.1x1.0 L2: ports 3.00 + L1 2.17 + L2 1.81 + nozzles 0.13 + entry 0.51 + channel 0.33 + exit 0.38 = 8.35 kPa (0.2 mm slot/8 mm L2 variant 8.6)
+manifold-maldistribution design H: ports 2.53 + L1 net -0.19 + tees 0.24 + L2 net 0.11 + L3 friction 2.22 + L3 turns 0.06 = 4.99 kPa (no UQD)
+
+Flow-length sensitivity of the channel friction term (v2 HMMC-R, 18 LPM):
+  L = 2 mm (27 inlet slots): channel 0.06 kPa, total 5.14 kPa, conv 10.1 K, avg dT 28.0 K
+  L = 3 mm (18 inlet slots): channel 0.13 kPa, total 5.22 kPa, conv 10.1 K, avg dT 28.0 K
+  L = 4 mm (14 inlet slots): channel 0.23 kPa, total 5.32 kPa, conv 10.1 K, avg dT 28.0 K
+  L = 6 mm (9 inlet slots): channel 0.54 kPa, total 5.65 kPa, conv 10.1 K, avg dT 28.0 K
+
+====================================================================================================
+D. Loop losses outside the plate at 15 kW: quick disconnects (Cv law), hose friction, barbs
+====================================================================================================
+Cv law (SG 1.00): dp per mated coupling = SG*(Q[gpm]/Cv)^2 psi; a plate loop has TWO couplings (supply + return).
+| coupling (Cv range, memory-based) | 6 LPM | 9 LPM | 11.25 LPM | 15 LPM | 18 LPM | 24 LPM | 36 LPM |  (kPa for the PAIR = 2 couplings; hi-lo)
+| UQD02 (1/8 in) Cv 0.2-0.3 | 387-871 | 871-1959 | 1360-3061 | 2418-5442 | 3483-7836 | 6191-13930 | 13930-31343 |
+| UQD04 (1/4 in) Cv 0.5-0.8 | 54-139 | 122-313 | 191-490 | 340-871 | 490-1254 | 871-2229 | 1959-5015 |
+| UQD06 (3/8 in) Cv 1.3-2.0 | 9-21 | 20-46 | 31-72 | 54-129 | 78-185 | 139-330 | 313-742 |
+| UQD08 (1/2 in) Cv 3.0-4.0 | 2-4 | 5-9 | 8-14 | 14-24 | 20-35 | 35-62 | 78-139 |
+| UQDB08 blind-mate Cv 2.5-4.0 | 2-6 | 5-13 | 8-20 | 14-35 | 20-50 | 35-89 | 78-201 |
+| 3/4 in / 'UQD12-class' Cv 6-10 | 0-1 | 1-2 | 1-3 | 2-6 | 3-9 | 6-15 | 13-35 |
+
+Cross-check of the Cv ranges against a loss coefficient on the nominal flow bore (K per coupling = dp / (rho u^2/2)):
+  UQD04 1/4 in, bore ~5 mm: u = 15.3 m/s at 18 LPM, dyn head 117.3 kPa, Cv 0.65 -> 370.9 kPa per coupling -> K = 3.2 (valved QDs typically K 1-4 on bore)
+  UQD06 3/8 in, bore ~8 mm: u = 6.0 m/s at 18 LPM, dyn head 17.9 kPa, Cv 1.6 -> 61.2 kPa per coupling -> K = 3.4 (valved QDs typically K 1-4 on bore)
+  UQD08 1/2 in, bore ~10 mm: u = 3.8 m/s at 18 LPM, dyn head 7.3 kPa, Cv 3.5 -> 12.8 kPa per coupling -> K = 1.7 (valved QDs typically K 1-4 on bore)
+  3/4 in, bore ~16 mm: u = 1.5 m/s at 18 LPM, dyn head 1.1 kPa, Cv 8.0 -> 2.4 kPa per coupling -> K = 2.2 (valved QDs typically K 1-4 on bore)
+
+Hose friction (smooth, Blasius turbulent / laminar 64/Re) per metre of hose, PG25 at 50 C:
+| hose ID | 6 LPM | 9 LPM | 11.25 LPM | 15 LPM | 18 LPM | 24 LPM | 36 LPM |  (kPa/m ; velocity m/s at 18 LPM)
+| 1/4 in (6.4 mm) | 22.1 | 45.0 | 66.5 | 110.0 | 151.3 | 250.3 | 509.0 |  (u18 = 9.5 m/s, Re18 = 48363)
+| 3/8 in (9.5 mm) | 3.3 | 6.6 | 9.8 | 16.2 | 22.3 | 36.9 | 75.1 |  (u18 = 4.2 m/s, Re18 = 32327)
+| 1/2 in (12.7 mm) | 0.8 | 1.7 | 2.5 | 4.1 | 5.6 | 9.3 | 18.9 |  (u18 = 2.4 m/s, Re18 = 24182)
+| 5/8 in (15.9 mm) | 0.3 | 0.6 | 0.8 | 1.4 | 1.9 | 3.2 | 6.5 |  (u18 = 1.5 m/s, Re18 = 19315)
+| 3/4 in (19 mm) | 0.1 | 0.2 | 0.4 | 0.6 | 0.8 | 1.4 | 2.8 |  (u18 = 1.1 m/s, Re18 = 16163)
+
+Barb / fitting losses (K = 1.0 per barb on the barb BORE velocity; bore is 2-3 mm under the hose ID):
+  3/8 in barb, 7 mm bore: 11.25 LPM: 11.9 kPa each, x4 = 48 | 15 LPM: 21.2 kPa each, x4 = 85 | 18 LPM: 30.5 kPa each, x4 = 122
+  1/2 in barb, 9.5 mm bore: 11.25 LPM: 3.5 kPa each, x4 = 14 | 15 LPM: 6.3 kPa each, x4 = 25 | 18 LPM: 9.0 kPa each, x4 = 36
+  1/2 in full-bore stub, 12 mm: 11.25 LPM: 1.4 kPa each, x4 = 6 | 15 LPM: 2.5 kPa each, x4 = 10 | 18 LPM: 3.5 kPa each, x4 = 14
+  5/8-3/4 in, 15 mm bore: 11.25 LPM: 0.6 kPa each, x4 = 2 | 15 LPM: 1.0 kPa each, x4 = 4 | 18 LPM: 1.4 kPa each, x4 = 6
+
+====================================================================================================
+E. Tray-loop budgets for ONE 15 kW plate (plate + 2 x 0.5 m hose + 4 barbs/stubs + QD pair), kPa
+====================================================================================================
+
+-- 18 LPM (1.2 LPM/kW) --
+| loop | hose 1 m | barbs x4 | QD pair | plate (model / claim) | TOTAL (model-lo .. claim-hi) | <=100 | <=70 | <=50 | <=30 |
+| 3/8 in hose + 7 mm barbs + UQD06 pair (Cv 1.3-2.0) + HMMC design H | 22 | 122 | 78-185 | 5 / 10 | **228..340** | no | no | no | no |
+| 3/8 in hose + 7 mm barbs + UQD06 pair (Cv 1.3-2.0) + skived split-flow recon | 22 | 122 | 78-185 | 25 / 35 | **247..365** | no | no | no | no |
+| 1/2 in hose + 9.5 mm barbs + UQD08 pair (Cv 3-4) + HMMC design H | 6 | 36 | 20-35 | 5 / 10 | **67..86** | yes | marginal | no | no |
+| 1/2 in hose + 9.5 mm barbs + UQD08 pair (Cv 3-4) + skived split-flow recon | 6 | 36 | 20-35 | 25 / 35 | **86..111** | marginal | no | no | no |
+| 1/2 in hose + 12 mm stubs + UQD08 pair (Cv 3-4) + HMMC design H | 6 | 14 | 20-35 | 5 / 10 | **45..65** | yes | yes | marginal | no |
+| 1/2 in hose + 12 mm stubs + UQD08 pair (Cv 3-4) + skived split-flow recon | 6 | 14 | 20-35 | 25 / 35 | **64..90** | yes | marginal | no | no |
+| 1/2 in hose + 12 mm stubs + DUAL UQD08 pairs (half flow each) + HMMC design H | 6 | 4 | 5-9 | 5 / 10 | **19..28** | yes | yes | yes | yes |
+| 1/2 in hose + 12 mm stubs + DUAL UQD08 pairs (half flow each) + skived split-flow recon | 6 | 4 | 5-9 | 25 / 35 | **39..53** | yes | yes | marginal | no |
+| 3/4 in hose + 15 mm stubs + 3/4-in class pair (Cv 6-10) + HMMC design H | 1 | 6 | 3-9 | 5 / 10 | **15..25** | yes | yes | yes | yes |
+| 3/4 in hose + 15 mm stubs + 3/4-in class pair (Cv 6-10) + skived split-flow recon | 1 | 6 | 3-9 | 25 / 35 | **34..50** | yes | yes | marginal | no |
+
+-- 15 LPM (1.0 LPM/kW) --
+| loop | hose 1 m | barbs x4 | QD pair | plate (model / claim) | TOTAL (model-lo .. claim-hi) | <=100 | <=70 | <=50 | <=30 |
+| 3/8 in hose + 7 mm barbs + UQD06 pair (Cv 1.3-2.0) + HMMC design H | 16 | 85 | 54-129 | 4 / 7 | **159..237** | no | no | no | no |
+| 3/8 in hose + 7 mm barbs + UQD06 pair (Cv 1.3-2.0) + skived split-flow recon | 16 | 85 | 54-129 | 19 / 28 | **175..257** | no | no | no | no |
+| 1/2 in hose + 9.5 mm barbs + UQD08 pair (Cv 3-4) + HMMC design H | 4 | 25 | 14-24 | 4 / 7 | **47..60** | yes | yes | marginal | no |
+| 1/2 in hose + 9.5 mm barbs + UQD08 pair (Cv 3-4) + skived split-flow recon | 4 | 25 | 14-24 | 19 / 28 | **62..81** | yes | marginal | no | no |
+| 1/2 in hose + 12 mm stubs + UQD08 pair (Cv 3-4) + HMMC design H | 4 | 10 | 14-24 | 4 / 7 | **31..45** | yes | yes | yes | no |
+| 1/2 in hose + 12 mm stubs + UQD08 pair (Cv 3-4) + skived split-flow recon | 4 | 10 | 14-24 | 19 / 28 | **47..66** | yes | yes | marginal | no |
+| 1/2 in hose + 12 mm stubs + DUAL UQD08 pairs (half flow each) + HMMC design H | 4 | 2 | 3-6 | 4 / 7 | **14..20** | yes | yes | yes | yes |
+| 1/2 in hose + 12 mm stubs + DUAL UQD08 pairs (half flow each) + skived split-flow recon | 4 | 2 | 3-6 | 19 / 28 | **29..40** | yes | yes | yes | marginal |
+| 3/4 in hose + 15 mm stubs + 3/4-in class pair (Cv 6-10) + HMMC design H | 1 | 4 | 2-6 | 4 / 7 | **11..18** | yes | yes | yes | yes |
+| 3/4 in hose + 15 mm stubs + 3/4-in class pair (Cv 6-10) + skived split-flow recon | 1 | 4 | 2-6 | 19 / 28 | **26..38** | yes | yes | yes | marginal |
+
+-- 11.25 LPM (0.75 LPM/kW) --
+| loop | hose 1 m | barbs x4 | QD pair | plate (model / claim) | TOTAL (model-lo .. claim-hi) | <=100 | <=70 | <=50 | <=30 |
+| 3/8 in hose + 7 mm barbs + UQD06 pair (Cv 1.3-2.0) + HMMC design H | 10 | 48 | 31-72 | 2 / 4 | **90..134** | marginal | no | no | no |
+| 3/8 in hose + 7 mm barbs + UQD06 pair (Cv 1.3-2.0) + skived split-flow recon | 10 | 48 | 31-72 | 13 / 19 | **101..149** | no | no | no | no |
+| 1/2 in hose + 9.5 mm barbs + UQD08 pair (Cv 3-4) + HMMC design H | 2 | 14 | 8-14 | 2 / 4 | **26..34** | yes | yes | yes | marginal |
+| 1/2 in hose + 9.5 mm barbs + UQD08 pair (Cv 3-4) + skived split-flow recon | 2 | 14 | 8-14 | 13 / 19 | **38..49** | yes | yes | yes | no |
+| 1/2 in hose + 12 mm stubs + UQD08 pair (Cv 3-4) + HMMC design H | 2 | 6 | 8-14 | 2 / 4 | **18..26** | yes | yes | yes | yes |
+| 1/2 in hose + 12 mm stubs + UQD08 pair (Cv 3-4) + skived split-flow recon | 2 | 6 | 8-14 | 13 / 19 | **29..41** | yes | yes | yes | marginal |
+| 1/2 in hose + 12 mm stubs + DUAL UQD08 pairs (half flow each) + HMMC design H | 2 | 1 | 2-3 | 2 / 4 | **8..12** | yes | yes | yes | yes |
+| 1/2 in hose + 12 mm stubs + DUAL UQD08 pairs (half flow each) + skived split-flow recon | 2 | 1 | 2-3 | 13 / 19 | **19..26** | yes | yes | yes | yes |
+| 3/4 in hose + 15 mm stubs + 3/4-in class pair (Cv 6-10) + HMMC design H | 0 | 2 | 1-3 | 2 / 4 | **6..10** | yes | yes | yes | yes |
+| 3/4 in hose + 15 mm stubs + 3/4-in class pair (Cv 6-10) + skived split-flow recon | 0 | 2 | 1-3 | 13 / 19 | **17..25** | yes | yes | yes | yes |
+
+Hydraulic power of the QD pair alone at 18 LPM: UQD08 (25 kPa) = 7.5 W ; UQD06 (75 kPa) = 22.5 W ; vs plate HMMC 5 kPa = 1.5 W
+
+====================================================================================================
+F. What flow per QD pair do today's trays see? (secondary/KB; GB200 NVL72 ~120-132 kW rack, ~130 LPM, 18 compute + 9 switch trays)
+====================================================================================================
+  rack 120 LPM -> ~5.9 LPM per compute tray through ONE QD pair; a single 15 kW plate at 1.2 LPM/kW is 3.1x that flow -> 9x the QD dP for the same coupling size
+  rack 130 LPM -> ~6.4 LPM per compute tray through ONE QD pair; a single 15 kW plate at 1.2 LPM/kW is 2.8x that flow -> 8x the QD dP for the same coupling size
+  rack 150 LPM -> ~7.3 LPM per compute tray through ONE QD pair; a single 15 kW plate at 1.2 LPM/kW is 2.5x that flow -> 6x the QD dP for the same coupling size

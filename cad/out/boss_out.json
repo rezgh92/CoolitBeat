@@ -1,0 +1,20 @@
+{
+ "part": "boss_out",
+ "valid": true,
+ "solids": 1,
+ "volume_mm3": 2090.5,
+ "mass_g": 18.7,
+ "bbox": [
+  -13.0,
+  8.0,
+  19.8,
+  13.0,
+  34.0,
+  29.5
+ ],
+ "stl": "/home/user/Rez/docs/cooling/cad/out/boss_out.stl",
+ "step": "/home/user/Rez/docs/cooling/cad/out/boss_out.step",
+ "step_MB": 0.0,
+ "step_xz_MB": 0.0,
+ "seconds": 0.0
+}

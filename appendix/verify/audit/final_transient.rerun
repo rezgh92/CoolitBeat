@@ -1,0 +1,12 @@
+Rev A (PKG-A, 0.8 mm base): h 11.3 kW/m2K, caloric 7.52 K, fluid lag 39 ms, base+fin Cu-equivalent 1.80 mm, near-die base heat capacity 0.28 J/K/cm2
+CoolIT-like (2.0 mm base): h 9.6 kW/m2K, caloric 6.33 K, fluid lag 80 ms, base+fin Cu-equivalent 4.00 mm, near-die base heat capacity 0.69 J/K/cm2
+
+Pulse 1.0x -> 1.5x (128 -> 192 W/cm2) for the stated duration, paste TIM both; values are Tcase - Tin (K), same uniform-flux 1-D basis
+| config | plate | 1.0x steady | 10 ms peak | 100 ms peak | 1 s peak | 10 s peak | 1.5x steady | excursion at 10 ms / 100 ms / 1 s / 10 s |
+|---|---|---|---|---|---|---|---|---|
+| TTV | Rev A (PKG-A, 0.8 mm base) | 31.0 | 33.9 | 41.8 | 46.4 | 46.4 | 46.4 | 3.0 / 10.8 / 15.5 / 15.5 |
+| TTV | CoolIT-like (2.0 mm base) | 34.9 | 37.9 | 44.7 | 52.4 | 52.4 | 52.4 | 3.0 / 9.8 / 17.4 / 17.5 |
+| lid | Rev A (PKG-A, 0.8 mm base) | 31.4 | 31.5 | 35.6 | 46.8 | 47.1 | 47.1 | 0.1 / 4.2 / 15.4 / 15.7 |
+| lid | CoolIT-like (2.0 mm base) | 35.4 | 35.4 | 39.1 | 52.0 | 53.0 | 53.0 | 0.1 / 3.7 / 16.7 / 17.7 |
+
+Note: steady values are 1-D network values with paste (no hot-spot terms); compare with the scorecard averages (PKG-A 31.0 K, CoolIT 34.4 K).

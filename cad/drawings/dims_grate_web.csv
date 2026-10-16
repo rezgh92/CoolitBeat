@@ -1,0 +1,14 @@
+parameter,value (mm unless stated)
+material,OFE C10100
+z0,4.1
+t,0.4
+outline,121.0
+corner_r,2.0
+holes_from_artwork,True
+inlet_count,378
+outlet_count,378
+fiducials,"[2 values, see params.json]"
+fiducial_d,1.0
+pin_holes.d,2.0
+pin_holes.positions,"[2 values, see params.json]"
+mass_g_lane,52

@@ -1,0 +1,64 @@
+## C1. Automotive core sweep (Cu, WEG 50/50 65 C, 10 L/min, 84 cm2), PE-DS stack 2.0 mm base, sinter
+| gap | fin | H | L | H/t | h_eff kW/m2K | eta | Rth mean K/W | vs pin-fin 0.100 |
+|---|---|---|---|---|---|---|---|---|
+| 0.3 | 0.3 | 6.0 | 4.0 | 20 | 59 | 0.52 | 0.0690 | -31 % |
+| 0.3 | 0.3 | 6.0 | 3.0 | 20 | 59 | 0.52 | 0.0691 | -31 % |
+| 0.3 | 0.3 | 6.0 | 5.0 | 20 | 59 | 0.52 | 0.0691 | -31 % |
+| 0.4 | 0.3 | 6.0 | 4.0 | 20 | 43 | 0.58 | 0.0762 | -24 % |
+| 0.4 | 0.3 | 6.0 | 3.0 | 20 | 43 | 0.58 | 0.0763 | -24 % |
+| 0.4 | 0.3 | 6.0 | 5.0 | 20 | 43 | 0.58 | 0.0763 | -24 % |
+| 0.5 | 0.3 | 6.0 | 4.0 | 20 | 34 | 0.62 | 0.0834 | -17 % |
+| 0.5 | 0.3 | 6.0 | 3.0 | 20 | 34 | 0.62 | 0.0834 | -17 % |
+| 0.5 | 0.3 | 6.0 | 5.0 | 20 | 34 | 0.62 | 0.0834 | -17 % |
+
+## C2. Chosen cores with metering comb (1.5 kPa at 10 L/min), header 0.4 m/s, 14 mm ports
+| core | fluid / flow | h_eff | cal frac | dP ch | dP comb | dP hdr | dP ports | dP total kPa | branch/header-head ratio |
+|---|---|---|---|---|---|---|---|---|---|
+| PE-A core 0.40/0.30x5, L4 | WEG 50/50 @ 65C 10 L/min | 41 | 0.55 | 0.01 | 1.50 | 0.03 | 1.41 | 2.9 | 18 |
+| PE-A core 0.40/0.30x5, L4 | WEG 50/50 @ 65C 20 L/min | 44 | 0.52 | 0.03 | 6.00 | 0.10 | 5.63 | 11.8 | 18 |
+| PE-A core 0.40/0.30x5, L4 | WEG 50/50 @ 25C 10 L/min | 39 | 0.55 | 0.03 | 1.50 | 0.03 | 1.44 | 3.0 | 18 |
+| PE-A core 0.40/0.30x5, L4 | WEG 50/50 @ -40C 10 L/min | 36 | 0.55 | 0.73 | 1.50 | 0.03 | 1.48 | 3.7 | 26 |
+| PE-A core 0.40/0.30x5, L4 | WEG 50/50 @ -40C 5 L/min | 35 | 0.59 | 0.37 | 0.38 | 0.01 | 0.37 | 1.1 | 34 |
+| PE-DS-R core 0.15/0.10x2, L4 | WEG 50/50 @ 65C 10 L/min | 108 | 0.62 | 0.22 | 1.50 | 0.03 | 1.41 | 3.2 | 21 |
+| PE-DS-R core 0.15/0.10x2, L4 | WEG 50/50 @ 65C 20 L/min | 111 | 0.56 | 0.43 | 6.00 | 0.10 | 5.63 | 12.2 | 19 |
+| PE-DS-R core 0.15/0.10x2, L4 | WEG 50/50 @ 25C 10 L/min | 103 | 0.62 | 0.56 | 1.50 | 0.03 | 1.44 | 3.5 | 24 |
+| PE-DS-R core 0.15/0.10x2, L4 | WEG 50/50 @ -40C 10 L/min | 97 | 0.62 | 12.34 | 1.50 | 0.03 | 1.48 | 15.4 | 158 |
+| PE-DS-R core 0.15/0.10x2, L4 | WEG 50/50 @ -40C 5 L/min | 96 | 0.71 | 6.17 | 0.38 | 0.01 | 0.37 | 6.9 | 299 |
+| PE-Al core 0.50/0.50x5, L4 (Al) | WEG 50/50 @ 65C 10 L/min | 25 | 0.53 | 0.01 | 1.50 | 0.03 | 1.41 | 2.9 | 18 |
+| PE-Al core 0.50/0.50x5, L4 (Al) | WEG 50/50 @ 65C 20 L/min | 27 | 0.52 | 0.02 | 6.00 | 0.10 | 5.63 | 11.8 | 18 |
+| PE-Al core 0.50/0.50x5, L4 (Al) | WEG 50/50 @ 25C 10 L/min | 24 | 0.53 | 0.02 | 1.50 | 0.03 | 1.44 | 3.0 | 18 |
+| PE-Al core 0.50/0.50x5, L4 (Al) | WEG 50/50 @ -40C 10 L/min | 22 | 0.53 | 0.54 | 1.50 | 0.03 | 1.48 | 3.5 | 23 |
+| PE-Al core 0.50/0.50x5, L4 (Al) | WEG 50/50 @ -40C 5 L/min | 21 | 0.55 | 0.27 | 0.38 | 0.01 | 0.37 | 1.0 | 30 |
+Note: at -40 C the comb holes (0.6 mm, Re ~10) and ports (Re ~200) are laminar; bound the inertial terms x3: PE-A at -40 C, 10 L/min <= ~10 kPa
+
+h_eff: PE-A 41, PE-DS-R 108, PE-Al 25, pin-fin calibrated 22.3 kW/m2K
+
+## C3. Base thickness optimum
+- PE-A (sinter): 0.5 mm 0.0811, 0.8 mm 0.0797, 1.0 mm 0.0791, 1.5 mm 0.0780, 2.0 mm 0.0776, 3.0 mm 0.0775
+- PE-A (solder): 0.5 mm 0.0848, 0.8 mm 0.0835, 1.0 mm 0.0830, 1.5 mm 0.0820, 2.0 mm 0.0816, 3.0 mm 0.0817
+- PE-DS-R (sinter): 0.5 mm 0.0549, 0.8 mm 0.0556, 1.0 mm 0.0561, 1.5 mm 0.0574, 2.0 mm 0.0588, 3.0 mm 0.0614
+
+## C4. Final per-switch table, 10 L/min WEG 65 C (local fluid), and module level 6 x 1 kW
+| variant | h_eff | Rth mean K/W | Rth max | vs pin-fin | dP kPa @10 L/min | Tj,max C (65 C in, 6x1 kW) | +I at equal Tj | SiC area at equal Tj |
+|---|---|---|---|---|---|---|---|---|
+| Pin-fin HPD G2 class, series flow | 22 | 0.1000 | 0.1058 | +0 % | 7.6 | 178.9 | -0 % | -0 % |
+| Pin-fin, transverse (parallel phases) | 22 | 0.1000 | 0.1058 | +0 % | 7.6 | 175.7 | +1 % | -2 % |
+| ShowerPower-3D class (estimate) | 30 | 0.0900 | 0.0954 | -10 % | 5.0 | 165.2 | +7 % | -9 % |
+| PE-A1 cartridge, solder (drop-in) | 41 | 0.0816 | 0.0866 | -18 % | 2.9 | 156.9 | +11 % | -15 % |
+| PE-A2 cartridge, Ag sinter | 41 | 0.0776 | 0.0823 | -22 % | 2.9 | 152.6 | +14 % | -18 % |
+| PE-DS-R direct substrate, 0.15 mm core (filtered loop) | 108 | 0.0561 | 0.0583 | -44 % | 3.2 | 129.3 | +33 % | -32 % |
+| DSC, pin-fin-class h both sides (today's DSC) | 22 | 0.0552 | 0.0592 | -45 % | 12.0 | 129.0 | +33 % | -36 % |
+| PE-DSC, PE-A core both sides | 41 | 0.0427 | 0.0454 | -57 % | 0.7 | 115.7 | +50 % | -44 % |
+| PE-DSC-R, 0.15 mm core both sides | 108 | 0.0311 | 0.0323 | -69 % | 0.8 | 103.3 | +72 % | -52 % |
+| PE-Al cartridge (Al core on DBA) | 25 | 0.1092 | 0.1171 | +9 % | 2.9 | 187.2 | -3 % | +6 % |
+
+## C5. Data-centre 800 VDC / SST power stage in the PG25 TCS loop (45 C in, Tj limit 150 C): loss a 1.62 cm2 switch can carry
+PG25 1.2 L/min/kW: DC-R h_eff 124, DC-D h_eff 72 kW/m2K; caloric 9.7 K; dP DC-R 0.28 kPa (no comb)
+| assembly | Rth max K/W | max loss per switch at Tj 150 C, kW | W/cm2 of SiC |
+|---|---|---|---|
+| air-era practice: tube plate h 6k + gap pad 0.5 | 0.2832 | 0.34 | 208 |
+| skived plate h 40k + gap pad 0.5 | 0.1747 | 0.55 | 337 |
+| skived plate h 40k + PCM 0.08 | 0.1011 | 0.94 | 582 |
+| pin-fin baseplate (h 22k), solder, as automotive | 0.1058 | 0.90 | 556 |
+| PE-DC-D plate + PCM 0.08 | 0.0873 | 1.09 | 674 |
+| PE-DS-R direct substrate (sinter), 1.0 mm base | 0.0557 | 1.71 | 1055 |

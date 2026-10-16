@@ -1,0 +1,25 @@
+<section id="cad" data-transition="fade" style="background:#f4f1ec;color:#15191c;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#b4643a;font-weight:600">CAD package</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:72px;font-weight:600;line-height:1.1">Fourteen real solids from one parameter file, checked for interference</h2>
+</div>
+<div style="display:flex;gap:40px;align-items:start">
+<div style="display:flex;gap:20px">
+<img src="/_blob/0ce1291ca8e01d8632b0b7f512d37de6" alt="Top view of the assembled plate with the two port bosses" style="width:400px;height:400px;object-fit:cover;border-radius:16px">
+<img src="/_blob/3c0cc55da312cc45973c3a9bec9be303" alt="Underside of the plate: die face, eight ears, four datum pins, two tap bosses" style="width:400px;height:400px;object-fit:cover;border-radius:16px">
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<table style="font-size:24px;color:#15191c">
+<tr style="background:#e9e4da"><th style="width:50%;text-align:left">Check</th><th style="width:50%;text-align:left">Result</th></tr>
+<tr><td>Solid validity</td><td>14 of 14 valid single bodies</td></tr>
+<tr><td>Interference, 20 pairs incl. cap vs every part inside its skirt</td><td>zero volume on all</td></tr>
+<tr><td>Height at arch crowns / bosses</td><td>20.8 mm / 29.5 mm</td></tr>
+<tr><td>Plate mass from solid volumes (no stubs, frame or backplate)</td><td>1,151 g</td></tr>
+<tr><td>Fins, kerfs, orifices modelled</td><td>360, 15, 756</td></tr>
+</table>
+<p style="font-size:24px;line-height:1.4;color:#4a5058">Delivered: STEP AP214 per part and the full assembly, STL meshes, developed flat pattern of the plenum, orifice artworks and separator pattern as DXF, orthographic SVG views, dimension tables per part, render set, and the CadQuery source that regenerates all of it from <b>design/params.json</b>.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8f8a82">Known simplifications: saw run-out ramp, capillary-break scribes, orifice corner radii, draw thinning, the stub seats and the guard’s corrugations are not modelled. The cap is regenerated from the cap lane’s values; the frame and screws follow the mechanical lane.</p>
+<aside>Because every part is built from the one parameter file, a change decided at gate G1, such as the 121.0 versus 122.6 mm grate outline or the pin diameter, regenerates the parts, the assembly check, the drawings and the mass table in minutes. The core at full resolution takes about ten minutes; everything else seconds.</aside>
+</section>

@@ -1,0 +1,46 @@
+parameter,value (mm unless stated)
+material,OFE C10100
+density_g_mm3,0.00894
+body.x,125.0
+body.y,125.0
+body.corner_r,2.0
+base_t,0.85
+pocket.x,108.7
+pocket.y,108.3
+pocket.corner_r,0.5
+pocket.wall_top_z,2.8
+fin_field.x,108.0
+fin_field.y,108.0
+fin_pitch,0.3
+fin_t,0.15
+fin_tip_z,2.8
+n_fins,360
+kerf_w,0.3
+kerf_floor_z,0.92
+kerf_x,-54.0 -46.2857 -38.5714 -30.8571 -23.1429 -15.4286 -7.7143 0.0 7.7143 15.4286 23.1429 30.8571 38.5714 46.2857 54.0
+rim.outer,121.4
+rim.top_z,2.8
+rim.corner_r,2.0
+rim.top_chamfer,0.3
+land.w,1.8
+land.top_z,1.5
+ears.n,8
+ears.w,12.0
+ears.protrusion,7.0
+ears.top_z,1.5
+ears.corner_r,2.0
+ears.hole_d,3.4
+ears.positions,"[8 values, see params.json]"
+tap_bosses.side,-y
+tap_bosses.x_centres,0.0 15.429
+tap_bosses.w,8.0
+tap_bosses.protrusion,7.0
+tap_bosses.top_z,2.8
+tap_bosses.hole_d,1.0
+tap_bosses.hole_z,1.4
+tap_bosses.hole_len,15.35
+tap_bosses.counterbore,1.65 4.0
+pin_holes.d,2.0
+pin_holes.depth,1.5
+pin_holes.positions,"[2 values, see params.json]"
+mass_g_lane,282

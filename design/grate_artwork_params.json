@@ -1,0 +1,201 @@
+{
+ "ttv": {
+  "inlet_steps": [
+   {
+    "step": 1,
+    "length_mm": 1.12,
+    "area_mm2": 0.5514,
+    "count": 84
+   },
+   {
+    "step": 2,
+    "length_mm": 1.09,
+    "area_mm2": 0.5364,
+    "count": 56
+   },
+   {
+    "step": 3,
+    "length_mm": 1.06,
+    "area_mm2": 0.5214,
+    "count": 56
+   },
+   {
+    "step": 4,
+    "length_mm": 1.01,
+    "area_mm2": 0.4964,
+    "count": 98
+   },
+   {
+    "step": 5,
+    "length_mm": 0.99,
+    "area_mm2": 0.4864,
+    "count": 84
+   }
+  ],
+  "inlet_area_span": 1.134,
+  "inlet_total_area_mm2": 195.1,
+  "mean_u_18lpm": 1.542,
+  "max_u_18lpm": 1.642,
+  "mean_dp_18lpm_kpa": 2.309,
+  "per_orifice_maxmin": {
+   "9": 1.044,
+   "18": 1.044,
+   "22.5": 1.044,
+   "27": 1.046,
+   "36": 1.047
+  },
+  "outlet_interior": {
+   "n": 54,
+   "w_mm": 1.0,
+   "h_mm": 1.12,
+   "r_mm": 0.15,
+   "area_mm2": 1.1007,
+   "dp_18lpm_kpa": 0.504
+  },
+  "outlet_edge": {
+   "n": 27,
+   "w_mm": 0.4,
+   "h_mm": 2.78,
+   "r_mm": 0.1,
+   "pitch_mm": 4.0,
+   "area_mm2": 1.1034,
+   "dp_18lpm_kpa": 0.501
+  },
+  "step_sequence": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   2,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   3,
+   3,
+   3,
+   3,
+   3,
+   3,
+   3,
+   3,
+   4,
+   4,
+   4,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   4,
+   5,
+   4,
+   5,
+   4,
+   5,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4
+  ],
+  "holes_total": 756
+ },
+ "prism_g_example": {
+  "lines": [
+   [
+    -55.0,
+    "edge"
+   ],
+   [
+    -44.0,
+    "in"
+   ],
+   [
+    -33.0,
+    "out"
+   ],
+   [
+    -27.5,
+    "in"
+   ],
+   [
+    -22.0,
+    "out"
+   ],
+   [
+    -16.5,
+    "in"
+   ],
+   [
+    -11.0,
+    "out"
+   ],
+   [
+    -5.5,
+    "in"
+   ],
+   [
+    0.0,
+    "out"
+   ],
+   [
+    5.5,
+    "in"
+   ],
+   [
+    11.0,
+    "out"
+   ],
+   [
+    16.5,
+    "in"
+   ],
+   [
+    22.0,
+    "out"
+   ],
+   [
+    27.5,
+    "in"
+   ],
+   [
+    33.0,
+    "out"
+   ],
+   [
+    44.0,
+    "in"
+   ],
+   [
+    55.0,
+    "edge"
+   ]
+  ],
+  "inlet_holes": 360,
+  "total_open_area_mm2": 190.1,
+  "die_orifice_u": 1.54,
+  "hbm_orifice_u_18lpm": 1.73,
+  "max_orifice_u_18lpm": 1.73,
+  "branch_dp_kpa": 4.06,
+  "holes_total": 840
+ }
+}

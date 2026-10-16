@@ -1,0 +1,6 @@
+- PG25 (k 0.49): avg 31.0 K, max 38.7 K (caloric 7.5, conv 10.9, pen +0.90); channel dP 1.07 kPa
+- PG30: avg 31.5 K, max 39.2 K (caloric 7.5, conv 11.4, pen +0.92); channel dP 1.32 kPa
+- EG25: avg 31.1 K, max 39.0 K (caloric 7.9, conv 10.8, pen +0.87); channel dP 0.94 kPa
+- water: avg 28.9 K, max 36.8 K (caloric 7.4, conv 9.1, pen +0.83); channel dP 0.47 kPa
+- PG25 at 20 C film (start-up): avg 31.4 K, max 39.1 K (caloric 7.5, conv 11.4, pen +0.92); channel dP 2.22 kPa
+max - avg (paste, 117 cm2): P50 7.9 K, P90 9.5 K; CoolIT measured 9.8 K

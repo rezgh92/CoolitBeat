@@ -1,0 +1,162 @@
+====================================================================================================
+1. TIM OPTION MATRIX  (R'' in cm2K/W; physics = BLT/k + contact; band = adopted min/nom/max)
+====================================================================================================
+option                                                       BLT um         k W/mK       phys R (min/nom/max)             adopted band
+Standard grease / paste (TIM2 on lid)                 (25, 40, 100) (3.5, 6.0, 6.0)   0.079/ 0.079/ 0.187     0.040/ 0.070/ 0.170
+Phase-change pad (Honeywell PTM7950 class)             (20, 30, 60) (8.5, 8.5, 8.5)   0.039/ 0.055/ 0.096     0.040/ 0.055/ 0.080
+Graphite / CNT pad (Hitachi TC-001, Panasonic PGS, C (100, 150, 200) (40.0, 30.0, 20.0)   0.035/ 0.065/ 0.130     0.035/ 0.065/ 0.130
+Liquid metal Ga-In(-Sn) (Conductonaut / Galinstan /    (15, 25, 50) (16.5, 25.0, 40.0)   0.011/ 0.014/ 0.020     0.005/ 0.015/ 0.030
+Indium metal foil, patterned (Indium Corp Heat-Sprin (150, 200, 300) (86.0, 86.0, 86.0)   0.047/ 0.073/ 0.115     0.050/ 0.070/ 0.120
+Indium solder, reflowed (TIM1-style; or plate solder (50, 100, 200) (86.0, 86.0, 86.0)   0.008/ 0.016/ 0.031     0.005/ 0.015/ 0.030
+Sintered silver (die-attach class)                     (20, 30, 50) (150.0, 200.0, 250.0)   0.002/ 0.005/ 0.008     0.002/ 0.005/ 0.010
+Direct-to-die: plate on bare die via liquid metal +    (15, 25, 50) (16.5, 25.0, 40.0)   0.011/ 0.014/ 0.020     0.005/ 0.015/ 0.030
+In-die microfluidics (Microsoft/Corintis 2025, TSMC       (0, 0, 0) (1.0, 1.0, 1.0)   0.010/ 0.020/ 0.050     0.010/ 0.020/ 0.050
+
+====================================================================================================
+2. INTERFACE TEMPERATURE DROP dT_TIM = q'' x R''  (K)   [nominal, (min-max)]
+====================================================================================================
+option                                                 128 W/cm2           200 W/cm2           300 W/cm2           500 W/cm2        
+Standard grease / paste (TIM2 on lid)                  9.0 ( 5.1- 21.8)    14.0 ( 8.0- 34.0)    21.0 (12.0- 51.0)    35.0 (20.0- 85.0)  
+Phase-change pad (Honeywell PTM7950 class)             7.0 ( 5.1- 10.2)    11.0 ( 8.0- 16.0)    16.5 (12.0- 24.0)    27.5 (20.0- 40.0)  
+Graphite / CNT pad (Hitachi TC-001, Panasonic PGS, C   8.3 ( 4.5- 16.6)    13.0 ( 7.0- 26.0)    19.5 (10.5- 39.0)    32.5 (17.5- 65.0)  
+Liquid metal Ga-In(-Sn) (Conductonaut / Galinstan /    1.9 ( 0.6-  3.8)     3.0 ( 1.0-  6.0)     4.5 ( 1.5-  9.0)     7.5 ( 2.5- 15.0)  
+Indium metal foil, patterned (Indium Corp Heat-Sprin   9.0 ( 6.4- 15.4)    14.0 (10.0- 24.0)    21.0 (15.0- 36.0)    35.0 (25.0- 60.0)  
+Indium solder, reflowed (TIM1-style; or plate solder   1.9 ( 0.6-  3.8)     3.0 ( 1.0-  6.0)     4.5 ( 1.5-  9.0)     7.5 ( 2.5- 15.0)  
+Sintered silver (die-attach class)                     0.6 ( 0.3-  1.3)     1.0 ( 0.4-  2.0)     1.5 ( 0.6-  3.0)     2.5 ( 1.0-  5.0)  
+Direct-to-die: plate on bare die via liquid metal +    1.9 ( 0.6-  3.8)     3.0 ( 1.0-  6.0)     4.5 ( 1.5-  9.0)     7.5 ( 2.5- 15.0)  
+In-die microfluidics (Microsoft/Corintis 2025, TSMC    2.6 ( 1.3-  6.4)     4.0 ( 2.0- 10.0)     6.0 ( 3.0- 15.0)    10.0 ( 5.0- 25.0)  
+
+TIM share of a 35 K case-to-inlet budget (nominal R''):
+  grease          128 W/cm2:    26 %   200 W/cm2:    40 %   300 W/cm2:    60 %   500 W/cm2:   100 %
+  pcm             128 W/cm2:    20 %   200 W/cm2:    31 %   300 W/cm2:    47 %   500 W/cm2:    79 %
+  graphite        128 W/cm2:    24 %   200 W/cm2:    37 %   300 W/cm2:    56 %   500 W/cm2:    93 %
+  lm              128 W/cm2:     5 %   200 W/cm2:     9 %   300 W/cm2:    13 %   500 W/cm2:    21 %
+  in_foil         128 W/cm2:    26 %   200 W/cm2:    40 %   300 W/cm2:    60 %   500 W/cm2:   100 %
+  in_solder       128 W/cm2:     5 %   200 W/cm2:     9 %   300 W/cm2:    13 %   500 W/cm2:    21 %
+  ag_sinter       128 W/cm2:     2 %   200 W/cm2:     3 %   300 W/cm2:     4 %   500 W/cm2:     7 %
+  d2d_lm          128 W/cm2:     5 %   200 W/cm2:     9 %   300 W/cm2:    13 %   500 W/cm2:    21 %
+  microfluidic    128 W/cm2:     7 %   200 W/cm2:    11 %   300 W/cm2:    17 %   500 W/cm2:    29 %
+
+====================================================================================================
+3. FULL STACK: HMMC-fine core (0.075/0.075 x 1.0 mm Cu fins, 1 mm base, 2 mm flow length)
+   at 1.2 LPM/kW PG25, 45 C inlet, 117 cm2. Case = top of TIM (lid surface for lidded parts).
+====================================================================================================
+TIM (nominal R)                              R  |   15 kW/128 W/cm2: avg    max  Tcase,max  Qcap kW |   35 kW/300 W/cm2: avg    max  Tcase,max
+CoolIT-like skived split-flow, paste 0.07  0.070 |                   34.5   44.3       89.3     12.7 |                   71.2   81.0      126.0
+HMMC-fine + grease                        0.070 |                   24.0   28.0       73.0     25.2 |                   47.3   51.3       96.3
+HMMC-fine + pcm                           0.055 |                   22.0   26.0       71.0     28.3 |                   42.8   46.8       91.8
+HMMC-fine + graphite                      0.065 |                   23.3   27.3       72.3     26.2 |                   45.8   49.8       94.8
+HMMC-fine + lm                            0.015 |                   16.9   20.9       65.9     42.1 |                   30.8   34.8       79.8
+HMMC-fine + in_foil                       0.070 |                   24.0   28.0       73.0     25.2 |                   47.3   51.3       96.3
+HMMC-fine + in_solder                     0.015 |                   16.9   20.9       65.9     42.1 |                   30.8   34.8       79.8
+HMMC-fine + ag_sinter                     0.005 |                   15.6   19.6       64.6     47.9 |                   27.8   31.8       76.8
+HMMC-fine + d2d_lm                        0.015 |                   16.9   20.9       65.9     42.1 |                   30.8   34.8       79.8
+
+Junction-to-inlet, lidded vs lidless vs in-die (nominal, 1-D, no spreading credit for the lid):
+  components cm2K/W: Si 0.060, TIM1 indium 0.015, Cu lid 2.5 mm 0.064, HMMC core (base+conv) 0.068, caloric 6.3 K fixed
+  stack                                            R cm2K/W  dTj-in @128     @300  Tj @300 (45 in)
+  lidded + paste TIM2 (0.07)                          0.276         41.7     89.2            134.2
+  lidded + PCM TIM2 (0.055)                           0.261         39.8     84.7            129.7
+  lidded + liquid-metal TIM2 (0.015)                  0.221         34.7     72.7            117.7
+  lidded + indium-soldered plate (0.015)              0.221         34.7     72.7            117.7
+  direct-to-die, LM on bare die (0.015)               0.142         24.5     49.0             94.0
+  micro-channel lid soldered to die (In 0.015)        0.135         23.7     47.0             92.0
+  in-die microfluidics (0.02 j-to-fluid)              0.020          8.9     12.3             57.3
+  -> in-die vs lidded-paste at 128 W/cm2: 79 % lower junction rise (Microsoft/Corintis quote 65 % peak-rise reduction, 'up to 3x')
+
+====================================================================================================
+4. BOND-LINE NON-UNIFORMITY FROM PACKAGE BOW (108 mm square, rigid plate, q'' = 128 W/cm2)
+   dT_TIM average and corner-minus-centre spread; TIM fills the wedge (no air gap assumed).
+====================================================================================================
+filler                                        bow   0 um: avg/spread  bow  50 um: avg/spread  bow 100 um: avg/spread  bow 200 um: avg/spread  bow 300 um: avg/spread
+grease k 3.5, BLT_min 25 um, Rc 0.012           10.7 /   0.0 K        16.8 /  18.3 K        23.0 /  36.6 K        35.3 /  73.1 K        47.6 / 109.7 K    
+premium grease k 6, BLT_min 25, Rc 0.012         6.9 /   0.0 K        10.5 /  10.7 K        14.1 /  21.3 K        21.2 /  42.7 K        28.4 /  64.0 K    
+PCM k 8.5, BLT_min 20, Rc 0.02                   5.6 /   0.0 K         8.1 /   7.5 K        10.6 /  15.1 K        15.7 /  30.1 K        20.8 /  45.2 K    
+liquid metal k 20, BLT_min 15, Rc 0.004          1.5 /   0.0 K         2.5 /   3.2 K         3.6 /   6.4 K         5.8 /  12.8 K         7.9 /  19.2 K    
+  Note: CoolIT measured a 10 K plate-to-plate spread at TC8 (27.6-37.7 K) with 'standard paste';
+  a 100-200 um uncompensated bow with grease reproduces that order of spread.
+  Graphite/CNT pads (0.1-0.3 mm, 20-40 % compressible) absorb 50-100 um bow at nearly constant R''.
+
+====================================================================================================
+5. AGEING: end-of-life interface dT (nominal R'' x EOL multiplier)   K
+====================================================================================================
+option           mult (lo-hi)  BOL@128    EOL@128 lo-hi  BOL@300    EOL@300 lo-hi
+grease           1.30-2.00          9.0    11.6- 17.9       21.0    27.3- 42.0
+pcm              1.05-1.30          7.0     7.4-  9.2       16.5    17.3- 21.4
+graphite         1.00-1.15          8.3     8.3-  9.6       19.5    19.5- 22.4
+lm               1.10-1.60          1.9     2.1-  3.1        4.5     5.0-  7.2
+in_foil          1.00-1.20          9.0     9.0- 10.8       21.0    21.0- 25.2
+in_solder        1.00-1.30          1.9     1.9-  2.5        4.5     4.5-  5.9
+ag_sinter        1.00-1.10          0.6     0.6-  0.7        1.5     1.5-  1.7
+d2d_lm           1.10-1.60          1.9     2.1-  3.1        4.5     5.0-  7.2
+microfluidic     1.00-1.30          2.6     2.6-  3.3        6.0     6.0-  7.8
+
+====================================================================================================
+6. NICKEL BARRIER PLATING PENALTY (liquid metal requires Ni on Cu; Au must NOT be left on top)
+====================================================================================================
+plating                                                            3 um           5 um           8 um          12 um    (R'' cm2K/W ; dT at 300 W/cm2)
+electroless Ni-P high-P (10-12 % P), k ~ 5 W/mK [LIT]    0.0060 ;  1.8K 0.0100 ;  3.0K 0.0160 ;  4.8K 0.0240 ;  7.2K
+electroless Ni-P mid-P (6-9 % P), k ~ 10 W/mK [MEM]      0.0030 ;  0.9K 0.0050 ;  1.5K 0.0080 ;  2.4K 0.0120 ;  3.6K
+electroless Ni-P low-P (2-4 % P), k ~ 25 W/mK [MEM]      0.0012 ;  0.4K 0.0020 ;  0.6K 0.0032 ;  1.0K 0.0048 ;  1.4K
+electrolytic sulfamate Ni, k ~ 70-90 W/mK [LIT]          0.0004 ;  0.1K 0.0006 ;  0.2K 0.0010 ;  0.3K 0.0015 ;  0.5K
+  Rule: a 10 um high-P electroless Ni layer (0.02 cm2K/W) would cost more than the liquid metal itself (0.015).
+  Specify electrolytic Ni 3-5 um (or low-P ENi <= 5 um), no Au top coat (Au dissolves into Ga within hours).
+  Ga-Ni intermetallic growth is slow below ~100 C; 5 um Ni is the industry floor (PS5 / ASUS ROG practice) [MEM].
+
+====================================================================================================
+7. CLAMP FORCE = pressure x contact area   (117 cm2 TTV footprint; 16 cm2 Blackwell-class bare die pair)
+====================================================================================================
+option           pressure psi          MPa   force on 117 cm2 (N / lbf)    force on 16 cm2 (N / lbf)
+grease             15-30      0.10-0.21     1210-  2420 N ( 272- 544 lbf)     165-   331 N (  37-  74 lbf)
+pcm                20-40      0.14-0.28     1613-  3227 N ( 363- 725 lbf)     221-   441 N (  50-  99 lbf)
+graphite           50-150     0.34-1.03     4034- 12101 N ( 907-2720 lbf)     552-  1655 N ( 124- 372 lbf)
+lm                  5-20      0.03-0.14      403-  1613 N (  91- 363 lbf)      55-   221 N (  12-  50 lbf)
+in_foil            50-100     0.34-0.69     4034-  8067 N ( 907-1814 lbf)     552-  1103 N ( 124- 248 lbf)
+ag_sinter         700-4000    4.83-27.58   56470-322686 N (12696-72546 lbf)    7722- 44128 N (1736-9921 lbf)
+d2d_lm              5-15      0.03-0.10      403-  1210 N (  91- 272 lbf)      55-   165 N (  12-  37 lbf)
+  retention load   300 N over 117 cm2 =  25.6 kPa =  3.7 psi ; over 50 cm2 =  8.7 psi ; over 16 cm2 =  27.2 psi
+  retention load   600 N over 117 cm2 =  51.3 kPa =  7.4 psi ; over 50 cm2 = 17.4 psi ; over 16 cm2 =  54.4 psi
+  retention load  1000 N over 117 cm2 =  85.5 kPa = 12.4 psi ; over 50 cm2 = 29.0 psi ; over 16 cm2 =  90.6 psi
+  Rule: module retention loads on current GPU/OAM modules are of order 300-1000 N [MEM - verify vs OAM / SXM mech. spec];
+  on a 100+ cm2 lid that is only 4-12 psi, below every pad's minimum. Pressure-hungry TIMs (graphite >= 50 psi,
+  indium foil) are therefore incompatible with large lids; liquid metal (5-10 psi) and PCM at its low end fit.
+  Bare die: limit local pressure to ~0.1-0.3 MPa and avoid edge loading (die-crack) [MEM].
+
+====================================================================================================
+8. CTE-DRIVEN SHEAR DISPLACEMENT AT THE DIE EDGE PER CYCLE (free expansion, upper bound)
+====================================================================================================
+plate material        Blackwell 2-die (~40 mm)      Rubin Ultra 4-die (~60 mm)     15 kW TTV lid-less (108 mm)
+Cu              11.5 um (strain  0.5 at 25 um BLT)  17.3 um (strain  0.7 at 25 um BLT)  31.1 um (strain  1.2 at 25 um BLT)
+CuW (W85)        3.5 um (strain  0.1 at 25 um BLT)   5.3 um (strain  0.2 at 25 um BLT)   9.5 um (strain  0.4 at 25 um BLT)
+CuMo             3.9 um (strain  0.2 at 25 um BLT)   5.9 um (strain  0.2 at 25 um BLT)  10.6 um (strain  0.4 at 25 um BLT)
+AlSiC            4.3 um (strain  0.2 at 25 um BLT)   6.5 um (strain  0.3 at 25 um BLT)  11.7 um (strain  0.5 at 25 um BLT)
+Si lid           0.0 um (strain  0.0 at 25 um BLT)   0.0 um (strain  0.0 at 25 um BLT)   0.0 um (strain  0.0 at 25 um BLT)
+Mo               1.9 um (strain  0.1 at 25 um BLT)   2.9 um (strain  0.1 at 25 um BLT)   5.2 um (strain  0.2 at 25 um BLT)
+  Rule: grease at shear strain >= ~0.3-0.5 per cycle pumps out within 10^2-10^3 cycles [LIT];
+  solder at strain >> 0.05 fatigues; liquid metal tolerates strain (liquid) but migrates on large bowed areas.
+  => Direct-to-die with a copper plate: liquid metal or soft CNT pad only; soldered direct-to-die needs CuW/CuMo/Si lid.
+
+====================================================================================================
+9. COST PER PLATE (117 cm2 footprint), order-of-magnitude, material + process adder  [MEM]
+====================================================================================================
+  liquid metal mass at 25 um over 117 cm2: 1.9 g ; indium solder at 100 um: 8.5 g (In ~US$0.4-0.8/g 2025-26 [MEM])
+  grease         US$  2-6               field-reworkable (clean, re-dispense)
+  pcm            US$  4-12              field-reworkable (pad is consumable)
+  graphite       US$  8-30              reusable, dry, cleanest rework
+  lm             US$ 10-30              reworkable by trained tech only; contamination control
+  in_foil        US$  8-20              reusable-ish (single compression), dry
+  in_solder      US$ 20-45              NOT field-serviceable: plate+package become one FRU
+  ag_sinter      US$ 25-60              never reworkable
+  d2d_lm         US$ 25-60              reworkable by trained tech; module-level
+  microfluidic   n/a (silicon vendor)   not serviceable at interface; fluid connectors at package
+
+====================================================================================================
+10. TIER SUMMARY at 128 / 300 W/cm2 (HMMC-fine core, avg case-to-inlet K, nominal TIM, BOL)
+====================================================================================================
+  Tier 1 drop-in retrofit: PCM pad (fallback graphite)           128:  22.0 avg /  26.0 max  |  300:  42.8 avg /  46.8 max
+  Tier 2 OEM co-designed: liquid metal on Ni-plated lid          128:  16.9 avg /  20.9 max  |  300:  30.8 avg /  34.8 max
+  Tier 2b OEM sealed FRU: indium-soldered plate                  128:  16.9 avg /  20.9 max  |  300:  30.8 avg /  34.8 max
+  Tier 3 chip co-designed: direct-to-die LM / micro-channel lid  128:  16.9 avg /  20.9 max  |  300:  30.8 avg /  34.8 max
+  Benchmark CoolIT-like, paste                                   128:  34.5 avg /  44.3 max  |  300:  71.2 avg /  81.0 max
+
+Caveats: 1-D; TIM bands are datasheet/literature/memory (no live search this session); +/-30 % per term.

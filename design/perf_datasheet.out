@@ -1,0 +1,94 @@
+## 1. Benchmark point re-run (15 kW, 18 LPM PG25 k 0.49, 45 C, 117 cm2), base 0.80 (architecture) vs 0.85 (as designed)
+| base | TIM | cal | TIM K | base K | conv | 2-D pen | ripple pk-pk | **avg** | **max** | R'' avg cm2K/W | shift vs architecture |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0.80 | paste | 7.52 | 8.97 | 2.63 | 10.94 | +0.90 | 5.49 | **30.97** | **38.72** | 0.242 | -0.00 / +0.00 K |
+| 0.80 | PCM | 7.52 | 7.05 | 2.63 | 10.94 | +0.90 | 5.49 | **29.05** | **34.80** | 0.227 | -0.00 / -0.00 K |
+| 0.80 | LM | 7.52 | 1.92 | 2.63 | 10.94 | +0.90 | 5.49 | **23.92** | **28.77** | 0.187 | -0.00 / -0.00 K |
+| 0.85 | paste | 7.52 | 8.97 | 2.79 | 10.94 | +0.87 | 5.39 | **31.11** | **38.81** | 0.243 | +0.14 / +0.09 K |
+| 0.85 | PCM | 7.52 | 7.05 | 2.79 | 10.94 | +0.87 | 5.39 | **29.19** | **34.88** | 0.228 | +0.14 / +0.08 K |
+| 0.85 | LM | 7.52 | 1.92 | 2.79 | 10.94 | +0.87 | 5.39 | **24.06** | **28.85** | 0.188 | +0.14 / +0.08 K |
+| 0.90 | paste | 7.52 | 8.97 | 2.96 | 10.94 | +0.85 | 5.29 | **31.25** | **38.90** | 0.244 | +0.28 / +0.18 K |
+| 0.90 | PCM | 7.52 | 7.05 | 2.96 | 10.94 | +0.85 | 5.29 | **29.32** | **34.97** | 0.229 | +0.27 / +0.17 K |
+| 0.90 | LM | 7.52 | 1.92 | 2.96 | 10.94 | +0.85 | 5.29 | **24.20** | **28.94** | 0.189 | +0.28 / +0.17 K |
+| 1.00 | paste | 7.52 | 8.97 | 3.29 | 10.94 | +0.93 | 5.00 | **31.66** | **39.17** | 0.247 | +0.69 / +0.45 K |
+| 1.00 | PCM | 7.52 | 7.05 | 3.29 | 10.94 | +0.93 | 5.00 | **29.74** | **35.24** | 0.232 | +0.69 / +0.44 K |
+| 1.00 | LM | 7.52 | 1.92 | 3.29 | 10.94 | +0.93 | 5.00 | **24.61** | **29.21** | 0.192 | +0.69 / +0.44 K |
+channel: u 0.198 m/s, Re 44, h 12.6 kW/m2K, h_eff 117 kW/m2K, NTU 1.16, fin dP 1.07 kPa, dT_out 12.66 K
+
+## 2. Segment balance 1.092 (DDD-grate, lumped row) vs the 1.5 K flow hot-spot allowance: weakest segment re-evaluated
+- 18 LPM: max/min 1.092, weakest segment at 0.957 x mean flow -> core +0.41 K over nominal (allowance 1.5 K, margin 1.09 K)
+- 27 LPM: max/min 1.122, weakest segment at 0.944 x mean flow -> core +0.35 K over nominal (allowance 1.5 K, margin 1.15 K)
+- 9 LPM: max/min 1.057, weakest segment at 0.973 x mean flow -> core +0.59 K over nominal (allowance 1.5 K, margin 0.91 K)
+
+## 3. Q capacity at Tcase,max <= 85 C with 45 C inlet, 1.2 LPM/kW (thermal) and the velocity-rated cap 19.5 kW (meter 2.0 m/s at 23.4 LPM)
+- paste: thermal 15.7 kW (architecture 15.7); rated 15.7 kW
+- PCM: thermal 18.4 kW (architecture 18.5); rated 18.4 kW
+- LM: thermal 25.4 kW (architecture 25.5); rated 19.5 kW
+
+## 4. OCP-style R table: 15 kW, 45 C inlet, PG25, 117 cm2; R = dT/Q, R'' = dT A/Q; average and max basis; CoolIT-like = model-only
+| LPM | LPM/kW | % rated | dT_out K | Tout C | PCM avg/max K | PCM R mK/W avg/max | PCM R'' cm2K/W avg/max | paste avg/max K | paste R mK/W avg/max | paste R'' avg/max | LM avg/max K | CoolIT-like paste avg/max | CoolIT-like PCM avg/max |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 3.75 | 0.25 | 25 | 60.8 | 105.8 (!) | 66.9 / 79.0 | 4.46 / 5.27 | 0.522 / 0.616 | 68.8 / 83.0 | 4.59 / 5.53 | 0.537 / 0.647 | 61.7 / 73.0 | 58.8 / 92.6 | 56.9 / 88.8 |
+| 7.50 | 0.50 | 50 | 30.4 | 75.4 (!) | 41.9 / 50.5 | 2.79 / 3.37 | 0.327 / 0.394 | 43.8 / 54.4 | 2.92 / 3.63 | 0.342 / 0.425 | 36.8 / 44.5 | 43.5 / 62.1 | 41.6 / 58.3 |
+| 11.25 | 0.75 | 75 | 20.3 | 65.3 (!) | 34.5 / 41.5 | 2.30 / 2.77 | 0.269 / 0.324 | 36.4 / 45.4 | 2.43 / 3.03 | 0.284 / 0.354 | 29.4 / 35.5 | 38.4 / 51.9 | 36.5 / 48.1 |
+| 15.00 | 1.00 | 100 | 15.2 | 60.2 | 30.9 / 37.1 | 2.06 / 2.47 | 0.241 / 0.289 | 32.9 / 41.0 | 2.19 / 2.73 | 0.256 / 0.320 | 25.8 / 31.1 | 35.7 / 46.8 | 33.8 / 42.9 |
+| 18.00 | 1.20 | 120 | 12.7 | 57.7 | 29.2 / 34.9 | 1.95 / 2.33 | 0.228 / 0.272 | 31.1 / 38.8 | 2.07 / 2.59 | 0.243 / 0.303 | 24.1 / 28.9 | 34.4 / 44.2 | 32.5 / 40.3 |
+| 22.50 | 1.50 | 150 | 10.1 | 55.1 | 27.4 / 32.7 | 1.83 / 2.18 | 0.214 / 0.255 | 29.4 / 36.6 | 1.96 / 2.44 | 0.229 / 0.285 | 22.3 / 26.6 | 33.0 / 41.5 | 31.1 / 37.7 |
+(!) outlet > 65 C at 15 kW: test at reduced power (R is power-independent to first order); CoolIT-like off 1.2 LPM/kW is model-only.
+
+## 5. Pressure drop at the same flows, PG25 45 C (kPa); three boundaries + UQD08 pairs; CoolIT-like = model-only reconstruction
+| LPM | % rated | plate port-to-port (20 mm bore) | inertial / viscous | + stubs & 1/2-in barbs | + UQD08 pair Cv 4.75 | + UQD08 pair Cv 3.65 | CoolIT-like port-to-port | water port-to-port |
+|---|---|---|---|---|---|---|---|---|
+| 3.75 | 25 | **0.57** | 0.27 / 0.31 | 0.7 | 1.3 | 1.7 | 3.5 | 0.40 |
+| 7.50 | 50 | **1.68** | 1.06 / 0.61 | 2.2 | 4.6 | 6.3 | 7.8 | 1.31 |
+| 11.25 | 75 | **3.31** | 2.39 / 0.92 | 4.5 | 9.9 | 13.7 | 13.0 | 2.76 |
+| 15.00 | 100 | **5.48** | 4.26 / 1.22 | 7.6 | 17.2 | 23.9 | 19.1 | 4.72 |
+| 18.00 | 120 | **7.60** | 6.13 / 1.47 | 10.6 | 24.5 | 34.2 | 24.6 | 6.67 |
+| 22.50 | 150 | **11.41** | 9.58 / 1.83 | 16.1 | 37.8 | 52.9 | 33.9 | 10.22 |
+| 27.00 | 180 | **15.99** | 13.79 / 2.20 | 22.7 | 54.1 | 75.8 | 44.4 | 14.52 |
+| 36.00 | 240 | **27.46** | 24.52 / 2.94 | 39.5 | 95.1 | 133.7 | 69.3 | 25.39 |
+plate at 18 LPM by element (kPa): ports 1.60, headers 0.99, sep_windows 0.46, plenums 0.19, meter 2.31, misc 0.08, row 0.50, guard+visc 0.40, fins 1.07; 36 LPM for the <= 30 kPa claim
+
+## 6. Inlet temperature 35 / 45 / 50 C (PG25 properties at film ~ inlet + 5 K; +/-10 % on mu) and water vs PG25 at 45 C; 15 kW
+| case | LPM | PCM avg/max K | Tcase avg/max C | paste avg/max K | Tcase avg/max C | Tout C | plate dP kPa | fin dP kPa |
+|---|---|---|---|---|---|---|---|---|
+| PG25 35 C | 15.0 | 31.1 / 37.2 | 66.1 / 72.2 | 33.0 / 41.1 | 68.0 / 76.1 | 50.2 | 5.85 | 1.14 |
+| PG25 35 C | 18.0 | 29.3 / 35.0 | 64.3 / 70.0 | 31.2 / 38.9 | 66.2 / 73.9 | 47.6 | 8.05 | 1.37 |
+| PG25 35 C | 22.5 | 27.6 / 32.8 | 62.6 / 67.8 | 29.5 / 36.7 | 64.5 / 71.7 | 45.1 | 11.99 | 1.71 |
+| PG25 45 C | 15.0 | 30.9 / 37.1 | 75.9 / 82.1 | 32.9 / 41.0 | 77.9 / 86.0 | 60.2 | 5.48 | 0.89 |
+| PG25 45 C | 18.0 | 29.2 / 34.9 | 74.2 / 79.9 | 31.1 / 38.8 | 76.1 / 83.8 | 57.7 | 7.60 | 1.07 |
+| PG25 45 C | 22.5 | 27.4 / 32.7 | 72.4 / 77.7 | 29.4 / 36.6 | 74.4 / 81.6 | 55.1 | 11.41 | 1.33 |
+| PG25 50 C | 15.0 | 30.9 / 37.0 | 80.9 / 87.0 | 32.8 / 41.0 | 82.8 / 91.0 | 65.2 | 5.34 | 0.80 |
+| PG25 50 C | 18.0 | 29.1 / 34.8 | 79.1 / 84.8 | 31.0 / 38.8 | 81.0 / 88.8 | 62.7 | 7.43 | 0.96 |
+| PG25 50 C | 22.5 | 27.4 / 32.6 | 77.4 / 82.6 | 29.3 / 36.5 | 79.3 / 86.5 | 60.1 | 11.19 | 1.20 |
+| water 45 C | 15.0 | 28.8 / 35.1 | 73.8 / 80.1 | 30.7 / 39.1 | 75.7 / 84.1 | 59.5 | 4.72 | 0.39 |
+| water 45 C | 18.0 | 27.1 / 33.0 | 72.1 / 78.0 | 29.1 / 36.9 | 74.1 / 81.9 | 57.1 | 6.67 | 0.47 |
+| water 45 C | 22.5 | 25.5 / 30.8 | 70.5 / 75.8 | 27.4 / 34.8 | 72.4 / 79.8 | 54.7 | 10.22 | 0.58 |
+
+## 7. Design margins at rated (15 LPM), benchmark (18) and 150 % rated (22.5 LPM)
+| quantity | 15 LPM | 18 LPM | 22.5 LPM | cap | basis |
+|---|---|---|---|---|---|
+| port velocity m/s (20 mm bore) | 0.80 | 0.95 | 1.19 | <= 1.5 at 150 % rated | architecture 4.1 |
+| meter mean orifice velocity m/s | 1.28 | 1.54 | 1.92 | <= 2.0 (reached at 23.4 LPM) | DDD-grate 6.1, 195.1 mm2 |
+| meter max single orifice m/s | 1.37 | 1.64 | 2.05 | mean-velocity rule; 2.05 at 22.5 | DDD-grate 6.1 |
+| outlet row velocity m/s | 0.60 | 0.72 | 0.90 | 0.5 kPa row | DDD-grate 6.3 |
+| inlet header m/s | 0.78 | 0.93 | 1.16 | <= 1.5 | architecture 4.1 |
+| plenum half-channel m/s | 0.52 | 0.62 | 0.78 | <= 0.9 CDA (return > 60 C) | DDD-plenum P3 |
+| window face mean m/s | 0.28 | 0.33 | 0.41 | fin-top <= 0.5 (E2 CFD) | DDD-grate 5 |
+| fin channel m/s | 0.17 | 0.20 | 0.25 | Re ~44, laminar | harness ev |
+| guard face m/s (25 cm2) | 0.10 | 0.12 | 0.15 | 0.1-0.2 kPa clean | architecture 4.1 |
+
+| pressure / structure | value | allowable or limit | margin | basis |
+|---|---|---|---|---|
+| MAWP / proof (100 %) / design burst / sample burst | 1.03 / 1.55 / >= 3.1 / >= 4.5 MPa | 150 psi class; leak-before-break | burst >= 3x MAWP | architecture 5.2 |
+| folded plenum wall 0.8 at 7.7 pitch, tension at 3.1 MPa | 29.8 MPa | 40 MPa (annealed OFE design) | 1.34x | ctl/pkgA_dp_stress.out |
+| separator 1.8 over 6.9 channel at 3.1 MPa | 22.8 MPa | 40 MPa | 1.76x | pkgA_dp_stress 32.8 at 1.5 mm, scaled (t)^-2 |
+| arched cap 1.0 mm r 6 hoop / port pocket r 12 at 1.5 | 18.6 / 24.8 MPa | 40 MPa | 2.2x / 1.6x | pkgA_dp_stress.out |
+| grate web 0.40 over 2.70 recess at 36 LPM meter dP 9.2 kPa | 0.21 MPa | 40 MPa | 190x | DDD-grate 8 |
+| recess floor cantilever 0.75 lip at t 0.50 | 7.5 MPa | 40 MPa | 5.3x | DDD-grate 8 |
+| defect: one unbonded land strip, base 0.85, kerf-to-kerf 7.4 span | collapse 1.8-2.6 MPa; proof bulge 1.8 um | leak-tight at MAWP; confocal 1 um sees it | below design burst: gated on E1 per-strip detection | pkgA_dp_stress at 0.8 scaled t^2 / t^-3 |
+| clamp bow 2 kN TTV (2-side lands) / 480 N product | 22.6 / 5.4 um concave | thermal bow +18.7 um convex at 15 kW | net -4.0 um TTV; form rule 0-10 um concave | DDD-mech 7 |
+| fin ties: pressure load 1.03 MPa x 117 cm2 | 12 kN self-equilibrated | no clamp entry | - | DDD-mech 5 / architecture 5.2 |
+
+## 8. Headline JSON (params-perf.json content)
+{"paste": {"avg_K": 31.11, "max_K": 38.81, "R_avg_mK_W": 2.074, "R_max_mK_W": 2.587, "Rpp_avg_cm2K_W": 0.2426, "Rpp_max_cm2K_W": 0.3027}, "PCM": {"avg_K": 29.19, "max_K": 34.88, "R_avg_mK_W": 1.946, "R_max_mK_W": 2.326, "Rpp_avg_cm2K_W": 0.2276, "Rpp_max_cm2K_W": 0.2721}, "LM": {"avg_K": 24.06, "max_K": 28.85, "R_avg_mK_W": 1.604, "R_max_mK_W": 1.924, "Rpp_avg_cm2K_W": 0.1876, "Rpp_max_cm2K_W": 0.2251}}

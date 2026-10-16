@@ -1,0 +1,20 @@
+{
+ "part": "screws",
+ "valid": true,
+ "solids": 8,
+ "volume_mm3": 3111.1,
+ "mass_g": 24.7,
+ "bbox": [
+  -68.75,
+  -68.75,
+  -18.5,
+  68.75,
+  68.75,
+  14.5
+ ],
+ "stl": "/home/user/Rez/docs/cooling/cad/out/screws.stl",
+ "step": "/home/user/Rez/docs/cooling/cad/out/screws.step",
+ "step_MB": 0.1,
+ "step_xz_MB": 0.02,
+ "seconds": 0.1
+}

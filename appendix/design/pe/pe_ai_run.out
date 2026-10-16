@@ -1,0 +1,45 @@
+## A1. 15 kW / 18 LPM / 45 C / 117 cm2
+| design | cal | TIM | base | conv | avg dT | max dT | R'' | dP kPa (incl. screen) | pump W | Qcap kW | Tcase,max C |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| CoolIT-like skived split-flow (117 cm2, paste)     |  6.3 |  9.0 |  6.6 | 12.6 | **34.5** | 44.3 | 0.269 | 24.6 |  7.4 | 12.7 | 89.3 |
+| PX-R same paste (117 cm2, paste 0.07)              |  7.6 |  9.0 |  3.3 | 10.1 | **30.0** | 35.0 | 0.234 |  5.7 |  1.7 | 18.4 | 80.0 |
+| PX-R Tier 1 PCM (117 cm2, PCM pad)                 |  7.6 |  7.1 |  3.3 | 10.1 | **28.0** | 31.1 | 0.219 |  5.7 |  1.7 | 21.6 | 76.1 |
+| PX-R Tier 2 LM (117 cm2, liquid metal)             |  7.6 |  1.9 |  3.3 | 10.1 | **22.9** | 25.0 | 0.179 |  5.7 |  1.7 | 29.7 | 70.0 |
+| PX-P PCM (<=33um loops) (117 cm2, PCM pad)         |  8.2 |  7.1 |  3.3 |  6.8 | **25.4** | 28.4 | 0.198 |  5.8 |  1.7 | 25.2 | 73.4 |
+| PX-P LM (<=33um loops) (117 cm2, liquid metal)     |  8.2 |  1.9 |  3.3 |  6.8 | **20.2** | 22.3 | 0.158 |  5.8 |  1.7 | 37.0 | 67.3 |
+| PX-R Tier 3 D2D (117 cm2, direct-to-die)           |  7.6 |  0.0 |  2.6 | 10.1 | **20.3** | 22.4 | 0.159 |  5.7 |  1.7 | 35.7 | 67.4 |
+| PX-R aluminium body+core (ref) (117 cm2, PCM pad)  |  7.3 |  7.1 |  6.4 | 13.1 | **33.9** | 36.9 | 0.264 |  5.7 |  1.7 | 16.8 | 81.9 |
+
+T1 detail: h 13.2 kW/m2K, eta 0.56, h_eff 127, NTU 1.25, u_ch 0.083 m/s Re 19, u_port 1.49; dP ch 0.23 K 0.01 hdr 0.50 orif 2.00 port 2.57 + screen 0.4
+| PX-R T1, 20 mm ports (117 cm2, PCM pad)            |  7.6 |  7.1 |  3.3 | 10.1 | **28.0** | 31.1 | 0.219 |  4.2 |  1.3 | 21.6 | 76.1 |
+
+## A2. Flow sweep (PX-R T1 PCM vs CoolIT-like)
+| LPM/kW | LPM | CoolIT avg/max | dP | PX-R T1 avg/max | dP incl screen | pump W | PX-R T2 LM avg/max |
+|---|---|---|---|---|---|---|---|
+| 0.6 | 9.0 | 41.0/50.8 | 9.8 | 38.0/41.0 | 1.5 | 0.22 | 32.9/35.0 |
+| 0.72 | 10.8 | 38.9/48.7 | 12.3 | 34.5/37.5 | 2.1 | 0.38 | 29.4/31.5 |
+| 0.8 | 12.0 | 37.8/47.6 | 14.2 | 32.8/35.8 | 2.6 | 0.52 | 27.7/29.8 |
+| 1.0 | 15.0 | 35.8/45.6 | 19.1 | 29.9/32.9 | 4.0 | 1.00 | 24.8/26.9 |
+| 1.2 | 18.0 | 34.5/44.3 | 24.6 | 28.0/31.1 | 5.7 | 1.72 | 22.9/25.0 |
+| 1.5 | 22.5 | 33.2/43.0 | 33.9 | 26.3/29.3 | 8.9 | 3.32 | 21.1/23.2 |
+| 2.0 | 30.0 | 31.7/41.5 | 52.2 | 24.5/27.5 | 15.6 | 7.82 | 19.4/21.5 |
+| 2.4 | 36.0 | 31.0/40.8 | 69.3 | 23.6/26.7 | 22.4 | 13.45 | 18.5/20.6 |
+
+Equal pump power 7.4 W: 1.96 LPM/kW (29.4 LPM): T1 24.6/27.6, T2 19.5/21.6
+Flow to match 34.4 K avg (T1): 0.72 LPM/kW = 10.9 LPM, dP 2.1 kPa, pump 0.39 W
+
+## A3. GPU-class plates (lidded, 1.2 and 1.0 LPM/kW)
+| case | CoolIT-like avg/max, dP | PX-R T1 avg/max, dP | PX-R T2 avg/max |
+|---|---|---|---|
+| Rubin 2.3 kW, 60 cm2, 1.0 LPM/kW | 16.1/23.5, 2.0 | 18.4/20.3, 0.1 | 16.9/18.5 |
+| Rubin 2.3 kW, 60 cm2, 1.2 | 14.8/22.2, 2.5 | 16.0/17.9, 0.2 | 14.4/16.1 |
+| Rubin Ultra-class 3.6 kW, 80 cm2, 1.0 | 17.6/25.1, 3.3 | 19.1/21.1, 0.3 | 17.3/19.0 |
+| CoolIT 4 kW point, 25 cm2, 1.5 | 40.0/50.7, 6.2 | 31.0/34.4, 1.0 | 24.6/26.8 |
+
+## A4. Real 2027-28 package fit (SYNTHESIS-physics): dT = 33 + 3500/h_eff[kW/m2K] + 350 (R_TIM - 0.05)
+- CoolIT-like PCM: hottest-die case-to-inlet 69.4 K, Tcase 114 C
+- CoolIT-like LM: hottest-die case-to-inlet 55.4 K, Tcase 100 C
+- PX-R PCM: hottest-die case-to-inlet 62.3 K, Tcase 107 C
+- PX-R LM: hottest-die case-to-inlet 48.3 K, Tcase 93 C
+- PX-P PCM: hottest-die case-to-inlet 53.5 K, Tcase 98 C
+- PX-P LM: hottest-die case-to-inlet 39.5 K, Tcase 84 C

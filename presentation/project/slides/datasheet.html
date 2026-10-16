@@ -1,0 +1,20 @@
+<section id="datasheet" data-transition="fade" style="background:#f4f1ec;color:#15191c;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#b4643a;font-weight:600">Predicted datasheet</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:72px;font-weight:600;line-height:1.1">The numbers a sales sheet would carry, with their spread</h2>
+</div>
+<table style="font-size:26px;color:#15191c;width:1664px">
+<tr style="background:#e9e4da"><th style="width:43%;text-align:left">15 kW, 45 °C PG25 inlet, 117 cm², OCP format</th><th style="width:19%;text-align:right">Phase-change pad</th><th style="width:19%;text-align:right">Paste</th><th style="width:19%;text-align:right">Liquid metal, Tier 2</th></tr>
+<tr><td>R'' average / maximum at 18 LPM (cm²·K/W)</td><td style="text-align:right">0.228 / 0.272</td><td style="text-align:right">0.243 / 0.303</td><td style="text-align:right">0.188 / 0.225</td></tr>
+<tr><td>Rise, average / maximum at 18 LPM (K)</td><td style="text-align:right">29.2 / 34.9</td><td style="text-align:right">31.1 / 38.8</td><td style="text-align:right">24.1 / 28.9</td></tr>
+<tr><td>Rise at the 15 LPM rated flow (K)</td><td style="text-align:right">30.9 / 37.1</td><td style="text-align:right">32.9 / 41.0</td><td style="text-align:right">25.8 / 31.1</td></tr>
+<tr><td>Inlet allowed at 15 kW, 85 °C maximum case (°C)</td><td style="text-align:right">50.1</td><td style="text-align:right">46.2</td><td style="text-align:right">52.3, return-limited</td></tr>
+<tr><td>Capacity at 85 °C case, 45 °C inlet, 1.2 LPM/kW (kW)</td><td style="text-align:right">18.4</td><td style="text-align:right">15.7</td><td style="text-align:right">19.5 rated (25.4 thermal)</td></tr>
+<tr><td>Plate dP at 15 / 18 / 22.5 / 36 LPM, 20 mm bore (kPa)</td><td style="text-align:right">5.5 / 7.6 / 11.4 / 27.5</td><td style="text-align:right">same</td><td style="text-align:right">same</td></tr>
+<tr><td>P10 / P50 / P90 of the average at 18 LPM (K)</td><td style="text-align:right">26.7 / 29.3 / 32.4</td><td style="text-align:right">27.9 / 31.2 / 35.4</td><td style="text-align:right">22.2 / 24.2 / 26.4</td></tr>
+<tr><td>P10 / P50 / P90 of the maximum at 18 LPM (K)</td><td style="text-align:right">32.3 / 35.2 / 38.6</td><td style="text-align:right">35.6 / 39.3 / 43.7</td><td style="text-align:right">26.9 / 29.2 / 31.8</td></tr>
+</table>
+<p style="font-size:26px;line-height:1.4;color:#4a5058">Term budget at the benchmark with paste: coolant 7.5 K, interface 9.0 K, base 2.8 K, convection 10.9 K, two-dimensional penalty 0.9 K. CoolIT’s measured 34.4 K decomposes as 6.3, 9.0, 6.6 and 12.6 K on the same model: PRISM gives back 3.8 K of base and 1.7 K of convection and pays 1.2 K more in the coolant.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8f8a82">All P50 model predictions from design/perf_datasheet.py on the as-designed 0.85 mm base; the architecture’s 0.80 mm values are 0.14 K lower. Ratings are capped by a 2.0 m/s meter-velocity rule, not by thermal capacity.</p>
+<aside>The pad is the recommended interface and the decision metric at gate G2 is the pad average at 18 LPM. Even the P90 paste average, 35.4 K, is close to CoolIT’s measured 34.4; the P90 maximum, 43.7 K, is still below their 44.2. The liquid-metal column is a Tier 2 product with a nickel-plated wetted path, not the baseline.</aside>
+</section>

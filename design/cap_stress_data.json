@@ -1,0 +1,89 @@
+{
+ "crown_z": 20.8,
+ "A_arch": 71.74225500323749,
+ "u_in": 1.0454090130929883,
+ "u_out": 0.5227045065464941,
+ "dp_header_delta_kpa": 0.114559952339668,
+ "valley_land_ext": 2.0,
+ "valley_flat_fluid": 1.0,
+ "valley_land_eff": 2.0954451150103326,
+ "window_margin": 1.0,
+ "window_min_clear": 0.75,
+ "stress": {
+  "arch_top_flat": {
+   "s_burst": 14.0,
+   "sf_proof": 5.73
+  },
+  "arch_wall": {
+   "s_burst": 27.3,
+   "sf_proof": 2.93
+  },
+  "arch_crown_hoop": {
+   "s_burst": 10.8,
+   "sf_proof": 7.37
+  },
+  "arch_end_hoop_thinned": {
+   "s_burst": 22.1,
+   "sf_proof": 3.61
+  },
+  "dome_wall": {
+   "s_burst": 27.3,
+   "sf_proof": 2.93
+  },
+  "dome_plan_corner": {
+   "s_burst": 18.6,
+   "sf_proof": 4.3
+  },
+  "dome_ligament_bend": {
+   "s_burst": 37.8,
+   "sf_proof": 2.12
+  },
+  "dome_ligament_shear": {
+   "s_burst": 20.1,
+   "sf_proof": 3.97
+  },
+  "dome_in_wall_tension": {
+   "s_burst": 38.0,
+   "sf_proof": 2.11
+  },
+  "dome_in_wall_tension_T": {
+   "s_burst": 27.1,
+   "sf_proof": 2.95
+  },
+  "dome_out_wall_tension": {
+   "s_burst": 47.9,
+   "sf_proof": 1.67
+  },
+  "dome_out_wall_tension_T": {
+   "s_burst": 28.2,
+   "sf_proof": 2.83
+  },
+  "skirt_wall_MAWP": {
+   "s_burst": 44.5,
+   "sf_proof": 1.8
+  },
+  "valley_interrupt_beam": {
+   "s_burst": 37.6,
+   "sf_proof": 2.13
+  }
+ },
+ "lap_gap": [
+  -1.4224732503009818e-15,
+  0.04999999999999716,
+  0.09999999999999573
+ ],
+ "lap_shear": 0.9419230769230846,
+ "ring_g": 0.9801769079200155,
+ "boss_face_MPa": 5.415390974445771,
+ "stretch_in_place": 0.8240833529395764,
+ "end_cup_ratio": 1.9748417658131496,
+ "blank": [
+  188.2,
+  233.4230016469244
+ ],
+ "blank_g": 392.7360676549635,
+ "guard_area_cm2": 17.435839227423354,
+ "guard_dp_kpa": 0.4012911063758128,
+ "mass_cap_g": 278.95711357287786,
+ "mass_bosses_g": 37.59570317929195
+}

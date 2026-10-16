@@ -1,0 +1,92 @@
+{
+ "fps": 30,
+ "total_s": 308.0,
+ "total_frames": 9240,
+ "rate": 22050,
+ "scenes": [
+  {
+   "id": "title",
+   "start": 0.0,
+   "end": 13.9,
+   "narration_s": 12.376,
+   "frames": 417
+  },
+  {
+   "id": "benchmark",
+   "start": 13.9,
+   "end": 42.0667,
+   "narration_s": 26.95,
+   "frames": 845
+  },
+  {
+   "id": "exploded",
+   "start": 42.0667,
+   "end": 70.6667,
+   "narration_s": 27.381,
+   "frames": 858
+  },
+  {
+   "id": "core",
+   "start": 70.6667,
+   "end": 97.8333,
+   "narration_s": 25.942,
+   "frames": 815
+  },
+  {
+   "id": "grate",
+   "start": 97.8333,
+   "end": 131.5333,
+   "narration_s": 32.491,
+   "frames": 1011
+  },
+  {
+   "id": "flow",
+   "start": 131.5333,
+   "end": 175.8333,
+   "narration_s": 42.768,
+   "frames": 1329
+  },
+  {
+   "id": "tie",
+   "start": 175.8333,
+   "end": 199.5667,
+   "narration_s": 22.505,
+   "frames": 712
+  },
+  {
+   "id": "zoning",
+   "start": 199.5667,
+   "end": 220.0333,
+   "narration_s": 19.241,
+   "frames": 614
+  },
+  {
+   "id": "manufacturing",
+   "start": 220.0333,
+   "end": 247.1333,
+   "narration_s": 25.88,
+   "frames": 813
+  },
+  {
+   "id": "datasheet",
+   "start": 247.1333,
+   "end": 272.5,
+   "narration_s": 24.139,
+   "frames": 761
+  },
+  {
+   "id": "honest",
+   "start": 272.5,
+   "end": 296.6333,
+   "narration_s": 22.91,
+   "frames": 724
+  },
+  {
+   "id": "closing",
+   "start": 296.6333,
+   "end": 308.0,
+   "narration_s": 9.336,
+   "frames": 341
+  }
+ ]
+}

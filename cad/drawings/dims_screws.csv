@@ -1,0 +1,9 @@
+parameter,value (mm unless stated)
+n,8
+thread,M3
+head_d,5.5
+shank_d,3.0
+length,30.0
+spring_od,5.0
+spring_len,10.0
+positions_from,core.ears.positions

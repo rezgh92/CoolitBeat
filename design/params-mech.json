@@ -1,0 +1,105 @@
+{
+ "key": "mech",
+ "doc": "docs/cooling/design/DDD-mech.md",
+ "date": "2026-10-15",
+ "units": "mm, N, MPa, g; axes per cad/prism_cad.py: X along fins, Y along lines, Z up from the die face (datum A), origin at the fin-field centre",
+ "source": "mech_calc.py -> mech_calc.out, mech_calc_data.json",
+ "z_stack": {"die_face": 0.0, "land_and_ear_top": 1.5, "rim_top": 2.8, "grate_top": 4.5, "plenum_top": 10.3, "separator_top": 12.1, "cap_top_flat": 13.1, "arch_top_PRISM15": 21.1, "arch_top_PRISM_G": 19.1},
+ "screw_positions": {
+  "n": 8,
+  "xy": [[-40.0, -66.0], [40.0, -66.0], [-40.0, 66.0], [40.0, 66.0], [-66.0, -40.0], [-66.0, 40.0], [66.0, -40.0], [66.0, 40.0]],
+  "ear_hole_d": 4.50, "ear_hole_tol": [0.0, 0.10], "ear_hole_pos_tol": 0.10, "basis": "core ears 3.7/3.8; IR-M1 makes the dia 4.50 option the default",
+  "ear_role": "pass-through and lateral stop only (1.5 mm annealed Cu tab: 0.78 MPa per N if loaded; allowable 40)"
+ },
+ "screw_CSS15": {
+  "material": "17-4PH H900 passivated (A2-70 for T1 pilots)", "thread": "M3x0.5-6g x 6.0", "shoulder_d": 4.00, "shoulder_fit": "h8", "head": {"d": 8.5, "h": 3.0, "drive": "hex 2.5 AF + cross slot"},
+  "shoulder_len": {"product_P": 40.40, "TTV_T": 45.94, "tol": 0.10},
+  "eclip_groove": {"d": 3.2, "w": 0.7, "top_below_head": {"P": 29.0, "T": 36.0}, "clip": "DIN 6799 size 3.2, 0.6 thick, OD 7.4"},
+  "stop_torque_Nm": [0.35, 0.45], "stop_preload_N": 667, "tension_at_stop_N": {"TTV": 918, "P110": 777}, "stress_TTV_MPa": 183, "euler_N": 11753,
+  "stop_face_z": {"TTV_A": -2.15, "TTV_100": -1.11, "product": -2.30}, "ear_stop_gap": {"TTV": 0.15, "product_nom": 0.40, "product_range": [0.10, 0.70]},
+  "lift_off_travel_to_sleeve": {"TTV": 0.3, "product": 0.8}, "reuse_cycles": 50
+ },
+ "springs": {
+  "SPR-60": {"wire": "302 SS", "d": 1.30, "D_mean": 6.50, "OD": 7.80, "Na": 8.6, "N_total": 10.6, "ends": "closed and ground", "k_N_mm": 10.84, "k_tol_pct": 10, "L0": 27.5, "L0_tol": 0.5, "L_installed": 22.0, "deflection": 5.54, "F_N": 60.1, "F_rss_tol_N": 9, "solid": 13.8, "tau_MPa": 592, "tau_over_UTS": 0.35, "total_8_N": 480},
+  "SPR-110": {"wire": "302 SS", "d": 1.60, "D_mean": 6.40, "OD": 8.00, "Na": 11.0, "N_total": 13.0, "ends": "closed and ground", "k_N_mm": 20.37, "k_tol_pct": 10, "L0": 27.4, "L0_tol": 0.5, "L_installed": 22.0, "deflection": 5.4, "F_N": 110.0, "F_rss_tol_N": 16, "solid": 20.8, "tau_MPa": 614, "tau_over_UTS": 0.36, "total_8_N": 880},
+  "DIE-TTV": {"std": "ISO 10243 heavy duty (red) 12.5 OD x 6.3 bore x 32 L0, Cr-Si", "k_N_mm_est": 34.4, "k_basis": "Accu TJH12.5-89 12.36 N/mm scaled 89/32; vendor +-10 % (O-M1)", "F_N": 251.3, "deflection": 7.31, "pct_L0": 22.8, "limit_pct_L0": 25, "L_installed": 24.69, "total_8_N": 2011, "F_TTV100_N": 215.5, "deflection_TTV100": 6.27},
+  "residual_preload_mm": 1.5, "washers": {"WSH-8": [8.5, 4.2, 1.0], "WSH-13": [13.0, 4.3, 1.0]}, "sleeves": {"SLV-P": [5.5, 4.1, 21.2], "SLV-T": [6.2, 4.1, 24.4]}
+ },
+ "force_budget": {
+  "TTV_A_25psi": {"area_cm2": 116.6, "F_N": 2011, "per_screw_N": 251.3},
+  "TTV_100_25psi": {"area_cm2": 100.0, "F_N": 1724, "per_screw_N": 215.5},
+  "TTV_paste_20psi": {"F_N": 1609, "per_screw_N": 201, "method": "1.5 mm shim under the frame lands"},
+  "package_4_12psi_100cm2": {"F_N": [276, 827]}, "package_window_N": [300, 1000],
+  "kit_SPR60_100cm2_psi": 7.0, "kit_SPR110_100cm2_psi": 12.8, "bare_die_16p6cm2_SPR60_MPa": 0.289, "bare_die_33cm2_SPR60_MPa": 0.145, "bare_die_limit_MPa": [0.15, 0.35]
+ },
+ "frame_LF15T": {
+  "use": "TTV fixture", "material": "6061-T6 (T1); 17-4PH H1025 (T2 LM, no Al in the LM zone)", "outline": [160.0, 150.0], "height": 16.0, "z": [13.10, 29.10], "corner_r": 10,
+  "window": [118.6, 113.0], "window_r": 3.0, "lands_y": [56.8, 59.5], "lands_x_extent": [-60.0, 60.0], "lands_flat": 0.02, "underside_relief": 0.50,
+  "x_member_w": 20.0, "x_member_x": [59.3, 79.3], "y_member_y": [56.5, 74.0], "lug_hole_d": 4.20, "lug_hole_fit": "H9", "lug_pos_tol": 0.05,
+  "spring_pocket": {"d": 13.2, "depth": 10.0, "floor_z": 19.10, "floor_flat": 0.02}, "x_member_defl_um": {"Al": 16, "steel": 6}, "lug_stress_MPa": 2.5, "land_bearing_MPa": 3.35,
+  "orientation_pin": [70.0, -70.0], "mass_kg": {"Al": 0.46, "steel": 1.34}
+ },
+ "frame_LF15P": {
+  "use": "product, ships with the FRU", "material": "301 stainless 1/2 hard, 2.00 +-0.05, stamped, passivated", "mass_g": 85,
+  "y_members": {"z": [13.10, 15.10], "y": [56.5, 72.0], "lands_y": [56.8, 59.5], "land_coin": 0.10, "lands_coplanar": 0.05},
+  "x_members": {"section": "hat 14 x 10", "x": [59.5, 73.5], "z": [13.6, 23.6], "I_mm4": 933, "defl_um_2x110N": 17},
+  "lugs": {"z": [13.10, 15.10], "hole_d": 4.20, "hole_tol": [0.0, 0.10], "pos_tol": 0.10, "seat_d": 8.4, "seat_depth": 0.3},
+  "hook_tabs": {"n": 4, "at_ears": [[-40, -66], [40, 66], [-66, 40], [66, -40]], "w": 6.0, "lip": [1.0, 0.6], "lip_z": -0.6, "float": 1.0, "keepout_below_board": "clear below z -0.6 at (+-40, 70-71.5) and (70-71.5, +-40)"},
+  "window": [118.6, 113.0]
+ },
+ "backplate_BP15P": {"material": "301 1/2H 0.8", "outline": [118.0, 118.0], "centre_hole_d": 60.0, "mass_g": 70.1,
+  "standoff_STD8": {"n": 8, "material": "17-4PH or 4140", "OD": 8.0, "length": 7.6, "length_note": "2.4 PCB + 5.2 package stack, package-specific", "top_z": -0.40, "top_tol": 0.05, "bore": {"d": 4.20, "fit": "H9", "depth": 2.00}, "step_z": -2.30, "thread": "M3-6H through from the step", "mass_g_8": 17.5},
+  "note": "a GPU module's own bolster replaces BP-15P where it exists"
+ },
+ "ttv": {
+  "TTV_A": {"tiles": {"n": 4, "size": [54.0, 54.0, 2.5], "material": "AlN thick-film (Watlow ULTRAMIC 600 class, 155 W/cm2 rating)", "pitch": 54.3, "gap": 0.3, "centres": [[-27.15, -27.15], [27.15, -27.15], [-27.15, 27.15], [27.15, 27.15]], "area_cm2": 116.6, "flux_15kW_W_cm2": 129},
+   "face": {"z": 0.0, "z_tol": 0.03, "coplanar": 0.010, "flat_per_tile": 0.005, "Ra_um": 0.4}},
+  "TTV_100": {"blocks": {"n": 4, "size": [50.0, 50.0, 25.0], "material": "OFE Cu, 4 x 500 W cartridge heaters each, Ni 5 um", "centres": [[-25.15, -25.15], [25.15, -25.15], [-25.15, 25.15], [25.15, 25.15]], "area_cm2": 100.0, "power_max_kW": 30}, "carrier_boss_top_z": 0.89, "carrier_step_z": -1.11},
+  "carrier": {"material": "17-4PH H1025 (304 alt.)", "outline": [175.0, 175.0, 16.0], "top_z": -1.00, "window": [109.0, 109.0], "window_TTV100": [101.0, 101.0],
+   "bosses": {"n": 8, "d": 9.0, "top_z": -0.15, "top_tol": 0.03, "bore": [4.20, 2.00], "step_z": -2.15, "thread": "M3-6H x 8", "xy": "= screw_positions"},
+   "datum_stops": {"B1": [-62.5, -40.0], "B2": [-62.5, 40.0], "C1": [28.0, -62.5], "pad": [6.0, 1.0], "contact_z": [0.4, 1.3], "pushers": [[62.5, -40.0], [62.5, 40.0], [28.0, 62.5]], "pusher_N": 15},
+   "orientation_pocket": {"side": "-y", "x": [-5.0, 21.0], "w": 8.0, "depth": 3.0, "keys": "dP-tap bosses at x 0 and 15.4"},
+   "registration_tol": 0.10, "remount_repeat": 0.05, "mass_kg": 3.9},
+  "thermocouples": {"type": "T, 36 AWG, +-0.2 K", "groove": [0.5, 0.5], "bead_depth": 0.25, "bead_depth_tol": 0.05, "bias_K_AlN": 0.5, "pos_tol": 0.10,
+   "TC1_8": [[-27.15, -27.15], [-27.15, -48.0], [27.15, -27.15], [27.15, -48.0], [-27.15, 27.15], [-27.15, 48.0], [27.15, 27.15], [27.15, 48.0]],
+   "roles": ["H1 centre", "H1 outer edge", "H2 centre", "H2 outer edge", "H3 centre", "H3 outer edge", "H4 centre", "H4 outer edge"],
+   "TC9_12_extra": [[2.0, 2.0], [-51.0, -51.0], [51.0, -51.0], [-51.0, 51.0]], "TTV100_scaled": [[-25.15, -25.15], [-25.15, -44.0], [25.15, -25.15], [25.15, -44.0], [-25.15, 25.15], [-25.15, 44.0], [25.15, 25.15], [25.15, 44.0]],
+   "line_context": "x +-27.15 is mid-segment (3.7 / 4.0 mm from the k3/k4 and k10/k11 kerfs)"}
+ },
+ "bow": {
+  "EI_Nmm2_125mm": 2.176e9, "neutral_axis_z": 6.57, "shear_knockdown": 0.83, "bearing": "2-side, lands y = +-58.2, span 116",
+  "clamp_concave_um": {"TTV_2011N": 22.6, "TTV100_1724N": 19.4, "P480": 5.4, "P880": 9.9}, "four_side_would_give_um": {"TTV_2011N": 6.7, "P480": 1.6},
+  "thermal_convex_um_108": {"benchmark_PCM": 18.7, "Tcase85_paste": 31.7, "per_K_base_minus_stack": 1.27}, "thermal_convex_um_54_tile": 4.7,
+  "net_um": {"TTV_15kW_y": -4.0, "TTV_15kW_x": 18.7, "P480_y": 13.3, "P480_x": 18.7},
+  "die_face_form_rule": {"flatness": 0.020, "concave_allowed_um": [0, 10], "convex_allowed": false, "TTV_plates_target_concave_um": 5}
+ },
+ "expansion_20_85C_108mm": {"alpha_Cu_ppm": 17.0, "AlN": {"alpha": 4.5, "slip_um": 87.8, "half_um": 43.9, "strain_25um": 1.75}, "Si_die": {"alpha": 2.6, "slip_um_108": 101.1, "slip_um_33mm_die": 30.9, "strain_25um_33mm": 0.62}, "Cu_block": {"alpha": 17.0, "slip_um": 0.0}, "organic_substrate": {"alpha": 12.0, "slip_um": 35.1, "strain_25um": 0.70}, "frame_17_4PH": {"alpha": 10.8, "slip_um": 43.5}},
+ "hbm_pedestal": {
+  "S_def": "die top minus HBM top, signed; die zone face at z 0, HBM pedestal face at z -S", "S_range": [0.0, 0.40], "S_tol": 0.05, "S_tol_core_target_Sle0p2": 0.02,
+  "base_under_die": 0.85, "base_min": 0.80, "base_under_HBM": "0.85 + S", "negative_S_pocket_limit": 0.05, "negative_S_beyond": "raise the root plane by |S| (+0.7 K per 0.25 mm)",
+  "die_pocket": {"outline": "die block + 0.50 per side", "corner_r": 0.5, "pos_tol": 0.05, "floor_flat": 0.010, "edge_r_max": 0.1}, "pedestal_flat": 0.020, "overall_flat": 0.020,
+  "flycut": {"pass1": "whole face to z = -S, removal 1.20 - S", "pass2": "die zones pocketed by S to z 0, dia 10-16 PCD end mill, 0.05 finish", "measure": "9 points per zone, CMM/confocal"},
+  "compliant_TIM_BLT": [0.05, 0.10], "TIM_R_cm2K_W": {"paste_0p1mm": 0.28, "indium": 0.06}, "no_gap_filler_above_W_cm2": 15, "face_finish_T3": "electrolytic Ni 3-5 um, no Au; LM dam around the die pocket"
+ },
+ "prism_g": {
+  "field": [110.0, 120.0], "body": [127.0, 137.0], "corner_r": 2.0, "kerfs_x": [-44.0, -33.0, -27.5, -22.0, -16.5, -11.0, -5.5, 0.0, 5.5, 11.0, 16.5, 22.0, 27.5, 33.0, 44.0], "edge_channels_x": [-55.0, 55.0], "n_fins": 400,
+  "grate_outline_assumed": [124.6, 134.6], "height_at_bar": 19.1, "height_over_lands": 17.1, "arch_h": 6.0,
+  "ports": {"n": 2, "bore": 10.0, "OD": 12.0, "orientation": "horizontal, +y end", "axis_z": 12.0, "port_box_envelope": {"y": [68.5, 85.0], "x_abs_max": 35.0, "z": [6.0, 19.1]}},
+  "ears_xy": [[-40.0, -72.0], [40.0, -72.0], [-40.0, 72.0], [40.0, 72.0], [-68.0, -45.0], [-68.0, 45.0], [68.0, -45.0], [68.0, 45.0]], "ear_hole_d": 4.50,
+  "frame_LF_G": {"lands_y": [62.8, 65.5], "window": [124.6, 125.0], "port_notch": [70.0, 14.0]},
+  "mass_plate_g": {"all_Cu": 1148, "with_316L_separator": 1030, "limit": 900, "status": "not met (D-M3)"},
+  "parts_changed": ["core", "GRT-L", "GRT-W artwork", "PLN-C fold tool", "PLN-F", "separator", "cap", "LF-G", "BP-G"], "parts_unchanged": ["CSS-15P", "SPR-60", "SPR-110", "SLV-P", "WSH-8", "e-clip", "STD-8", "guard screen"]
+ },
+ "shock_vibration": {
+  "fru_mass_kg": 1.325,
+  "envelope": {"op_random_g_rms": 0.5, "op_random_band_Hz": [5, 500], "op_shock_g_ms": [10, 11], "nebs_office_g": 0.1, "nebs_office_band_Hz": [5, 100], "nebs_zone4": "VERTEQII, ~1.5-2 g base, SRS ~5 g top", "nonop_packaged_g": [30, 50], "nonop_module_shock_g_ms": [30, 11], "nonop_random_g_rms": 1.5, "basis": "KB-M; ORv3 / OCP qual white paper / GR-63 tables to be pulled (O-M3)"},
+  "loads_N": {"10g": 130, "30g": 390, "50g": 650}, "lift_off_SPR60_at_g": 36.9, "lift_off_SPR110_at_g": 67.7, "lateral_friction_N_SPR60": 96, "ear_bearing_50g_MPa": 13.5,
+  "stops": {"down": "ear underside on boss/standoff top, gap 0.15 (TTV) / 0.40 +-0.30 (product)", "up": "frame lug on sleeve SLV after 0.3 (TTV) / 0.8 (product)"}, "spring_mass_mode_Hz": {"SPR60": 40, "SPR110": 56},
+  "shipping_mounted_rule": "SPR-110 kit or a shipping bracket"
+ },
+ "mass_g": {"core": 282.0, "grate": 201.0, "plenum": 161.6, "separator": 173.7, "cap_allocation": 250.0, "stubs": 31.5, "guard": 10.0, "screws_8": 42.5, "springs_8_SPR60": 18.2, "sleeves_washers_clips_8": 19.7, "backplate": 70.1, "standoffs_8": 17.5,
+  "total_no_frame": 1277.8, "target": 1240, "sku_limit": 1400, "frame_LF15P": 85.0, "total_with_frame": 1362.8, "option_316L_separator_delta": -105.7, "fixture_LF15T_kg": {"Al": 0.46, "steel": 1.34}},
+ "interface_requests": ["IR-M1 core: ear hole dia 4.50 default", "IR-M2 cap: flat lands |y| 56.5-59.7 at z 13.10, arch end limits, corner Ri <= 1.0", "IR-M3 plenum/separator/cap: outlet windows to y +7/+21/+35/+49", "IR-M4 all: outline conflict 121.4 rim lap vs 122.6 grate/separator", "IR-M5 core: concave-only form rule, TTV plates 5 um concave", "IR-M6 cap: bosses/taps inside the frame window, marking flat", "IR-M7 grate/plenum: PRISM-G 11 mm pitch separator stiffening"],
+ "deviations": ["D-M1 mass 1.278 kg vs 1.24 target (+38 g; <= 1.4 limit)", "D-M2 product load frame LF-15P (85 g) mandatory: ears cannot carry springs", "D-M3 PRISM-G plate 1.03-1.15 kg vs 0.9 limit", "D-M4 2-side bearing: 22.6 um clamp bow at 2 kN cancelled by 18.7 um thermal bow in operation; E1 FEA + heated scan verify", "D-M5 HBM step signed 0-0.40 +-0.05 (core 0-0.2 +-0.02 kept as target); negative S > 0.05 raises the root plane", "D-M6 crowned pedestal deleted for T1/T2"],
+ "open_items": ["O-M1 die-spring rate measurement", "O-M2 clamp/thermal bow FEA and heated flatness scan; 2- vs 4-side bearing; pre-form value", "O-M3 shock/vibration tables from ORv3, OCP qual white paper, GR-63", "O-M4 2.8 mm ears frame-less option for LM SKUs", "O-M5 hook-tab lip vs board keep-outs", "O-M6 ear-stop minimum gap across the package height band", "O-M7 TC layout confirmation vs CoolIT TTV / OCP 5.2", "O-M8 PRISM-G port box and 1U stack with the cap lane"]
+}
