@@ -63,6 +63,30 @@ The programme is US$8.4 to 10.7 M over twelve months, released in tranches. The 
 
 Decisions requested now: approve the scoped public claim rather than "beats on every metric"; fund the first tranche; adopt the vacuum-braze build with the silver-free route decided at G1; make the tray filter a supplied part; hold US sales until the legal opinion clears. Probability of a decisive result at month 12 is about 0.43; the dominant failure mode is a one-to-three-month slip at the braze test, not a thermal miss.
 
+## How it is made and assembled
+
+The plate is made as fourteen separate copper parts, each by the process that suits it, and joined into one solid copper body in a single vacuum-braze cycle. This is how every brazed heat exchanger and lidded cold plate is built; a one-piece plate is impossible because the fins must be skived from solid and the manifold layers need channels no tool can cut inside a block. After the braze there is nothing to take apart: the customer receives one plate, a filter kit, eight spring screws and a load frame.
+
+| Part | Made by | Where |
+|---|---|---|
+| Core (fins, kerfs, rim, ears) | skiving from a 4.3 mm copper blank, gang-sawing the kerfs, planing | skiving house |
+| Land plate and meter web | milling and slotting; laser piercing and electropolish | precision stamping and laser shops |
+| Plenum and its two end frames | one 0.8 mm sheet folded on a fin-folding machine; sawn frames | heat-exchanger fin folder |
+| Separator | stamped or laser-cut 1.8 mm plate | stamping shop |
+| Cap | three-station deep draw of 1.0 mm sheet, with an anneal | drawing shop |
+| Port bosses, guard, foils | machined bar; 316L mesh cup; photo-etched silver brazing foils | stock suppliers |
+
+Assembly at the contract manufacturer, one fixture per plate:
+
+1. The core goes fins-up on a graphite platen over two alumina pins.
+2. A silver foil ladder is laid on the fin tips and rim.
+3. The land plate, a second foil, the meter web and a third foil are stacked on the pins.
+4. The folded plenum with its end frames seats on the web, then a fourth foil and the separator.
+5. The guard cup, the skirt-seam silver ring and the cap go on; the bosses with their rings sit in the cap pockets.
+6. The top platen and eight spring-loaded tie rods close the fixture at 0.08 MPa.
+
+Sixty fixtures go into a vacuum furnace: 795 °C, five and a half hours, gas quench. One cycle makes every joint at once. After the furnace, every plate is leak-tested with helium, screened by infrared, fly-cut to the 0.85 mm base, flushed, proof-tested at 15.5 bar with a scan that can see a single missed braze strip, and pressure-drop tested at three flows; then the stubs are pressed in and it is baked and packed. At 100,000 plates a year this is 1.4 to 1.6 furnaces and two to three skiving machines, US$5.6 to 8.0 M of capital, with two sources for every part class. The first twelve plates (Build A) use laser, CNC and soft tools before any die is cut; production dies follow the month-3 freeze.
+
 ## Where everything is
 
 | Item | Where |
