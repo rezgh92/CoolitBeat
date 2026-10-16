@@ -32,3 +32,7 @@ bash encode.sh frames PRISM-15-RevA-explainer.mp4
 ```
 
 Render cost on a 4-core container without a GPU: about 1.5 s per frame (SwiftShader uses all cores, so parallel workers do not help); the full video takes about four hours. `node render.js --probe 120,1900,4200` renders single frames for review.
+
+## The rendered video
+
+`PRISM-15-RevA-explainer.mp4`: 1920 × 1080, 30 fps, 5 min 08 s, H.264 at about 1.6 Mbit/s with AAC narration (63 MB, sized for the repository). The frames were rendered on 16 October 2026 from the cap-lane CAD (9,240 frames, about 2.5 hours on a 4-core container); a higher-bitrate master (197 MB) is kept outside the repository.
